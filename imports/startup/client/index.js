@@ -1,5 +1,2 @@
 import './init';
-import './routes'
-
-
-
+import './routes';
