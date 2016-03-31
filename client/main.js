@@ -1,24 +1,11 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import angular from 'angular';
+import angularMeteor from 'angular-meteor';
+import ngRoute from 'angular-route';
 
-import './main.html';
-import {list} from '/imports/startup/client';
-
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
-
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-  list
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
+import todosList from '../imports/components/todosList/todosList';
+ 
+angular.module('simple-todos', [
+  angularMeteor,
+  ngRoute,
+  todosList.name
+]);
