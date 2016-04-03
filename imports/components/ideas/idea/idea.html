@@ -1,0 +1,28 @@
+<form novalidate>
+    <fieldset id="title" class="fsStyle">
+        <label class="label label-default">Title</label>
+        <input type="text" ng-model="vm.title" />
+    </fieldset>
+    <br />
+    <fieldset id="description">
+        <label class="label label-default">Description</label>
+        <textarea ng-model="vm.description"></textarea>
+    </fieldset>
+    <br />
+    <fieldset id="module">
+        <label class="label label-default">Module</label>
+        <input list="modules" ng-model="vm.module" />
+        <datalist id="modules">
+            <option>test1</option>
+        </datalist>
+    </fieldset>
+    <fieldset id="status">
+        <label class="label label-default">Status</label>
+        <input list="modules" ng-model="vm.status" />
+        <datalist id="modules">
+            <option>test1</option>
+        </datalist>
+    </fieldset>
+    <button id="acceptBtn" ng-click="vm.accept()"></button>
+    <button id="cancelBtn" ng-click="vm.cancel()"></button>
+</form>

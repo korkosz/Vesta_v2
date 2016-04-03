@@ -1,9 +1,9 @@
-import '/imports/components/home.html'
+import '/imports/pages/home.html'
 
 angular.module('simple-todos')
     .config(function($routeProvider) {
         $routeProvider.
 	        when('/', {
-	            templateUrl: 'imports/components/home.html'
+	            templateUrl: 'imports/pages/home.html'
 	        });
     });
