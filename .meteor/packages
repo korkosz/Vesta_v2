@@ -22,3 +22,5 @@ angular-templates
 angular:angular-route
 twbs:bootstrap
 fourseven:scss
+msavin:mongol
+aldeed:collection2
