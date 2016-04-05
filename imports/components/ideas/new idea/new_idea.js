@@ -26,6 +26,10 @@ class NewIdeaCtrl {
 
 	cancel() {
 	    this.closeModal();
+	}
+
+	openModal() {
+		this.idea = null;
 	}	
 }
 
