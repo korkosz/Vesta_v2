@@ -1,27 +1,12 @@
-<div class="container" ng-controller="modalCtrl">
-    <button type="button" class="btn btn-info btn-md" data-toggle="modal" 
-    		data-target="#newIdeaModal" data-backdrop="false">
-        New Idea
-    </button>
+
+<div class="container">
+    <new-idea></new-idea>
+    <br />
+    <idea-list></idea-list>
     <button type="button" class="btn btn-default" data-toggle="modal" 
     		data-target="#viewIdeaModal" data-backdrop="false">
         Idea VIEW
     </button>
-    <!-- Modal -->
-    <div class="modal fade" id="newIdeaModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header" style="padding:35px 50px;">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4>New Idea</h4>
-                </div>
-                <div class="modal-body">
-                    <new-idea mode="new" cancel="closeModal()"></new-idea>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="viewIdeaModal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
