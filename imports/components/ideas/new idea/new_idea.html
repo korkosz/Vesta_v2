@@ -1,48 +1,78 @@
-<form novalidate>
-    <br />
-    <fieldset id="project">
-        <label class="label label-default">Project</label>
-        <input list="modules" ng-model="vm.idea.module" placeholder="Current project"/>
-        <datalist id="modules">
-            <option>testModule</option>
-        </datalist>
-    </fieldset>
-    <br />
-    <fieldset id="module">
-        <label class="label label-default">Module</label>
-        <input list="modules" ng-model="vm.idea.module" />
-        <datalist id="modules">
-            <option>testModule</option>
-        </datalist>
-    </fieldset>
-    <br />
-    <fieldset id="title" class="fsStyle">
-        <label class="label label-default">Title</label>
-        <input type="text" ng-model="vm.idea.title" />
-    </fieldset>  
-    <br>
-    <div class="idea-description">
-      <ul class="nav nav-tabs">
-        <li role="presentation"><a href="#">Write</a></li>
-        <li role="presentation" class="active"><a href="#">Preview</a></li>
-      </ul>
-      <div class="write-description"></div>
-      <div class="preview-description">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <div style="display: flex; align-items: center; justify-content: center; width:100%; height:300px; background: #eee;">
-          <p style="font-size: 3em; opacity:0.3;">Drag and drop</p>
+<button type="button" class="btn btn-info btn-md" data-toggle="modal" 
+            data-target="#newIdeaModal" data-backdrop="false">
+    New Idea
+</button>
+<!-- Modal -->
+<div class="modal fade" id="newIdeaModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>New Idea</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate>
+                    <br />
+                    <fieldset id="project">
+                        <label class="label label-default">Project</label>
+                        <select ng-model="$ctrl.idea.project" 
+                                ng-options="project as project.name for project in $ctrl.projects">
+                            <option>Choose project...</option>
+                        </select>
+                    </fieldset>
+                    <br />
+                    <fieldset id="module">
+                        <label class="label label-default">Module</label>
+                        <select ng-model="$ctrl.idea.module">
+                            <option selected="selected">Choose module...</option>
+                            <option ng-repeat="module in $ctrl.idea.project.modules">
+                                {{module}}
+                            </option>
+                        </select>
+                    </fieldset>
+                    <br />
+                    <fieldset id="title" class="fsStyle">
+                        <label class="label label-default">Title</label>
+                        <input type="text" ng-model="$ctrl.idea.title" />
+                    </fieldset>  
+                    <fieldset id="title" class="fsStyle">
+                        <label class="label label-default">Description</label>
+                        <textarea type="text" ng-model="$ctrl.idea.description"></textarea>
+                    </fieldset> 
+                    <br>
+                    <div class="idea-description">
+                      <ul class="nav nav-tabs">
+                        <li role="presentation"><a href="#">Write</a></li>
+                        <li role="presentation" class="active"><a href="#">Preview</a></li>
+                      </ul>
+                      <div class="write-description"></div>
+                      <div class="preview-description">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div style="display: flex; align-items: center; justify-content: center; width:100%; height:300px; background: #eee;" id="dropzone">
+                          <p style="font-size: 3em; opacity:0.3;">Drag and drop</p>
+                        </div>
+                        <div id="preview">
+                            aaaa
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <fieldset id="assign">
+                        <label class="label label-default">Assign people</label>
+                        <input list="modules" ng-model="vm.idea.module" />
+                        <datalist id="modules">
+                            <option>testModule</option>
+                        </datalist>
+                    </fieldset>
+                    <br>  
+                    <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.accept()">Click</button>
+                    <button id="cancelBtn" class="btn btn-danger" ng-click="$ctrl.cancel()">Cancel</button>
+                </form>                
+            </div>
         </div>
-      </div>
     </div>
-    <br>
-    <fieldset id="assign">
-        <label class="label label-default">Assign people</label>
-        <input list="modules" ng-model="vm.idea.module" />
-        <datalist id="modules">
-            <option>testModule</option>
-        </datalist>
-    </fieldset>
-    <br>  
-    <button id="acceptBtn" class="btn btn-success" ng-click="vm.accept()">Click</button>
-    <button id="cancelBtn" class="btn btn-danger" ng-click="vm.cancel()">Cancel</button>
-</form>
+</div>
+
+
+

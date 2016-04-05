@@ -10,6 +10,10 @@ Ideas.schema = new SimpleSchema({
     description: {
         type: String
     },
+    module: {
+        type: String,
+        optional: true
+    },
     projectId: {
         type: String
     },
