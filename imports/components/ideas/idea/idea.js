@@ -1,4 +1,4 @@
-import '../app';
+//import '../app';
 import template from './idea.html';
 import IdeaCtrl from './controller';
 
@@ -13,7 +13,6 @@ const buttonsText = {
     edit: ['Save', 'Cancel'],
     view: []
 };
-
 function compile(tElement, tAttrs) {
     const mode = tAttrs.mode || 'view';
 
