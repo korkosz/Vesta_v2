@@ -31,6 +31,19 @@ class NewIdeaCtrl {
 	openModal() {
 		this.idea = null;
 	}	
+
+	getSelection() {
+		var opis = document.getElementById('opis').textContent;
+		var ranges = [];
+
+		sel = window.getSelection();
+
+		for(var i = 0; i < sel.rangeCount; i++) {
+			var indexWhereToPutImage = sel.getRangeAt(i).startOffset;
+		 	document.getElementById('opis').textContent = 
+		 		opis.slice(0, indexWhereToPutImage) + " HUJ HUJ HUJ " + opis.slice(indexWhereToPutImage);	
+		}
+	}
 }
 
 export default angular.module("idea")
