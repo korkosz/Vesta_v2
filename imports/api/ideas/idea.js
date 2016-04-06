@@ -17,6 +17,12 @@ Ideas.schema = new SimpleSchema({
     projectId: {
         type: String
     },
+    status: {
+        type: String,
+        autoValue: function() {
+            return "New";
+        }
+    },
     creationDate: {
         type: Date,
         autoValue: function() {

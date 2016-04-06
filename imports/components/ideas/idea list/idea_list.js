@@ -1,5 +1,6 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
+import Metadata from '/imports/api/metadata/metadata';
 
 import './idea_list.html';
 
@@ -7,7 +8,7 @@ class IdeaListCtrl {
 	constructor($scope) {
 		$scope.viewModel(this);
         var imagesDiv = $('#images');
-
+        console.log(Metadata.find({}).fetch());
         this.helpers({
             ideas() {         	
                 return Ideas.find().map(function (idea) {

@@ -1,47 +1,32 @@
-//import '../app';
+import Projects from '/imports/api/project/project';
+import Ideas from '/imports/api/ideas/idea';
+import Metadata from '/imports/api/metadata/metadata';
+
 import template from './idea.html';
-import IdeaCtrl from './controller';
 
-const elementsToHide = {
-    new: ['status'],
-    edit: [],
-    view: ['acceptBtn', 'cancelBtn']
-};
+class IdeaCtrl {
+    constructor($scope) {
+        $scope.viewModel(this);
 
-const buttonsText = {
-    new: ['Add', 'Cancel'],
-    edit: ['Save', 'Cancel'],
-    view: []
-};
-function compile(tElement, tAttrs) {
-    const mode = tAttrs.mode || 'view';
-
-    setVisibility(mode);
-    setButtonsText(mode);
-
-    function setVisibility(_mode) {
-        for (let elementName of elementsToHide[mode]) {
-            tElement.find('#' + elementName).css('display', 'none');
-        }
+        this.helpers({
+            idea() {
+                var idea = Ideas.findOne();
+                if(idea) {
+                    let project = Projects.findOne({_id: idea.projectId});
+                    idea.projectName = project && project.name;
+                }
+                return idea;
+            },
+            ideaStatuses() {           
+                  console.log(Metadata.findOne({metadataName: 'IdeaStatuses'}))
+                  return Metadata.findOne({metadataName: 'IdeaStatuses'});
+            }
+        });
     }
-
-    function setButtonsText(_mode) {
-        let buttons = tElement.find('button');
-
-        for (let i = 0, len = buttons.length; i < len; i++) {
-            let btn = buttons.eq(i);
-            btn.text(buttonsText[mode][i]);
-        }
-    }
-}
+};
 
 export default angular.module('idea')
-    .directive('idea', function() {
-        return {
-            scope: { accept: '&', cancel: '&' },
-            templateUrl: 'imports/components/ideas/idea/idea.html',
-            controller: IdeaCtrl,
-            controllerAs: 'vm',
-            compile: compile
-        }
+    .component('idea', {      
+        templateUrl: 'imports/components/ideas/idea/idea.html',
+        controller: IdeaCtrl
     });

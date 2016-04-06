@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import IdeasCollection from '/imports/api/ideas/idea';
 import ProjectsCollection from '/imports/api/project/project';
+import Metadata from '/imports/api/metadata/metadata';
 
 Images.allow({
   'insert': function () {
@@ -12,6 +13,12 @@ Images.allow({
 Meteor.startup(() => {
 	ProjectsCollection.remove({});
 	IdeasCollection.remove({});
+    Metadata.remove({});
+    
+    Metadata.insert({
+        metadataName: 'IdeaStatuses',
+        value: ['New', 'Considered', 'Resolved', 'Rejected']        
+    });
 
 	ProjectsCollection.insert({
 		name: 'Vesta',
@@ -52,42 +59,49 @@ Meteor.startup(() => {
 	IdeasCollection.insert({
 		title: 'idea1_Title',
 		description: 'idea1_Description',
-		projectId: id1
+		projectId: id1,
+        module: 'ProjectTest1_module1'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea2_Title',
 		description: 'idea2_Description',
-		projectId: id1
+		projectId: id1,
+        module: 'ProjectTest1_module2'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea3_Title',
 		description: 'idea3_Description',
-		projectId: id1
+		projectId: id1,
+        module: 'ProjectTest1_module13'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea4_Title',
 		description: 'idea4_Description',
-		projectId: id1
+		projectId: id1,
+        module: 'ProjectTest1_module3'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea5_Title',
 		description: 'idea5_Description',
-		projectId: id2
+		projectId: id2,
+        module: 'ProjectTest2_module1'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea6_Title',
 		description: 'idea6_Description',
-		projectId: id2
+		projectId: id2,
+        module: 'ProjectTest2_module3'
 	});
 
 	IdeasCollection.insert({
 		title: 'idea7_Title',
 		description: 'idea7_Description',
-		projectId: id3
+		projectId: id3,
+        module: 'ProjectTest3_module1'
 	});
 });
