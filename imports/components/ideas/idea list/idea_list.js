@@ -16,21 +16,8 @@ class IdeaListCtrl {
                 	return idea;
                 });
             },
-            imgs() {                
-                return Images.find().fetch();
-                
-
-                // for (let i = imgs.length; i--;) {
-                //     let file = imgs[i];
-                //     let reader = new FileReader();
-                //     let img = document.createElement('img');
-
-                //     reader.readAsDataURL(file);
-                //     reader.onload = function(e) {
-                //         img.src = e.target.result;
-        
-                //     };
-                // }
+            imgs() { 
+                return Images.find();   
             }      
         });  
 	}	
