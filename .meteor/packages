@@ -24,3 +24,5 @@ twbs:bootstrap
 fourseven:scss
 msavin:mongol
 aldeed:collection2
+cfs:standard-packages
+cfs:gridfs

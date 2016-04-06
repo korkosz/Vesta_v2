@@ -6,6 +6,7 @@ import './idea_list.html';
 class IdeaListCtrl {
 	constructor($scope) {
 		$scope.viewModel(this);
+        var imagesDiv = $('#images');
 
         this.helpers({
             ideas() {         	
@@ -14,6 +15,22 @@ class IdeaListCtrl {
                 	idea.projectName = project.name;
                 	return idea;
                 });
+            },
+            imgs() {                
+                return Images.find().fetch();
+                
+
+                // for (let i = imgs.length; i--;) {
+                //     let file = imgs[i];
+                //     let reader = new FileReader();
+                //     let img = document.createElement('img');
+
+                //     reader.readAsDataURL(file);
+                //     reader.onload = function(e) {
+                //         img.src = e.target.result;
+        
+                //     };
+                // }
             }      
         });  
 	}	

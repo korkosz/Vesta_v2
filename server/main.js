@@ -2,6 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import IdeasCollection from '/imports/api/ideas/idea';
 import ProjectsCollection from '/imports/api/project/project';
 
+Images.allow({
+  'insert': function () {
+    // add custom authentication code here
+    return true;
+  }
+});
+
 Meteor.startup(() => {
 	ProjectsCollection.remove({});
 	IdeasCollection.remove({});

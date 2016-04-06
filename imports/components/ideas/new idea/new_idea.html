@@ -41,26 +41,7 @@
                         <textarea type="text" ng-model="$ctrl.idea.description"></textarea>
                     </fieldset> 
                     <br>
-                    <div class="idea-description">
-                      <ul class="nav nav-tabs">
-                        <li role="presentation"><a href="#">Write</a></li>
-                        <li role="presentation" class="active"><a href="#">Preview</a></li>
-                      </ul>
-                      <div class="write-description"></div>
-                      <div class="preview-description">
-                        <div  id="opis" onClick="this.contentEditable='true';">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                        <div style="display: flex; align-items: center; justify-content: center; width:100%; height:300px; background: #eee;" id="dropzone">
-                          <p style="font-size: 3em; opacity:0.3;">Drag and drop</p>
-                        </div>
-                        <div id="preview">
-                            aaaa
-                        </div>
-                        <button ng-click="$ctrl.getSelection()">
-                            selection
-                        </button>
-                      </div>
-                    </div>
-                    <br>
+                    <drag-and-drop></drag-and-drop>
                     <fieldset id="assign">
                         <label class="label label-default">Assign people</label>
                         <input list="modules" ng-model="vm.idea.module" />
