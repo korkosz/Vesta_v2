@@ -26,6 +26,7 @@ class IdeaCtrl {
 };
 
 export default angular.module('idea')
+
     .component('idea', {      
         templateUrl: 'imports/components/ideas/idea/idea.html',
         controller: IdeaCtrl
