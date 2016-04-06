@@ -4,11 +4,23 @@ export default angular.module("dragAndDrop", [])
     .directive("dragAndDrop", function() {
         return {
             templateUrl: 'imports/components/drag and drop/dragAndDrop.html',
-            link
+            link,
+            controller: DragAndDropCtrl,
+            scope: {
+                output: '=',
+                confirmText: '@'
+            }
         }
     });
 
+class DragAndDropCtrl {
+    constructor() {
+        
+    }
+}
+
 function link(scope, el, attrs, ctrls) {
+    console.log(scope.confirmText);
     $('#dropzone').on('dragover', function(event) {
         event.preventDefault();
         event.stopPropagation();
