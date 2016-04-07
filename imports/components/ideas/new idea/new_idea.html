@@ -4,7 +4,7 @@
 </button>
 <!-- Modal -->
 <div class="modal fade" id="newIdeaModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 900px;">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header" style="padding:35px 50px;">
@@ -38,7 +38,9 @@
                     </fieldset>  
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Description</label>
-                        <textarea type="text" ng-model="$ctrl.idea.description"></textarea>
+                       <div id="opis" onClick="this.contentEditable='true';" style="margin-bottom: 20px;min-height: 50px; border: 1px dashed red;">
+  
+                        </div>
                     </fieldset> 
                     <drag-and-drop confirm-text="{{'Add description'}}"></drag-and-drop>
                     <br>
