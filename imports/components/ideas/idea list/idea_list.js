@@ -5,8 +5,10 @@ import Metadata from '/imports/api/metadata/metadata';
 import './idea_list.html';
 
 class IdeaListCtrl {
-	constructor($scope) {
+	constructor($scope, $location) {
 		$scope.viewModel(this);
+        
+        this.$location = $location;
         var imagesDiv = $('#images');
         console.log(Metadata.find({}).fetch());
         this.helpers({
@@ -21,7 +23,11 @@ class IdeaListCtrl {
                 return Images.find();   
             }      
         });  
-	}	
+	}
+    
+    details(id) {
+        this.$location.path('/idea/' + id);    
+    }
 }
 
 export default angular.module("idea")
