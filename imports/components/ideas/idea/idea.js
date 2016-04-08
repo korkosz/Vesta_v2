@@ -5,12 +5,13 @@ import Metadata from '/imports/api/metadata/metadata';
 import template from './idea.html';
 
 class IdeaCtrl {
-    constructor($scope) {
+    constructor($scope, $routeParams) {
         $scope.viewModel(this);
 
+        this.$routeParams = $routeParams;
         this.helpers({
             idea() {
-                var idea = Ideas.findOne();
+                var idea = Ideas.findOne({_id: this.$routeParams.id});
                 if(idea) {
                     let project = Projects.findOne({_id: idea.projectId});
                     idea.projectName = project && project.name;
