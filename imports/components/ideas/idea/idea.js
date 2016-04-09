@@ -6,9 +6,10 @@ import pill from '/imports/components/lib/pill/pill';
 import template from './idea.html';
 
 class IdeaCtrl {
-    constructor($scope, $routeParams) {
+    constructor($scope, $routeParams, $sce) {
         $scope.viewModel(this);
-
+        
+    
         this.$routeParams = $routeParams;
         this.helpers({
             idea() {
@@ -16,6 +17,9 @@ class IdeaCtrl {
                 if(idea) {
                     let project = Projects.findOne({_id: idea.projectId});
                     idea.projectName = project && project.name;
+                    idea.desc = function() {
+                        return $sce.trustAsHtml(idea.description);    
+                    };
                 }
                 return idea;
             },
