@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="row">
     <section class="idea-header col-xs-12 col-sm-2 col-md-2"  style="background: #f4f4f4;">
     <div>
@@ -25,6 +26,41 @@
             </select>
         </div>
     </div>    
+=======
+<section class="idea-header">
+    <div class="wrapper">
+        <h4 class="label label-default">Project</h4>
+        <p>{{$ctrl.idea.projectName}}</p>
+    </div>
+    <div class="wrapper">
+        <h4 class="label label-default">Module</h4>
+        <p>{{$ctrl.idea.module}}</p>
+    </div>
+    <div class="wrapper">
+        <h4 class="label label-default">Assign people</h4>
+        <ul>
+            <li class="label label-primary">Mateusz Korkosz</li>
+            <li class="label label-primary">Maciej Chmiel</li>
+            <li class="label label-primary">Marcin Trybulec</li>
+        </ul>
+        <button class="btn btn-info">Add person</button>
+    </div><br>
+    <div class="wrapper">
+        <h4 class="label label-default">Status</h4>
+        <select ng-model="$ctrl.idea.status">
+            <option ng-repeat="status in $ctrl.ideaStatuses.value">{{status}}</option>
+        </select>
+    </div>
+</section>
+<br>
+<hr>
+<section class="idea-content">
+    <h4>To jest jakis tytul pomyslu</h4>
+    <div ng-bind-html="$ctrl.idea.desc()">
+
+    </div>
+    <button class="btn btn-success" style="display: block; margin: 50px auto; ">Create task</button>
+>>>>>>> d2c1d166fc3ddd7cf281ae13363c97b8746d3a62
 </section>
     <section class="idea-content col-xs-12 col-sm-5 col-md-6">
         <h4>To jest jakis tytul pomyslu</h4>
