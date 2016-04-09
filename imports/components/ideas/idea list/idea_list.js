@@ -19,8 +19,8 @@ class IdeaListCtrl {
                 	return idea;
                 });
             },
-            imgs() { 
-                return Images.find();   
+            imgs() {                
+                return Images.find();  
             }      
         });  
 	}

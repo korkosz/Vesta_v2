@@ -5,5 +5,7 @@ import ngRoute from 'angular-route';
 angular.module('simple-todos', [
     angularMeteor,
     ngRoute,
-    'idea'
+    'idea',
+    'lib',
+    'lib.pill'
 ]);

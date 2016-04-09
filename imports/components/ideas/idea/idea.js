@@ -2,6 +2,7 @@ import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 
+import pill from '/imports/components/lib/pill/pill';
 import template from './idea.html';
 
 class IdeaCtrl {
