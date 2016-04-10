@@ -4,7 +4,6 @@ import Metadata from '/imports/api/metadata/metadata';
 
 import pill from '/imports/components/lib/pill/pill';
 import './idea.html';
-import './idea.scss';
 
 class IdeaCtrl {
     constructor($scope, $routeParams, $sce) {

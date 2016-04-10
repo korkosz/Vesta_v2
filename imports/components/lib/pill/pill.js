@@ -1,6 +1,5 @@
 import '../lib.js';
 import './pill.html';
-import './pill.scss';
 
 export default angular.module("lib.pill", [])
     .directive("pill", function () {
