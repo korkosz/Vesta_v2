@@ -1,0 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700,400&subset=latin,latin-ext);
+@import "{}/client/styles/imports/variables.scss";
+
+body{
+    font-size: $BODYsize;
+    color: $TXT;
+    line-height: $BODYsize;
+}

@@ -1,0 +1,56 @@
+@import "{}/client/styles/imports/variables.scss";
+
+.idea-content > .wrapper{
+    background: #ddd;
+}
+.idea-comments{
+    font-size: $ASIDEsize;
+    line-height: $ASIDEline;
+    padding: 20px;
+    border: solid 1px $HR;
+    border-radius: 20px 0 0 20px;
+}
+.comment{
+    position: relative;
+    margin-bottom: 20px;
+    &::after{
+        content: "";
+        position: relative;
+        height: 20px; width: 90%;
+        border-bottom: 1px solid rgba( $HR, .5 );
+        margin: auto;
+    }
+    &:last-child{
+        margin-bottom: 0;
+    }
+    &:last-child::after{
+        border-bottom: transparent;
+        margin: auto;
+    }
+    h3{
+        line-height: 1.2em;
+    }
+}
+.reviewer-avatar{
+    width:50px; height:50px; 
+    background: #ddd; 
+    border-radius: 50%; 
+    margin:auto;
+}
+.reviewer{
+    text-align: center;
+    font-size: $BODYsize;
+    letter-spacing: 1px;
+}
+.status{
+    width:30px; height:30px;
+    border: 2px solid; 
+    border-radius: 50%;
+    margin: 20px auto;
+    &-like{
+        border-color: $green;
+    }
+    &-dislike{
+    border-color: $red;
+}
+}
