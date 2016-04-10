@@ -1,44 +1,52 @@
-<section class="idea-header">
-    <div class="wrapper">
-        <h4 class="label label-default">Project</h4>
-        <p>{{$ctrl.idea.projectName}}</p>
-    </div>
-    <div class="wrapper">
-        <h4 class="label label-default">Module</h4>
-        <p>{{$ctrl.idea.module}}</p>
-    </div>
-    <div class="wrapper">
-        <h4 class="label label-default">Assign people</h4>
-        <ul>
-            <li class="label label-primary">Mateusz Korkosz</li>
-            <li class="label label-primary">Maciej Chmiel</li>
-            <li class="label label-primary">Marcin Trybulec</li>
-        </ul>
-        <button class="btn btn-info">Add person</button>
-    </div><br>
-    <div class="wrapper">
-        <h4 class="label label-default">Status</h4>
-        <select ng-model="$ctrl.idea.status">
-            <option ng-repeat="status in $ctrl.ideaStatuses.value">{{status}}</option>
-        </select>
-    </div>
+<div class="row">
+<section class="idea-header col-xs-12 col-sm-3 col-md-2"  style="background: #f4f4f4;">
+    <div>
+        <div class="wrapper">
+            <h4 class="label label-default">Project</h4>
+            <p>{{$ctrl.idea.projectName}}</p>
+        </div>
+        <div class="wrapper">
+            <h4 class="label label-default">Module</h4>
+            <p>{{$ctrl.idea.module}}</p>
+        </div>
+        <div class="wrapper">
+            <h4 class="label label-default">Reviewers</h4>
+            <ul>
+                <li class="label label-primary">Mateusz Korkosz</li>
+                <li class="label label-primary">Maciej Chmiel</li>
+                <li class="label label-primary">Marcin Trybulec</li>
+            </ul>
+            <button class="btn btn-default">Add</button>
+        </div><br>
+        <div class="wrapper">
+            <h4 class="label label-default">Status</h4>
+            <select ng-model="$ctrl.idea.status">
+                <option ng-repeat="status in $ctrl.ideaStatuses.value">{{status}}</option>
+            </select>
+        </div>
+        <button class="btn btn-default" style="display: block; margin: 50px auto; ">Create task</button>
+    </div> 
 </section>
-<br>
-<hr>
-<section class="idea-content">
+<section class="idea-content col-xs-12 col-sm-9 col-md-6">
     <h4>To jest jakis tytul pomyslu</h4>
-    <div ng-bind-html="$ctrl.idea.desc()">
-
+    <div ng-bind-html="$ctrl.idea.desc()"></div>
+    <div  class="wrapper">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
     </div>
-    <button class="btn btn-success" style="display: block; margin: 50px auto; ">Create task</button>
 </section>
-<hr>
-<section class="idea-comments">
-    <header>Comments</header><br>
+<section class="idea-comments col-xs-12 col-sm-12 col-md-4" style="padding: 10px 20px; border: solid 1px #dcdcdc; border-radius: 20px 0 0 20px;">
     <div class="comment row">
         <header class="col-xs-3">
             <div class="reviewer-avatar" style="width:50px; height:50px; background: #ddd; border-radius: 50%; margin:auto;"></div>
             <h3 class="reviewer" style="font-size: 16px; text-align: center;">Mateusz Korkosz</h3>
+            <div class="status" style="width:30px; height:30px; border: 2px solid #40d47e; border-radius: 50%; margin:auto;"></div>
         </header>
         <div class="comment-content col-xs-9">
             <div class="row">
@@ -66,6 +74,7 @@
         <header class="col-xs-3">
             <div class="reviewer-avatar" style="width:50px; height:50px; background: #ddd; border-radius: 50%; margin:auto;"></div>
             <h3 class="reviewer" style="font-size: 16px; text-align: center;">Mateusz Korkosz</h3>
+            <div class="status" style="width:30px; height:30px; border: 2px solid  #e74c3c; border-radius: 50%; margin:auto;"></div>
         </header>
         <div class="comment-content col-xs-9">
             <div class="row">
@@ -88,6 +97,6 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
     </div>
-    <button class="btn btn-default"  style="display: block; margin: 20px auto;">Add comment</button>
 </section>
+</div>
 <pill></pill>
