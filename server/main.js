@@ -32,6 +32,11 @@ Meteor.startup(() => {
         value: ['Bug', 'Feature']        
     });
     
+    Metadata.insert({
+        metadataName: 'TaskStatuses',
+        value: ['Open', 'Closed', 'Working', 'Rejected', 'Ready for testing']        
+    });
+    
 	ProjectsCollection.insert({
 		name: 'Vesta',
 		modules: [

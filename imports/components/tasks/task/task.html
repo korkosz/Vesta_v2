@@ -10,6 +10,14 @@
                 <p>{{$ctrl.task.module}}</p>
             </div>
             <div class="wrapper">
+                <h4 class="label label-default">Priority</h4>
+                <p>{{$ctrl.task.priority}}</p>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Type</h4>
+                <p>{{$ctrl.task.type}}</p>
+            </div>
+            <div class="wrapper">
                 <h4 class="label label-default">Reviewers</h4>
                 <ul>
                     <li class="label label-primary">Mateusz Korkosz</li>
@@ -24,7 +32,6 @@
                     <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
                 </select>
             </div>
-            <button class="btn btn-default" style="display: block; margin: 50px auto; ">Create task</button>
         </div> 
     </section>
     <section class="task-content col-xs-12 col-sm-9 col-md-6">

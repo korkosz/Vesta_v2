@@ -1,9 +1,9 @@
 import Projects from '/imports/api/project/project';
-import Ideas from '/imports/api/ideas/idea';
+import Tasks from '/imports/api/task/task';
 import Metadata from '/imports/api/metadata/metadata';
 
 import pill from '/imports/components/lib/pill/pill';
-import './idea.html';
+import './task.html';
 
 class IdeaCtrl {
     constructor($scope, $routeParams, $sce) {
@@ -12,28 +12,28 @@ class IdeaCtrl {
     
         this.$routeParams = $routeParams;
         this.helpers({
-            idea() {
-                var idea = Ideas.findOne({_id: this.$routeParams.id});
-                if(idea) {
-                    let project = Projects.findOne({_id: idea.projectId});
-                    idea.projectName = project && project.name;
-                    idea.desc = function() {
-                        return $sce.trustAsHtml(idea.description);    
+            task() {
+                var task = Tasks.findOne({_id: this.$routeParams.id});
+                if(task) {
+                    let project = Projects.findOne({_id: task.projectId});
+                    task.projectName = project && project.name;
+                    task.desc = function() {
+                        return $sce.trustAsHtml(task.description);    
                     };
                 }
-                return idea;
+                return task;
             },
-            ideaStatuses() {           
-                  console.log(Metadata.findOne({metadataName: 'IdeaStatuses'}))
-                  return Metadata.findOne({metadataName: 'IdeaStatuses'});
+            taskStatuses() {           
+                  console.log(Metadata.findOne({metadataName: 'TaskStatuses'}))
+                  return Metadata.findOne({metadataName: 'TaskStatuses'});
             }
         });
     }
 };
 
-export default angular.module('idea')
+export default angular.module('task')
 
-    .component('idea', {      
-        templateUrl: 'imports/components/ideas/idea/idea.html',
+    .component('task', {      
+        templateUrl: 'imports/components/tasks/task/task.html',
         controller: IdeaCtrl
     });
