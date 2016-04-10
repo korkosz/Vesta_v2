@@ -17,10 +17,28 @@ TaskCollection.schema = new SimpleSchema({
     projectId: {
         type: String
     },
+    priority: {
+        type: String  
+    },
+    progress: {
+        type: Number,
+        autoValue: function() {
+            return 0;
+        }  
+    },
+    type: {
+        type: String    
+    },
     status: {
         type: String,
         autoValue: function() {
             return "New";
+        }
+    },
+    creator: {
+        type: String,
+        autoValue: function() {
+            return 'Korkosz';
         }
     },
     creationDate: {

@@ -1,7 +1,7 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
-
+import Metadata from '/imports/api/metadata/metadata';
 import './task_new.html';
 
 /*
@@ -19,6 +19,12 @@ class NewTaskCtrl {
         this.helpers({
             projects() {
                 return Projects.find();
+            },
+            taskTypes() {
+                return Metadata.findOne({metadataName: 'TaskType'});
+            },
+            taskPriority() {
+                return Metadata.findOne({metadataName: 'TaskPriority'});
             }
         });
     }

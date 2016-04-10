@@ -15,12 +15,23 @@ Meteor.startup(() => {
 	ProjectsCollection.remove({});
 	IdeasCollection.remove({});
     Metadata.remove({});
+    TaskCollection.remove({});
     
     Metadata.insert({
         metadataName: 'IdeaStatuses',
         value: ['New', 'Considered', 'Resolved', 'Rejected']        
     });
 
+    Metadata.insert({
+        metadataName: 'TaskPriority',
+        value: ['Low', 'Normal', 'High']        
+    });
+    
+    Metadata.insert({
+        metadataName: 'TaskType',
+        value: ['Bug', 'Feature']        
+    });
+    
 	ProjectsCollection.insert({
 		name: 'Vesta',
 		modules: [

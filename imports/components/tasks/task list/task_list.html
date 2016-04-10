@@ -1,0 +1,19 @@
+<table class="table table-condensed">
+    <caption>Tasks</caption>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Project</th>
+            <th>Module</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="task in $ctrl.tasks" ng-click="$ctrl.details(task._id)" style="cursor: pointer">
+            <td>{{task.title}}</td>
+            <td>{{task.projectName}}</td>
+            <td>{{task.module}}</td>
+            <td>{{task.creationDate | date:'MM:dd:yyyy'}}</td>
+        </tr>
+    </tbody>
+</table>

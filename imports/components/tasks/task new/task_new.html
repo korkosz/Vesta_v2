@@ -32,11 +32,30 @@
                             </option>
                         </select>
                     </fieldset>
+                    <br /> 
+                    <fieldset id="type">
+                        <label class="label label-default">Type</label>
+                        <select ng-model="$ctrl.task.type">
+                            <option ng-repeat="type in $ctrl.taskTypes.value">
+                                {{type}}
+                            </option>
+                        </select>
+                    </fieldset>
+                    <br />
+                    <fieldset id="priority">
+                        <label class="label label-default">Priority</label>
+                        <select ng-model="$ctrl.task.priority">
+                            <option ng-repeat="priority in $ctrl.taskPriority.value">
+                                {{priority}}
+                            </option>
+                        </select>
+                    </fieldset>
                     <br />
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Title</label>
                         <input type="text" ng-model="$ctrl.task.title" />
-                    </fieldset>  
+                    </fieldset>
+                    <br />
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Description</label>
                         <drag-and-drop output="$ctrl.output"></drag-and-drop>
