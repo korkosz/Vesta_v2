@@ -7,5 +7,6 @@ angular.module('simple-todos', [
     ngRoute,
     'idea',
     'lib',
-    'lib.pill'
+    'lib.pill',
+    'task'
 ]);
