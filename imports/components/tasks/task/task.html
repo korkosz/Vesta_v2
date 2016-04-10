@@ -1,0 +1,35 @@
+<div class="row">
+    <section class="task-header col-xs-12 col-sm-3 col-md-2"  style="background: #f4f4f4;">
+        <div>
+            <div class="wrapper">
+                <h4 class="label label-default">Project</h4>
+                <p>{{$ctrl.task.projectName}}</p>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Module</h4>
+                <p>{{$ctrl.task.module}}</p>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Reviewers</h4>
+                <ul>
+                    <li class="label label-primary">Mateusz Korkosz</li>
+                    <li class="label label-primary">Maciej Chmiel</li>
+                    <li class="label label-primary">Marcin Trybulec</li>
+                </ul>
+                <button class="btn btn-default">Add</button>
+            </div><br>
+            <div class="wrapper">
+                <h4 class="label label-default">Status</h4>
+                <select ng-model="$ctrl.task.status">
+                    <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
+                </select>
+            </div>
+            <button class="btn btn-default" style="display: block; margin: 50px auto; ">Create task</button>
+        </div> 
+    </section>
+    <section class="task-content col-xs-12 col-sm-9 col-md-6">
+        <h4>{{$ctrl.task.title}}</h4>
+        <div ng-bind-html="$ctrl.task.desc()" class="wrapper"></div>   
+    </section>
+</div>
+<pill></pill>
