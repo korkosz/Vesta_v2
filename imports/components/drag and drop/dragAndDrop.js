@@ -71,58 +71,7 @@ export default angular.module("dragAndDrop", [])
                         return div;
                     }
                 }
-            });
-
-            ctrl.add = function() {
-                var editEl = el.find('#edit');
-                var imgs = editEl.find('img');
-                var imgsLen = imgs.length;
-                var promises = [];
-                
-                while (imgsLen--) {
-                    let img = imgs.eq(imgsLen);
-                    let file = img.data('file');
-                    let def = $q.defer();
-                    let promise = def.promise;
-                    promises.push(promise);
-                    if (file) {
-                        Images.insert(file, function(err, fileObj) {
-                            file.id = fileObj._id;
-                        });
-
-                        let stop = setInterval(() => {
-                            var _imgDb = Images.findOne({
-                                _id: file.id
-                            });
-                            if (_imgDb) {
-                                if (_imgDb.url()) {
-                                    console.log(_imgDb.url());
-                                    img.attr('src', _imgDb.url());
-                                    scope.$apply(function() {
-                                        removeEditableAttr();
-                                        scope.output.html = editEl.html();
-                                        def.resolve();
-                                    });
-                                    clearInterval(stop);
-                                }
-                            }
-                        }, 1000);
-                    }
-                }
-                $q.all(promises).then(function() {
-                    alert('git');
-                });
-                
-                function removeEditableAttr() {
-                    var divs = $("div[name='edit']");
-                    var len = divs.length;
-                    while (len--) {
-                        let div = divs.eq(len);
-                        div.removeAttr('contentEditable');
-                        div.css('border', 'none');
-                    }
-                }
-            };
+            });     
         }
     });
 

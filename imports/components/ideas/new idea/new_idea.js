@@ -3,53 +3,107 @@ import Projects from '/imports/api/project/project';
 
 import './new_idea.html';
 
-class NewIdeaCtrl {
-	constructor($scope) {
-		$scope.viewModel(this);
+/*
+    TODO: 
+        1. Zmienic hosting na Cloudinary       
+*/
 
+class NewIdeaCtrl {
+    constructor($scope) {
+        $scope.viewModel(this);
+        
+        this.idea = {};
+        this.idea.description = '';
+        
         this.helpers({
             projects() {
                 return Projects.find();
-            }      
+            }
         });
-        
-        this.output = {};
-        this.output.html = 'as';
-        
-       /*$scope.$watch(() => {
-            return this.output.html;
-        }, function(newVal) {
-              alert(newVal);        
-        });*/
-        
-	}
+    }
 
-	closeModal() {
-		$('#newIdeaModal').modal('hide');
-	}
+    closeModal() {
+        $('#newIdeaModal').modal('hide');
+    }
 
-	accept() {
-		this.idea.projectId = this.idea.project._id;
-        this.idea.description = this.output.html;
-	    Ideas.insert(this.idea);
-	    this.closeModal();
-	}
+    accept() {
+        this.compileOutput().then(() => {
+            this.idea.projectId = this.idea.project._id;
+            Ideas.insert(this.idea);
+            this.closeModal();  
+        });        
+    }
 
-	cancel() {
-	    this.closeModal();
-	}
+    cancel() {
+        this.closeModal();
+    }
 
-	openModal() {
-		this.idea = null;
-	}	
+    openModal() {
+        this.idea = null;
+    }
 }
 
 export default angular.module("idea")
-    .component('newIdea', {
-        templateUrl: "imports/components/ideas/new idea/new_idea.html",
-        controller: NewIdeaCtrl
-    });
+    .directive('newIdea', function($q) {
+        return {
+            templateUrl: "imports/components/ideas/new idea/new_idea.html",
+            controller: NewIdeaCtrl,
+            controllerAs: '$ctrl',
+            link
+        }
 
+        function link(scope, el, attrs, ctrl) {
+            ctrl.compileOutput = function() {
+                var editEl = el.find('#edit');
+                var imgs = editEl.find('img');
+                var imgsLen = imgs.length;
+                var promises = [];
+
+                while (imgsLen--) {
+                    let img = imgs.eq(imgsLen);
+                    let file = img.data('file');
+                    let def = $q.defer();
+                    let promise = def.promise;
+                    promises.push(promise);
+                    if (file) {
+                        Images.insert(file, function(err, fileObj) {
+                            file.id = fileObj._id;
+                        });
+
+                        let stop = setInterval(() => {
+                            var _imgDb = Images.findOne({
+                                _id: file.id
+                            });
+                            if (_imgDb) {
+                                if (_imgDb.url()) {
+                                    img.attr('src', _imgDb.url());
+                                    scope.$apply(function() {
+                                        removeEditableAttr();
+                                        def.resolve();
+                                    });
+                                    clearInterval(stop);
+                                }
+                            }
+                        }, 1000);
+                    }
+                }               
+                
+                function removeEditableAttr() {
+                    var divs = $("div[name='edit']");
+                    var len = divs.length;
+                    while (len--) {
+                        let div = divs.eq(len);
+                        div.removeAttr('contentEditable');
+                        div.css('border', 'none');
+                    }
+                }
+                
+                return $q.all(promises).then(function() {
+                    ctrl.idea.description = editEl.html();    
+                });
+            };
+        }
+    });
 
 /*
 
