@@ -1,7 +1,7 @@
 <form ng-submit="vm.addPill()">
     <input type="text" class="pseudoInput" ng-model="vm.pill" />
 </form>
-<div id="container">
+<div>
     <div class="pseudoInput" style="background-color: grey" ng-repeat="pill in vm.pills">
         {{pill}}
     <button ng-click="vm.removePill()">X</button>    

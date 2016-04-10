@@ -3,7 +3,8 @@ import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 
 import pill from '/imports/components/lib/pill/pill';
-import template from './idea.html';
+import './idea.html';
+import './idea.scss';
 
 class IdeaCtrl {
     constructor($scope, $routeParams, $sce) {
