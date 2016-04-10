@@ -1,0 +1,16 @@
+@import "{}/client/styles/imports/variables.scss";
+
+.pill{
+    -webkit-appearance: textfield;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    padding: 1px 15px;
+    margin: 3px 0;
+    font-size: $PILLsize;
+    border: solid 1px gainsboro;
+    -webkit-transition: box-shadow 0.3s, border 0.3s;
+    -moz-transition: box-shadow 0.3s, border 0.3s;
+    -o-transition: box-shadow 0.3s, border 0.3s;
+    transition: box-shadow 0.3s, border 0.3s;
+    border-radius: 50px;
+}
