@@ -4,13 +4,30 @@
     -webkit-appearance: textfield;
     -webkit-rtl-ordering: logical;
     -webkit-user-select: text;
+    min-height: 25px;
     padding: 1px 15px;
     margin: 3px 0;
     font-size: $PILLsize;
-    border: solid 1px gainsboro;
+    border: solid 1px rgba( $HR, .5 );
     -webkit-transition: box-shadow 0.3s, border 0.3s;
     -moz-transition: box-shadow 0.3s, border 0.3s;
     -o-transition: box-shadow 0.3s, border 0.3s;
     transition: box-shadow 0.3s, border 0.3s;
     border-radius: 50px;
+    .plus{
+    color: $green;
+    font-weight: $bold;
+    font-size: 16px;
+    }
+    .minus{
+    color: $red;
+    font-weight: $bold;
+    font-size: 16px;
+    }
+    button{
+    position: absolute;
+    right: 20px;
+    background: transparent;
+    border: none;
+    }
 }
