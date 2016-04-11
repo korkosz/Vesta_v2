@@ -11,11 +11,13 @@ button, textarea, input{
 }
 .btn{
     font-size: $PILLsize;
+    font-weight: $bold;
     &-default{
     background: #ffd34e;
     border: none;
     border-radius: 20px;
     min-width: 120px;
+    color: #DB9E36;
     }
 }
 #menu-top{
