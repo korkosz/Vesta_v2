@@ -6,3 +6,19 @@ body{
     color: $TXT;
     line-height: $BODYsize;
 }
+button, textarea, input{
+    outline: none;
+}
+.btn{
+    font-size: $PILLsize;
+    &-default{
+    background: #ffd34e;
+    border: none;
+    border-radius: 20px;
+    min-width: 120px;
+    }
+}
+#menu-top{
+    height: 70px;
+    background: #222222;
+}
