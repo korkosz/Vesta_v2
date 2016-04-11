@@ -8,18 +8,41 @@ export default angular.module("lib.pill", [])
             templateUrl: 'imports/components/lib/pill/pill.html', 
             controller: PillCtrl,
             controllerAs: 'vm', 
-            scope: {}
+            scope: {
+                state: '@',
+                data: '='
+            },
+            bindToController: true
         }
     });
 
 class PillCtrl {
     constructor() {
         this.pills = [];
-        this.pill = '';
+        this.pill = '';        
+        
+        switch(this.state) {
+            case 'plus':
+                this.sign = '+';
+                this.signClass = this.state;
+                this.stateClass = 'pill-advantage';
+                break;
+            case 'minus':
+                this.sign = '-';
+                this.signClass = this.state;
+                this.stateClass = 'pill-disadvantage';
+                break;
+            default:
+                this.sign = '';
+                this.signClass = '';
+                this.stateClass = '';
+                break;
+        }           
     }
     
     addPill() {
-        this.pills.push(this.pill); 
+        if(this.pill === '') return;
+        this.pills.push({value: this.pill}); 
         this.pill = ''; 
     }
     

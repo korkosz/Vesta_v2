@@ -2,8 +2,10 @@
     <input type="text" class="pill" ng-model="vm.pill" />
 </form>
 <div>
-    <div class="pill" ng-repeat="pill in vm.pills">
-        {{pill}}
-    <button ng-click="vm.removePill()">X</button>    
+    <div class="pill" ng-class="vm.stateClass" ng-repeat="pill in vm.pills">
+        <span ng-class="vm.signClass">
+            {{vm.sign}}
+        </span>{{pill.value}}
+        <button ng-click="vm.removePill(pill)">X</button>    
     </div>
 </div>
