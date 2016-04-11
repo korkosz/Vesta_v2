@@ -10,7 +10,8 @@ export default angular.module("lib.pill", [])
             controllerAs: 'vm', 
             scope: {
                 state: '@',
-                data: '='
+                data: '=?',
+                readOnly: '<?'
             },
             bindToController: true
         }
@@ -19,7 +20,7 @@ export default angular.module("lib.pill", [])
 class PillCtrl {
     constructor() {
         this.pills = [];
-        this.pill = '';        
+        this.pill = ''; 
         
         switch(this.state) {
             case 'plus':
