@@ -6,29 +6,48 @@
 .idea-comments{
     font-size: $ASIDEsize;
     line-height: $ASIDEline;
-    padding: 20px;
+    padding-bottom: 20px;
     border: solid 1px $HR;
     border-radius: 20px 0 0 20px;
 }
 .comment{
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     &::after{
-        content: "";
-        position: relative;
-        height: 20px; width: 90%;
-        border-bottom: 1px solid rgba( $HR, .5 );
-        margin: auto;
+    content: "";
+    position: relative;
+    height: 20px; width: 90%;
+    border-bottom: 1px solid rgba( $HR, .5 );
+    margin: auto;
     }
     &:last-child{
-        margin-bottom: 0;
+    margin-bottom: 0;
     }
     &:last-child::after{
-        border-bottom: transparent;
-        margin: auto;
+    border-bottom: transparent;
+    margin: auto;
+    }
+    &-content p{
+    padding-left: 15px;
+    margin-top: 15px;
+    }
+    header{
+    padding-right: 0;
     }
     h3{
-        line-height: 1.2em;
+    line-height: 1.2em;
+    }
+}
+.new-comment{
+    border-radius: 20px 0 0 0;
+    padding: 30px 0;
+    margin-bottom: 30px;
+    h3{
+    padding-top: 0;
+    padding-bottom: 20px;
+    margin: 0;
+    color: $HR;
+    text-align: center;
     }
 }
 .reviewer-avatar{
@@ -48,7 +67,7 @@
     border-radius: 50%;
     margin: 20px auto;
     &-like{
-        border-color: $green;
+    border-color: $green;
     }
     &-dislike{
     border-color: $red;
