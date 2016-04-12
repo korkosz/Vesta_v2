@@ -49,26 +49,12 @@
     border-radius: 20px 0 0 0;
     margin-bottom: 50px;
     h3{
-    padding-top: 0;
-    padding-bottom: 20px;
     margin: 0;
+    line-height: 50px;
     color: $HR;
-    text-align: center;
-    &::after{
-    content: "";
-    display: block;
-    position: relative;
-    height: 20px; width: 95%;
-    border-bottom: 1px solid rgba( $HR, .5 );
-    margin: auto;
-    }
     }
     .wrapper{
-    margin: 20px 0 20px 20px;
-    border: 2px dashed $HR;
-    border-right: none;
-    border-radius: 20px 0 0 20px;
-    padding: 20px 0;
+    padding: 40px 0;
     }
     .status{
     border-color: $HR;
