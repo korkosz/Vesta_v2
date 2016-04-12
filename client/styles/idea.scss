@@ -34,17 +34,15 @@
     border-bottom: transparent;
     margin: auto;
     }
-    &-content p{
-    padding-left: 15px;
-    }
-    .advantages{
+    .features{
     margin-bottom: 15px;    
     }
     header{
     padding-right: 0;
     }
     h3{
-    line-height: 1.2em;
+    margin: 0;
+    line-height: 50px;
     }
 }
 .new-comment{
@@ -101,9 +99,9 @@
     background: #fff;
     }
     .comment-content > button{
-        display: block;
-        margin: auto;
-        margin-top: 20px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
     }
 }
 .reviewer-avatar{
@@ -117,11 +115,20 @@
     font-size: $BODYsize;
     letter-spacing: 1px;
 }
+.status-wrapper{
+    height: 50px;
+    padding-right: 0;
+    text-align: center;
+    line-height: 50px;
+}
 .status{
+    display: inline-block;
     width:30px; height:30px;
     border: 2px solid; 
     border-radius: 50%;
     margin: 5px auto;
+    line-height: 50px;
+    vertical-align: middle;
     &-like{
     border-color: $green;
     }
