@@ -1,5 +1,5 @@
-<form ng-submit="vm.addPill()">
-    <input type="text" class="pill" ng-model="vm.pill" placeholder="+ advantage" />
+<form ng-submit="vm.addPill()" id="pilltxt">
+    <input type="text" class="pill" ng-model="vm.pill"/>
 </form>
 <div>
     <div class="pill" ng-class="vm.stateClass" ng-repeat="pill in vm.pills">

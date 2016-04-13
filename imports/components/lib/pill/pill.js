@@ -10,10 +10,12 @@ export default angular.module("lib.pill", [])
             controllerAs: 'vm', 
             scope: {
                 state: '@',
-                data: '=?',
-                readOnly: '<?'
+                ngModel: '=',
+                readOnly: '<?',
+                placeholder: '@'
             },
-            bindToController: true
+            bindToController: true,
+            link
         }
     });
 
@@ -50,4 +52,9 @@ class PillCtrl {
     removePill(pill) {
         this.pills.splice(this.pills.indexOf(pill), 1);    
     }
+}
+
+function link(scope, el, attrs, ctrl) {
+    debugger;
+    el.find('input').attr('placeholder', ctrl.placeholder);
 }
