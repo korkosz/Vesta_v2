@@ -46,108 +46,47 @@
                 <div class="comment-content col-xs-9">
                     <div class="row features">
                         <div class="pill-container col-xs-6">
-                            <pill state="plus" placeholder="+ advantages" 
-                                  read-only="true"></pill>
+                            <pill state="plus" ct-placeholder="+ advantages" 
+                                  ng-model="$ctrl.review.merits"></pill>
                         </div>
                         <div class="col-xs-6">
-                            <pill state="minus" placeholder="- disadvantages"></pill>
+                            <pill state="minus" ct-placeholder="- disadvantages" 
+                                  ng-model="$ctrl.review.drawbacks"></pill>           
                         </div>
                     </div>
-                    <textarea placeholder="Add description"></textarea>
-                    <button class="btn btn-default">Add</button>
+                    <textarea placeholder="Add description" ng-model="$ctrl.review.comment"></textarea>
+                    <button class="btn btn-default" ng-click="$ctrl.addReview()">
+                        Add
+                    </button>
                 </div>
                 <div class="clearfix"></div>
             </div>
-        </div>
-        <div class="comment row">
-            <div class="col-xs-3 status-wrapper">
-                <div class="status status-like"></div>
-            </div>
-            <h3 class="col-xs-9">Maciej Chmiel</h3>
-            <div class="col-xs-3"></div>
-            <div class="comment-content col-xs-9">
-                <div class="row features">
-                    <div class="pill-container col-xs-6">
-                        <div class="pill pill-advantage">
-                            <span class="plus">+ </span> Wyglad
+        </div>      
+        <div class="new-comment row" ng-repeat="review in $ctrl.idea.reviews track by $index">
+            <div class="wrapper">
+                <div class="col-xs-3 status-wrapper">
+                    <div class="status"></div>
+                </div>
+                <h3 class="col-xs-9">Maciej Chmiel</h3>
+                <div class="col-xs-3">
+                </div>
+                <div class="comment-content col-xs-9">
+                    <div class="row features">
+                        <div class="pill-container col-xs-6">
+                            <pill state="plus" ct-placeholder="+ advantages" 
+                                  ng-model="review.merits" read-only="true"></pill>
                         </div>
-                        <div class="pill pill-advantage">
-                            <span class="plus">+ </span>Funkcja</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
+                        <div class="col-xs-6">
+                            <pill state="plus" ct-placeholder="+ advantages" 
+                                  ng-model="review.drawbacks" read-only="true"></pill>           
+                        </div>
                     </div>
-                    <div class="col-xs-6">
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Korek</div>
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Mateusz</div>
-                    </div>
+                    <textarea placeholder="Add description" ng-model="review.comment" readonly></textarea>             
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div class="clearfix"></div>
             </div>
-        </div>
-        <div class="comment row">
-            <div class="col-xs-3 status-wrapper">
-                <div class="status status-like"></div>
-            </div>
-            <h3 class="col-xs-9">Maciej Chmiel</h3>
-            <div class="col-xs-3"></div>
-            <div class="comment-content col-xs-9">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-        </div>
-        <div class="comment row">
-            <div class="col-xs-3 status-wrapper">
-                <div class="status status-like"></div>
-            </div>
-            <h3 class="col-xs-9">Maciej Chmiel</h3>
-            <div class="col-xs-3"></div>
-            <div class="comment-content col-xs-9">
-                <div class="row features">
-                    <div class="pill-container col-xs-6">
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Wyglad</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Funkcja</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Korek</div>
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Mateusz</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="comment row">
-            <div class="col-xs-3 status-wrapper">
-                <div class="status status-like"></div>
-            </div>
-            <h3 class="col-xs-9">Maciej Chmiel</h3>
-            <div class="col-xs-3"></div>
-            <div class="comment-content col-xs-9">
-                <div class="row features">
-                    <div class="pill-container col-xs-6">
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Wyglad</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Funkcja dlugi opis babe</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                        <div class="pill pill-advantage"><span class="plus">+ </span>Cena</div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Korek</div>
-                        <div class="pill pill-disadvantage"><span class="minus">- </span>Mateusz</div>
-                    </div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
-        </div>
-        <div class="comment row">
-            <div class="col-xs-3 status-wrapper">
-                <div class="status status-like"></div>
-            </div>
-            <h3 class="col-xs-9">Maciej Chmiel</h3>
-            <div class="col-xs-3"></div>
-            <div class="comment-content col-xs-9">
-            </div>
-        </div>
+        </div> 
+       
     </section>
 </div>
 <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

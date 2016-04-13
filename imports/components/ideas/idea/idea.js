@@ -9,8 +9,15 @@ class IdeaCtrl {
     constructor($scope, $routeParams, $sce) {
         $scope.viewModel(this);
         
-    
+        this.review = {
+            merits: [],
+            drawbacks: [],
+            comment: ''
+        };
+        
+        this.pile = ["1", "2", "3", "1"];
         this.$routeParams = $routeParams;
+        
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({_id: this.$routeParams.id});
@@ -20,6 +27,7 @@ class IdeaCtrl {
                     idea.desc = function() {
                         return $sce.trustAsHtml(idea.description);    
                     };
+                    idea.reviews = [];
                 }
                 return idea;
             },
@@ -28,7 +36,15 @@ class IdeaCtrl {
                   return Metadata.findOne({metadataName: 'IdeaStatuses'});
             }
         });
-    }
+    }   
+    
+    addReview() {
+        this.idea.reviews.push(this.review);
+        
+        this.review.merits.splice();
+        this.review.drawbacks.splice();
+        this.review.comment = '';        
+    }       
 };
 
 export default angular.module('idea')

@@ -12,7 +12,7 @@ export default angular.module("lib.pill", [])
                 state: '@',
                 ngModel: '=',
                 readOnly: '<?',
-                placeholder: '@'
+                ctPlaceholder: '@'
             },
             bindToController: true,
             link
@@ -59,5 +59,9 @@ class PillCtrl {
 }
 
 function link(scope, el, attrs, ctrl) {
-    el.find('input').attr('placeholder', ctrl.placeholder);    
+    el.find('input').attr('placeholder', 
+        ctrl.ctPlaceholder);
+    
+    // read-only
+    if(ctrl.readOnly) el.find('#pilltxt').hide();
 }
