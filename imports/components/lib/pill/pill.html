@@ -1,4 +1,4 @@
-<form ng-submit="vm.addPill()" id="pilltxt">
+<form ng-submit="vm.addPill()" id="pilltxt" ng-if="!vm.readOnly">
     <input type="text" class="pill" ng-model="vm.pill"/>
 </form>
 <div>
@@ -6,6 +6,6 @@
         <span ng-class="vm.signClass">
             {{vm.sign}}
         </span>{{pill.value}}
-        <button ng-click="vm.removePill(pill)">X</button>    
+        <button ng-click="vm.removePill(pill)" ng-if="!vm.readOnly">X</button>    
     </div>
 </div>

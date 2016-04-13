@@ -22,7 +22,11 @@ export default angular.module("lib.pill", [])
 class PillCtrl {
     constructor() {
         this.pills = [];
-        this.pill = ''; 
+        this.pill = '';         
+        
+        if(this.ngModel) {
+            this.pills = this.ngModel;       
+        }
         
         switch(this.state) {
             case 'plus':
@@ -55,6 +59,5 @@ class PillCtrl {
 }
 
 function link(scope, el, attrs, ctrl) {
-    debugger;
-    el.find('input').attr('placeholder', ctrl.placeholder);
+    el.find('input').attr('placeholder', ctrl.placeholder);    
 }
