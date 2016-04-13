@@ -38,12 +38,23 @@ class IdeaCtrl {
         });
     }   
     
-    addReview() {
-        this.idea.reviews.push(this.review);
+    addReview() {        
+        var reviewTemp = {
+            merits: this.review.merits.slice(),
+            drawbacks: this.review.drawbacks.slice(),
+            comment: this.review.comment    
+        }
+        this.idea.reviews.push(reviewTemp);
         
-        this.review.merits.splice();
-        this.review.drawbacks.splice();
-        this.review.comment = '';        
+        clearArray(this.review.merits);
+        clearArray(this.review.drawbacks);
+        this.review.comment = '';
+        
+        function clearArray(arr) {
+            for(var i=0, len=arr.length; i<len;i++)
+                arr.pop();
+            return arr;
+        }
     }       
 };
 
