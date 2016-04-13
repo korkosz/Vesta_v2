@@ -49,7 +49,7 @@ class PillCtrl {
     
     addPill() {
         if(this.pill === '') return;
-        this.pills.push({value: this.pill}); 
+        this.pills.push(this.pill); 
         this.pill = ''; 
     }
     

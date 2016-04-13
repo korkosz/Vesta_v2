@@ -2,10 +2,15 @@
     <input type="text" class="pill" ng-model="vm.pill"/>
 </form>
 <div>
-    <div class="pill" ng-class="vm.stateClass" ng-repeat="pill in vm.pills">
+    <div class="pill" ng-class="vm.stateClass" 
+         ng-repeat="pill in vm.pills track by $index">
         <span ng-class="vm.signClass">
             {{vm.sign}}
-        </span>{{pill.value}}
-        <button ng-click="vm.removePill(pill)" ng-if="!vm.readOnly">X</button>    
+        </span>
+        {{pill}}
+        <button ng-click="vm.removePill(pill)" 
+                ng-if="!vm.readOnly">
+            X
+        </button>    
     </div>
 </div>
