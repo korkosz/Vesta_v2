@@ -1,7 +1,14 @@
 @import "{}/client/styles/imports/variables.scss";
 
+// Idea HEADER
+.idea-header{
+    background: #404040;
+}
+
+// Idea COMMENTS
 .idea-content > .wrapper{
     background: #ddd;
+    border-radius: 0 5px 5px 0;
 }
 .idea-comments{
     font-size: $ASIDEsize;
@@ -27,27 +34,60 @@
     border-bottom: transparent;
     margin: auto;
     }
-    &-content p{
-    padding-left: 15px;
-    margin-top: 15px;
+    .features{
+    margin-bottom: 15px;    
     }
     header{
     padding-right: 0;
     }
     h3{
-    line-height: 1.2em;
+    margin: 0;
+    line-height: 50px;
     }
 }
 .new-comment{
     border-radius: 20px 0 0 0;
-    padding: 30px 0;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     h3{
-    padding-top: 0;
-    padding-bottom: 20px;
     margin: 0;
+    line-height: 50px;
     color: $HR;
-    text-align: center;
+    }
+    .wrapper{
+    padding: 40px 0;
+    }
+    .status{
+    border-color: $HR;
+    background: rgba( $HR, .3 );
+    }
+    input{
+    border-color: $HR;
+    background: rgba( $HR, .3 );
+    width: 100%;
+    transition: 0.5s;
+    }
+    input:focus{
+    background: #fff;
+    }
+    textarea{
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 15px;
+    overflow: auto;
+    resize: none;
+    border-color: $HR;
+    background: rgba( $HR, .3 );
+    transition: 0.5s;
+    }
+    textarea:focus{
+    background: #fff;
+    }
+    .comment-content > button{
+    display: block;
+    margin: auto;
+    margin-top: 20px;
     }
 }
 .reviewer-avatar{
@@ -61,11 +101,20 @@
     font-size: $BODYsize;
     letter-spacing: 1px;
 }
+.status-wrapper{
+    height: 50px;
+    padding-right: 0;
+    text-align: center;
+    line-height: 50px;
+}
 .status{
+    display: inline-block;
     width:30px; height:30px;
     border: 2px solid; 
     border-radius: 50%;
-    margin: 20px auto;
+    margin: 5px auto;
+    line-height: 50px;
+    vertical-align: middle;
     &-like{
     border-color: $green;
     }
