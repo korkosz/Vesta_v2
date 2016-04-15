@@ -13,7 +13,7 @@
                 <h4>New Idea</h4>
             </div>
             <div class="modal-body">
-                <form novalidate>
+                <form name="newIdea">
                     <br />
                     <fieldset id="project">
                         <label class="label label-default">Project</label>
@@ -35,9 +35,13 @@
                     <br />
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Title</label>
-                        <input type="text" ng-model="$ctrl.idea.title" />
-                    </fieldset>  
-                    <fieldset id="title" class="fsStyle">
+                        <input name="title" type="text" ng-model="$ctrl.idea.title" required/>
+                    </fieldset> 
+                      <div ng-messages="newIdea.title.$error" role="alert" 
+                           ng-if="newIdea.title.$touched">
+                        <div ng-message="required">Please enter a value for this field.</div>
+                      </div>
+                    <fieldset id="description" class="fsStyle">
                         <label class="label label-default">Description</label>
                         <drag-and-drop output="$ctrl.output"></drag-and-drop>
                     </fieldset>                     

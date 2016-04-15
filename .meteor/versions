@@ -10,6 +10,7 @@ aldeed:simple-schema@1.5.3
 allow-deny@1.0.2
 angular-templates@1.0.2
 angular:angular@1.5.2
+angular:angular-messages@1.5.2
 angular:angular-route@1.5.2
 autopublish@1.0.5
 autoupdate@1.2.6

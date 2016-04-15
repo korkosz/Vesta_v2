@@ -6,6 +6,7 @@ angular.module('simple-todos', [
     angularMeteor,
     ngRoute,
     'accounts.ui',
+    'ngMessages',
     'idea',
     'lib',
     'lib.pill',

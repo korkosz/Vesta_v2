@@ -28,3 +28,4 @@ cfs:standard-packages
 cfs:gridfs
 dotansimha:accounts-ui-angular
 accounts-password
+angular:angular-messages
