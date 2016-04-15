@@ -26,3 +26,5 @@ msavin:mongol
 aldeed:collection2
 cfs:standard-packages
 cfs:gridfs
+dotansimha:accounts-ui-angular
+accounts-password
