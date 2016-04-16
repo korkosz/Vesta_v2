@@ -13,15 +13,28 @@ class NewIdeaCtrl {
         $scope.viewModel(this);
         
         this.idea = {};
+        this.selectedReviewersEmails = [];
+        this.selectedReviewersIds = [];
         this.idea.description = '';
         
         this.helpers({
             projects() {
                 return Projects.find();
+            },
+            users() {
+                return Meteor.users.find();
             }
         });
     }
-
+    
+    reviewerSelected() {
+        if(this.selectedReviewersIds.indexOf(
+            this.reviewer._id) !== -1) return;
+        this.selectedReviewersIds.push(this.reviewer._id);
+        this.selectedReviewersEmails.push(this.reviewer.emails[0].address);
+        this.reviewer = null;
+    }
+    
     closeModal() {
         $('#newIdeaModal').modal('hide');
     }
@@ -30,6 +43,7 @@ class NewIdeaCtrl {
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
+            this.idea.reviewers = this.selectedReviewersIds;
             Ideas.insert(this.idea);
             this.closeModal();  
         });        

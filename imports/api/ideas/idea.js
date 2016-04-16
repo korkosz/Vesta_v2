@@ -23,6 +23,10 @@ Ideas.schema = new SimpleSchema({
             return "New";
         }
     },
+    reviewers: {
+        type: [String],
+        optional: true
+    },
     creationDate: {
         type: Date,
         autoValue: function() {

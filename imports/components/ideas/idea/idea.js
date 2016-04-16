@@ -24,10 +24,14 @@ class IdeaCtrl {
                 if(idea) {
                     let project = Projects.findOne({_id: idea.projectId});
                     let user = Meteor.users.findOne({_id: idea.createdBy});
-                    
+                    let reviewers = Meteor.users.find({
+                        _id: {
+                            $in: idea.reviewers
+                        }
+                    }).fetch();
                     idea.projectName = project && project.name;
                     idea.createdBy = user.emails[0].address;
-                    
+                    idea.reviewers = reviewers; 
                     idea.desc = function() {
                         return $sce.trustAsHtml(idea.description);    
                     };

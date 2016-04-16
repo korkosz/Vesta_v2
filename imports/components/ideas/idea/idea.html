@@ -17,10 +17,13 @@
             </header>
             <div class="reviewers">
                 <h3>Reviewers:</h3>
-                <div class="wrapper">
-                    <div class="reviewer">Maciej Chmiel</div>
-                    <p>creator</p>
+                <div class="wrapper" 
+                     ng-repeat="reviewer in $ctrl.idea.reviewers">
+                    <div class="reviewer">
+                        {{reviewer.emails[0].address}}
+                    </div>                    
                 </div>
+                <p>creator</p>
                 <div class="wrapper">
                     <div class="reviewer">{{$ctrl.idea.createdBy}}</div>
                     <p>programmer</p>

@@ -46,16 +46,22 @@
                         <drag-and-drop output="newIdeaVm.output"></drag-and-drop>
                     </fieldset>                     
                     <br>
+                    
+                    
                     <fieldset id="assign">
-                        <label class="label label-default">Assign people</label>
-                        <input list="users" ng-model="vm.task.assigned" />
-                        <datalist id="users">
-                            <option ng-repeat="user in newIdeaVm.users">
-                                {{user.emails[0].address}}
-                            </option>
-                        </datalist>
+                        <label class="label label-default">
+                            Assign reviewers
+                        </label>
+                        <select ng-model="newIdeaVm.reviewer" 
+                                ng-change="newIdeaVm.reviewerSelected()"
+                                ng-options="user.emails[0].address for user in 
+                                            newIdeaVm.users">
+                        </select>
                     </fieldset>
                     <br>  
+                    <pill read-only="true" 
+                          ng-model="newIdeaVm.selectedReviewersEmails"></pill>
+                    
                     <button id="acceptBtn" class="btn btn-success" 
                             ng-click="newIdeaVm.accept()">
                         Click
