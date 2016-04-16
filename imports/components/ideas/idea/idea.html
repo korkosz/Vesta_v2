@@ -12,7 +12,7 @@
                 </div>
                 <div class="wrapper">
                     <h3>Status:</h3>
-                    <p>{{$ctrl.idea.module}}</p>
+                    <p>{{$ctrl.idea.status}}</p>
                 </div>
             </header>
             <div class="reviewers">
@@ -60,15 +60,18 @@
                                   ng-model="$ctrl.review.drawbacks"></pill>           
                         </div>
                     </div>
-                    <textarea placeholder="Add description" ng-model="$ctrl.review.comment"></textarea>
-                    <button class="btn btn-default" ng-click="$ctrl.addReview()">
+                    <textarea placeholder="Add description" 
+                              ng-model="$ctrl.review.comment"></textarea>
+                    <button class="btn btn-default" 
+                            ng-click="$ctrl.addReview()">
                         Add
                     </button>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>      
-        <div class="new-comment row" ng-repeat="review in $ctrl.idea.reviews track by $index">
+        <div class="new-comment row" 
+             ng-repeat="review in $ctrl.idea.reviews track by $index">
             <div class="wrapper">
                 <div class="col-xs-3 status-wrapper">
                     <div class="status"></div>

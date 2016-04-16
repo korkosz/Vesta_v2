@@ -35,16 +35,18 @@ TaskCollection.schema = new SimpleSchema({
             return "New";
         }
     },
-    creator: {
-        type: String,
-        autoValue: function() {
-            return 'Korkosz';
-        }
-    },
     creationDate: {
         type: Date,
         autoValue: function() {
             return new Date();
+        }
+    },
+    createdBy: {
+        type: String,
+        autoValue() {
+            if(this.userId) return this.userId;
+            return 'KorkoszDefaultMateusz';
+            
         }
     }
 });

@@ -39,6 +39,7 @@ class NewTaskCtrl {
     accept() {
         this.compileOutput().then(() => {
             this.task.projectId = this.task.project._id;
+            this.task.createdBy = Meteor.userId();
             Tasks.insert(this.task);
             this.closeModal();  
         });        
@@ -58,7 +59,7 @@ export default angular.module("task")
         return {
             templateUrl: "imports/components/tasks/task new/task_new.html",
             controller: NewTaskCtrl,
-            controllerAs: '$ctrl',
+            controllerAs: 'newTaskVm',
             link
         }
 

@@ -1,8 +1,14 @@
 
-<div class="container-fluid">
-    <new-idea></new-idea>
-    <new-task></new-task>
-    <br /><br />
-    <idea-list></idea-list>
-    <task-list></task-list>
+<div class="container-fluid" ng-controller="globalCtrl as globalVm"
+     ng-switch="globalVm.userLogIn()">
+    <span ng-switch-when="true">
+        <new-idea></new-idea>
+        <new-task></new-task>
+        <br /><br />
+        <idea-list></idea-list>
+        <task-list></task-list>
+    </span>
+    <span ng-switch-when="false">
+        Maciek wiesniaku zaloguj sie
+    </span>
 </div>

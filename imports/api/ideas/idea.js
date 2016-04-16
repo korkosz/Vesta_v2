@@ -28,8 +28,17 @@ Ideas.schema = new SimpleSchema({
         autoValue: function() {
             return new Date();
         }
+    },
+    createdBy: {
+        type: String,
+        autoValue() {
+            if(this.userId) return this.userId;
+            return 'KorkoszDefaultMateusz';
+            
+        }
     }
 });
+Ideas.schema.clean({extendAutoValueContext: true});
 
 export const ideaSchema = Ideas.schema;
 

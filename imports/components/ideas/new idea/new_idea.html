@@ -1,8 +1,8 @@
 <button type="button" class="btn btn-info btn-md" data-toggle="modal" 
-            data-target="#newIdeaModal" data-backdrop="false" ng-click="$ctrl.openModal()">
+            data-target="#newIdeaModal" data-backdrop="false" ng-click="newIdeaVm.openModal()">
     New Idea
 </button>
-{{output.a}}
+
 <!-- Modal -->
 <div class="modal fade" id="newIdeaModal" role="dialog">
     <div class="modal-dialog">
@@ -17,17 +17,17 @@
                     <br />
                     <fieldset id="project">
                         <label class="label label-default">Project</label>
-                        <select ng-model="$ctrl.idea.project" 
-                                ng-options="project as project.name for project in $ctrl.projects">
+                        <select ng-model="newIdeaVm.idea.project" 
+                                ng-options="project as project.name for project in newIdeaVm.projects">
                             <option>Choose project...</option>
                         </select>
                     </fieldset>
                     <br />
                     <fieldset id="module">
                         <label class="label label-default">Module</label>
-                        <select ng-model="$ctrl.idea.module">
+                        <select ng-model="newIdeaVm.idea.module">
                             <option selected="selected">Choose module...</option>                  
-                            <option ng-repeat="module in $ctrl.idea.project.modules">
+                            <option ng-repeat="module in newIdeaVm.idea.project.modules">
                                 {{module}}
                             </option>
                         </select>
@@ -35,7 +35,7 @@
                     <br />
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Title</label>
-                        <input name="title" type="text" ng-model="$ctrl.idea.title" required/>
+                        <input name="title" type="text" ng-model="newIdeaVm.idea.title" required/>
                     </fieldset> 
                       <div ng-messages="newIdea.title.$error" role="alert" 
                            ng-if="newIdea.title.$touched">
@@ -43,25 +43,25 @@
                       </div>
                     <fieldset id="description" class="fsStyle">
                         <label class="label label-default">Description</label>
-                        <drag-and-drop output="$ctrl.output"></drag-and-drop>
+                        <drag-and-drop output="newIdeaVm.output"></drag-and-drop>
                     </fieldset>                     
                     <br>
                     <fieldset id="assign">
                         <label class="label label-default">Assign people</label>
                         <input list="users" ng-model="vm.task.assigned" />
                         <datalist id="users">
-                            <option ng-repeat="user in $ctrl.users">
+                            <option ng-repeat="user in newIdeaVm.users">
                                 {{user.emails[0].address}}
                             </option>
                         </datalist>
                     </fieldset>
                     <br>  
                     <button id="acceptBtn" class="btn btn-success" 
-                            ng-click="$ctrl.accept()">
+                            ng-click="newIdeaVm.accept()">
                         Click
                     </button>
                     <button id="cancelBtn" class="btn btn-danger" 
-                            ng-click="$ctrl.cancel()">
+                            ng-click="newIdeaVm.cancel()">
                         Cancel
                     </button>
                 </form>                

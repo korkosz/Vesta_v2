@@ -29,6 +29,7 @@ class NewIdeaCtrl {
     accept() {
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
+            this.idea.createdBy = Meteor.userId();
             Ideas.insert(this.idea);
             this.closeModal();  
         });        
@@ -48,7 +49,7 @@ export default angular.module("idea")
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,
-            controllerAs: '$ctrl',
+            controllerAs: 'newIdeaVm',
             link
         }
 
@@ -98,7 +99,7 @@ export default angular.module("idea")
                     }
                 }
                 
-                return $q.all(promises).then(function() {
+                return $q.all(promises).then(function() {                              
                     ctrl.idea.description = editEl.html();    
                 });
             };

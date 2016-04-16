@@ -10,5 +10,8 @@ angular.module('simple-todos', [
     'idea',
     'lib',
     'lib.pill',
-    'task'
+    'task',
+    'global'
 ]);
+
+
