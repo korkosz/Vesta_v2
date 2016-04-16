@@ -14,7 +14,10 @@ class TaskListCtrl {
             tasks() {                
                 return Tasks.find().map(function (task) {
                 	var project = Projects.findOne({_id: task.projectId});
+                    var user = Meteor.users.findOne({_id: task.createdBy});
+                    
                 	task.projectName = project.name;
+                    task.createdBy = user.emails[0].address;
                 	return task;
                 });
             }     
