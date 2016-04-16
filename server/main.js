@@ -17,30 +17,7 @@ Meteor.publish(null, function () {
 
 Meteor.startup(() => {
 	ProjectsCollection.remove({});
-	IdeasCollection.remove({});
-    Metadata.remove({});
-    TaskCollection.remove({});
-    
-    Metadata.insert({
-        metadataName: 'IdeaStatuses',
-        value: ['New', 'Considered', 'Resolved', 'Rejected']        
-    });
-
-    Metadata.insert({
-        metadataName: 'TaskPriority',
-        value: ['Low', 'Normal', 'High']        
-    });
-    
-    Metadata.insert({
-        metadataName: 'TaskType',
-        value: ['Bug', 'Feature']        
-    });
-    
-    Metadata.insert({
-        metadataName: 'TaskStatuses',
-        value: ['Open', 'Closed', 'Working', 'Rejected', 'Ready for testing']        
-    });
-    
+	    
 	ProjectsCollection.insert({
 		name: 'Vesta',
 		modules: [
@@ -76,53 +53,4 @@ Meteor.startup(() => {
 			'ProjectTest3_module3'
 		]	
 	});	
-
-	IdeasCollection.insert({
-		title: 'idea1_Title',
-		description: 'idea1_Description',
-		projectId: id1,
-        module: 'ProjectTest1_module1'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea2_Title',
-		description: 'idea2_Description',
-		projectId: id1,
-        module: 'ProjectTest1_module2'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea3_Title',
-		description: 'idea3_Description',
-		projectId: id1,
-        module: 'ProjectTest1_module13'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea4_Title',
-		description: 'idea4_Description',
-		projectId: id1,
-        module: 'ProjectTest1_module3'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea5_Title',
-		description: 'idea5_Description',
-		projectId: id2,
-        module: 'ProjectTest2_module1'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea6_Title',
-		description: 'idea6_Description',
-		projectId: id2,
-        module: 'ProjectTest2_module3'
-	});
-
-	IdeasCollection.insert({
-		title: 'idea7_Title',
-		description: 'idea7_Description',
-		projectId: id3,
-        module: 'ProjectTest3_module1'
-	});
 });
