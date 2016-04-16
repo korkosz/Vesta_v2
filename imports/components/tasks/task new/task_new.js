@@ -25,6 +25,9 @@ class NewTaskCtrl {
             },
             taskPriority() {
                 return Metadata.findOne({metadataName: 'TaskPriority'});
+            },
+            users() {
+                return Meteor.users.find();    
             }
         });
     }

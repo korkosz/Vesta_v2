@@ -63,14 +63,18 @@
                     <br>
                     <fieldset id="assign">
                         <label class="label label-default">Assign people</label>
-                        <input list="modules" ng-model="vm.task.module" />
-                        <datalist id="modules">
-                            <option>testModule</option>
+                        <input list="users" ng-model="vm.task.assigned" />
+                        <datalist id="users">
+                            <option ng-repeat="user in $ctrl.users">
+                                {{user.emails[0].address}}
+                            </option>
                         </datalist>
                     </fieldset>
                     <br>  
-                    <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.accept()">Click</button>
-                    <button id="cancelBtn" class="btn btn-danger" ng-click="$ctrl.cancel()">Cancel</button>
+                    <button id="acceptBtn" class="btn btn-success" 
+                            ng-click="$ctrl.accept()">Click</button>
+                    <button id="cancelBtn" class="btn btn-danger" 
+                            ng-click="$ctrl.cancel()">Cancel</button>
                 </form>                
             </div>
         </div>

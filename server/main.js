@@ -11,6 +11,10 @@ Images.allow({
   }
 });
 
+Meteor.publish(null, function () {
+    return Meteor.users.find();
+});
+
 Meteor.startup(() => {
 	ProjectsCollection.remove({});
 	IdeasCollection.remove({});
