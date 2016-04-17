@@ -70,15 +70,12 @@ function link(scope, el, attrs, ctrl) {
     el.find('input').attr('placeholder',
         ctrl.ctPlaceholder);
 
-    switch (ctrl.direction) {
-        case 'read-only':
-            el.find('#pilltxt').hide();
-            break;
-        case 'one-way':
-            el.find('#pilltxt').hide();
-            break;
-        default:
-            break;
+    ctrl.readOnly = function() {
+        return ctrl.direction === 'read-only';    
     }
-
+    
+    ctrl.twoWay = function() {
+        return ctrl.direction === 'two-way' ||
+            angular.isUndefined(ctrl.direction);    
+    }
 }
