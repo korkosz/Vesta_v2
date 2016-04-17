@@ -9,7 +9,7 @@
         </span>
         {{pill}}
         <button ng-click="vm.removePill(pill)" 
-                ng-if="!vm.readOnly">
+                ng-if="vm.direction !== 'read-only'">
             X
         </button>    
     </div>

@@ -1,17 +1,25 @@
 import '../lib.js';
 import './pill.html';
 
+//TODO: Zrezygnowac z atrybutu state, lepiej pozwolic na stylizowanie klasa, oraz wsadzanie icon
+
+/**
+ * {<Direction} may be: 
+ * a) read-only - input and remove button are hidden
+ * b) one-way - input is hidden, remove button not
+ * c) two-way - both input and remove button are visible
+ */
 export default angular.module("lib.pill", [])
     .directive("pill", function () {
         return {
             restrict: 'E',
-            templateUrl: 'imports/components/lib/pill/pill.html', 
+            templateUrl: 'imports/components/lib/pill/pill.html',
             controller: PillCtrl,
-            controllerAs: 'vm', 
+            controllerAs: 'vm',
             scope: {
                 state: '@',
                 ngModel: '=',
-                readOnly: '<?',
+                direction: '@?',
                 ctPlaceholder: '@'
             },
             bindToController: true,
@@ -22,13 +30,13 @@ export default angular.module("lib.pill", [])
 class PillCtrl {
     constructor() {
         this.pills = [];
-        this.pill = '';         
-        
-        if(this.ngModel) {
-            this.pills = this.ngModel;       
+        this.pill = '';
+
+        if (this.ngModel) {
+            this.pills = this.ngModel;
         }
-        
-        switch(this.state) {
+
+        switch (this.state) {
             case 'plus':
                 this.sign = '+';
                 this.signClass = this.state;
@@ -44,24 +52,33 @@ class PillCtrl {
                 this.signClass = '';
                 this.stateClass = '';
                 break;
-        }           
+        }
     }
-    
+
     addPill() {
-        if(this.pill === '') return;
-        this.pills.push(this.pill); 
-        this.pill = ''; 
+        if (this.pill === '') return;
+        this.pills.push(this.pill);
+        this.pill = '';
     }
-    
+
     removePill(pill) {
-        this.pills.splice(this.pills.indexOf(pill), 1);    
+        this.pills.splice(this.pills.indexOf(pill), 1);
     }
 }
 
 function link(scope, el, attrs, ctrl) {
-    el.find('input').attr('placeholder', 
+    el.find('input').attr('placeholder',
         ctrl.ctPlaceholder);
-    
-    // read-only
-    if(ctrl.readOnly) el.find('#pilltxt').hide();
+
+    switch (ctrl.direction) {
+        case 'read-only':
+            el.find('#pilltxt').hide();
+            break;
+        case 'one-way':
+            el.find('#pilltxt').hide();
+            break;
+        default:
+            break;
+    }
+
 }

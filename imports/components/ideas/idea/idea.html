@@ -93,10 +93,12 @@
                 <div class="comment-content col-xs-9">
                     <div class="row features">
                         <div class="pill-container col-xs-6">
-                            <pill state="plus" ng-model="review.merits" read-only="true"></pill>
+                            <pill state="plus" ng-model="review.merits"    
+                                  direction="read-only"></pill>
                         </div>
                         <div class="col-xs-6">
-                            <pill state="minus" ng-model="review.drawbacks" read-only="true"></pill>
+                            <pill state="minus" ng-model="review.drawbacks" 
+                                  direction="read-only"></pill>
                         </div>
                     </div>
                     <textarea ng-model="review.comment" readonly></textarea>
