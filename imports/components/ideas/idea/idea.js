@@ -30,7 +30,7 @@ class IdeaCtrl {
                         }
                     }).fetch();
                     idea.projectName = project && project.name;
-                    idea.createdBy = user.emails[0].address;
+                    idea.createdBy = user.profile.fullname;
                     idea.reviewers = reviewers; 
                     idea.desc = function() {
                         return $sce.trustAsHtml(idea.description);    

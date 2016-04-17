@@ -10,5 +10,53 @@
     </span>
     <span ng-switch-when="false">
         Maciek wiesniaku zaloguj sie
+            <br />
+            <pre>
+                To jest tworzenie accounta, trzeba to wjebac tak jak to na gorze w lewym
+            rogu -> tamto to zewnetrzna biblioteka
+            </pre>
+            
+            <form ng-submit="globalVm.createAccount()" name="accountCreate" novalidate>
+
+                <label>email</label>
+                <input ng-model="globalVm.email" required name="email" />
+                <div ng-messages="accountCreate.email.$error" role="alert" 
+                     ng-show="accountCreate.email.$touched || accountCreate.$submitted">
+                    <div ng-message="required" style="color:red">
+                            Please enter a value for this field.
+                    </div>
+                </div>
+                
+                <label>firstname</label>
+                <input ng-model="globalVm.firstname" required name="firstname" />
+                <div ng-messages="accountCreate.firstname.$error" role="alert" 
+                     ng-show="accountCreate.firstname.$touched || accountCreate.$submitted">
+                    <div ng-message="required" style="color:red">
+                            Please enter a value for this field.
+                    </div>
+                </div>
+                
+                <label>lastname</label>
+                <input ng-model="globalVm.lastname" required name="lastname" />
+                <div ng-messages="accountCreate.lastname.$error" 
+                     role="alert"
+                     ng-show="accountCreate.lastname.$touched || accountCreate.$submitted">
+                    <div ng-message="required" style="color:red">
+                            Please enter a value for this field.
+                    </div>
+                </div>
+                
+                <label>password</label>
+                <input ng-model="globalVm.password" type="password" 
+                       required name="password" />
+                <div ng-messages="accountCreate.password.$error" role="alert" 
+                     ng-show="accountCreate.password.$touched || accountCreate.$submitted">
+                    <div ng-message="required" style="color:red">
+                            Please enter a value for this field.
+                    </div>
+                </div>
+                
+                <input type="submit" value="Add"/>
+            </form>
     </span>
 </div>

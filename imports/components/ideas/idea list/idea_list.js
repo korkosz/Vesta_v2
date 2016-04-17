@@ -16,7 +16,7 @@ class IdeaListCtrl {
                 return Ideas.find().map(function (idea) {
                 	var project = Projects.findOne({_id: idea.projectId});
                     var user = Meteor.users.findOne({_id: idea.createdBy});
-                    idea.createdBy = user.emails[0].address;
+                    idea.createdBy = user.profile.fullname;
                 	idea.projectName = project.name;
                 	return idea;
                 });

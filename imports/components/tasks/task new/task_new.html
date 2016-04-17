@@ -62,14 +62,18 @@
                     </fieldset>                     
                     <br>
                     <fieldset id="assign">
-                        <label class="label label-default">Assign people</label>
-                        <input list="users" ng-model="vm.task.assigned" />
-                        <datalist id="users">
-                            <option ng-repeat="user in newTaskVm.users">
-                                {{user.emails[0].address}}
-                            </option>
-                        </datalist>
+                        <label class="label label-default">
+                            Assign people
+                        </label>
+                        <select ng-model="newTaskVm.assigned" 
+                                ng-change="newTaskVm.userAssigned()"
+                                ng-options="user.profile.fullname for user in 
+                                            newTaskVm.users">
+                        </select>
                     </fieldset>
+                    <br>  
+                    <pill read-only="true" 
+                          ng-model="newTaskVm.selectedUsers"></pill>
                     <br>  
                     <button id="acceptBtn" class="btn btn-success" 
                             ng-click="newTaskVm.accept()">Click</button>

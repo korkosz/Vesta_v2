@@ -54,13 +54,13 @@
                         </label>
                         <select ng-model="newIdeaVm.reviewer" 
                                 ng-change="newIdeaVm.reviewerSelected()"
-                                ng-options="user.emails[0].address for user in 
+                                ng-options="user.profile.fullname for user in 
                                             newIdeaVm.users">
                         </select>
                     </fieldset>
                     <br>  
                     <pill read-only="true" 
-                          ng-model="newIdeaVm.selectedReviewersEmails"></pill>
+                          ng-model="newIdeaVm.selectedReviewers"></pill>
                     
                     <button id="acceptBtn" class="btn btn-success" 
                             ng-click="newIdeaVm.accept()">

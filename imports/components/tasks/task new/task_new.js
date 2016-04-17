@@ -14,6 +14,8 @@ class NewTaskCtrl {
         $scope.viewModel(this);
         
         this.task = {};
+        this.selectedUsers = [];
+        this.selectedUsersIds = [];
         this.task.description = '';
         
         this.helpers({
@@ -44,7 +46,15 @@ class NewTaskCtrl {
             this.closeModal();  
         });        
     }
-
+    
+    userAssigned() {
+        if(this.selectedUsersIds.indexOf(
+            this.assigned._id) !== -1) return;
+        this.selectedUsersIds.push(this.assigned._id);
+        this.selectedUsers.push(this.assigned.profile.fullname);
+        this.assigned = null;
+    }
+    
     cancel() {
         this.closeModal();
     }

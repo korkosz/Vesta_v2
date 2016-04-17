@@ -17,7 +17,7 @@ class TaskListCtrl {
                     var user = Meteor.users.findOne({_id: task.createdBy});
                     
                 	task.projectName = project.name;
-                    task.createdBy = user.emails[0].address;
+                    task.createdBy = user.profile.fullname;
                 	return task;
                 });
             }     

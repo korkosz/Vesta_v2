@@ -13,7 +13,7 @@ class NewIdeaCtrl {
         $scope.viewModel(this);
         
         this.idea = {};
-        this.selectedReviewersEmails = [];
+        this.selectedReviewers = [];
         this.selectedReviewersIds = [];
         this.idea.description = '';
         
@@ -31,7 +31,7 @@ class NewIdeaCtrl {
         if(this.selectedReviewersIds.indexOf(
             this.reviewer._id) !== -1) return;
         this.selectedReviewersIds.push(this.reviewer._id);
-        this.selectedReviewersEmails.push(this.reviewer.emails[0].address);
+        this.selectedReviewers.push(this.reviewer.profile.fullname);
         this.reviewer = null;
     }
     
