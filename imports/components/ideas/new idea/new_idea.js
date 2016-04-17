@@ -39,7 +39,8 @@ class NewIdeaCtrl {
         $('#newIdeaModal').modal('hide');
     }
 
-    accept() {
+    accept(valid) {
+        if(!valid) return;
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
@@ -50,7 +51,7 @@ class NewIdeaCtrl {
         });        
     }
 
-    cancel() {
+    cancel() {        
         this.closeModal();
     }
 

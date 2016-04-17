@@ -13,41 +13,61 @@
                 <h4>New Idea</h4>
             </div>
             <div class="modal-body">
-                <form name="newIdea">
+                <form name="newIdea" novalidate>
                     <br />
+                    
+                    <!--Project-->
                     <fieldset id="project">
                         <label class="label label-default">Project</label>
-                        <select ng-model="newIdeaVm.idea.project" 
-                                ng-options="project as project.name for project in newIdeaVm.projects">
-                            <option>Choose project...</option>
+                        <select ng-model="newIdeaVm.idea.project" name="project" required
+                                ng-options="project as project.name for project in newIdeaVm.projects">                            
                         </select>
+                        <div ng-messages="newIdea.project.$error" style="color:red">
+                            <div ng-message="required" ng-show="newIdea.project.$touched ||
+                                newIdea.$submitted">
+                                This field is required
+                            </div>    
+                        </div>
                     </fieldset>
                     <br />
+                    
+                    <!--Module-->
                     <fieldset id="module">
                         <label class="label label-default">Module</label>
-                        <select ng-model="newIdeaVm.idea.module">
-                            <option selected="selected">Choose module...</option>                  
+                        <select ng-model="newIdeaVm.idea.module" name="module" required>                                         
                             <option ng-repeat="module in newIdeaVm.idea.project.modules">
                                 {{module}}
                             </option>
                         </select>
+                        <div ng-messages="newIdea.module.$error" style="color:red">
+                            <div ng-message="required" ng-show="newIdea.module.$touched ||
+                                newIdea.$submitted">
+                                This field is required
+                            </div>    
+                        </div>
                     </fieldset>
                     <br />
+                    
+                    <!--Title-->
                     <fieldset id="title" class="fsStyle">
                         <label class="label label-default">Title</label>
                         <input name="title" type="text" ng-model="newIdeaVm.idea.title" required/>
                     </fieldset> 
-                      <div ng-messages="newIdea.title.$error" role="alert" 
-                           ng-if="newIdea.title.$touched">
-                        <div ng-message="required">Please enter a value for this field.</div>
-                      </div>
+                    <div ng-messages="newIdea.title.$error" style="color:red">
+                        <div ng-message="required" ng-show="newIdea.title.$touched ||
+                            newIdea.$submitted">
+                            This field is required
+                        </div>    
+                    </div>
+                    
+                    <!--Description-->
                     <fieldset id="description" class="fsStyle">
                         <label class="label label-default">Description</label>
                         <drag-and-drop output="newIdeaVm.output"></drag-and-drop>
                     </fieldset>                     
                     <br>
                     
-                    
+                    <!--Assign-->
                     <fieldset id="assign">
                         <label class="label label-default">
                             Assign reviewers
@@ -62,8 +82,9 @@
                     <pill direction="one-way" 
                           ng-model="newIdeaVm.selectedReviewers"></pill>
                     
+                    <!--Footer buttons-->
                     <button id="acceptBtn" class="btn btn-success" 
-                            ng-click="newIdeaVm.accept()">
+                            ng-click="newIdeaVm.accept(newIdea.$valid)">
                         Click
                     </button>
                     <button id="cancelBtn" class="btn btn-danger" 
