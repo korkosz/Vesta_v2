@@ -44,6 +44,7 @@ class NewIdeaCtrl {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.reviewers = this.selectedReviewersIds;
+            this.idea.reviews = [];
             Ideas.insert(this.idea);
             this.closeModal();  
         });        

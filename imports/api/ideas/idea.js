@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 
 export default Ideas = new Mongo.Collection('ideas');
 //
+
 Ideas.schema = new SimpleSchema({
     title: {
         type: String,
@@ -27,6 +28,10 @@ Ideas.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
+    reviews: {
+        type: [String],
+        optional: true
+    },
     creationDate: {
         type: Date,
         autoValue: function() {
@@ -42,9 +47,6 @@ Ideas.schema = new SimpleSchema({
         }
     }
 });
-Ideas.schema.clean({extendAutoValueContext: true});
-
-export const ideaSchema = Ideas.schema;
 
 Ideas.attachSchema(Ideas.schema);
 

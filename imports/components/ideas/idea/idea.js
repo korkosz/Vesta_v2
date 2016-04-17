@@ -1,7 +1,7 @@
 import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
-
+import Reviews from '/imports/api/ideas/review';
 import pill from '/imports/components/lib/pill/pill';
 import './idea.html';
 
@@ -15,7 +15,6 @@ class IdeaCtrl {
             comment: ''
         };
         
-        this.pile = ["1", "2", "3", "1"];
         this.$routeParams = $routeParams;
         
         this.helpers({
@@ -35,29 +34,57 @@ class IdeaCtrl {
                     idea.desc = function() {
                         return $sce.trustAsHtml(idea.description);    
                     };
-                    idea.reviews = [];
+                    if(!idea.reviews) idea.reviews = [];                    
                 }
                 return idea;
             },
-            ideaStatuses() {           
-                  console.log(Metadata.findOne({metadataName: 'IdeaStatuses'}))
-                  return Metadata.findOne({metadataName: 'IdeaStatuses'});
+            ideaStatuses() {                                 
+                return Metadata.findOne({metadataName: 'IdeaStatuses'});
+            },
+            reviews() {
+                var idea = Ideas.findOne({_id: this.$routeParams.id});
+                if(idea) return Reviews.find({_id: {$in: idea.reviews}});                
             }
         });
     }   
     
-    addReview() {        
-        var reviewTemp = {
-            merits: this.review.merits.slice(),
-            drawbacks: this.review.drawbacks.slice(),
-            comment: this.review.comment    
-        }
-        this.idea.reviews.push(reviewTemp);
+    removeReview(_revId) {          
+        Reviews.remove(_revId, this.idea._id);
+    }
+    
+    newReviewVisible() {
+        if(!this.idea || !Meteor.user()) return false;
+        
+        const vm = this;
+        
+        return userInReviewers() && userDidntReviewedYet();
+        
+        ///
+        function userInReviewers() {            
+            return vm.idea.reviewers.findIndex((_rev)=>
+                _rev._id === Meteor.userId()) > -1;        
+        };
+        
+        function userDidntReviewedYet() {
+            return vm.idea.reviews.findIndex((_rev)=>
+                _rev.createdBy === Meteor.userId()) === -1;            
+        };
+    }
+    
+    currentUserName() {
+        if(Meteor.user()) return Meteor.user().profile.fullname;
+    }
+    
+    addReview() {          
+        this.review._createdBy = Meteor.userId();
+        this.review._ideaId = this.idea._id;
+        Reviews.insert(this.review, ()=> alert());
         
         clearArray(this.review.merits);
         clearArray(this.review.drawbacks);
-        this.review.comment = '';
+        this.review.comment = '';      
         
+        ///
         function clearArray(arr) {
             for(var i=0, len=arr.length; i<len;i++)
                 arr.pop();
