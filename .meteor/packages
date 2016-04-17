@@ -30,3 +30,4 @@ dotansimha:accounts-ui-angular
 accounts-password
 angular:angular-messages
 check
+dburles:collection-helpers

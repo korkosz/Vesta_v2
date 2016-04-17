@@ -51,13 +51,13 @@ class IdeaCtrl {
     removeReview(_revId) {
         Reviews.remove(_revId, this.idea._id);
     }
-    
+
     removeReviewVisible(_createdBy) {
         return Meteor.userId() === _createdBy;
     }
 
     newReviewVisible() {
-        if (!this.idea || !this.reviews ||!Meteor.user()) return false;
+        if (!this.idea || !this.reviews || !Meteor.user()) return false;
 
         const vm = this;
 

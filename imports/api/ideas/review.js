@@ -13,9 +13,9 @@ class ReviewsCollection extends Mongo.Collection {
 
     //TODO: ZMIENIC REVID NA SELECTOR
     remove(revId, ideaId) {
-        if(typeof ideaId === 'undefined') throw new Error('ideaId is undefined !!!')
-        if(typeof revId === 'undefined') throw new Error('revId is undefined !!!')
-        
+        if (typeof ideaId === 'undefined') throw new Error('ideaId is undefined !!!');
+        if (typeof revId === 'undefined') throw new Error('revId is undefined !!!');
+
         super.remove(revId, function (err, res) {
             console.log(revId, ideaId);
             Ideas.update({ _id: ideaId }, {
@@ -26,6 +26,13 @@ class ReviewsCollection extends Mongo.Collection {
 }
 
 export default Reviews = new ReviewsCollection('Reviews')
+
+Reviews.helpers({
+    creator() {
+        var user = Meteor.users.findOne(this._createdBy);
+        if(user) return user.profile.fullname;        
+    }
+});
 
 ReviewSchema = new SimpleSchema({
     _ideaId: {

@@ -82,7 +82,7 @@
                 <div class="col-xs-3 status-wrapper">
                     <div class="status"></div>
                 </div>
-                <h3 class="col-xs-9">Maciej Chmiel  
+                <h3 class="col-xs-9">{{review.creator()}} 
                     <button ng-click="$ctrl.removeReview(review._id)"
                             ng-if="$ctrl.removeReviewVisible(review._createdBy)">
                         X
