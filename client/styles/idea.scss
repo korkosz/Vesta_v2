@@ -55,8 +55,9 @@
             }
             p{
             display: inline-block;
-            font-size: $PILLsize;
+            font-size: 10px;
             font-weight: $bold;
+            text-transform: uppercase;
             }
             button.reviewer-button{
             background: $grey;
