@@ -1,6 +1,6 @@
 <div class="row">
     <section class="idea-header col-xs-12 col-sm-3 col-md-2">
-        <div class="content">
+        <div class="idea-header-content">
             <header class="info">
                 <div class="wrapper">
                     <h3>Project:</h3>
@@ -17,25 +17,58 @@
             </header>
             <div class="reviewers">
                 <h3>Reviewers:</h3>
-                <div class="wrapper" ng-repeat="reviewer in $ctrl.idea.reviewers">
+                <div class="wrapper creator" ng-repeat="reviewer in $ctrl.idea.reviewers">
                     <div class="reviewer">
                         {{reviewer.profile.fullname}}
                     </div>
+                    <svg version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
+                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <defs>
+                    </defs>
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
+                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                                                                6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
+                    </svg>
                     <p>creator</p>
                 </div>
                 <div class="wrapper">
                     <div class="reviewer">{{$ctrl.idea.createdBy}}</div>
+                    <svg version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
+                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <defs>
+                    </defs>
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
+                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                                                                6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
+                    </svg>
                     <p>programmer</p>
                 </div>
                 <div class="wrapper">
-                    <div class="reviewer">Mateusz Korkosz</div>
+                    <div class="reviewer">Mateus Kork</div>
+                    <svg version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
+                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <defs>
+                    </defs>
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
+                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                                                                6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
+                    </svg>
                     <p>nobody</p>
                 </div>
-                <button>+</button>
+                <button class="reviewer-button">+</button>
             </div>
         </div>
-        <footer class="btn-wrapper">
-            <button></button>
+        <footer class="idea-header-footer">
+            <button class="btn btn-default">Create task</button>
         </footer>
     </section>
     <section class="idea-content col-xs-12 col-sm-9 col-md-6">
