@@ -7,7 +7,7 @@
 }
 .idea-header-content{
     background: $darkgrey;
-    border-radius: 0 5px 0 0;
+    border-radius: 0 10px 0 0;
     padding: 15px;
     line-height: 16px;
         header.info{
@@ -80,8 +80,8 @@
 }
 .idea-header-footer{
     text-align: center;
-    background: #db9e36;
-    border-radius: 0 0 5px 0;
+    background: $grey;
+    border-radius: 0 0 10px 0;
         .btn{
         margin: 20px 0;
         }

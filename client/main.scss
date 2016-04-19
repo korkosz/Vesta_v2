@@ -34,6 +34,7 @@ body{
 .btn{
     font-size: $PILLsize;
     font-weight: $bold;
+    transition: 0.5s;
     &-default{
     background: #ffd34e;
     border: none;
