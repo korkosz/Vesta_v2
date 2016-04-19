@@ -21,11 +21,25 @@
             padding-bottom: 5px;
             color: $grey;
             }
-            p{
+            p, button{
             color: $lightgrey;
             padding-bottom: 15px;
             font-weight: $normal;
             }
+            button{
+            background: none;
+            border: none;
+            outline: none;
+            &::after{
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            left: -7px;
+            top: 7px;
+            border: 5px solid transparent;
+            border-top: 5px solid white;
+            }}
         }
         div.reviewers{
         padding: 20px 0;
@@ -138,6 +152,10 @@
 .new-comment{
     border-radius: 20px 0 0 0;
     margin-bottom: 50px;
+        .dropdown-menu .status{
+        background: url("../public/icon-like.png");
+        padding: 0;
+        }
         h3{
         margin: 0;
         line-height: 50px;
