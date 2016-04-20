@@ -10,6 +10,13 @@
     border-radius: 0 10px 0 0;
     padding: 15px;
     line-height: 16px;
+        .dropdown-menu{
+        background: $darkgrey;
+            a:hover{
+            background: $grey;
+            transition: 0.5s;
+            }
+        }
         header.info{
         border: 2px solid $grey;
         border-radius: 15px;
@@ -163,7 +170,7 @@
     border-radius: 20px 0 0 0;
     margin-bottom: 50px;
         .dropdown-menu .status{
-        background: url("../public/icon-like.png");
+        background: url("../../public/images/icon-like.png");
         padding: 0;
         }
         h3{
