@@ -36,10 +36,11 @@
             position: absolute;
             width: 10px;
             height: 10px;
-            left: -7px;
-            top: 7px;
+            left: -12px;
+            top: 50%;
+            margin-top: -2.5px;
             border: 5px solid transparent;
-            border-top: 5px solid white;
+            border-top: 5px solid #555;
             }}
         }
         div.reviewers{
@@ -117,7 +118,7 @@
 .idea-comments{
     font-size: $ASIDEsize;
     line-height: $ASIDEline;
-    padding-bottom: 20px;
+    padding: 40px 20px;
     border: solid 1px $HR;
     border-radius: 20px 0 0 20px;
 }
@@ -136,8 +137,7 @@
     margin-bottom: 0;
     }
     &:last-child::after{
-    border-bottom: transparent;
-    margin: auto;
+    display: none;
     }
         .features{
         margin-bottom: 15px;    
@@ -148,6 +148,15 @@
         h3{
         margin: 0;
         line-height: 50px;
+        }
+        textarea{
+        margin: 0px;
+        padding: 0px;
+        border: none;
+        outline: none;
+        width: 100%;
+        min-height: 22px;
+        resize: none
         }
 }
 .new-comment{
@@ -161,9 +170,6 @@
         margin: 0;
         line-height: 50px;
         color: $HR;
-        }
-        .wrapper{
-        padding: 40px 0;
         }
         .status{
         border-color: $HR;
