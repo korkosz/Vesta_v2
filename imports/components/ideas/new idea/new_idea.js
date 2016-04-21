@@ -11,12 +11,12 @@ import './new_idea.html';
 class NewIdeaCtrl {
     constructor($scope) {
         $scope.viewModel(this);
-        
+
         this.idea = {};
         this.selectedReviewers = [];
         this.selectedReviewersIds = [];
         this.idea.description = '';
-        
+
         this.helpers({
             projects() {
                 return Projects.find();
@@ -26,32 +26,32 @@ class NewIdeaCtrl {
             }
         });
     }
-    
+
     reviewerSelected() {
-        if(this.selectedReviewersIds.indexOf(
+        if (this.selectedReviewersIds.indexOf(
             this.reviewer._id) !== -1) return;
         this.selectedReviewersIds.push(this.reviewer._id);
         this.selectedReviewers.push(this.reviewer.profile.fullname);
         this.reviewer = null;
     }
-    
+
     closeModal() {
         $('#newIdeaModal').modal('hide');
     }
 
     accept(valid) {
-        if(!valid) return;
+        if (!valid) return;
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.reviewers = this.selectedReviewersIds;
             this.idea.reviews = [];
             Ideas.insert(this.idea);
-            this.closeModal();  
-        });        
+            this.closeModal();
+        });
     }
 
-    cancel() {        
+    cancel() {
         this.closeModal();
     }
 
@@ -61,7 +61,12 @@ class NewIdeaCtrl {
 }
 
 export default angular.module("idea")
-    .directive('newIdea', function($q) {
+    .config(['cloudinaryProvider', function (cloudinaryProvider) {
+        cloudinaryProvider
+            .set("cloud_name", "korkosz")
+            .set("upload_preset", "mxobndkm");
+    }])
+    .directive('newIdea', function ($q, Upload, cloudinary) {
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,
@@ -70,54 +75,38 @@ export default angular.module("idea")
         }
 
         function link(scope, el, attrs, ctrl) {
-            ctrl.compileOutput = function() {
+            function uploadToServer(file, def) {
+                file.upload = Upload.upload({
+                    url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
+                    data: {
+                        upload_preset: cloudinary.config().upload_preset,
+                        tags: 'myphotoalbum',
+                        file: file
+                    }
+                }).success(function (data, status, headers, config) {
+                    $('#' + file.imgId).attr('src', data.url);
+                    def.resolve();
+                }).error(function (data, status, headers, config) {
+                    console.error('Sth went wrong when uploading image');
+                });
+            };
+
+            ctrl.compileOutput = function () {
+                var defer = $q.defer();
+                var promise = defer.promise;
                 var editEl = el.find('#edit');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
-                var promises = [];
 
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let file = img.data('file');
-                    let def = $q.defer();
-                    let promise = def.promise;
-                    promises.push(promise);
-                    if (file) {
-                        Images.insert(file, function(err, fileObj) {
-                            file.id = fileObj._id;
-                        });
 
-                        let stop = setInterval(() => {
-                            var _imgDb = Images.findOne({
-                                _id: file.id
-                            });
-                            if (_imgDb) {
-                                if (_imgDb.url()) {
-                                    img.attr('src', _imgDb.url());
-                                    scope.$apply(function() {
-                                        removeEditableAttr();
-                                        def.resolve();
-                                    });
-                                    clearInterval(stop);
-                                }
-                            }
-                        }, 1000);
-                    }
-                }               
-                
-                function removeEditableAttr() {
-                    var divs = $("div[name='edit']");
-                    var len = divs.length;
-                    while (len--) {
-                        let div = divs.eq(len);
-                        div.removeAttr('contentEditable');
-                        div.css('border', 'none');
-                    }
+                    if (file) {
+                        uploadToServer(file, defer);
+                    }                    
                 }
-                
-                return $q.all(promises).then(function() {                              
-                    ctrl.idea.description = editEl.html();    
-                });
+                return promise;
             };
         }
     });

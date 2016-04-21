@@ -1,11 +1,7 @@
 import './dragAndDrop.html';
 import ngFileUpload from './ng-file-upload';
 
-export default angular.module("dragAndDrop", ['cloudinary', 'ngFileUpload']).config(['cloudinaryProvider', function (cloudinaryProvider) {
-    cloudinaryProvider
-        .set("cloud_name", "korkosz")
-        .set("upload_preset", "mxobndkm");
-    }])
+export default angular.module("dragAndDrop", ['cloudinary', 'ngFileUpload'])
     .directive("dragAndDrop", function ($q, Upload, cloudinary) {
         return {
             templateUrl: 'imports/components/drag and drop/dragAndDrop.html',
@@ -104,34 +100,7 @@ export default angular.module("dragAndDrop", ['cloudinary', 'ngFileUpload']).con
                     hasFile = true;
                 }
                 return hasFile ? "dragover" : "dragover-err";
-            };
-
-            $scope.uploadToServer = function () {
-                angular.forEach(huj, function (file) {
-                    if (file && !file.$error) {
-                        file.upload = Upload.upload({
-                            url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
-                            data: {
-                                upload_preset: cloudinary.config().upload_preset,
-                                tags: 'myphotoalbum',
-                                context: 'photo=' + $scope.title,
-                                file: file
-                            }
-                        }).progress(function (e) {
-                            file.progress = Math.round((e.loaded * 100.0) / e.total);
-                            file.status = "Uploading... " + file.progress + "%";
-                        }).success(function (data, status, headers, config) {                       data.context = { custom: { photo: $scope.title } };
-                            file.result = data;
-
-                            $('#' + file.imgId).removeAttr('src');
-                            $('#' + file.imgId).attr('src', file.result.url);
-                            //ngf-src="file.result.url || file"
-                        }).error(function (data, status, headers, config) {
-                            file.result = data;
-                        });
-                    }
-                });
-            };
+            }; 
         }
     });
 
