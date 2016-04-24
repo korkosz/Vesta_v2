@@ -1,8 +1,15 @@
-<div id="edit">
-    <div contentEditable="true" name="edit" style="margin-bottom: 20px;min-height: 50px; border: 1px dashed red;">
+<div id="direct_upload" style="border: 1px dashed green; height: 100px;"
+    ngf-drop="uploadFiles($files)"
+    ngf-drag-over-class="dragOverClass($event)"
+    ng-model="files"
+    ng-multiple="true">
+    <form>
   
-    </div>
+    </form>    
 </div>
-<div style="display: flex; align-items: center; justify-content: center; width:30%; height:70px; background: #eee; border: 1px dashed blue; margin-top: 40px" id="dropzone">
-    <p>Drag and drop</p>
+<div id="edit">
+        <div contentEditable="true" name="edit" 
+             style="margin-bottom: 20px;min-height: 50px; border: 1px dashed red;">
+  dfdsfds
+       </div>
 </div>
