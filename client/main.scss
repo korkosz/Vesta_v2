@@ -36,11 +36,11 @@ body{
     font-weight: $bold;
     transition: 0.5s;
     &-default{
-    background: #ffd34e;
+    background: $yellow;
     border: none;
     border-radius: 20px;
     min-width: 120px;
-    color: #DB9E36;
+    color: darken( $yellow, 22% );
     }
 }
 #menu-top{

@@ -1,5 +1,10 @@
 @import "{}/client/styles/imports/variables.scss";
 
+.header{
+    background: $yellow;
+    height: 10px;
+    margin-bottom: 50px;
+}
 
 // Idea HEADER ******************************************
 .idea-header{
@@ -96,8 +101,8 @@
             margin-right: 5px;
             }
             .creator{
-                p{color: #ffd34e}
-                svg{fill: #ffd34e}
+                p{color: $yellow}
+                svg{fill: $yellow}
             }
         }
 }
@@ -169,9 +174,11 @@
 .new-comment{
     border-radius: 20px 0 0 0;
     margin-bottom: 50px;
-        .dropdown-menu .status{
-        background: url("../../public/images/icon-like.png");
+        .dropdown-menu a{
+        width: 30px; height: 30px;
+        background: url("/images/icon-like.png");
         padding: 0;
+        margin: 15px auto;
         }
         h3{
         margin: 0;
