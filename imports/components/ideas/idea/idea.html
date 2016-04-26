@@ -13,8 +13,10 @@
                 </div>
                 <div class="wrapper">
                     <h3>Status:</h3>
-                     <div class="btn-group">
-                      <button type="button" class="dropdown-toggle" data-toggle="dropdown"
+                    <div class="btn-group">
+                        <select class="dropdown-toggle" ng-options="status for status in $ctrl.ideaStatuses.value" ng-model="$ctrl.idea.status">
+                        </select>
+                        <!--<button type="button" class="dropdown-toggle" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">
                           {{$ctrl.idea.status}}
                       </button>
@@ -23,7 +25,7 @@
                         <li><a href="#">Consider</a></li>
                         <li><a href="#">Implemented</a></li>
                         <li><a href="#">Rejected</a></li>
-                      </ul>
+                      </ul>-->
                     </div>
                 </div>
             </header>
@@ -33,11 +35,9 @@
                     <div class="reviewer">
                         {{reviewer.profile.fullname}}
                     </div>
-                    <svg version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
-                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                        x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8" style="overflow:scroll;enable-background:new 0 0 13.4 12.8;"
+                        xml:space="preserve">
                     <defs>
                     </defs>
                     <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
@@ -48,11 +48,9 @@
                 </div>
                 <div class="wrapper">
                     <div class="reviewer">{{$ctrl.idea.createdBy}}</div>
-                    <svg version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
-                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                        x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8" style="overflow:scroll;enable-background:new 0 0 13.4 12.8;"
+                        xml:space="preserve">
                     <defs>
                     </defs>
                     <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
@@ -63,11 +61,9 @@
                 </div>
                 <div class="wrapper">
                     <div class="reviewer">Mateus Kork</div>
-                    <svg version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                         xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-                         x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8"
-                         style="overflow:scroll;enable-background:new 0 0 13.4 12.8;" xml:space="preserve">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                        x="0px" y="0px" width="13.4px" height="12.8px" viewBox="0 0 13.4 12.8" style="overflow:scroll;enable-background:new 0 0 13.4 12.8;"
+                        xml:space="preserve">
                     <defs>
                     </defs>
                     <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
@@ -98,14 +94,19 @@
             <div class="wrapper">
                 <div class="col-xs-3 status-wrapper">
                     <div class="btn-group">
-                      <button type="button" class="dropdown-toggle status" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="dropdown-toggle status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       </button>
-                      <ul class="dropdown-menu">
-                        <li><a href="#" class="like"></a></li>
-                        <li><a href="#" class="const"></a></li>
-                        <li><a href="#" class="dislike"></a></li>
-                      </ul>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" class="like"></a>
+                            </li>
+                            <li>
+                                <a href="#" class="const"></a>
+                            </li>
+                            <li>
+                                <a href="#" class="dislike"></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <h3 class="col-xs-9">{{$ctrl.currentUserName()}}</h3>
@@ -147,12 +148,10 @@
                 <div class="comment-content col-xs-9">
                     <div class="row features">
                         <div class="pill-container col-xs-6">
-                            <pill state="plus" ng-model="review.merits"    
-                                  direction="read-only"></pill>
+                            <pill state="plus" ng-model="review.merits" direction="read-only"></pill>
                         </div>
                         <div class="col-xs-6">
-                            <pill state="minus" ng-model="review.drawbacks" 
-                                  direction="read-only"></pill>
+                            <pill state="minus" ng-model="review.drawbacks" direction="read-only"></pill>
                         </div>
                     </div>
                     <textarea ng-model="review.comment" readonly></textarea>
