@@ -35,6 +35,10 @@ TaskCollection.schema = new SimpleSchema({
             return "New";
         }
     },
+    assigned: {
+        type: String,
+        optional: true  
+    },
     creationDate: {
         type: Date,
         autoValue: function() {

@@ -7,7 +7,7 @@ function globalCtrl() {
     this.userLogIn = function () {
         return !!Meteor.userId();
     };
-
+    this.assignedToMeFilter = {assigned: Meteor.userId()};
     this.createAccount = function () {
         Accounts.createUser({
             email: this.email,

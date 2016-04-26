@@ -9,10 +9,13 @@ class TaskListCtrl {
 	constructor($scope, $location) {
 		$scope.viewModel(this);
         
+        this.title = !!this.title ? this.title : 'Tasks';
         this.$location = $location;
         this.helpers({
-            tasks() {                
-                return Tasks.find().map(function (task) {
+            tasks() {  
+                ///Musi byc tutaj bo helper refreshuje sie po zmianie kolekcji
+                this.filter = !!this.filter ? this.filter : {};              
+                return Tasks.find(this.filter).map(function (task) {
                 	var project = Projects.findOne({_id: task.projectId});
                     var user = Meteor.users.findOne({_id: task.createdBy});
                     
@@ -32,5 +35,9 @@ class TaskListCtrl {
 export default angular.module("task")
     .component('taskList', {
         templateUrl: "imports/components/tasks/task list/task_list.html",
-        controller: TaskListCtrl
+        controller: TaskListCtrl,
+        bindings: {
+            filter: '<',
+            title: '@'    
+        }
     });

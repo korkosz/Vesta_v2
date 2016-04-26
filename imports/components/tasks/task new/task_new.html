@@ -65,17 +65,13 @@
                     <br>
                     <fieldset id="assign">
                         <label class="label label-default">
-                            Assign people
+                            Assign user
                         </label>
-                        <select ng-model="newTaskVm.assigned" 
-                                ng-change="newTaskVm.userAssigned()"
-                                ng-options="user.profile.fullname for user in 
+                        <select ng-model="newTaskVm.task.assigned"                             
+                                ng-options="user._id as user.profile.fullname for user in 
                                             newTaskVm.users">
                         </select>
-                    </fieldset>
-                    <br>  
-                    <pill read-only="true" 
-                          ng-model="newTaskVm.selectedUsers"></pill>
+                    </fieldset>                  
                     <br>  
                     <button id="acceptBtn" class="btn btn-success" 
                             ng-click="newTaskVm.accept()">Click</button>
