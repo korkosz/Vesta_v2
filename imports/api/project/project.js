@@ -15,6 +15,12 @@ Projects.schema = new SimpleSchema({
     },
     modules: {
         type: [String]
+    },
+    sprint: {
+        type: String,
+        autoValue() {
+            return 'Sprint 2';
+        }
     }
 });
 

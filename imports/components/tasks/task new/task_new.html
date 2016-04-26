@@ -21,6 +21,8 @@
                                 ng-options="project as project.name for project in newTaskVm.projects">
                             <option>Choose project...</option>
                         </select>
+                        <label class="label label-default" ng-show="!!newTaskVm.task.project">Sprint</label>
+                        {{newTaskVm.task.project.sprint}}
                     </fieldset>
                     <br />
                     <fieldset id="module">
