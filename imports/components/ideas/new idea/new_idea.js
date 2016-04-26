@@ -3,11 +3,6 @@ import Projects from '/imports/api/project/project';
 
 import './new_idea.html';
 
-/*
-    TODO: 
-        1. Zmienic hosting na Cloudinary       
-*/
-
 class NewIdeaCtrl {
     constructor($scope) {
         $scope.viewModel(this);
@@ -84,16 +79,24 @@ export default angular.module("idea")
                         file: file
                     }
                 }).success(function (data, status, headers, config) {
-                    $('#' + file.imgId).attr('src', data.url);
+                    var img = $('#' + file.imgId).attr('src', data.url);
+                    setFullSizeImg(img);
                     def.resolve();
                 }).error(function (data, status, headers, config) {
                     console.error('Sth went wrong when uploading image');
                 });
+
+                function setFullSizeImg(img) {
+                    img.attr({
+                        height: 'auto',
+                        width: 'auto'
+                    });
+                }
             };
 
             ctrl.compileOutput = function () {
                 var defer = $q.defer();
-                var promise = defer.promise;
+                var promises = [];
                 var editEl = el.find('#edit');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
@@ -101,12 +104,35 @@ export default angular.module("idea")
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let file = img.data('file');
-
+                    let defer = $q.defer();
+                    let promise = defer.promise;
+                    promises.push(promise);
                     if (file) {
                         uploadToServer(file, defer);
-                    }                    
+                    }
                 }
-                return promise;
+                return $q.all(promises).then(() => {
+                    removeEditAttrs();
+                    this.idea.description = editEl.html();
+                });
+
+                function removeEditAttrs() {
+                    var divs = $("div[name='edit']");
+                    var len = divs.length;
+                    while (len--) {
+                        let div = divs.eq(len);
+                        removeContentEditable(div);
+                        removeBorder(div);
+                    }
+
+                    function removeContentEditable(div) {
+                        div.removeAttr('contentEditable');
+                    }
+
+                    function removeBorder(div) {
+                        div.css('border', 'none');
+                    }
+                }
             };
         }
     });
