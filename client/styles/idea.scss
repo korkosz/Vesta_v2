@@ -119,14 +119,14 @@
 // Idea CONTENT ****************************************
 .idea-content{
     padding: 0 50px;
+        h4{
+        font-size: 24px;
+        padding-bottom: 30px;
+        }
 }
 // END Idea CONTENT ******************************************
 
 // Idea COMMENTS ****************************************
-.idea-content > .wrapper{
-    background: #ddd;
-    border-radius: 0 5px 5px 0;
-}
 .idea-comments{
     font-size: $ASIDEsize;
     line-height: $ASIDEline;
