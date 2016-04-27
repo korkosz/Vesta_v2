@@ -21,7 +21,7 @@ Ideas.schema = new SimpleSchema({
     status: {
         type: String,
         autoValue: function() {
-            return "New";
+            if(!this.value) return "New";
         }
     },
     reviewers: {

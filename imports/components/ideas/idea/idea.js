@@ -95,6 +95,14 @@ class IdeaCtrl {
             return arr;
         }
     }
+
+    setStatus() {
+        Ideas.update(this.idea._id, {
+            $set: {
+                status: this.idea.status
+            }
+        });          
+    }
 };
 
 export default angular.module('idea')
