@@ -75,8 +75,9 @@
                 <button class="reviewer-button">+</button>
             </div>
         </div>
-        <footer class="idea-header-footer">
-            <button class="btn btn-default">Create task</button>
+        <footer class="idea-header-footer">            
+            <new-task title="Create task" module="{{$ctrl.idea.module}}" 
+                project="{{$ctrl.idea.projectId}}"></new-task>
         </footer>
     </section>
     <section class="idea-content col-xs-12 col-sm-9 col-md-6">

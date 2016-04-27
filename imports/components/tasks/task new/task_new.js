@@ -8,63 +8,79 @@ import './task_new.html';
     TODO: 
         1. Zmienic hosting na Cloudinary       
 */
+function NewTaskCtrl($scope) {
+    var vm = this;
+    $scope.viewModel(vm);
 
-class NewTaskCtrl {
-    constructor($scope) {
-        $scope.viewModel(this);
-        
-        this.task = {};
-        this.task.description = '';
-        
-        this.helpers({
-            projects() {
-                return Projects.find();
-            },
-            taskTypes() {
-                return Metadata.findOne({metadataName: 'TaskType'});
-            },
-            taskPriority() {
-                return Metadata.findOne({metadataName: 'TaskPriority'});
-            },
-            users() {
-                return Meteor.users.find();    
+    vm.task = {};
+    vm.task.description = '';
+    
+    // KURWA DODAJ JEBANY ID DO JEBANEGO KURWA MODULU
+    $scope.$watch('vm.project', function () {
+        if (vm.project) {
+            vm.task.project = vm.projects.find(function (p) {
+                return p._id === vm.project;
+            });
+            if (vm.module) {
+                let idx = newTaskVm.task.project.modules.indexOf(vm.module);
+                vm.task.module = newTaskVm.task.project.modules[idx];
             }
+        }
+    });
+
+    vm.helpers({
+        projects() {
+            return Projects.find();
+        },
+        taskTypes() {
+            return Metadata.findOne({ metadataName: 'TaskType' });
+        },
+        taskPriority() {
+            return Metadata.findOne({ metadataName: 'TaskPriority' });
+        },
+        users() {
+            return Meteor.users.find();
+        }
+    });
+
+    vm.closeModal = function () {
+        $('#newTaskModal').modal('hide');
+        vm.task = null;
+    }
+
+    vm.accept = function () {
+        vm.compileOutput().then(() => {
+            vm.task.projectId = vm.task.project._id;
+            vm.task.createdBy = Meteor.userId();
+            Tasks.insert(vm.task);
+            vm.closeModal();
         });
     }
 
-    closeModal() {
-        $('#newTaskModal').modal('hide');
-    }
-
-    accept() {
-        this.compileOutput().then(() => {
-            this.task.projectId = this.task.project._id;
-            this.task.createdBy = Meteor.userId();
-            Tasks.insert(this.task);
-            this.closeModal();  
-        });        
-    }
-        
-    cancel() {
-        this.closeModal();
-    }
-
-    openModal() {
-        this.task = null;
+    vm.cancel = function () {
+        vm.closeModal();
     }
 }
 
 export default angular.module("task")
-    .directive('newTask', function($q) {
+    .directive('newTask', function ($q) {
         return {
             templateUrl: "imports/components/tasks/task new/task_new.html",
             controller: NewTaskCtrl,
             controllerAs: 'newTaskVm',
-            link
+            link,
+            scope: {
+                title: '@',
+                project: '@',
+                module: '@'
+            },
+            bindToController: true
         }
 
         function link(scope, el, attrs, ctrl) {
-            ctrl.compileOutput = function() {
+            if (!ctrl.title) ctrl.title = 'New Task';
+
+            ctrl.compileOutput = function () {
                 var editEl = el.find('#edit');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
@@ -77,7 +93,7 @@ export default angular.module("task")
                     let promise = def.promise;
                     promises.push(promise);
                     if (file) {
-                        Images.insert(file, function(err, fileObj) {
+                        Images.insert(file, function (err, fileObj) {
                             file.id = fileObj._id;
                         });
 
@@ -88,7 +104,7 @@ export default angular.module("task")
                             if (_imgDb) {
                                 if (_imgDb.url()) {
                                     img.attr('src', _imgDb.url());
-                                    scope.$apply(function() {
+                                    scope.$apply(function () {
                                         removeEditableAttr();
                                         def.resolve();
                                     });
@@ -97,8 +113,8 @@ export default angular.module("task")
                             }
                         }, 1000);
                     }
-                }               
-                
+                }
+
                 function removeEditableAttr() {
                     var divs = $("div[name='edit']");
                     var len = divs.length;
@@ -108,9 +124,9 @@ export default angular.module("task")
                         div.css('border', 'none');
                     }
                 }
-                
-                return $q.all(promises).then(function() {
-                    ctrl.task.description = editEl.html();    
+
+                return $q.all(promises).then(function () {
+                    ctrl.task.description = editEl.html();
                 });
             };
         }
