@@ -31,6 +31,7 @@ class TaskListCtrl {
         this.$location.path('/task/' + id);    
     }
 }
+TaskListCtrl.$inject = ['$scope', '$location'];
 
 export default angular.module("task")
     .component('taskList', {

@@ -54,14 +54,14 @@ class NewIdeaCtrl {
         this.idea = null;
     }
 }
-
+NewIdeaCtrl.$inject = ['$scope'];
 export default angular.module("idea")
     .config(['cloudinaryProvider', function (cloudinaryProvider) {
         cloudinaryProvider
             .set("cloud_name", "korkosz")
             .set("upload_preset", "mxobndkm");
     }])
-    .directive('newIdea', function ($q, Upload, cloudinary) {
+    .directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,
@@ -135,7 +135,7 @@ export default angular.module("idea")
                 }
             };
         }
-    });
+    }]);
 
 /*
 

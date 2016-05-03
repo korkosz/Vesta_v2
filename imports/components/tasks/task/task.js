@@ -30,6 +30,7 @@ class IdeaCtrl {
         });
     }
 };
+IdeaCtrl.$inject = ['$scope', '$routeParams', '$sce'];
 
 export default angular.module('task')
 

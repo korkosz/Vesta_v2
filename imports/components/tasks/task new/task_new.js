@@ -61,9 +61,10 @@ function NewTaskCtrl($scope) {
         vm.closeModal();
     }
 }
+NewTaskCtrl.$inject = ['$scope'];
 
 export default angular.module("task")
-    .directive('newTask', function ($q) {
+    .directive('newTask', ['$q', function ($q) {
         return {
             templateUrl: "imports/components/tasks/task new/task_new.html",
             controller: NewTaskCtrl,
@@ -130,4 +131,4 @@ export default angular.module("task")
                 });
             };
         }
-    });
+    }]);

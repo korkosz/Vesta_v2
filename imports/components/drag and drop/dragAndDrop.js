@@ -2,7 +2,7 @@ import './dragAndDrop.html';
 import ngFileUpload from './ng-file-upload';
 
 export default angular.module("dragAndDrop", ['cloudinary', 'ngFileUpload'])
-    .directive("dragAndDrop", function ($q, Upload, cloudinary) {
+    .directive("dragAndDrop", ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
         return {
             templateUrl: 'imports/components/drag and drop/dragAndDrop.html',
             link,
@@ -102,7 +102,7 @@ export default angular.module("dragAndDrop", ['cloudinary', 'ngFileUpload'])
                 return hasFile ? "dragover" : "dragover-err";
             }; 
         }
-    });
+    }]);
 
 class DragAndDropCtrl {
     constructor() {
