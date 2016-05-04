@@ -31,7 +31,7 @@ class IdeaListCtrl {
         this.$location.path('/idea/' + id);    
     }
 }
-
+IdeaListCtrl.$inject = ['$scope', '$location'];
 export default angular.module("idea")
     .component('ideaList', {
         templateUrl: "imports/components/ideas/idea list/idea_list.html",

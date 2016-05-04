@@ -3,7 +3,7 @@ import '/imports/pages/idea/idea_view.html'
 import '/imports/pages/task/task_view.html'
 
 angular.module('simple-todos')
-    .config(function($routeProvider) {
+    .config(['$routeProvider', function($routeProvider) {
         $routeProvider.
 	        when('/', {
 	            templateUrl: 'imports/pages/home.html'               
@@ -14,4 +14,4 @@ angular.module('simple-todos')
             when('/task/:id', {
 	            templateUrl: 'imports/pages/task/task_view.html'
 	        });
-    });
+    }]);

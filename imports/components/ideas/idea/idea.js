@@ -104,7 +104,7 @@ class IdeaCtrl {
         });          
     }
 };
-
+IdeaCtrl.$inject = ['$scope', '$routeParams', '$sce'];
 export default angular.module('idea')
     .component('idea', {
         templateUrl: 'imports/components/ideas/idea/idea.html',
