@@ -33,7 +33,7 @@ TaskCollection.schema = new SimpleSchema({
     status: {
         type: String,
         autoValue: function() {
-            if(!this.value) return "New";
+            if(!this.value) return "Open";
         }
     },
     assigned: {

@@ -10,7 +10,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="idea in $ctrl.ideas" ng-click="$ctrl.details(idea._id)" style="cursor: pointer">
+        <tr ng-repeat="idea in $ctrl.ideas" 
+            ng-click="$ctrl.details(idea._id)" 
+            style="cursor: pointer">
             <td>{{idea.title}}</td>
             <td>{{idea.projectName}}</td>
             <td>{{idea.module}}</td>

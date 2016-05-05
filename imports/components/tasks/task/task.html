@@ -3,7 +3,7 @@
         <div>
             <div class="wrapper">
                 <h4 class="label label-default">Project</h4>
-                <p>{{$ctrl.task.projectName}}</p>
+                <p>{{$ctrl.task.project()}}</p>
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Module</h4>
@@ -28,7 +28,7 @@
             </div><br>
             <div class="wrapper">
                 <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status">
+                <select ng-model="$ctrl.task.status" ng-change="$ctrl.setStatus()">
                     <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
                 </select>
             </div>

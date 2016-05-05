@@ -15,8 +15,6 @@ class IdeaCtrl {
             task() {
                 var task = Tasks.findOne({_id: this.$routeParams.id});
                 if(task) {
-                    let project = Projects.findOne({_id: task.projectId});
-                    task.projectName = project && project.name;
                     task.desc = function() {
                         return $sce.trustAsHtml(task.description);    
                     };
@@ -28,6 +26,14 @@ class IdeaCtrl {
                   return Metadata.findOne({metadataName: 'TaskStatuses'});
             }
         });
+    }
+    
+    setStatus() {
+        Tasks.update(this.task._id, {
+            $set: {
+                status: this.task.status
+            }
+        });          
     }
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$sce'];
