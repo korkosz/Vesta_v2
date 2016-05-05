@@ -57,7 +57,8 @@ class IdeaCtrl {
     }
 
     newReviewVisible() {
-        if (!this.idea || !this.reviews || !Meteor.user()) return false;
+        if (!this.idea || !this.reviews || 
+            this.reviews.length === 0 || !Meteor.user()) return false;
 
         const vm = this;
 

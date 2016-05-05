@@ -20,9 +20,7 @@ Ideas.schema = new SimpleSchema({
     },
     status: {
         type: String,
-        autoValue: function() {
-            if(!this.value) return "New";
-        }
+        defaultValue: "New"       
     },
     reviewers: {
         type: [String],
@@ -34,18 +32,11 @@ Ideas.schema = new SimpleSchema({
     },
     creationDate: {
         type: Date,
-        autoValue: function() {
-            if(!this.value) return new Date();
-        }
+        defaultValue: new Date()        
     },
     createdBy: {
         type: String,
-        autoValue() {
-            if(!this.value) {
-                if(this.userId) return this.userId;
-                return 'KorkoszDefaultMateusz';
-            }            
-        }
+        defaultValue: this.userId
     }
 });
 

@@ -23,18 +23,14 @@ TaskCollection.schema = new SimpleSchema({
     },
     progress: {
         type: Number,
-        autoValue: function() {
-            return 0;
-        }  
+        defaultValue: 0
     },
     type: {
         type: String    
     },
     status: {
         type: String,
-        autoValue: function() {
-            if(!this.value) return "Open";
-        }
+        defaultValue: "Open"       
     },
     assigned: {
         type: String,
@@ -42,18 +38,11 @@ TaskCollection.schema = new SimpleSchema({
     },
     creationDate: {
         type: Date,
-        autoValue: function() {
-            if(!this.value) return new Date();
-        }
+        defaultValue: new Date()        
     },
     createdBy: {
         type: String,
-        autoValue() {
-            if(!this.value) {
-                if(this.userId) return this.userId;
-                return 'KorkoszDefaultMateusz';     
-            }                       
-        }
+        defaultValue: this.userId
     }
 });
 TaskCollection.helpers({
