@@ -11,12 +11,14 @@
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Priority</h4>
-                <p>{{$ctrl.task.priority}}</p>
+                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
+                </select>
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Type</h4>
-                <p>{{$ctrl.task.type}}</p>
-            </div>
+                <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
+                </select>
+            </div>            
             <div class="wrapper">
                 <h4 class="label label-default">Reviewers</h4>
                 <ul>
@@ -28,7 +30,7 @@
             </div><br>
             <div class="wrapper">
                 <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status" ng-change="$ctrl.setStatus()">
+                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
                     <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
                 </select>
             </div>
