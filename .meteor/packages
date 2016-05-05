@@ -31,3 +31,4 @@ accounts-password
 angular:angular-messages
 check
 dburles:collection-helpers
+fraywing:text-angular

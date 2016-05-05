@@ -11,7 +11,8 @@ angular.module('simple-todos', [
     'lib',
     'lib.pill',
     'task',
-    'global'
+    'global',
+    'textAngular'
 ]);
 
 Accounts.ui.config({
