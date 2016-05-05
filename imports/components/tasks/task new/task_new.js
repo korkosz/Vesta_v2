@@ -22,8 +22,8 @@ function NewTaskCtrl($scope) {
                 return p._id === vm.project;
             });
             if (vm.module) {
-                let idx = newTaskVm.task.project.modules.indexOf(vm.module);
-                vm.task.module = newTaskVm.task.project.modules[idx];
+                let idx = vm.task.project.modules.indexOf(vm.module);
+                vm.task.module = vm.task.project.modules[idx];
             }
         }
     });

@@ -13,16 +13,10 @@ class TaskListCtrl {
         this.$location = $location;
         this.helpers({
             tasks() {  
-                ///Musi byc tutaj bo helper refreshuje sie po zmianie kolekcji
+                ///Musi byc tutaj bo helper refreshuje sie 
+                ///po zmianie kolekcji
                 this.filter = !!this.filter ? this.filter : {};              
-                return Tasks.find(this.filter).map(function (task) {
-                	var project = Projects.findOne({_id: task.projectId});
-                    var user = Meteor.users.findOne({_id: task.createdBy});
-                    
-                	task.projectName = project.name;
-                    task.createdBy = user.profile.fullname;
-                	return task;
-                });
+                return Tasks.find(this.filter);
             }     
         });  
 	}

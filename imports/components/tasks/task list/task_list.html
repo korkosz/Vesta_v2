@@ -1,4 +1,4 @@
-<table class="table table-condensed">
+<table class="table table-condensed" ng-switch="">
     <caption>{{$ctrl.title}}</caption>
     <thead>
         <tr>
@@ -7,19 +7,22 @@
             <th>Module</th>
             <th>Priority</th>
             <th>Type</th>
-            <th>Created By</th>
+            <th ng-if="!!$ctrl.filter">Created By</th>
+            <th ng-if="!$ctrl.filter">Assigned</th>
             <th>Created At</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="task in $ctrl.tasks" ng-click="$ctrl.details(task._id)" style="cursor: pointer">
+        <tr ng-repeat="task in $ctrl.tasks" 
+            ng-click="$ctrl.details(task._id)" style="cursor: pointer">
             <td>{{task.title}}</td>
-            <td>{{task.projectName}}</td>
+            <td>{{task.project()}}</td>
             <td>{{task.module}}</td>
             <td>{{task.priority}}</td>
             <td>{{task.type}}</td>
-            <td>{{task.createdBy}}</td>
+            <td ng-if="!!$ctrl.filter">{{task.creator()}}</td>
+            <td ng-if="!$ctrl.filter">{{task.assignedUser()}}</td>
             <td>{{task.creationDate | date:'MM:dd:yyyy'}}</td>
         </tr>
     </tbody>
-</table>
+</table>j

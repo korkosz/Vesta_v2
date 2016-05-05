@@ -35,15 +35,16 @@ Ideas.schema = new SimpleSchema({
     creationDate: {
         type: Date,
         autoValue: function() {
-            return new Date();
+            if(!this.value) return new Date();
         }
     },
     createdBy: {
         type: String,
         autoValue() {
-            if(this.userId) return this.userId;
-            return 'KorkoszDefaultMateusz';
-            
+            if(!this.value) {
+                if(this.userId) return this.userId;
+                return 'KorkoszDefaultMateusz';
+            }            
         }
     }
 });

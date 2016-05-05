@@ -1,4 +1,5 @@
 import {Mongo} from 'meteor/mongo';
+import Projects from '/imports/api/project/project';
 
 export default TaskCollection = new Mongo.Collection('Tasks');
 
@@ -32,7 +33,7 @@ TaskCollection.schema = new SimpleSchema({
     status: {
         type: String,
         autoValue: function() {
-            return "New";
+            if(!this.value) return "New";
         }
     },
     assigned: {
@@ -42,17 +43,31 @@ TaskCollection.schema = new SimpleSchema({
     creationDate: {
         type: Date,
         autoValue: function() {
-            return new Date();
+            if(!this.value) return new Date();
         }
     },
     createdBy: {
         type: String,
         autoValue() {
-            if(this.userId) return this.userId;
-            return 'KorkoszDefaultMateusz';
-            
+            if(!this.value) {
+                if(this.userId) return this.userId;
+                return 'KorkoszDefaultMateusz';     
+            }                       
         }
     }
 });
-
+TaskCollection.helpers({
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if(user) return user.profile.fullname;        
+    },
+    assignedUser() {
+        var user = Meteor.users.findOne(this.assigned);
+        if(user) return user.profile.fullname;      
+    },
+    project() {
+        var project = Projects.findOne(this.projectId);  
+        if(project) return project.name;
+    }    
+});
 TaskCollection.attachSchema(TaskCollection.schema);
