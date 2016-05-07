@@ -8,6 +8,7 @@ class IdeaListCtrl {
 	constructor($scope, $location) {
 		$scope.viewModel(this);
         
+        this.moment = moment;
         this.$location = $location;
         var imagesDiv = $('#images');
         console.log(Metadata.find({}).fetch());

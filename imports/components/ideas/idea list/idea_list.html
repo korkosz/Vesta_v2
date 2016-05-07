@@ -17,7 +17,7 @@
             <td>{{idea.projectName}}</td>
             <td>{{idea.module}}</td>
             <td>{{idea.createdBy}}</td>
-            <td>{{idea.creationDate | date:'MM:dd:yyyy'}}</td>
+            <td>{{$ctrl.moment(idea.creationDate).fromNow()}}</td>
         </tr>
     </tbody>
 </table>
