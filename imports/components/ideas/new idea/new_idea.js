@@ -70,6 +70,7 @@ export default angular.module("idea")
         }
 
         function link(scope, el, attrs, ctrl) {
+            import './custom.js';
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
                     url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
@@ -136,7 +137,7 @@ export default angular.module("idea")
             };
         }
     }]);
-import './custom.js';
+
 /*
 
  */
