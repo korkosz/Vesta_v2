@@ -70,6 +70,17 @@ export default angular.module("idea")
         }
 
         function link(scope, el, attrs, ctrl) {
+            //var file = new File([myBlob], "name");
+
+            function dataURItoBlob(dataURI) {
+                var binary = atob(dataURI.split(',')[1]);
+                var array = [];
+                for (var i = 0; i < binary.length; i++) {
+                    array.push(binary.charCodeAt(i));
+                }
+                return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+            }
+            
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
                     url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
@@ -97,13 +108,17 @@ export default angular.module("idea")
             ctrl.compileOutput = function () {
                 var defer = $q.defer();
                 var promises = [];
-                var editEl = el.find('#edit');
+
+                var editEl = $('*[id^="taTextElement"]');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
 
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
-                    let file = img.data('file');
+                    let src = img.attr('src');
+                    let blob = dataURItoBlob(src);
+                    let file = new File([blob], "name");
+                    debugger;
                     let defer = $q.defer();
                     let promise = defer.promise;
                     promises.push(promise);
@@ -112,31 +127,8 @@ export default angular.module("idea")
                     }
                 }
                 return $q.all(promises).then(() => {
-                    removeEditAttrs();
                     this.idea.description = editEl.html();
                 });
-
-                function removeEditAttrs() {
-                    var divs = $("div[name='edit']");
-                    var len = divs.length;
-                    while (len--) {
-                        let div = divs.eq(len);
-                        removeContentEditable(div);
-                        removeBorder(div);
-                    }
-
-                    function removeContentEditable(div) {
-                        div.removeAttr('contentEditable');
-                    }
-
-                    function removeBorder(div) {
-                        div.css('border', 'none');
-                    }
-                }
             };
         }
     }]);
-
-/*
-
- */
