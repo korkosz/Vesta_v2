@@ -1,6 +1,10 @@
+@import "{}/client/styles/imports/variables.scss";
+
 #newIdeaModal{
     background: rgba(255, 255, 255, 0.76);
     .field-wrapper{
+        position: relative;
+        width: 500px;
         .label{
             display: inline-block;
             min-width: 100px;
@@ -15,9 +19,18 @@
             border: 1px solid #ccc;
             padding: 0.4em 0.7em;
         }
-        &:last-child{
+        &.last{
             margin-bottom: 30px;
         }
+        .error{
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: $red;
+        }
+    }
+    .disabled{
+        opacity: .5;
     }
     .modal-dialog{
         min-width: 1000px;

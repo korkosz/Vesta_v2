@@ -136,7 +136,7 @@ export default angular.module("idea")
             };
         }
     }]);
-
+import './custom.js';
 /*
 
  */
