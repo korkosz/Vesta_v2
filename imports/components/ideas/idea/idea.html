@@ -1,7 +1,10 @@
 <div class="row header"></div>
 <div class="row">
+    <!-- Idea header -->
     <section class="idea-header col-xs-12 col-sm-3 col-md-2">
+        <!-- Header info content -->
         <div class="idea-header-content">
+            <!-- Header info -->
             <header class="info">
                 <div class="wrapper">
                     <h3>Project:</h3>
@@ -19,6 +22,7 @@
                     </div>
                 </div>
             </header>
+            <!-- Header reviewers -->
             <div class="reviewers">
                 <h3>Reviewers:</h3>
                 <div class="wrapper creator" ng-repeat="reviewer in $ctrl.idea.reviewers">
@@ -30,8 +34,8 @@
                         xml:space="preserve">
                     <defs>
                     </defs>
-                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
-                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2
+                                                                13.4,4.9 10.1,8.2 10.9,12.8
                                                                 6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
                     </svg>
                     <p>creator</p>
@@ -43,8 +47,8 @@
                         xml:space="preserve">
                     <defs>
                     </defs>
-                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
-                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2
+                                                                13.4,4.9 10.1,8.2 10.9,12.8
                                                                 6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
                     </svg>
                     <p>programmer</p>
@@ -56,8 +60,8 @@
                         xml:space="preserve">
                     <defs>
                     </defs>
-                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2 
-                                                                13.4,4.9 10.1,8.2 10.9,12.8 
+                    <polygon id="XMLID_15_" class="st0" points="6.7,0 8.8,4.2
+                                                                13.4,4.9 10.1,8.2 10.9,12.8
                                                                 6.7,10.6 2.6,12.8 3.4,8.2 0,4.9 4.6,4.2 "/>
                     </svg>
                     <p>nobody</p>
@@ -65,11 +69,16 @@
                 <button class="reviewer-button">+</button>
             </div>
         </div>
+        <!-- Buttons -->
         <footer class="idea-header-footer">
             <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}"></new-task>
+            <!--
+             najlepiej zeby po nacisnieciu delete wyskakiwal modal z potwierdzeniem usuniecia
+            -->
+            <button type="button" name="button" class="btn btn-danger">Delete</button>
         </footer>
     </section>
-    <!-- Idea Description -->
+    <!-- Idea description -->
     <section class="idea-content col-xs-12 col-sm-9 col-md-6">
         <h4>{{$ctrl.idea.title}}</h4>
         <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited"></div>
@@ -84,9 +93,10 @@
             </div>
         </div>
     </section>
+    <!-- Idea comments -->
     <section class="idea-comments col-xs-12 col-sm-12 col-md-4">
 
-        <!--        nowy review. widoczny tylko gdy 
+        <!--        nowy review. widoczny tylko gdy
             a) uzytkownik jest zgloszony jako reviewer do tego idea
             b) uzytkownik nie dodal jeszcze swojego review
         -->
@@ -131,14 +141,14 @@
             </div>
         </div>
 
-        <!-- tutaj ida reviews innych userow i aktualnie zalogowanego 
+        <!-- tutaj ida reviews innych userow i aktualnie zalogowanego
                 jesli juz dodal-->
         <div class="comment row" ng-repeat="review in $ctrl.reviews track by $index">
             <div class="wrapper">
                 <div class="col-xs-3 status-wrapper">
                     <div class="status"></div>
                 </div>
-                <h3 class="col-xs-9">{{review.creator()}} 
+                <h3 class="col-xs-9">{{review.creator()}}
                     <button ng-click="$ctrl.removeReview(review._id)"
                             ng-if="$ctrl.removeReviewVisible(review._createdBy)">
                         X

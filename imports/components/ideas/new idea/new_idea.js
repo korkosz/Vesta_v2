@@ -72,9 +72,9 @@ export default angular.module("idea")
 
         function link(scope, el, attrs, ctrl) {
             //nieaktywne pola
-            var x = $(".modal-body");
-            x.css("background-color", "red");
-            debugger
+            //var x = $(".modal-body");
+            //x.css("background-color", "red");
+            //debugger
 
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);
