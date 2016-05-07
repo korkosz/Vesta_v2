@@ -8,7 +8,8 @@ import './task_list.html';
 class TaskListCtrl {
     constructor($scope, $location) {
         $scope.viewModel(this);
-
+        
+        this.moment = moment;
         this.title = !!this.title ? this.title : 'Tasks';
         this.$location = $location;
         this.helpers({

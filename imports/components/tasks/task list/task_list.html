@@ -27,7 +27,7 @@
             <td>{{task.type}}</td>
             <td ng-if="!!$ctrl.filter">{{task.creator()}}</td>
             <td ng-if="!$ctrl.filter">{{task.assignedUser()}}</td>
-            <td>{{task.creationDate | date:'MM:dd:yyyy'}}</td>
+            <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
         </tr>
     </tbody>
 </table>
