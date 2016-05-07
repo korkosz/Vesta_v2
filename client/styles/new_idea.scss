@@ -23,9 +23,8 @@
             margin-bottom: 30px;
         }
         .error{
-            position: absolute;
-            top: 0;
-            right: 0;
+            display: inline-block;
+            margin-left: 15px;
             color: $red;
         }
     }

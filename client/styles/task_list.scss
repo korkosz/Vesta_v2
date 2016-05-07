@@ -1,0 +1,29 @@
+#main-container{
+    td.middle{
+        vertical-align: middle;
+    }
+    .priority{
+        height: 5px;
+        border-radius: 10px;
+        &-low{
+        width: 50%;
+        background: #d8ff00;
+        }
+        &-normal{
+        width: 1%*(50/3 + 50);
+        background: #17ff17;
+        }
+        &-hight{
+        width: 1%*(100/3 + 50);
+        background: #ffa210;
+        }
+        &-critical{
+        width: 100%;
+        background: #ff4a26;
+        }
+    }
+    caption.task-caption{
+        padding: 5px 15px;
+        background: #96CEB4;
+    }
+}
