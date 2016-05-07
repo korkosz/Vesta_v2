@@ -1,4 +1,4 @@
-<table class="table table-condensed" ng-switch="">
+<table class="table" ng-switch="">
     <caption>{{$ctrl.title}}</caption>
     <thead>
         <tr>
@@ -13,10 +13,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="task in $ctrl.tasks | 
-            orderBy:[$ctrl.statusFilter, $ctrl.priorityFilter]" 
-            ng-click="$ctrl.details(task._id)" 
-            style="cursor: pointer; 
+        <tr ng-repeat="task in $ctrl.tasks |
+            orderBy:[$ctrl.statusFilter, $ctrl.priorityFilter]"
+            ng-click="$ctrl.details(task._id)"
+            style="cursor: pointer;
                    background-color: {{$ctrl.getStatusColor(task.status)}}">
             <td>{{task.title}}</td>
             <td>{{task.project()}}</td>
