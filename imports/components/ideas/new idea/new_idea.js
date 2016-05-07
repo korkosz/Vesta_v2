@@ -2,6 +2,7 @@ import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 
 import './new_idea.html';
+import './custom.js';
 
 class NewIdeaCtrl {
     constructor($scope) {

@@ -22,7 +22,7 @@
                         <select ng-model="newIdeaVm.idea.project" name="project" required
                                 ng-options="project as project.name for project in newIdeaVm.projects">
                         </select>
-                        <div ng-messages="newIdea.project.$error" style="color:red">
+                        <div ng-messages="newIdea.project.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.project.$touched ||
                                 newIdea.$submitted">
                                 This field is required
@@ -34,12 +34,12 @@
                     <!--Module-->
                     <fieldset id="module" class="field-wrapper">
                         <label class="label label-default">Module</label>
-                        <select ng-model="newIdeaVm.idea.module" name="module" required>
+                        <select ng-model="newIdeaVm.idea.module" name="module" required disabled>
                             <option ng-repeat="module in newIdeaVm.idea.project.modules">
                                 {{module}}
                             </option>
                         </select>
-                        <div ng-messages="newIdea.module.$error" style="color:red">
+                        <div ng-messages="newIdea.module.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.module.$touched ||
                                 newIdea.$submitted">
                                 This field is required
@@ -49,16 +49,17 @@
                     <br />
 
                     <!--Title-->
-                    <fieldset id="title" class="fsStyle field-wrapper">
+                    <fieldset id="title" class="fsStyle field-wrapper last">
                         <label class="label label-default">Title</label>
                         <input name="title" type="text" ng-model="newIdeaVm.idea.title" required/>
-                    </fieldset>
-                    <div ng-messages="newIdea.title.$error" style="color:red">
-                        <div ng-message="required" ng-show="newIdea.title.$touched ||
-                            newIdea.$submitted">
-                            This field is required
+                        <div ng-messages="newIdea.title.$error" class="error">
+                            <div ng-message="required" ng-show="newIdea.title.$touched ||
+                                newIdea.$submitted">
+                                This field is required
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
+
 
                     <!--Description-->
                     <fieldset id="description" class="fsStyle">
@@ -69,7 +70,7 @@
                     <br>
 
                     <!--Assign-->
-                    <fieldset id="assign">
+                    <fieldset id="assign" class="field-wrapper">
                         <label class="label label-default">
                             Assign reviewers
                         </label>
@@ -97,3 +98,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".modal-body").addClass("disabled");
+</script>
