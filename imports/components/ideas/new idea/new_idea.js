@@ -71,6 +71,11 @@ export default angular.module("idea")
         }
 
         function link(scope, el, attrs, ctrl) {
+            //nieaktywne pola
+            var x = $(".modal-body");
+            x.css("background-color", "red");
+            debugger
+
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);
                 var array = [];
@@ -79,7 +84,7 @@ export default angular.module("idea")
                 }
                 return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
             }
-            
+
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
                     url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
@@ -93,7 +98,7 @@ export default angular.module("idea")
                     def.resolve();
                 }).error(function (data, status, headers, config) {
                     console.error('Sth went wrong when uploading image');
-                });               
+                });
             };
 
             ctrl.compileOutput = function () {
