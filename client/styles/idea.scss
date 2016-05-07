@@ -26,7 +26,7 @@
         border: 2px solid $grey;
         border-radius: 15px;
         padding: 20px;
-            h3{  
+            h3{
             text-transform: uppercase;
             font-size: 10px;
             font-weight: $bold;
@@ -60,14 +60,14 @@
             .wrapper{
             display: flex;
             align-items: center;
-            margin-bottom: 8px;   
+            margin-bottom: 8px;
             }
             h3{
             text-transform: uppercase;
             font-size: 10px;
             font-weight: $bold;
             padding-bottom: 10px; padding-left: 20px;
-            color: $grey;   
+            color: $grey;
             }
             .reviewer, button{
             display: inline-block;
@@ -94,7 +94,7 @@
             text-align: center;
             font-size: 18px;
             &:hover{
-            background: #7f7f7f;        
+            background: #7f7f7f;
             }}
             svg{
             fill: $TXT;
@@ -114,7 +114,7 @@
         margin: 20px 0;
         }
     }
-// END Idea HEADER ******************************************
+
 
 // Idea CONTENT ****************************************
 .idea-content{
@@ -124,7 +124,7 @@
         padding-bottom: 30px;
         }
 }
-// END Idea CONTENT ******************************************
+
 
 // Idea COMMENTS ****************************************
 .idea-comments{
@@ -152,7 +152,7 @@
     display: none;
     }
         .features{
-        margin-bottom: 15px;    
+        margin-bottom: 15px;
         }
         header{
         padding-right: 0;
@@ -220,9 +220,9 @@
         }
 }
 .reviewer-avatar{
-    width:50px; height:50px; 
-    background: #ddd; 
-    border-radius: 50%; 
+    width:50px; height:50px;
+    background: #ddd;
+    border-radius: 50%;
     margin:auto;
 }
 .status-wrapper{
@@ -234,7 +234,7 @@
 .status{
     display: inline-block;
     width:30px; height:30px;
-    border: 2px solid; 
+    border: 2px solid;
     border-radius: 50%;
     margin: 5px auto;
     line-height: 50px;
@@ -246,4 +246,3 @@
     border-color: $red;
 }
 }
-// END Idea COMMENTS ****************************************

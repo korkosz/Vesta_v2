@@ -11,8 +11,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -23,15 +23,28 @@ time, mark, audio, video {
 button, textarea, input{
     outline: none;
 }
-// END RESET ************************
 
+//globalne
 body{
     font-size: $BODYsize;
     color: $TXT;
     font-family: $font;
 }
 
-.btn{
+//obszar glowny
+#main-container{
+	font-size: 13px; // CUSTOMIZACJA --- wielkosc fontu mogla by byc zmieniana przez uzytkownika
+	.table{
+		width: auto;
+		th, td{
+			padding: 5px 15px;
+		}
+	}
+}
+
+
+//tymczasowe
+/*.btn{
     font-size: $PILLsize;
     font-weight: $bold;
     transition: 0.5s;
@@ -42,7 +55,7 @@ body{
     min-width: 120px;
     color: darken( $yellow, 22% );
     }
-}
+}*/
 #menu-top{
     height: 70px;
     background: #222222;
