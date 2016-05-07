@@ -65,14 +65,24 @@
                 <button class="reviewer-button">+</button>
             </div>
         </div>
-        <footer class="idea-header-footer">            
-            <new-task title="Create task" module="{{$ctrl.idea.module}}" 
-                project="{{$ctrl.idea.projectId}}"></new-task>
+        <footer class="idea-header-footer">
+            <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}"></new-task>
         </footer>
     </section>
+    <!-- Idea Description -->
     <section class="idea-content col-xs-12 col-sm-9 col-md-6">
         <h4>{{$ctrl.idea.title}}</h4>
-        <div ng-bind-html="$ctrl.idea.desc()" class="wrapper"></div>
+        <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited"></div>
+        <!-- Modal -->
+        <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" id="imgModalBody">
+                        <!-- Here goes image -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <section class="idea-comments col-xs-12 col-sm-12 col-md-4">
 

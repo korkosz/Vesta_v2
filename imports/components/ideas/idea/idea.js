@@ -6,7 +6,7 @@ import pill from '/imports/components/lib/pill/pill';
 import './idea.html';
 
 class IdeaCtrl {
-    constructor($scope, $routeParams, $sce) {
+    constructor($scope, $routeParams) {
         $scope.viewModel(this);
 
         this.review = {
@@ -14,7 +14,7 @@ class IdeaCtrl {
             drawbacks: [],
             comment: ''
         };
-
+        this.descriptionEdited = false;
         this.$routeParams = $routeParams;
 
         this.helpers({
@@ -31,9 +31,6 @@ class IdeaCtrl {
                     idea.projectName = project && project.name;
                     idea.createdBy = user.profile.fullname;
                     idea.reviewers = reviewers;
-                    idea.desc = function () {
-                        return $sce.trustAsHtml(idea.description);
-                    };
                     if (!idea.reviews) idea.reviews = [];
                 }
                 return idea;
@@ -57,7 +54,7 @@ class IdeaCtrl {
     }
 
     newReviewVisible() {
-        if (!this.idea || !this.reviews || 
+        if (!this.idea || !this.reviews ||
             this.reviews.length === 0 || !Meteor.user()) return false;
 
         const vm = this;
@@ -102,12 +99,53 @@ class IdeaCtrl {
             $set: {
                 status: this.idea.status
             }
-        });          
+        });
     }
 };
-IdeaCtrl.$inject = ['$scope', '$routeParams', '$sce'];
+IdeaCtrl.$inject = ['$scope', '$routeParams'];
 export default angular.module('idea')
-    .component('idea', {
-        templateUrl: 'imports/components/ideas/idea/idea.html',
-        controller: IdeaCtrl
+    .directive('idea', function () {
+        return {
+            templateUrl: 'imports/components/ideas/idea/idea.html',
+            controller: IdeaCtrl,
+            controllerAs: '$ctrl',
+            link
+        }
     });
+
+function link(scope, el, attr, ctrl) {
+    var imgModal = $('#imgModal');
+    var imgModalBody = $('#imgModalBody');
+    // hide toolbar
+    el.find('[text-angular-toolbar]').css('display', 'none');
+    var editor = el.find('.ta-editor');
+
+    // activate and diactivate edition
+    editor.dblclick(function () {
+        el.find('[text-angular-toolbar]').css('display', 'block');
+        ctrl.descriptionEdited = true;
+    });
+    editor.focusout(function () {
+        el.find('[text-angular-toolbar]').css('display', 'none');
+        ctrl.descriptionEdited = false;
+    });
+
+    // setTimeout(function () {
+    //     // if you click 2x on img modal will apear 
+    //     var imgs = editor.find('img');
+    //     imgsLen = imgs.length;
+
+    //     while (imgsLen--) {
+    //         let img = imgs.eq(imgsLen);
+    //         img.click(function (event) {
+    //             // if description is not in edit mode right now
+    //             if (!ctrl.descriptionEdited) {
+    //                 event.preventDefault();
+    //                 event.stopPropagation();
+    //                 imgModalBody.append(img);
+    //                 imgModal.modal();
+    //             }
+    //         });
+    //     }
+    // }, 1000);
+}

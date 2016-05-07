@@ -70,8 +70,6 @@ export default angular.module("idea")
         }
 
         function link(scope, el, attrs, ctrl) {
-            //var file = new File([myBlob], "name");
-
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);
                 var array = [];
@@ -90,25 +88,17 @@ export default angular.module("idea")
                         file: file
                     }
                 }).success(function (data, status, headers, config) {
-                    var img = $('#' + file.imgId).attr('src', data.url);
-                    setFullSizeImg(img);
+                    var img = $('#' + file.name).attr('src', data.url);
                     def.resolve();
                 }).error(function (data, status, headers, config) {
                     console.error('Sth went wrong when uploading image');
-                });
-
-                function setFullSizeImg(img) {
-                    img.attr({
-                        height: 'auto',
-                        width: 'auto'
-                    });
-                }
+                });               
             };
 
             ctrl.compileOutput = function () {
                 var defer = $q.defer();
                 var promises = [];
-
+                var counter = 0;
                 var editEl = $('*[id^="taTextElement"]');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
@@ -117,8 +107,10 @@ export default angular.module("idea")
                     let img = imgs.eq(imgsLen);
                     let src = img.attr('src');
                     let blob = dataURItoBlob(src);
-                    let file = new File([blob], "name");
-                    debugger;
+                    //name is UTC timestamp in miliseconds
+                    let name = Date.now() + '';
+                    let file = new File([blob], name);
+                    img.attr('id', name);
                     let defer = $q.defer();
                     let promise = defer.promise;
                     promises.push(promise);
