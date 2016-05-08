@@ -37,6 +37,15 @@ class TaskCtrl {
         });
     }
 
+    saveDescription() {
+         Tasks.update(this.task._id, {
+            $set: {
+                description: this.task.description
+            }
+        });        
+        this.stopEditDescription();
+    };
+
     selectListChanged(property) {
         var updateObj = {};
         updateObj[property] = this.task[property];
@@ -72,11 +81,6 @@ function link(scope, el, attr, ctrl) {
     ctrl.editDescription = function () {
         el.find('[text-angular-toolbar]').css('display', 'block');
         ctrl.descriptionEdited = true;
-    };
-
-    ctrl.saveDescription = function () {
-
-        ctrl.stopEditDescription();
     };
 
     ctrl.stopEditDescription = function () {
