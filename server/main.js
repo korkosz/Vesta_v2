@@ -30,7 +30,7 @@ Meteor.startup(() => {
             ]
         });
     }
-
+    Metadata.remove({});
     const lenghtMetadata = Metadata.find().count();
     if (lenghtMetadata === 0) {
         Metadata.insert(
@@ -53,7 +53,8 @@ Meteor.startup(() => {
                 "value": [
                     "Low",
                     "Normal",
-                    "High"
+                    "High",
+                    'Critical'
                 ]
             }
         );
