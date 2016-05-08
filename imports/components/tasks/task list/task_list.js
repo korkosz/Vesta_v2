@@ -29,7 +29,18 @@ class TaskListCtrl {
     hasFilter() {
         return !$.isEmptyObject(this.filter);
     }
-
+    
+    statusFilter(task) {
+        switch (task.status) {
+            case 'Closed':
+                return 3;
+            case 'Ready for testing':
+                return 2;
+            default:
+                return 1;
+        }
+    }
+    
     getStatusColor(status) {
         switch (status) {
             case 'Closed':
