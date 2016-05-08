@@ -65,7 +65,6 @@ class TaskCtrl {
 TaskCtrl.$inject = ['$scope', '$routeParams', '$sce', '$location', '$timeout'];
 
 export default angular.module('task')
-
     .directive('task', function () {
         return {
             templateUrl: 'imports/components/tasks/task/task.html',
@@ -74,6 +73,7 @@ export default angular.module('task')
             link
         }
     });
+    
 function link(scope, el, attr, ctrl) {
     // hide toolbar
     el.find('[text-angular-toolbar]').css('display', 'none');
