@@ -7,8 +7,8 @@
             <th>Module</th>
             <th>Priority</th>
             <th>Type</th>
-            <th ng-if="!!$ctrl.filter">Created By</th>
-            <th ng-if="!$ctrl.filter">Assigned</th>
+            <th ng-if="$ctrl.hasFilter()">Created By</th>
+            <th ng-if="!$ctrl.hasFilter()">Assigned</th>
             <th>Created At</th>
         </tr>
     </thead>
@@ -25,8 +25,8 @@
                 {{task.priority}}
             </td>
             <td>{{task.type}}</td>
-            <td ng-if="!!$ctrl.filter">{{task.creator()}}</td>
-            <td ng-if="!$ctrl.filter">{{task.assignedUser()}}</td>
+            <td ng-if="$ctrl.hasFilter()">{{task.creator()}}</td>
+            <td ng-if="!$ctrl.hasFilter()">{{task.assignedUser()}}</td>
             <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
         </tr>
     </tbody>

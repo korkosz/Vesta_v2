@@ -25,8 +25,11 @@ class TaskListCtrl {
     details(id) {
         this.$location.path('/task/' + id);
     }
-    //background-color:  - taki gdy Closed ?
-    // - taki kolor gdy task ready for testing
+    
+    hasFilter() {
+        return !$.isEmptyObject(this.filter);
+    }
+    
     getPriorityColor(priority) {
         switch (priority) {
             case 'High':
