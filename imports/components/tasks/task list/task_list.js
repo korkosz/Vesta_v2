@@ -29,17 +29,6 @@ class TaskListCtrl {
     hasFilter() {
         return !$.isEmptyObject(this.filter);
     }
-    
-    getPriorityColor(priority) {
-        switch (priority) {
-            case 'High':
-                return 'red';
-            case 'Low':
-                return 'Green';
-            default:
-                return 'Black';
-        }
-    }
 
     getStatusColor(status) {
         switch (status) {
