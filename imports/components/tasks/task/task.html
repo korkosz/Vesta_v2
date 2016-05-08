@@ -18,7 +18,7 @@
                 <h4 class="label label-default">Type</h4>
                 <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
                 </select>
-            </div>            
+            </div>
             <div class="wrapper">
                 <h4 class="label label-default">Reviewers</h4>
                 <ul>
@@ -29,7 +29,7 @@
                 <button class="btn btn-default">Add</button>
             </div><br>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTaskModal">              
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTaskModal">
                 Delete
             </button>
 
@@ -59,11 +59,21 @@
                     <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
                 </select>
             </div>
-        </div> 
+        </div>
     </section>
     <section class="task-content col-xs-12 col-sm-9 col-md-6">
         <h4>{{$ctrl.task.title}}</h4>
-         <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div> 
+        <div class="description-wrapper">
+            <div class="btn-group">
+                <button type="button" name="button" class="btn-edit">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" name="button" class="btn-save">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+            <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
+        </div>
     </section>
 </div>
 <pill></pill>
