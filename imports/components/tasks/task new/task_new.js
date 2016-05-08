@@ -2,6 +2,7 @@ import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
 import Metadata from '/imports/api/metadata/metadata';
+import Modules from '/imports/api/module/module';
 
 import './task_new.html';
 

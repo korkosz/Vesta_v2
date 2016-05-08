@@ -34,10 +34,8 @@
                     <!--Module-->
                     <fieldset id="module" class="field-wrapper">
                         <label class="label label-default">Module</label>
-                        <select ng-model="newIdeaVm.idea.module" name="module" required>
-                            <option ng-repeat="module in newIdeaVm.idea.project.modules">
-                                {{module}}
-                            </option>
+                        <select ng-model="newIdeaVm.task.module" name="module" required
+                                ng-options="module._id as module.name for module in newIdeaVm.modules">
                         </select>
                         <div ng-messages="newIdea.module.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.module.$touched ||

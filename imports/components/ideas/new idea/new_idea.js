@@ -20,7 +20,13 @@ class NewIdeaCtrl {
             },
             users() {
                 return Meteor.users.find();
-            }
+            },
+            modules() {
+                this.getReactively('idea.project');
+                if (this.idea.project) {
+                    return this.idea.project.getModules();
+                }
+            },
         });
     }
 
