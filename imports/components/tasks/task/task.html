@@ -1,5 +1,5 @@
 <div class="row">
-    <section class="task-header col-xs-12 col-sm-3 col-md-2"  style="background: #f4f4f4;">
+    <section class="task-header col-xs-12 col-sm-3 col-md-2" style="background: #f4f4f4;">
         <div>
             <div class="wrapper">
                 <h4 class="label label-default">Project</h4>
@@ -69,8 +69,8 @@
                         ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button type="button" name="button" class="btn-save"
-                        ng-switch-when="true">
+                <button type="button" name="button" class="btn-save" 
+                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>

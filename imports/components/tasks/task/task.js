@@ -13,7 +13,7 @@ class TaskCtrl {
         this.$routeParams = $routeParams;
         this.$timeout = $timeout;
         this.$location = $location;
-        
+
         this.helpers({
             task() {
                 var task = Tasks.findOne({ _id: this.$routeParams.id });
@@ -36,7 +36,7 @@ class TaskCtrl {
             }
         });
     }
-    
+
     selectListChanged(property) {
         var updateObj = {};
         updateObj[property] = this.task[property];
@@ -68,34 +68,19 @@ export default angular.module('task')
 function link(scope, el, attr, ctrl) {
     // hide toolbar
     el.find('[text-angular-toolbar]').css('display', 'none');
-    // var editor = el.find('.ta-editor');
-    
-    ctrl.editDescription= function() {
+
+    ctrl.editDescription = function () {
         el.find('[text-angular-toolbar]').css('display', 'block');
-        ctrl.descriptionEdited = true;             
+        ctrl.descriptionEdited = true;
     };
-    
-    // editor.focusout(function () {
-    //     el.find('[text-angular-toolbar]').css('display', 'none');
-    //     ctrl.descriptionEdited = false;
-    // });
 
-    // setTimeout(function () {
-    //     // if you click 2x on img modal will apear 
-    //     var imgs = editor.find('img');
-    //     imgsLen = imgs.length;
+    ctrl.saveDescription = function () {
 
-    //     while (imgsLen--) {
-    //         let img = imgs.eq(imgsLen);
-    //         img.click(function (event) {
-    //             // if description is not in edit mode right now
-    //             if (!ctrl.descriptionEdited) {
-    //                 event.preventDefault();
-    //                 event.stopPropagation();
-    //                 imgModalBody.append(img);
-    //                 imgModal.modal();
-    //             }
-    //         });
-    //     }
-    // }, 1000);
+        ctrl.stopEditDescription();
+    };
+
+    ctrl.stopEditDescription = function () {
+        el.find('[text-angular-toolbar]').css('display', 'none');
+        ctrl.descriptionEdited = false;
+    };
 }
