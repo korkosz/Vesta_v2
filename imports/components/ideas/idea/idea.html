@@ -67,16 +67,17 @@
     <section class="idea-content row">
         <h4>{{$ctrl.idea.title}}</h4>
         <div class="description-wrapper">
-            <div class="btn-group-description">
-                <button type="button" name="button" class="btn-edit">
+            <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
+                <button type="button" name="button" class="btn-edit" 
+                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button type="button" name="button" class="btn-save">
+                <button type="button" name="button" class="btn-save" 
+                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
-            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description">
-            </div>
+            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

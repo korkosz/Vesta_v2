@@ -18,7 +18,7 @@ class IdeaCtrl {
         this.$routeParams = $routeParams;
         this.$location = $location;
         this.$timeout = $timeout;
-        
+
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({ _id: this.$routeParams.id });
@@ -54,15 +54,15 @@ class IdeaCtrl {
     removeReviewVisible(_createdBy) {
         return Meteor.userId() === _createdBy;
     }
-    
-    removeIdea() {        
+
+    removeIdea() {
         $('#deleteIdeaModal').modal('hide');
         Ideas.remove(this.idea._id, true);
-        this.$timeout(()=> {
-            this.$location.url('/');    
-        }, 500);               
+        this.$timeout(() => {
+            this.$location.url('/');
+        }, 500);
     }
-    
+
     newReviewVisible() {
         if (!this.idea || !this.reviews ||
             this.reviews.length === 0 || !Meteor.user()) return false;
@@ -86,6 +86,15 @@ class IdeaCtrl {
     currentUserName() {
         if (Meteor.user()) return Meteor.user().profile.fullname;
     }
+
+    saveDescription() {
+        Ideas.update(this.idea._id, {
+            $set: {
+                description: this.idea.description
+            }
+        });
+        this.stopEditDescription();
+    };
 
     addReview() {
         this.review._createdBy = Meteor.userId();
@@ -124,38 +133,16 @@ export default angular.module('idea')
     });
 
 function link(scope, el, attr, ctrl) {
-    var imgModal = $('#imgModal');
-    var imgModalBody = $('#imgModalBody');
     // hide toolbar
     el.find('[text-angular-toolbar]').css('display', 'none');
-    var editor = el.find('.ta-editor');
 
-    // activate and diactivate edition
-    editor.dblclick(function () {
+    ctrl.editDescription = function () {
         el.find('[text-angular-toolbar]').css('display', 'block');
         ctrl.descriptionEdited = true;
-    });
-    editor.focusout(function () {
+    };
+
+    ctrl.stopEditDescription = function () {
         el.find('[text-angular-toolbar]').css('display', 'none');
         ctrl.descriptionEdited = false;
-    });
-
-    // setTimeout(function () {
-    //     // if you click 2x on img modal will apear 
-    //     var imgs = editor.find('img');
-    //     imgsLen = imgs.length;
-
-    //     while (imgsLen--) {
-    //         let img = imgs.eq(imgsLen);
-    //         img.click(function (event) {
-    //             // if description is not in edit mode right now
-    //             if (!ctrl.descriptionEdited) {
-    //                 event.preventDefault();
-    //                 event.stopPropagation();
-    //                 imgModalBody.append(img);
-    //                 imgModal.modal();
-    //             }
-    //         });
-    //     }
-    // }, 1000);
+    };
 }
