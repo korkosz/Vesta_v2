@@ -52,6 +52,7 @@ function NewTaskCtrl($scope) {
         vm.compileOutput().then(() => {
             vm.task.projectId = vm.task.project._id;
             vm.task.createdBy = Meteor.userId();
+            vm.task.creationDate = new Date();
             Tasks.insert(vm.task);
             vm.closeModal();
         });
