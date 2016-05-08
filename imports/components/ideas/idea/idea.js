@@ -6,7 +6,7 @@ import pill from '/imports/components/lib/pill/pill';
 import './idea.html';
 
 class IdeaCtrl {
-    constructor($scope, $routeParams) {
+    constructor($scope, $routeParams, $location, $timeout) {
         $scope.viewModel(this);
 
         this.review = {
@@ -16,7 +16,9 @@ class IdeaCtrl {
         };
         this.descriptionEdited = false;
         this.$routeParams = $routeParams;
-
+        this.$location = $location;
+        this.$timeout = $timeout;
+        
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({ _id: this.$routeParams.id });
@@ -52,7 +54,15 @@ class IdeaCtrl {
     removeReviewVisible(_createdBy) {
         return Meteor.userId() === _createdBy;
     }
-
+    
+    removeIdea() {        
+        $('#deleteIdeaModal').modal('hide');
+        Ideas.remove(this.idea._id, true);
+        this.$timeout(()=> {
+            this.$location.url('/');    
+        }, 500);               
+    }
+    
     newReviewVisible() {
         if (!this.idea || !this.reviews ||
             this.reviews.length === 0 || !Meteor.user()) return false;
@@ -102,7 +112,7 @@ class IdeaCtrl {
         });
     }
 };
-IdeaCtrl.$inject = ['$scope', '$routeParams'];
+IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('idea')
     .directive('idea', function () {
         return {

@@ -5,12 +5,14 @@ import Metadata from '/imports/api/metadata/metadata';
 import pill from '/imports/components/lib/pill/pill';
 import './task.html';
 
-class IdeaCtrl {
-    constructor($scope, $routeParams, $sce) {
+class TaskCtrl {
+    constructor($scope, $routeParams, $sce, $location, $timeout) {
         $scope.viewModel(this);
 
         this.descriptionEdited = false;
         this.$routeParams = $routeParams;
+        this.$timeout = $timeout;
+        this.$location = $location;
         
         this.helpers({
             task() {
@@ -34,6 +36,7 @@ class IdeaCtrl {
             }
         });
     }
+    
     selectListChanged(property) {
         var updateObj = {};
         updateObj[property] = this.task[property];
@@ -41,15 +44,23 @@ class IdeaCtrl {
             $set: updateObj
         });
     }
+
+    removeTask() {
+        $('#deleteTaskModal').modal('hide');
+        Tasks.remove(this.task._id, true);
+        this.$timeout(() => {
+            this.$location.url('/');
+        }, 500);
+    }
 };
-IdeaCtrl.$inject = ['$scope', '$routeParams', '$sce'];
+TaskCtrl.$inject = ['$scope', '$routeParams', '$sce', '$location', '$timeout'];
 
 export default angular.module('task')
 
     .directive('task', function () {
         return {
             templateUrl: 'imports/components/tasks/task/task.html',
-            controller: IdeaCtrl,
+            controller: TaskCtrl,
             controllerAs: "$ctrl",
             link
         }

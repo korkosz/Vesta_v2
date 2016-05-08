@@ -72,10 +72,31 @@
         <!-- Buttons -->
         <footer class="idea-header-footer">
             <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}"></new-task>
-            <!--
-             najlepiej zeby po nacisnieciu delete wyskakiwal modal z potwierdzeniem usuniecia
-            -->
-            <button type="button" name="button" class="btn btn-danger">Delete</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">              
+                Delete
+            </button>
+
+            <!-- DELETE Modal -->
+            <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove this idea ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </footer>
     </section>
     <!-- Idea description -->
