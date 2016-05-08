@@ -67,9 +67,14 @@
     <section class="idea-content row">
         <h4>{{$ctrl.idea.title}}</h4>
         <div class="description-wrapper">
-            <button type="button" name="button" class="btn-edit">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
+            <div class="btn-group">
+                <button type="button" name="button" class="btn-edit">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" name="button" class="btn-save">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
             <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description">
             </div>
         </div>
