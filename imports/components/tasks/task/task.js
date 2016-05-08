@@ -16,16 +16,9 @@ class TaskCtrl {
 
         this.helpers({
             task() {
-                var task = Tasks.findOne({ _id: this.$routeParams.id });
-                if (task) {
-                    task.desc = function () {
-                        return $sce.trustAsHtml(task.description);
-                    };
-                }
-                return task;
+                return Tasks.findOne({ _id: this.$routeParams.id });
             },
             taskStatuses() {
-                console.log(Metadata.findOne({ metadataName: 'TaskStatuses' }))
                 return Metadata.findOne({ metadataName: 'TaskStatuses' });
             },
             taskTypes() {
