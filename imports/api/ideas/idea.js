@@ -1,5 +1,8 @@
 import { Mongo } from 'meteor/mongo';
 
+import Modules from '/imports/api/module/module';
+import Projects from '/imports/api/project/project';
+
 export default Ideas = new Mongo.Collection('ideas');
 
 Ideas.schema = new SimpleSchema({
@@ -37,6 +40,21 @@ Ideas.schema = new SimpleSchema({
         type: String,
         defaultValue: this.userId
     }
+});
+
+Ideas.helpers({
+    project() {
+        var project = Projects.findOne(this.projectId);
+        if(project) return project.name;
+    },
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if(user) return user.profile.fullname;        
+    },
+    moduleName() {
+        var module = Modules.findOne(this.module);
+        if(module) return module.name;   
+    }           
 });
 
 Ideas.attachSchema(Ideas.schema);

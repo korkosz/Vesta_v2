@@ -15,9 +15,9 @@
             ng-click="$ctrl.details(idea._id)"
             style="cursor: pointer">
             <td>{{idea.title}}</td>
-            <td>{{idea.projectName}}</td>
-            <td>{{idea.module}}</td>
-            <td>{{idea.createdBy}}</td>
+            <td>{{idea.project()}}</td>
+            <td>{{idea.moduleName()}}</td>
+            <td>{{idea.creator()}}</td>
             <td>{{$ctrl.moment(idea.creationDate).fromNow()}}</td>
         </tr>
     </tbody>

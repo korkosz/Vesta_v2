@@ -1,35 +1,27 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Metadata from '/imports/api/metadata/metadata';
+import Modules from '/imports/api/module/module';
 
 import './idea_list.html';
 
 class IdeaListCtrl {
-	constructor($scope, $location) {
-		$scope.viewModel(this);
-        
+    constructor($scope, $location) {
+        $scope.viewModel(this);
+
         this.moment = moment;
         this.$location = $location;
         var imagesDiv = $('#images');
         console.log(Metadata.find({}).fetch());
         this.helpers({
-            ideas() {         	
-                return Ideas.find().map(function (idea) {
-                	var project = Projects.findOne({_id: idea.projectId});
-                    var user = Meteor.users.findOne({_id: idea.createdBy});
-                    idea.createdBy = user.profile.fullname;
-                	idea.projectName = project.name;
-                	return idea;
-                });
-            },
-            imgs() {                
-                return Images.find();  
-            }      
-        });  
-	}
-    
+            ideas() {
+                return Ideas.find();
+            }
+        });
+    }
+
     details(id) {
-        this.$location.path('/idea/' + id);    
+        this.$location.path('/idea/' + id);
     }
 }
 IdeaListCtrl.$inject = ['$scope', '$location'];

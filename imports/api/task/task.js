@@ -1,4 +1,6 @@
 import {Mongo} from 'meteor/mongo';
+
+import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
 export default TaskCollection = new Mongo.Collection('Tasks');
@@ -57,6 +59,10 @@ TaskCollection.helpers({
     project() {
         var project = Projects.findOne(this.projectId);  
         if(project) return project.name;
+    },
+    moduleName() {
+        var module = Modules.findOne(this.module);
+        if(module) return module.name;   
     }    
 });
 TaskCollection.attachSchema(TaskCollection.schema);
