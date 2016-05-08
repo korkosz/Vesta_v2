@@ -2,64 +2,60 @@ import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
 import Metadata from '/imports/api/metadata/metadata';
+import Modules from '/imports/api/module/module'
 import './task_new.html';
 
 /*
     TODO: 
         1. Zmienic hosting na Cloudinary       
 */
-function NewTaskCtrl($scope) {
-    var vm = this;
-    $scope.viewModel(vm);
+class NewTaskCtrl {
+    constructor($scope) {
+        $scope.viewModel(this);
 
-    vm.task = {};
-    vm.task.description = '';
+        this.task = {};
+        this.task.description = '';
 
-    // KURWA DODAJ JEBANY ID DO JEBANEGO KURWA MODULU
-    $scope.$watch('vm.project', function () {
-        if (vm.project) {
-            vm.task.project = vm.projects.find(function (p) {
-                return p._id === vm.project;
-            });
-            if (vm.module) {
-                let idx = vm.task.project.modules.indexOf(vm.module);
-                vm.task.module = vm.task.project.modules[idx];
+        this.helpers({
+            projects() {
+                return Projects.find();
+            },
+            modules() {
+                this.getReactively('task.project');
+                if (this.task.project) {
+                    return this.task.project.getModules();
+                }
+            },
+            taskTypes() {
+                return Metadata.findOne({ metadataName: 'TaskType' });
+            },
+            taskPriority() {
+                return Metadata.findOne({ metadataName: 'TaskPriority' });
+            },
+            users() {
+                return Meteor.users.find();
             }
-        }
-    });
-
-    vm.helpers({
-        projects() {
-            return Projects.find();
-        },
-        taskTypes() {
-            return Metadata.findOne({ metadataName: 'TaskType' });
-        },
-        taskPriority() {
-            return Metadata.findOne({ metadataName: 'TaskPriority' });
-        },
-        users() {
-            return Meteor.users.find();
-        }
-    });
-
-    vm.closeModal = function () {
-        $('#newTaskModal').modal('hide');
-        vm.task = null;
-    }
-
-    vm.accept = function () {
-        vm.compileOutput().then(() => {
-            vm.task.projectId = vm.task.project._id;
-            vm.task.createdBy = Meteor.userId();
-            vm.task.creationDate = new Date();
-            Tasks.insert(vm.task);
-            vm.closeModal();
         });
     }
 
-    vm.cancel = function () {
-        vm.closeModal();
+    closeModal() {
+        $('#newTaskModal').modal('hide');
+    } 
+       
+    accept() {
+        this.compileOutput().then(() => {
+            this.task.projectId = this.task.project._id;
+            this.task.createdBy = Meteor.userId();
+            this.task.creationDate = new Date();
+            Tasks.insert(this.task);
+            this.cancel();
+        });
+    }
+    
+    cancel() {
+        this.task = {};
+        this.task.description = '';
+        this.closeModal();
     }
 }
 NewTaskCtrl.$inject = ['$scope'];
@@ -85,8 +81,8 @@ export default angular.module("task")
 
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
-                    url: "https://api.cloudinary.com/v1_1/" + 
-                        cloudinary.config().cloud_name + "/upload",
+                    url: "https://api.cloudinary.com/v1_1/" +
+                    cloudinary.config().cloud_name + "/upload",
                     data: {
                         upload_preset: cloudinary.config().upload_preset,
                         tags: 'myphotoalbum',
