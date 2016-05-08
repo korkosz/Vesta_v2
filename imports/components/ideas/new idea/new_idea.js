@@ -1,5 +1,6 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
+import Modules from '/imports/api/module/module';
 
 import './new_idea.html';
 import './custom.js';

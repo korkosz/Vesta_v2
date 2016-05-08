@@ -4,6 +4,7 @@ import ProjectsCollection from '/imports/api/project/project';
 import TaskCollection from '/imports/api/task/task';
 import ReviewsCollection from '/imports/api/ideas/review';
 import Metadata from '/imports/api/metadata/metadata';
+import ModulesCollection from '/imports/api/module/module';
 
 Images.allow({
     'insert': function () {
@@ -18,6 +19,29 @@ Meteor.publish(null, function () {
 
 Meteor.startup(() => {
     //	ProjectsCollection.remove({});
+    var vesta = ProjectsCollection.findOne();
+    const modulesLen = ModulesCollection.find().count();
+    if (modulesLen === 0) {
+        ModulesCollection.insert({
+            name: 'Ideas',
+            project: vesta._id
+        });
+
+        ModulesCollection.insert({
+            name: 'Projects',
+            project: vesta._id
+        });
+
+        ModulesCollection.insert({
+            name: 'Tasks',
+            project: vesta._id
+        });
+
+        ModulesCollection.insert({
+            name: 'Global',
+            project: vesta._id
+        });
+    }
 
     const length = ProjectsCollection.find().count();
     if (length === 0) {

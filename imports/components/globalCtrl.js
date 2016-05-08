@@ -1,3 +1,6 @@
+import ModulesCollection from '/imports/api/module/module';
+import ProjectsCollection from '/imports/api/project/project';
+
 export default angular.module('global', [])
     .controller('globalCtrl', globalCtrl);
 
@@ -22,4 +25,13 @@ function globalCtrl() {
             alert('account created')
         })
     };
+    
+    this.addModule = function() {
+        var vesta = ProjectsCollection.findOne({});
+        ModulesCollection.insert({
+            name: this.module.name,
+            project: vesta._id  
+        });
+        this.module.name = '';  
+    }
 }
