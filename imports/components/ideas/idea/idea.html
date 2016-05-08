@@ -66,7 +66,13 @@
     <!-- Idea description -->
     <section class="idea-content row">
         <h4>{{$ctrl.idea.title}}</h4>
-        <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited"></div>
+        <div class="description-wrapper">
+            <button type="button" name="button" class="btn-edit">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description">
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">

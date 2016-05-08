@@ -29,6 +29,15 @@
         font-size: 24px;
         padding-bottom: 30px;
         }
+    .description-wrapper{
+        position: relative;
+        .btn-edit{
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 200;
+        }
+    }
 }
 
 
