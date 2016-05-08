@@ -1,7 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 
 export default Ideas = new Mongo.Collection('ideas');
-//
 
 Ideas.schema = new SimpleSchema({
     title: {
@@ -41,5 +40,3 @@ Ideas.schema = new SimpleSchema({
 });
 
 Ideas.attachSchema(Ideas.schema);
-
-//Ideas.insert({title: "test2", description: "test2"});
