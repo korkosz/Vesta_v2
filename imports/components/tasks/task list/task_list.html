@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="task in $ctrl.tasks |
-            orderBy: task.creationDate :true"
+            orderBy: [$ctrl.statusFilter, '-creationDate']"
             ng-click="$ctrl.details(task._id)"
             style="cursor: pointer;
                    background-color: {{$ctrl.getStatusColor(task.status)}}">
