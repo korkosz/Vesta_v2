@@ -68,17 +68,17 @@ export default angular.module('task')
 function link(scope, el, attr, ctrl) {
     // hide toolbar
     el.find('[text-angular-toolbar]').css('display', 'none');
-    var editor = el.find('.ta-editor');
-
-    // activate and diactivate edition
-    editor.dblclick(function () {
+    // var editor = el.find('.ta-editor');
+    
+    ctrl.editDescription= function() {
         el.find('[text-angular-toolbar]').css('display', 'block');
-        ctrl.descriptionEdited = true;
-    });
-    editor.focusout(function () {
-        el.find('[text-angular-toolbar]').css('display', 'none');
-        ctrl.descriptionEdited = false;
-    });
+        ctrl.descriptionEdited = true;             
+    };
+    
+    // editor.focusout(function () {
+    //     el.find('[text-angular-toolbar]').css('display', 'none');
+    //     ctrl.descriptionEdited = false;
+    // });
 
     // setTimeout(function () {
     //     // if you click 2x on img modal will apear 
