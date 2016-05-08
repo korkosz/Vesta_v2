@@ -29,17 +29,6 @@ class TaskListCtrl {
     hasFilter() {
         return !$.isEmptyObject(this.filter);
     }
-    
-    getPriorityColor(priority) {
-        switch (priority) {
-            case 'High':
-                return 'red';
-            case 'Low':
-                return 'Green';
-            default:
-                return 'Black';
-        }
-    }
 
     getStatusColor(status) {
         switch (status) {
@@ -49,28 +38,6 @@ class TaskListCtrl {
                 return 'aliceblue';
             default:
                 return 'White';
-        }
-    }
-    
-    statusFilter(task) {
-        switch (task.status) {
-            case 'Closed':
-                return 3;
-            case 'Ready for testing':
-                return 2;
-            default:
-                return 1;
-        }
-    }
-    
-    priorityFilter(task) {
-        switch (task.priority) {
-            case 'High':
-                return 1;
-            case 'Low':
-                return 3;
-            default:
-                return 2;
         }
     }
 }

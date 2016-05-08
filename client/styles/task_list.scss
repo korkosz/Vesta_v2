@@ -5,19 +5,19 @@
     .priority{
         height: 5px;
         border-radius: 10px;
-        &-low{
+        &-Low{
         width: 50%;
         background: #d8ff00;
         }
-        &-normal{
+        &-Normal{
         width: 1%*(50/3 + 50);
         background: #17ff17;
         }
-        &-hight{
+        &-High{
         width: 1%*(100/3 + 50);
         background: #ffa210;
         }
-        &-critical{
+        &-Critical{
         width: 100%;
         background: #ff4a26;
         }

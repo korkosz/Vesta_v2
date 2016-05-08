@@ -14,15 +14,15 @@
     </thead>
     <tbody>
         <tr ng-repeat="task in $ctrl.tasks |
-            orderBy:[$ctrl.statusFilter, $ctrl.priorityFilter]"
+            orderBy: task.creationDate :true"
             ng-click="$ctrl.details(task._id)"
             style="cursor: pointer;
                    background-color: {{$ctrl.getStatusColor(task.status)}}">
             <td>{{task.title}}</td>
             <td>{{task.project()}}</td>
             <td>{{task.module}}</td>
-            <td class="middle" style="color:{{$ctrl.getPriorityColor(task.priority)}}">
-                {{task.priority}}
+            <td class="middle">
+                <div class="priority priority-{{task.priority}}"></div>
             </td>
             <td>{{task.type}}</td>
             <td ng-if="$ctrl.hasFilter()">{{task.creator()}}</td>
@@ -30,92 +30,4 @@
             <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
         </tr>
     </tbody>
-    <!-- robocze tabele -->
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-critical"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-low"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-low"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-normal"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-hight"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-normal"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-normal"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
-
-    <tr style="cursor: pointer;
-               background-color: {{$ctrl.getStatusColor(task.status)}}">
-        <td>testowy tytul</td>
-        <td>Vesta</td>
-        <td>Idea</td>
-        <td class="middle"><div class="priority priority-critical"></div></td>
-        <td>Bug</td>
-        <td>Maciej Chmiel</td>
-        <td>05.05.2016</td>
-    </tr>
 </table>
