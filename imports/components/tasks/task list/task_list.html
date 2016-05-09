@@ -17,7 +17,7 @@
             orderBy: [$ctrl.statusFilter, '-creationDate']"
             ng-click="$ctrl.details(task._id)"
             style="cursor: pointer;
-                   background-color: {{$ctrl.getStatusColor(task.status)}}">
+                   opacity: {{$ctrl.getStatusColor(task.status)}}">
             <td>{{task.title}}</td>
             <td>{{task.project()}}</td>
             <td>{{task.moduleName()}}</td>
