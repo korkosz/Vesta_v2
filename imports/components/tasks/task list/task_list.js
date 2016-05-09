@@ -44,7 +44,7 @@ class TaskListCtrl {
     getStatusColor(status) {
         switch (status) {
             case 'Closed':
-                return '#fafafa';
+                return '#f4f4f4';
             case 'Ready for testing':
                 return 'aliceblue';
             default:
