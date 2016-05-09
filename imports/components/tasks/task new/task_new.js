@@ -6,13 +6,13 @@ import Modules from '/imports/api/module/module';
 
 import './task_new.html';
 
-/*
-    TODO: 
-        1. Zmienic hosting na Cloudinary       
-*/
 class NewTaskCtrl {
-    constructor($scope) {
+    constructor($scope, $q) {
         $scope.viewModel(this);
+        var vm = this;
+
+        this.projectsColDef = $q.defer();
+        this.modulesColDef = $q.defer();
 
         this.task = {};
         this.task.description = '';
@@ -24,6 +24,7 @@ class NewTaskCtrl {
             modules() {
                 this.getReactively('task.project');
                 if (this.task.project) {
+                    this.modulesColDef.resolve();
                     return this.task.project.getModules();
                 }
             },
@@ -37,12 +38,22 @@ class NewTaskCtrl {
                 return Meteor.users.find();
             }
         });
+
+        this.initValuesPresent = function () {
+            vm.modulesColDef.promise.then(() => {
+                if (vm.module !== '') {
+                    vm.task.module = vm.modules.find(function (m) {
+                        return m._id === vm.module;
+                    });
+                }
+            })
+        };
     }
 
     closeModal() {
         $('#newTaskModal').modal('hide');
-    } 
-       
+    }
+
     accept() {
         this.compileOutput().then(() => {
             this.task.projectId = this.task.project._id;
@@ -52,14 +63,14 @@ class NewTaskCtrl {
             this.cancel();
         });
     }
-    
+
     cancel() {
         this.task = {};
         this.task.description = '';
         this.closeModal();
     }
 }
-NewTaskCtrl.$inject = ['$scope'];
+NewTaskCtrl.$inject = ['$scope', '$q'];
 
 export default angular.module("task")
     .directive('newTask', ['$q', 'Upload', 'cloudinary', function (
@@ -77,9 +88,36 @@ export default angular.module("task")
             bindToController: true
         }
 
-        function link(scope, el, attrs, ctrl) {
-            if (!ctrl.title) ctrl.title = 'New Task';
+        function link(scope, el, attrs, ctrl) {                      
+           
+         ///Init with Project && / || Module present    
+            var moduleAttrDefer = $q.defer();
+            var projectAttrDefer = $q.defer();
 
+            $q.all([projectAttrDefer, moduleAttrDefer,
+                ctrl.projectsColDef]).then(ctrl.initValuesPresent);
+            
+            attrs.$observe('project', function () {
+                if (ctrl.project !== '') {
+                    ctrl.task.project = ctrl.projects.find(function (p) {
+                        return p._id === ctrl.project;
+                    });
+                    projectAttrDefer.resolve();
+                }
+            });
+
+            attrs.$observe('module', function () {
+                if (ctrl.module !== '') {
+                    moduleAttrDefer.resolve();
+                }
+            });
+            ///
+            
+            
+            
+            
+            if (!ctrl.title) ctrl.title = 'New Task';
+            
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
                     url: "https://api.cloudinary.com/v1_1/" +

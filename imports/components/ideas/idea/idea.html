@@ -33,9 +33,10 @@
                 <button class="reviewer-button">+</button>
             </div>
         </div>
-        <!-- Buttons -->
+        <!-- Buttons -->{{$ctrl.idea.projectId}} {{$ctrl.idea.module}}
         <footer class="idea-header-footer">
-            <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}"></new-task>
+            <new-task title="Create task" module="{{$ctrl.idea.module}}" 
+                      project="{{$ctrl.idea.projectId}}"></new-task>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">
                 Delete

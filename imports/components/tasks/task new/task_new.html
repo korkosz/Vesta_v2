@@ -24,7 +24,7 @@
                     <br />
                     <fieldset id="module">
                         <label class="label label-default">Module</label>
-                        <select ng-model="newTaskVm.task.module" ng-options="module._id as module.name for module in newTaskVm.modules">
+                        <select ng-model="newTaskVm.task.module" ng-options="module._id as module.name for module in newTaskVm.modules track by module._id">
                         </select>
                     </fieldset>
                     <br />
