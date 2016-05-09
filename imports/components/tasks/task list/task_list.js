@@ -8,13 +8,13 @@ import './task_list.html';
 class TaskListCtrl {
     constructor($scope, $location) {
         $scope.viewModel(this);
-        
+
         this.moment = moment;
         this.title = !!this.title ? this.title : 'Tasks';
         this.$location = $location;
         this.helpers({
             tasks() {
-                ///Musi byc tutaj bo helper refreshuje sie 
+                ///Musi byc tutaj bo helper refreshuje sie
                 ///po zmianie kolekcji
                 this.filter = !!this.filter ? this.filter : {};
                 return Tasks.find(this.filter);
@@ -25,11 +25,11 @@ class TaskListCtrl {
     details(id) {
         this.$location.path('/task/' + id);
     }
-    
+
     hasFilter() {
         return !$.isEmptyObject(this.filter);
     }
-    
+
     statusFilter(task) {
         switch (task.status) {
             case 'Closed':
@@ -40,11 +40,11 @@ class TaskListCtrl {
                 return 1;
         }
     }
-    
+
     getStatusColor(status) {
         switch (status) {
             case 'Closed':
-                return '#73FFB2';
+                return '#fafafa';
             case 'Ready for testing':
                 return 'aliceblue';
             default:
