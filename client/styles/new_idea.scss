@@ -1,26 +1,41 @@
 @import "{}/client/styles/imports/variables.scss";
 
 #newIdeaModal{
-    background: rgba(255, 255, 255, 0.76);
+    background: rgba(0,0,0,0.6);
+    transition: 0.5s;
     .field-wrapper{
         position: relative;
-        width: 500px;
-        .label{
+        width: 100%;
+        margin: 2.5px;
+        label.label-modal{
             display: inline-block;
-            min-width: 100px;
-            text-align: right;
-            padding: .5em .6em .5em;
+            width: 100px;
+            height: 18px;
+            padding-right: 10px;
             border-radius: 5px;
+            background: #E8E8E8;
+            text-align: right;
+            font-size: 8px;
+            color: #aaa;
+            letter-spacing: 1px;
+            line-height: 18px;
+            text-transform: uppercase;
+            vertical-align: top;
         }
         select, input{
+            height: 25px;
             min-width: 200px;
             border-radius: 5px;
-            margin-left: 10px;
             border: 1px solid #ccc;
-            padding: 0.4em 0.7em;
+            background: #fff;
+            outline: none;
+            margin-left: 5px;
         }
-        &.last{
-            margin-bottom: 30px;
+        input{
+            width: 719px;
+            height: 35px;
+            font-size: 18px;
+            padding-left: 6px;
         }
         .error{
             display: inline-block;
@@ -32,9 +47,12 @@
         opacity: .5;
     }
     .modal-dialog{
-        min-width: 1000px;
+        min-width: 900px;
     }
     .modal-content{
         padding: 20px;
+        -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+        background: #f4f4f4;
     }
 }
