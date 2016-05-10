@@ -60,11 +60,11 @@
                     <br>
                     <pill direction="one-way"
                           ng-model="newIdeaVm.selectedReviewers"></pill>
-                          
+
                     <!--Title-->
                     <fieldset id="title" class="fsStyle field-wrapper last">
                         <label class="label-modal">Title</label>
-                        <input name="title" type="text" ng-model="newIdeaVm.idea.title" required/>
+                        <input name="title" type="text" ng-model="newIdeaVm.idea.title" placeholder="Add title here" required/>
                         <div ng-messages="newIdea.title.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.title.$touched ||
                                 newIdea.$submitted">

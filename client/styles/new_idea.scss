@@ -36,6 +36,15 @@
             height: 35px;
             font-size: 18px;
             padding-left: 6px;
+            &::-webkit-input-placeholder{
+                color:#ddd;
+            }
+            &::-moz-placeholder{
+                color:#ddd;
+            }
+            &::-ms-input-placeholder{
+                color:#ddd;
+            }
         }
         .error{
             display: inline-block;
