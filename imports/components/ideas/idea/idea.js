@@ -20,10 +20,12 @@ class IdeaCtrl {
         this.$timeout = $timeout;
         this.reviewers = [];
 
-        function updateReviewers(revs) {
-
+        function clearArray(arr) {
+            for (var i = 0, len = arr.length; i < len; i++)
+                arr.pop();
+            return arr;
         }
-
+        
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({ _id: this.$routeParams.id });
@@ -36,7 +38,9 @@ class IdeaCtrl {
                     }).map(function (rev) {
                         return rev.profile.fullname;
                     });
-
+                    
+                    clearArray(vm.reviewers);
+                    
                     reviewers.forEach((rev) => {
                         vm.reviewers.push(rev);
                     });
@@ -52,7 +56,6 @@ class IdeaCtrl {
             },
             users() {
                 if (this.idea) {
-                    console.log(this.idea.reviewers);
                     return Meteor.users.find({
                         _id: {
                             $nin: this.idea.reviewers
@@ -78,6 +81,19 @@ class IdeaCtrl {
         this.$timeout(() => {
             this.$location.url('/');
         }, 500);
+    }
+
+    reviewerSelected() {
+        console.log(this.reviewer);
+        console.log(this.idea.reviewers);
+
+        Ideas.update(this.idea._id, {
+            $push: {
+                reviewers: this.reviewer._id
+            }
+        });
+
+        console.log(this.idea.reviewers);
     }
 
     newReviewVisible() {
