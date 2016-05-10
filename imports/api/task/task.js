@@ -2,6 +2,7 @@ import {Mongo} from 'meteor/mongo';
 
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
+import Comments from '/imports/api/task/comment'
 
 export default TaskCollection = new Mongo.Collection('Tasks');
 
@@ -21,26 +22,30 @@ TaskCollection.schema = new SimpleSchema({
         type: String
     },
     priority: {
-        type: String  
+        type: String
     },
     progress: {
         type: Number,
         defaultValue: 0
     },
     type: {
-        type: String    
+        type: String
     },
     status: {
         type: String,
-        defaultValue: "Open"       
+        defaultValue: "Open"
     },
     assigned: {
         type: String,
-        optional: true  
+        optional: true
+    },
+    comments: {
+        type: [String],
+        optional: true
     },
     creationDate: {
         type: Date,
-        defaultValue: new Date()        
+        defaultValue: new Date()
     },
     createdBy: {
         type: String,
@@ -50,19 +55,26 @@ TaskCollection.schema = new SimpleSchema({
 TaskCollection.helpers({
     creator() {
         var user = Meteor.users.findOne(this.createdBy);
-        if(user) return user.profile.fullname;        
+        if (user) return user.profile.fullname;
     },
     assignedUser() {
         var user = Meteor.users.findOne(this.assigned);
-        if(user) return user.profile.fullname;      
+        if (user) return user.profile.fullname;
     },
     project() {
-        var project = Projects.findOne(this.projectId);  
-        if(project) return project.name;
+        var project = Projects.findOne(this.projectId);
+        if (project) return project.name;
     },
     moduleName() {
         var module = Modules.findOne(this.module);
-        if(module) return module.name;   
-    }    
+        if (module) return module.name;
+    },
+    getComments() {
+        return Comments.find({
+            _id: {
+                $in: this.comments
+            }
+        });
+    }
 });
 TaskCollection.attachSchema(TaskCollection.schema);

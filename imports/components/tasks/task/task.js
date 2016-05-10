@@ -1,5 +1,6 @@
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
+import Comments from '/imports/api/task/comment';
 import Metadata from '/imports/api/metadata/metadata';
 
 import pill from '/imports/components/lib/pill/pill';
@@ -26,10 +27,26 @@ class TaskCtrl {
             },
             taskPriorities() {
                 return Metadata.findOne({ metadataName: 'TaskPriority' });
+            },
+            comments() {
+                this.getReactively('task');
+                if(this.task) {
+                    var x = this.task.getComments();
+                    return x;
+                }
             }
         });
     }
-
+    
+    addComment() {
+        Comments.insert({
+            content: this.comment,
+            taskId: this.task._id,
+            createdAt: new Date()
+        });
+        this.comment = '';
+    }
+    
     saveDescription() {
          Tasks.update(this.task._id, {
             $set: {

@@ -74,8 +74,14 @@
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
-            <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
+            <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>            
         </div>
     </section>
+    <textarea cols="30" rows="10" ng-model="$ctrl.comment"></textarea>
+    <button class="btn btn-success" ng-click="$ctrl.addComment()">Add comment</button>
+    
+    <div ng-repeat="comment in $ctrl.comments">
+        {{comment.content}}
+    </div>
 </div>
 <pill></pill>

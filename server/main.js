@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import IdeasCollection from '/imports/api/ideas/idea';
 import ProjectsCollection from '/imports/api/project/project';
 import TaskCollection from '/imports/api/task/task';
+import TaskCommentsCollection from '/imports/api/task/comment';
 import ReviewsCollection from '/imports/api/ideas/review';
 import Metadata from '/imports/api/metadata/metadata';
 import ModulesCollection from '/imports/api/module/module';
