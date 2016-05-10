@@ -70,9 +70,11 @@ TaskCollection.helpers({
         if (module) return module.name;
     },
     getComments() {
+        var _commentsIds = this.comments;
+        if(!Array.isArray(_commentsIds)) return [];
         return Comments.find({
             _id: {
-                $in: this.comments
+                $in: _commentsIds
             }
         });
     }
