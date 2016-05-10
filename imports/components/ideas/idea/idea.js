@@ -18,22 +18,28 @@ class IdeaCtrl {
         this.$routeParams = $routeParams;
         this.$location = $location;
         this.$timeout = $timeout;
+        this.reviewers = [];
+
+        function updateReviewers(revs) {
+
+        }
 
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({ _id: this.$routeParams.id });
                 if (idea) {
-                    let project = Projects.findOne({ _id: idea.projectId });
-                    let user = Meteor.users.findOne({ _id: idea.createdBy });
+                    var vm = this;
                     let reviewers = Meteor.users.find({
                         _id: {
                             $in: idea.reviewers
                         }
-                    }).fetch();
-                    idea.projectName = project && project.name;
-                    idea.createdBy = user.profile.fullname;
-                    idea.reviewers = reviewers;
-                    if (!idea.reviews) idea.reviews = [];
+                    }).map(function (rev) {
+                        return rev.profile.fullname;
+                    });
+
+                    reviewers.forEach((rev) => {
+                        vm.reviewers.push(rev);
+                    });
                 }
                 return idea;
             },
@@ -43,6 +49,17 @@ class IdeaCtrl {
             reviews() {
                 var idea = Ideas.findOne({ _id: this.$routeParams.id });
                 if (idea) return Reviews.find({ _id: { $in: idea.reviews } });
+            },
+            users() {
+                if (this.idea) {
+                    console.log(this.idea.reviewers);
+                    return Meteor.users.find({
+                        _id: {
+                            $nin: this.idea.reviewers
+                        }
+                    });
+                }
+
             }
         });
     }

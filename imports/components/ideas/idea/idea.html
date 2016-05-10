@@ -6,7 +6,7 @@
         <div class="idea-header-content">
             <!-- Header info -->
             <header class="info">
-                <h3 id="project">{{$ctrl.idea.projectName}}</h3>
+                <h3 id="project">{{$ctrl.idea.projectName()}}</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
                 <div class="wrapper">
                     <h3>Status:</h3>
@@ -19,21 +19,16 @@
             <!-- Header reviewers -->
             <div class="reviewers">
                 <h3>Reviewers:</h3>
-                <div class="wrapper creator" ng-repeat="reviewer in $ctrl.idea.reviewers">
-                    <div class="reviewer">
-                        {{reviewer.profile.fullname}}
-                    </div>
-                </div>
-                <div class="wrapper">
-                    <div class="reviewer">{{$ctrl.idea.createdBy}}</div>
-                </div>
-                <div class="wrapper">
-                    <div class="reviewer">Mateus Kork</div>
-                </div>
-                <button class="reviewer-button">+</button>
+                <pill direction="read-only"
+                          ng-model="$ctrl.reviewers"></pill>
+                <select ng-model="$ctrl.reviewer"
+                        ng-change="$ctrl.reviewerSelected()"
+                        ng-options="user.profile.fullname for user in
+                                        $ctrl.users">
+                </select>
             </div>
         </div>
-        <!-- Buttons -->{{$ctrl.idea.projectId}} {{$ctrl.idea.module}}
+        <!-- Buttons -->
         <footer class="idea-header-footer">
             <new-task title="Create task" module="{{$ctrl.idea.module}}" 
                       project="{{$ctrl.idea.projectId}}"></new-task>
