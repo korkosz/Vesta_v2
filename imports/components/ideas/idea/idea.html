@@ -1,22 +1,73 @@
-<div class="row header"></div>
 <div class="container">
     <!-- Idea header -->
-    <section class="idea-header row">
-        <!-- Header info content -->
-        <div class="idea-header-content">
-            <!-- Header info -->
-            <header class="info">
-                <h3 id="project">{{$ctrl.idea.projectName()}}</h3>
+    <section class="idea-header-wrapper row">
+        <div class="logo-wrapper">
+            <img src="/images/icon-Idea-main.png" alt="Idea main icon" />
+            <h1>idea</h1>
+        </div>
+        <header>
+            <!-- Project path -->
+            <div class="project-path">
+                <h3 id="project">{{$ctrl.idea.projectName()}}Vesta</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
-                <div class="wrapper">
-                    <h3>Status:</h3>
-                    <div class="btn-group">
-                        <select class="dropdown-toggle" ng-options="status for status in $ctrl.ideaStatuses.value" ng-model="$ctrl.idea.status" ng-change="$ctrl.setStatus()">
-                        </select>
+            </div>
+            <!-- Buttons -->
+            <div class="buttons">
+                <!-- Create new task -->
+                <new-task title="Create task" module="{{$ctrl.idea.module}}"
+                          project="{{$ctrl.idea.projectId}}"></new-task>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">
+                    Delete
+                </button>
+
+                <!-- DELETE Modal -->
+                <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to remove this idea ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </header>
-            <!-- Header reviewers -->
+            </div>
+        </header>
+    </section>
+    <!-- Idea description -->
+    <section class="idea-content row">
+        <header>
+            <p>Title:</p>
+            <h4>{{$ctrl.idea.title}}</h4>
+            <span class="idea-status idea-status-Consider">consider</span>
+            <div class="idea-date">05.05.2016</div>
+        </header>
+        <!-- Description wrapper -->
+        <div class="idea-description-wrapper">
+            <!-- Buttons -->
+            <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
+                <button type="button" name="button" class="btn-edit"
+                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" name="button" class="btn-save"
+                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+            <!-- Description -->
+            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
+            <!-- Reviewers -->
             <div class="reviewers">
                 <h3>Reviewers:</h3>
                 <pill direction="read-only"
@@ -26,63 +77,6 @@
                         ng-options="user.profile.fullname for user in
                                         $ctrl.users">
                 </select>
-            </div>
-        </div>
-        <!-- Buttons -->
-        <footer class="idea-header-footer">
-            <new-task title="Create task" module="{{$ctrl.idea.module}}" 
-                      project="{{$ctrl.idea.projectId}}"></new-task>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">
-                Delete
-            </button>
-
-            <!-- DELETE Modal -->
-            <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to remove this idea ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </section>
-    <!-- Idea description -->
-    <section class="idea-content row">
-        <h4>{{$ctrl.idea.title}}</h4>
-        <div class="description-wrapper">
-            <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit" 
-                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" name="button" class="btn-save" 
-                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-            </div>
-            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body" id="imgModalBody">
-                        <!-- Here goes image -->
-                    </div>
-                </div>
             </div>
         </div>
     </section>
