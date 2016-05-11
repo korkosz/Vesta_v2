@@ -3,16 +3,17 @@
 #newIdeaModal{
     background: rgba(0,0,0,0.6);
     transition: 0.5s;
+    #assign.field-wrapper{
+        margin-bottom: 30px;
+    }
     .field-wrapper{
         position: relative;
         width: 100%;
-        margin: 2.5px;
+        margin: 5px 0;
         label.label-modal{
             display: inline-block;
             width: 100px;
             height: 18px;
-            padding-right: 10px;
-            border-radius: 5px;
             text-align: right;
             font-size: 10px;
             color: #aaa;
@@ -61,5 +62,52 @@
         -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
         box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
         background: #f4f4f4;
+    }
+}
+#description{
+    .description-wrapper{
+    display: flex;
+    label.label-modal{
+        flex-basis: 100px;
+        text-align: right;
+        font-size: 10px;
+        color: #aaa;
+        line-height: 18px;
+        text-transform: uppercase;
+    }
+    .description{
+        flex: 1;
+        margin-left: 6px;
+        .btn {
+            font-size: 12px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 5px 0;
+            vertical-align: middle;
+            background: #fff;
+            border: 1px solid #bbb;
+        }
+        .btn-group{
+            margin: 2px;
+            margin-left: 6px;
+        }
+    }
+    .ta-root.focussed .ta-scroll-window.form-control{
+        border: 1px solid #ddd;
+        box-shadow: none;
+        outline: none;
+    }
+    .ta-scroll-window.form-control{
+        margin-top: 5px;
+        font-size: 16px;
+        line-height: 1.6em;
+    }
+    .btn-toolbar{
+        opacity: 0.5;
+        &.focussed{
+            opacity: 1;
+        }
+    }
     }
 }
