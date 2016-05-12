@@ -43,6 +43,7 @@ section.idea-content{
     border: 1px solid #DEDEDE;
     border-radius: 20px 20px 0 0;
     header{
+        // title
         p{
             display: inline-block;
             width: 100px;
@@ -61,29 +62,31 @@ section.idea-content{
             display: inline-block;
             font-size: 23px;
         }
+        // status idea
         .idea-status{
-            padding: 3px 20px 3px 8px;
+            padding: 2px 20px 3px 7px;
             border-radius: 4px;
             text-transform: uppercase;
             font-weight: 700;
             color: white;
-            font-size: 10px;
+            font-size: 8px;
             vertical-align: top;
             margin-left: 7px;
             &:after{
                 content: "";
                 position: absolute;
-                width: 10px;
-                height: 10px;
-                border: 5px solid transparent;
-                border-top: 5px solid #fff;
+                width: 8px;
+                height: 8px;
+                border: 4px solid transparent;
+                border-top: 4px solid #fff;
                 margin-left: 5px;
-                margin-top: 5px;
+                margin-top: 4px;
             }
             &-Consider{
                 background: #FF9900;
             }
         }
+        // data dodania
         .idea-date{
             display: block;
             float: right;
