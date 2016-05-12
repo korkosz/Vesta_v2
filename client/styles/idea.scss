@@ -62,7 +62,7 @@ section.idea-content{
             font-size: 23px;
         }
         .idea-status{
-            padding: 3px 8px;
+            padding: 3px 20px 3px 8px;
             border-radius: 4px;
             text-transform: uppercase;
             font-weight: 700;
@@ -70,6 +70,16 @@ section.idea-content{
             font-size: 10px;
             vertical-align: top;
             margin-left: 7px;
+            &:after{
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                border: 5px solid transparent;
+                border-top: 5px solid #fff;
+                margin-left: 5px;
+                margin-top: 5px;
+            }
             &-Consider{
                 background: #FF9900;
             }
