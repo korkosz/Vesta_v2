@@ -4,6 +4,7 @@
     background: rgba(0,0,0,0.6);
     transition: 0.5s;
     .modal-header{
+        padding: 0 0 15px 0 !important;
         img{
             display: block;
             margin: auto;
@@ -13,12 +14,12 @@
             margin: auto;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 30px;
+            letter-spacing: 3px;
+            font-size: 19px;
             font-weight: 700;
             color: #B3B3B3;
-            padding-top: 10px;
-            padding-left: 5px;
+            padding-top: 6px;
+            padding-right: 5px;
         }
     }
     #assign.field-wrapper{
