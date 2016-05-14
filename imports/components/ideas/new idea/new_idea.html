@@ -8,12 +8,18 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
+            <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Button cancel -->
+                <button id="cancelBtn" class="btn btn-cancel"
+                        ng-click="newIdeaVm.cancel()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <!-- Logo -->
                 <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
                 <h4>
                     Idea
-                    <span class="idea-statusNew">new</span>
+                    <span class="idea-label">new</span>
                 </h4>
             </div>
             <div class="modal-body">
@@ -64,12 +70,14 @@
 
                     <!--Title-->
                     <fieldset id="title" class="fsStyle field-wrapper last">
-                        <label class="label-modal">Title:</label>
-                        <input name="title" type="text" ng-model="newIdeaVm.idea.title" placeholder="Add title here" required/>
-                        <div ng-messages="newIdea.title.$error" class="error">
-                            <div ng-message="required" ng-show="newIdea.title.$touched ||
-                                newIdea.$submitted">
-                                This field is required
+                        <div class="title-wrapper">
+                            <label class="label-modal">Title:</label>
+                            <input name="title" type="text" ng-model="newIdeaVm.idea.title" placeholder="Add title here" required/>
+                            <div ng-messages="newIdea.title.$error" class="error">
+                                <div ng-message="required" ng-show="newIdea.title.$touched ||
+                                    newIdea.$submitted">
+                                    This field is required
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -86,14 +94,12 @@
                     <br>
 
                     <!--Footer buttons-->
-                    <button id="acceptBtn" class="btn btn-success"
-                            ng-click="newIdeaVm.accept(newIdea.$valid)">
-                        Create
-                    </button>
-                    <button id="cancelBtn" class="btn btn-danger"
-                            ng-click="newIdeaVm.cancel()">
-                        X
-                    </button>
+                    <div class="btn-wrapper">
+                        <button id="acceptBtn" class="btn btn-create"
+                                ng-click="newIdeaVm.accept(newIdea.$valid)">
+                            Create
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

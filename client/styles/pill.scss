@@ -1,34 +1,32 @@
 @import "{}/client/styles/imports/variables.scss";
 
 .pill{
-    -webkit-appearance: none;
-    -webkit-rtl-ordering: logical;
-    -webkit-user-select: text;
-    min-height: 25px;
-    padding: 1px 15px;
-    margin: 3px 0;
-    font-size: $PILLsize;
-    border: solid 1px rgba( $HR, .5 );
-    -webkit-transition: box-shadow 0.3s, border 0.3s;
-    -moz-transition: box-shadow 0.3s, border 0.3s;
-    -o-transition: box-shadow 0.3s, border 0.3s;
-    transition: box-shadow 0.3s, border 0.3s;
-    border-radius: 20px;
+    display: inline-block;
+    position: relative;
+    padding: 4px 30px 4px 15px;
+    background: #a186bd;
+    color: #fff;
+    border-radius: 7px;
+    font-size: 11px;
+    margin:2.5px 5px 2.5px 0;
     .plus{
-    color: $green;
-    font-weight: $bold;
-    font-size: 16px;
+        color: $green;
+        font-weight: $bold;
+        font-size: 16px;
     }
     .minus{
-    color: $red;
-    font-weight: $bold;
-    font-size: 16px;
+        color: $red;
+        font-weight: $bold;
+        font-size: 16px;
     }
     button{
-    position: absolute;
-    right: 20px;
-    background: transparent;
-    border: none;
+        position: absolute;
+        right: 5px;
+        top: 47%;
+        margin-top: -0.5em;
+        background: transparent;
+        border: none;
+        font-size: 8px;
     }
 }
 

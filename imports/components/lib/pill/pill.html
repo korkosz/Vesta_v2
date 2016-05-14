@@ -1,17 +1,16 @@
 <form ng-submit="vm.addPill()" >
-    <input type="text" class="pill" 
+    <input type="text" class="pill"
            ng-model="vm.pill" ng-show="vm.twoWay()" />
 </form>
-<div>
-    <div class="pill" ng-class="vm.stateClass" 
+<div class="reviewers-box">
+    <div class="pill" ng-class="vm.stateClass"
          ng-repeat="pill in vm.pills track by $index">
         <span ng-class="vm.signClass">
             {{vm.sign}}
         </span>
         {{pill}}
-        <button ng-click="vm.removePill(pill)" 
-                ng-hide="vm.readOnly()">
-            X
-        </button>    
+        <button ng-click="vm.removePill(pill)"
+                ng-hide="vm.readOnly()" class="glyphicon glyphicon-remove">
+        </button>
     </div>
 </div>
