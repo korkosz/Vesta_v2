@@ -1,0 +1,53 @@
+.description{
+    margin-left: 6px;
+    // poprawne wyswietlanie list
+    ul,ol{
+        padding-left: 1.2em;
+    }
+    // Buttony
+    .btn {
+        font-size: 11px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 5px 0;
+        background: #fff;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        letter-spacing: 0;
+        &.active{
+        background: #F4F4F4 !important;
+        }
+    }
+    .btn-group{
+        margin: 2px;
+        margin-left: 6px;
+    }
+    .ta-scroll-window.form-control{
+        margin-top: 5px;
+        font-size: 16px;
+        line-height: 1.6em;
+        box-shadow: none !important;
+    }
+    .btn-toolbar{
+        opacity: 0.5;
+        transition: 0.5s;
+        &.focussed{
+            opacity: 1;
+        }
+    }
+    img{
+        margin-top: 10px;
+        border: 1px solid #f4f4f4;
+    }
+    .form-control{
+        transition: none;
+    }
+    &.ta-root.focussed .ta-scroll-window.form-control{
+        border: 1px solid #ccc;
+        outline: none;
+        .ta-bind{
+            outline: none;
+        }
+    }
+}

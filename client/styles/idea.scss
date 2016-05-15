@@ -1,4 +1,5 @@
 @import "{}/client/styles/imports/variables.scss";
+@import "{}/client/styles/modal_description.scss";
 
 // Idea HEADER
 section.idea-header-wrapper{
@@ -99,12 +100,15 @@ section.idea-content{
         }
     }
     .idea-description-wrapper{
-        display: -webkit-box;
         display: -moz-box;
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
         margin-top: 20px;
+        // poprawne wyswietlanie list
+        ul,ol{
+            padding-left: 1.2em;
+        }
         .btn-group-description{
             flex-basis: 100px;
             padding-right: 5px;
@@ -122,18 +126,37 @@ section.idea-content{
             .ta-scroll-window > .ta-bind{
                 padding: 0;
                 padding-left: 5px;
-                font-size: 16px;
-                line-height: 1.6em;
                 color: #888;
             }
             .ta-scroll-window.form-control{
+                border: 1px solid #eee;
+                padding: 15px;
                 background: transparent;
-                border: none;
-                box-shadow: none;
+            }
+            // gdy pole edycji jest nieaktywne
+            &.disabled{
+                .ta-scroll-window.form-control{
+                    padding: 0;
+                    border: none;
+                    transition: 0.5s;
+                }
             }
         }
+        // Reviwers
         .reviewers{
             flex: 1;
+            text-align: right;
+            .reviewers-box{
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            div.pill{
+                padding-right: 15px;
+            }
         }
     }
 }

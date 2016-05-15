@@ -1,10 +1,10 @@
 @import "{}/client/styles/imports/variables.scss";
+@import "{}/client/styles/modal_description.scss";
 
 #newIdeaModal{
     background: -moz-linear-gradient(top, rgba(0,0,0,0.64) 0%, rgba(0,0,0,0.29) 99%, rgba(0,0,0,0.29) 100%);
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.64) 0%,rgba(0,0,0,0.29) 99%,rgba(0,0,0,0.29) 100%);
     background: linear-gradient(to bottom, rgba(0,0,0,0.64) 0%,rgba(0,0,0,0.29) 99%,rgba(0,0,0,0.29) 100%);
-    transition: 0.6s;
     .modal-dialog{
         min-width: 800px;
     }
@@ -119,13 +119,11 @@
     }
     .reviewers-box{
         display: flex;
+        flex-wrap: wrap;
         min-height: 40px;
         align-items: center;
         padding-left: 109px;
-    }
-    .disabled{
-        opacity: .5;
-    }
+        }
     //Button create
     .btn-wrapper{
         text-align: right;
@@ -139,56 +137,17 @@
 // Description
 #description{
     .description-wrapper{
-    display: flex;
-    label.label-modal{
-        flex-basis: 100px;
-        text-align: right;
-        font-size: 10px;
-        color: #aaa;
-        line-height: 18px;
-        text-transform: uppercase;
-    }
-    .description{
-        flex: 1;
-        margin-left: 6px;
-        .btn {
-            font-size: 11px;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            padding: 5px 0;
-            background: #fff;
-            border: 1px solid #bbb;
-            border-radius: 5px;
-            letter-spacing: 0;
-            &.active{
-            background: #F4F4F4 !important;
-            }
+        display: flex;
+        label.label-modal{
+            flex-basis: 100px;
+            text-align: right;
+            font-size: 10px;
+            color: #aaa;
+            line-height: 18px;
+            text-transform: uppercase;
         }
-        .btn-group{
-            margin: 2px;
-            margin-left: 6px;
+        .description{
+            flex: 1;
         }
-    }
-    .ta-root.focussed .ta-scroll-window.form-control{
-        border: 1px solid #ccc;
-        box-shadow: none;
-        outline: none;
-        .ta-bind{
-            outline: none;
-        }
-    }
-    .ta-scroll-window.form-control{
-        margin-top: 5px;
-        font-size: 16px;
-        line-height: 1.6em;
-        box-shadow: none;
-    }
-    .btn-toolbar{
-        opacity: 0.5;
-        &.focussed{
-            opacity: 1;
-        }
-    }
     }
 }
