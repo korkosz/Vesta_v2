@@ -1,11 +1,14 @@
 @import "{}/client/styles/imports/variables.scss";
 @import "{}/client/styles/modal_description.scss";
 
+// Variables
+$min-height: 100px; // ta wartość odpowiada za wysokość pola description
+
 // Idea HEADER
 section.idea-header-wrapper{
     .logo-wrapper{
         margin-top: 50px;
-        margin-bottom: 20px;
+        margin-bottom: 35px;
         img{
             display: block;
             margin: auto;
@@ -25,11 +28,27 @@ section.idea-header-wrapper{
     }
     header{
         overflow: hidden;
+        padding-bottom: 15px;
         .project-path{
             display: block;
             float: left;
             h3{
                 display: inline-block;
+                .project-badge{
+                    display: inline-block;
+                    width: 1.4em;
+                    height: 1.4em;
+                    border-radius: 50%;
+                    text-align: center;
+                    font-size: 0.7em;
+                    line-height: 1.4em;
+                    vertical-align: bottom;
+                    margin-right: 5px;
+                    margin-left: 10px;
+                    color: #fff;
+                    background: $vesta-color;
+                    font-weight: 700;
+                }
             }
         }
         .buttons{
@@ -41,6 +60,7 @@ section.idea-header-wrapper{
 //Idea DESCRIPTION
 section.idea-content{
     padding: 35px;
+    padding-bottom: 80px;
     border: 1px solid #DEDEDE;
     border-radius: 15px 15px 0 0;
     background: #fff;
@@ -54,7 +74,7 @@ section.idea-content{
             border-radius: 5px;
             text-align: right;
             font-size: 11px;
-            color: $vesta-color;
+            color: #aaa;
             line-height: 18px;
             text-transform: uppercase;
             vertical-align: baseline;
@@ -94,9 +114,8 @@ section.idea-content{
         .idea-date{
             display: block;
             float: right;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 400;
-            color: $vesta-color;
         }
     }
     .idea-description-wrapper{
@@ -119,19 +138,25 @@ section.idea-content{
                 width: 25px;
                 height: 25px;
                 background: #eee;
+                margin-top: 10px;
             }
         }
         .description{
             flex: 3;
+            .btn-toolbar{
+                margin-top: 8px;
+            }
             .ta-scroll-window > .ta-bind{
                 padding: 0;
                 padding-left: 5px;
                 color: #888;
+                min-height: $min-height;
             }
             .ta-scroll-window.form-control{
                 border: 1px solid #eee;
                 padding: 15px;
                 background: transparent;
+                min-height: $min-height;
             }
             // gdy pole edycji jest nieaktywne
             &.disabled{
@@ -156,6 +181,7 @@ section.idea-content{
             }
             div.pill{
                 padding-right: 15px;
+                margin-right: 0;
             }
         }
     }

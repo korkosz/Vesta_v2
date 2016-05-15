@@ -18,7 +18,7 @@
     .modal-header{
         padding: 0 0 15px 0 !important;
         // Button cancel
-        .btn-cancel{
+        .btn-V-cancel{
             position: absolute;
             right: 30px;
             top: 30px;
@@ -62,6 +62,7 @@
         position: relative;
         width: 100%;
         margin: 5px 0;
+        text-align: left;
         label.label-modal{
             display: inline-block;
             width: 100px;
@@ -81,6 +82,8 @@
             background: #fff;
             outline: none;
             margin-left: 5px;
+            font-size: 13px;
+            padding-left: 5px;
         }
         // Title
         .title-wrapper{
@@ -127,10 +130,6 @@
     //Button create
     .btn-wrapper{
         text-align: right;
-        .btn-create{
-            background: #3498db;
-            color: #fff;
-        }
     }
 }
 

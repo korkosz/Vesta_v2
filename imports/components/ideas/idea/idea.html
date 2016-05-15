@@ -8,7 +8,7 @@
         <header>
             <!-- Project path -->
             <div class="project-path">
-                <h3 id="project">{{$ctrl.idea.projectName()}}Vesta</h3>
+                <h3 id="project">{{$ctrl.idea.projectName()}}<span class="project-badge">V</span>Vesta</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
             </div>
             <!-- Buttons -->
@@ -17,8 +17,8 @@
                 <new-task title="Create task" module="{{$ctrl.idea.module}}"
                           project="{{$ctrl.idea.projectId}}"></new-task>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">
-                    Delete
+                <button type="button" class="btn-V btn-V-default" data-toggle="modal" data-target="#deleteIdeaModal">
+                    <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
                 <!-- DELETE Modal -->

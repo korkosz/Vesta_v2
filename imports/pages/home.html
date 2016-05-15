@@ -1,16 +1,11 @@
 <div class="container-fluid" ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
     <span ng-switch-when="true">
-        <new-idea></new-idea>
-        <new-task></new-task>
-        <button type="button" class="btn btn-info btn-md" data-toggle="modal"
-            data-target="#modulesModal" data-backdrop="false">
-            Modules
-        </button>
         
+
         <br /><br />
         <task-list title="Tasks Assigned To Me" filter="globalVm.assignedToMeFilter"></task-list>
         <idea-list></idea-list>
-        <task-list></task-list>         
+        <task-list></task-list>
 
         <!-- Modal Modules-->
         <div class="modal fade" id="modulesModal" role="dialog">
@@ -23,20 +18,20 @@
                     </div>
                     <div class="modal-body">
                         <form novalidate>
-                            <br />         
+                            <br />
                              <!--Name-->
                             <fieldset id="moduleName" class="field-wrapper">
                                 <label class="label label-default">Name</label>
-                                 <input name="name" type="text" ng-model="globalVm.module.name" 
+                                 <input name="name" type="text" ng-model="globalVm.module.name"
                                         required/>
                             </fieldset>
-                             <br />  
+                             <br />
                             <!--Footer buttons-->
                             <button id="acceptBtn" class="btn btn-success"
                                     ng-click="globalVm.addModule()">
                                 Save
                             </button>
-                            <button id="cancelBtn" class="btn btn-danger" 
+                            <button id="cancelBtn" class="btn btn-danger"
                                     data-dismiss="modal">
                                 Cancel
                             </button>
@@ -44,7 +39,7 @@
                     </div>
                 </div>
             </div>
-        </div>       
+        </div>
     </span>
     <span ng-switch-when="false">
         Maciek wiesniaku zaloguj sie
@@ -53,47 +48,47 @@
                 To jest tworzenie accounta, trzeba to wjebac tak jak to na gorze w lewym
             rogu -> tamto to zewnetrzna biblioteka
             </pre>
-            
+
             <form ng-submit="globalVm.createAccount()" name="accountCreate" novalidate>
 
                 <label>email</label>
                 <input ng-model="globalVm.email" required name="email" />
-                <div ng-messages="accountCreate.email.$error" role="alert" 
+                <div ng-messages="accountCreate.email.$error" role="alert"
                      ng-show="accountCreate.email.$touched || accountCreate.$submitted">
                     <div ng-message="required" style="color:red">
                             Please enter a value for this field.
                     </div>
                 </div>
-                
+
                 <label>firstname</label>
                 <input ng-model="globalVm.firstname" required name="firstname" />
-                <div ng-messages="accountCreate.firstname.$error" role="alert" 
+                <div ng-messages="accountCreate.firstname.$error" role="alert"
                      ng-show="accountCreate.firstname.$touched || accountCreate.$submitted">
                     <div ng-message="required" style="color:red">
                             Please enter a value for this field.
                     </div>
                 </div>
-                
+
                 <label>lastname</label>
                 <input ng-model="globalVm.lastname" required name="lastname" />
-                <div ng-messages="accountCreate.lastname.$error" 
+                <div ng-messages="accountCreate.lastname.$error"
                      role="alert"
                      ng-show="accountCreate.lastname.$touched || accountCreate.$submitted">
                     <div ng-message="required" style="color:red">
                             Please enter a value for this field.
                     </div>
                 </div>
-                
+
                 <label>password</label>
-                <input ng-model="globalVm.password" type="password" 
+                <input ng-model="globalVm.password" type="password"
                        required name="password" />
-                <div ng-messages="accountCreate.password.$error" role="alert" 
+                <div ng-messages="accountCreate.password.$error" role="alert"
                      ng-show="accountCreate.password.$touched || accountCreate.$submitted">
                     <div ng-message="required" style="color:red">
                             Please enter a value for this field.
                     </div>
                 </div>
-                
+
                 <input type="submit" value="Add"/>
             </form>
     </span>
