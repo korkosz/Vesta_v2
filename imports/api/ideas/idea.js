@@ -3,12 +3,43 @@ import { Mongo } from 'meteor/mongo';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
-export default Ideas = new Mongo.Collection('ideas');
+
+class IdeasCollection extends Mongo.Collection {
+    insert(doc) {
+        while (1) {
+            
+           var sort = { number: -1 };
+           var fields = {               
+                 number: 1
+            };
+            
+            var cursor = this.findOne({},{fields: fields, sort: sort});
+            var seq = cursor.number ? cursor.number + 1 : 1;
+            doc.number = seq;
+
+            var results = super.insert(doc);
+
+            if (results.hasWriteError()) {
+                if (results.writeError.code == 11000 /* dup key */)
+                    continue;
+                else
+                    console.log("unexpected error inserting data: " + JSON.stringify(results));
+            }
+            break;
+        }
+    }
+}
+
+export default Ideas = new IdeasCollection('ideas');
 
 Ideas.schema = new SimpleSchema({
     title: {
         type: String,
         max: 100
+    },
+    number : {
+      type: Number,
+      optional: true  
     },
     description: {
         type: String
@@ -22,7 +53,7 @@ Ideas.schema = new SimpleSchema({
     },
     status: {
         type: String,
-        defaultValue: "New"       
+        defaultValue: "New"
     },
     reviewers: {
         type: [String],
@@ -34,7 +65,7 @@ Ideas.schema = new SimpleSchema({
     },
     creationDate: {
         type: Date,
-        defaultValue: new Date()        
+        defaultValue: new Date()
     },
     createdBy: {
         type: String,
@@ -45,16 +76,16 @@ Ideas.schema = new SimpleSchema({
 Ideas.helpers({
     project() {
         var project = Projects.findOne(this.projectId);
-        if(project) return project.name;
+        if (project) return project.name;
     },
     creator() {
         var user = Meteor.users.findOne(this.createdBy);
-        if(user) return user.profile.fullname;        
+        if (user) return user.profile.fullname;
     },
     moduleName() {
         var module = Modules.findOne(this.module);
-        if(module) return module.name;   
-    }           
+        if (module) return module.name;
+    }
 });
 
 Ideas.attachSchema(Ideas.schema);
