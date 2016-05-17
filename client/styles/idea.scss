@@ -36,15 +36,13 @@ section.idea-header-wrapper{
                 display: inline-block;
                 .project-badge{
                     display: inline-block;
-                    width: 1.4em;
-                    height: 1.4em;
+                    width: 1.4em; height: 1.4em;
                     border-radius: 50%;
                     text-align: center;
-                    font-size: 0.7em;
+                    font-size: 0.6em;
                     line-height: 1.4em;
                     vertical-align: bottom;
-                    margin-right: 5px;
-                    margin-left: 10px;
+                    margin-right: 5px; margin-left: 10px; margin-bottom: 0.15em;
                     color: #fff;
                     background: $vesta-color;
                     font-weight: 700;
@@ -59,9 +57,7 @@ section.idea-header-wrapper{
 }
 //Idea DESCRIPTION
 section.idea-content{
-    padding: 35px;
-    padding-bottom: 80px;
-    padding-top: 60px;
+    padding: 35px; padding-bottom: 80px; padding-top: 60px;
     border: 1px solid #DEDEDE;
     border-radius: 15px 15px 0 0;
     background: #fff;
@@ -149,7 +145,6 @@ section.idea-content{
             }
             .ta-scroll-window > .ta-bind{
                 padding: 0;
-                padding-left: 5px;
                 color: #888;
                 min-height: $min-height;
             }
