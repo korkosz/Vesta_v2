@@ -152,5 +152,7 @@
     }
     .description{
         flex: 1;
+        overflow-x: auto;
+        text-align: left;
     }
 }
