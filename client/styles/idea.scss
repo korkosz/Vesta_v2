@@ -62,10 +62,11 @@ section.idea-content{
     border-radius: 15px 15px 0 0;
     background: #fff;
     header{
+        display: flex;
+        align-items: baseline;
         // Title
         p{
-            display: inline-block;
-            width: 100px;
+            flex-basis: 100px;
             height: 18px;
             padding-right: 5px;
             border-radius: 5px;
@@ -78,8 +79,10 @@ section.idea-content{
             font-weight: 700;
         }
         h4{
-            display: inline-block;
             font-size: 23px;
+            line-height: 1.4;
+            margin-left: 6px;
+            flex: 1;
         }
         // Status idea
         .idea-status-wrapper{
@@ -96,7 +99,7 @@ section.idea-content{
                 font-weight: 400;
                 color: white;
                 font-size: 8px;
-                vertical-align: top;
+                vertical-align: super;
                 margin-left: 7px;
                 // Strzałeczka
                 &:after{
@@ -110,7 +113,7 @@ section.idea-content{
                     margin-top: 4px;
                 }
                 &-New{
-                    background: #4aa3df;
+                    background: #1abc9c;
                 }
                 &-Consider{
                     background: #FF9900;
@@ -140,8 +143,8 @@ section.idea-content{
         }
         // data dodania
         .idea-date{
-            display: block;
-            float: right;
+            flex-basis: 200px;
+            text-align: right;
             font-size: 16px;
             font-weight: 400;
         }
