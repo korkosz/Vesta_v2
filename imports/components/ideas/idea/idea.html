@@ -49,8 +49,17 @@
         <header>
             <p>Title:</p>
             <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}</h4>
-            <span class="idea-status idea-status-Consider">consider</span>
+            <div class="idea-status-wrapper dropdown">
+                <button class="idea-status idea-status-Consider dropdown-toggle" type="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">consider</button>
+                <ul class="dropdown-menu">
+                    <li class="idea-status idea-status-New">new</li>
+                    <li class="idea-status idea-status-Consider">conside</li>
+                    <li class="idea-status idea-status-Implemented">implemented</li>
+                    <li class="idea-status idea-status-Rejected">rejected</li>
+                </ul>
             <div class="idea-date">05.05.2016</div>
+            </div>
         </header>
         <!-- Description wrapper -->
         <div class="idea-description-wrapper">
