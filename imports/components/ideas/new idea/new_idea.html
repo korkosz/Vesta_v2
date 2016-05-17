@@ -67,9 +67,11 @@
                                             newIdeaVm.users">
                         </select>
                     </fieldset>
-
-                    <pill direction="one-way"
-                          ng-model="newIdeaVm.selectedReviewers"></pill>
+                    
+                    <pill ng-repeat="reviewer in newIdeaVm.selectedReviewers" 
+                          value="reviewer.profile.fullname" 
+                          remove="newIdeaVm.removeReviewer(reviewer)">
+                    </pill>
 
                     <!--Title-->
                     <fieldset id="title" class="fsStyle field-wrapper last">

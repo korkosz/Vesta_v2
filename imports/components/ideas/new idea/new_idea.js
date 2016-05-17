@@ -11,7 +11,6 @@ class NewIdeaCtrl {
 
         this.idea = {};
         this.selectedReviewers = [];
-        this.selectedReviewersIds = [];
         this.idea.description = '';
 
         this.helpers({
@@ -30,11 +29,14 @@ class NewIdeaCtrl {
         });
     }
 
+    removeReviewer(reviewer) {
+        var revIdx = this.selectedReviewers.findIndex((rev) =>
+            rev._id === reviewer._id);
+        this.selectedReviewers.splice(revIdx, 1);
+    }
+
     reviewerSelected() {
-        if (this.selectedReviewersIds.indexOf(
-            this.reviewer._id) !== -1) return;
-        this.selectedReviewersIds.push(this.reviewer._id);
-        this.selectedReviewers.push(this.reviewer.profile.fullname);
+        this.selectedReviewers.push(this.reviewer);
         this.reviewer = null;
     }
 
@@ -48,8 +50,9 @@ class NewIdeaCtrl {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.creationDate = new Date();
-            this.idea.reviewers = this.selectedReviewersIds;
-            this.idea.reviews = [];            
+            this.idea.reviewers = this.selectedReviewers.map(
+                (rev) => rev._id);
+            this.idea.reviews = [];
             Ideas.insert(this.idea);
             this.closeModal();
         });

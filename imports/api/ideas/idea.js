@@ -19,12 +19,12 @@ class IdeasCollection extends Mongo.Collection {
 
             var results = super.insert(doc);
 
-            if (results.hasWriteError()) {
-                if (results.writeError.code == 11000 /* dup key */)
-                    continue;
-                else
-                    console.log("unexpected error inserting data: " + JSON.stringify(results));
-            }
+            // if (results.hasWriteError()) {
+            //     if (results.writeError.code == 11000 /* dup key */)
+            //         continue;
+            //     else
+            //         console.log("unexpected error inserting data: " + JSON.stringify(results));
+            // }
             break;
         }
     }

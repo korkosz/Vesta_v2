@@ -2,40 +2,8 @@ import '../lib.js';
 import './pill.html';
 
 //TODO: Zrezygnowac z atrybutu state, lepiej pozwolic na stylizowanie klasa, oraz wsadzanie icon
-
-/**
- * {<Direction} may be: 
- * a) read-only - input and remove button are hidden
- * b) one-way - input is hidden, remove button not
- * c) two-way - both input and remove button are visible
- */
-export default angular.module("lib.pill", [])
-    .directive("pill", function () {
-        return {
-            restrict: 'E',
-            templateUrl: 'imports/components/lib/pill/pill.html',
-            controller: PillCtrl,
-            controllerAs: 'vm',
-            scope: {
-                state: '@',
-                ngModel: '=',
-                direction: '@?',
-                ctPlaceholder: '@'
-            },
-            bindToController: true,
-            link
-        }
-    });
-
 class PillCtrl {
     constructor() {
-        this.pills = [];
-        this.pill = '';
-
-        if (this.ngModel) {
-            this.pills = this.ngModel;
-        }
-
         switch (this.state) {
             case 'plus':
                 this.sign = '+';
@@ -55,27 +23,20 @@ class PillCtrl {
         }
     }
 
-    addPill() {
-        if (this.pill === '') return;
-        this.pills.push(this.pill);
-        this.pill = '';
-    }
-
-    removePill(pill) {
-        this.pills.splice(this.pills.indexOf(pill), 1);
+    removeItem() {
+        if (angular.isFunction(this.remove)) this.remove();
     }
 }
 
-function link(scope, el, attrs, ctrl) {
-    el.find('input').attr('placeholder',
-        ctrl.ctPlaceholder);
-
-    ctrl.readOnly = function() {
-        return ctrl.direction === 'read-only';    
-    }
-    
-    ctrl.twoWay = function() {
-        return ctrl.direction === 'two-way' ||
-            angular.isUndefined(ctrl.direction);    
-    }
-}
+export default angular.module("lib.pill", [])
+    .component("pill",
+    {
+        templateUrl: 'imports/components/lib/pill/pill.html', 
+        controller: PillCtrl, 
+        bindings: {
+            state: '@',
+            value: '<',
+            readOnly: '<',
+            remove: '&'
+        }
+    });
