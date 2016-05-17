@@ -28,7 +28,7 @@ class IdeaCtrl {
         
         this.helpers({
             idea() {
-                var idea = Ideas.findOne({ _id: this.$routeParams.id });
+                var idea = Ideas.findOne({ number: parseInt(this.$routeParams.number) });
                 if (idea) {
                     var vm = this;
                     let reviewers = Meteor.users.find({

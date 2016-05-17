@@ -8,7 +8,7 @@ angular.module('simple-todos')
 	        when('/', {
 	            templateUrl: 'imports/pages/home.html'               
 	        }).
-            when('/idea/:id', {
+            when('/idea/:number', {
 	            templateUrl: 'imports/pages/idea/idea_view.html'
 	        }).
             when('/task/:id', {

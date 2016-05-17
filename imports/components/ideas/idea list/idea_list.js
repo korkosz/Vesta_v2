@@ -20,8 +20,8 @@ class IdeaListCtrl {
         });
     }
 
-    details(id) {
-        this.$location.path('/idea/' + id);
+    details(number) {
+        this.$location.path('/idea/' + number);
     }
 }
 IdeaListCtrl.$inject = ['$scope', '$location'];
