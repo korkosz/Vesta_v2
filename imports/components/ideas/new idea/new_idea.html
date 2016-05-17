@@ -32,7 +32,7 @@
                         <select ng-model="newIdeaVm.idea.project" name="project" required
                                 ng-options="project as project.name for project in newIdeaVm.projects">
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" style="color: #3498DB; margin-left: 4px;" ng-show="newIdeaVm.idea.project"></div>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.project"></div>
                         <div ng-messages="newIdea.project.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.project.$touched ||
                                 newIdea.$submitted">
@@ -47,7 +47,7 @@
                         <select ng-model="newIdeaVm.idea.module" name="module" required
                                 ng-options="module._id as module.name for module in newIdeaVm.modules">
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" style="color: #3498DB; margin-left: 4px;" ng-show="newIdeaVm.idea.module"></div>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>
                         <div ng-messages="newIdea.module.$error" class="error">
                             <div ng-message="required" ng-show="newIdea.module.$touched ||
                                 newIdea.$submitted">
