@@ -1,0 +1,13 @@
+<div class="row" style="border: 0.5px solid grey;">
+    <span class="col-md-3" style="height: 90px">
+        <span class="row">
+            {{$ctrl.comment.creator()}}
+        </span>
+        <span class="row">
+            {{$ctrl.moment($ctrl.comment.createdAt).fromNow()}}
+        </span>
+    </span>
+    <span class="col-md-9" style="height: 90px; padding-top:15px;">
+        {{$ctrl.comment.content}}
+    </span>
+</div>

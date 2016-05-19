@@ -4,6 +4,8 @@ import Comments from '/imports/api/task/comment';
 import Metadata from '/imports/api/metadata/metadata';
 
 import pill from '/imports/components/lib/pill/pill';
+import comment from '/imports/components/tasks/comment/comment';
+
 import './task.html';
 
 class TaskCtrl {
@@ -42,6 +44,7 @@ class TaskCtrl {
         Comments.insert({
             content: this.comment,
             taskId: this.task._id,
+            createdBy: Meteor.userId(),
             createdAt: new Date()
         });
         this.comment = '';
