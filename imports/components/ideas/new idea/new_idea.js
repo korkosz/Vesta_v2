@@ -3,7 +3,6 @@ import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
 
 import './new_idea.html';
-import './custom.js';
 
 class NewIdeaCtrl {
     constructor($scope) {
@@ -11,14 +10,20 @@ class NewIdeaCtrl {
 
         this.idea = {};
         this.selectedReviewers = [];
+        this.reviewersChanged = false;
         this.idea.description = '';
-
+        
         this.helpers({
             projects() {
                 return Projects.find();
             },
             users() {
-                return Meteor.users.find();
+                this.getReactively('reviewersChanged');
+                return Meteor.users.find({
+                    _id: {
+                        $nin: this.selectedReviewers.map((rev)=>rev._id)
+                    }
+                });
             },
             modules() {
                 this.getReactively('idea.project');
@@ -30,12 +35,14 @@ class NewIdeaCtrl {
     }
 
     removeReviewer(reviewer) {
+        this.reviewersChanged = !this.reviewersChanged;
         var revIdx = this.selectedReviewers.findIndex((rev) =>
             rev._id === reviewer._id);
         this.selectedReviewers.splice(revIdx, 1);
     }
 
     reviewerSelected() {
+        this.reviewersChanged = !this.reviewersChanged;
         this.selectedReviewers.push(this.reviewer);
         this.reviewer = null;
     }
@@ -50,8 +57,8 @@ class NewIdeaCtrl {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.creationDate = new Date();
-            this.idea.reviewers = this.selectedReviewers.map(
-                (rev) => rev._id);
+            this.idea.reviewers.concat(this.selectedReviewers.map(
+                (rev) => rev._id));
             this.idea.reviews = [];
             Ideas.insert(this.idea);
             this.closeModal();

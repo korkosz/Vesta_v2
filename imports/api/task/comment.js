@@ -33,4 +33,11 @@ CommentsCollection.schema = new SimpleSchema({
     }
 });
 
+Comments.helpers({
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) return user.profile.fullname;
+    }
+});
+
 Comments.attachSchema(CommentsCollection.schema);
