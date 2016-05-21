@@ -129,9 +129,8 @@
     .reviewers-box{
         display: flex;
         flex-wrap: wrap;
-        min-height: 40px;
         align-items: center;
-        padding-left: 109px;
+        padding-left: 109px; padding-bottom: 5px;
         }
     //Button create
     .btn-wrapper{

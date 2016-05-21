@@ -41,7 +41,7 @@
                         <select ng-model="newIdeaVm.idea.module" name="module" required
                                 ng-options="module._id as module.name for module in newIdeaVm.modules">
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>                        
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>
                     </fieldset>
 
                     <!--Assign-->
@@ -56,11 +56,12 @@
                                 name="reviewer">
                         </select>
                     </fieldset>
-                    
-                    <pill ng-repeat="reviewer in newIdeaVm.selectedReviewers" 
-                          value="reviewer.profile.fullname" 
-                          remove="newIdeaVm.removeReviewer(reviewer)">
-                    </pill>
+                    <div class="reviewers-box">
+                        <pill ng-repeat="reviewer in newIdeaVm.selectedReviewers"
+                              value="reviewer.profile.fullname"
+                              remove="newIdeaVm.removeReviewer(reviewer)">
+                        </pill>
+                    </div>
 
                     <!--Title-->
                     <fieldset id="title" class="fsStyle field-wrapper last">

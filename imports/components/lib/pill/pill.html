@@ -1,11 +1,9 @@
-<div class="reviewers-box">
-    <div class="pill" ng-class="$ctrl.stateClass">
-        <span ng-class="$ctrl.signClass">
-            {{$ctrl.sign}}
-        </span>
-        {{$ctrl.value}}
-        <button ng-click="$ctrl.removeItem()"
-                ng-hide="$ctrl.readOnly" class="glyphicon glyphicon-remove">
-        </button>
-    </div>
+<div class="pill" ng-class="$ctrl.stateClass">
+    <span ng-class="$ctrl.signClass">
+        {{$ctrl.sign}}
+    </span>
+    {{$ctrl.value}}
+    <button ng-click="$ctrl.removeItem()"
+            ng-hide="$ctrl.readOnly" class="glyphicon glyphicon-remove">
+    </button>
 </div>
