@@ -2,7 +2,7 @@
 
     <!-- Idea header -->
 
-    <section class="header-wrapper row">
+    <section class="VST-view-header row">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Idea main icon" />
             <h1>idea</h1>
@@ -20,7 +20,8 @@
                 <new-task title="Create task" module="{{$ctrl.idea.module}}"
                           project="{{$ctrl.idea.projectId}}"></new-task>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn-V btn-V-default" data-toggle="modal" data-target="#deleteIdeaModal">
+                <button type="button" class="btn-V btn-V-default"
+                        data-toggle="modal" data-target="#deleteIdeaModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -50,7 +51,7 @@
 
     <!-- Idea description -->
 
-    <section class="idea-content row">
+    <section class="VST-view-content row">
         <header>
             <p>Title:</p>
             <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}
@@ -69,7 +70,7 @@
             <div class="idea-date">05.05.2016</div>
         </header>
         <!-- Description wrapper -->
-        <div class="idea-desc-wrapper">
+        <div class="VST-view-desc-wrapper">
             <!-- Buttons -->
             <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
                 <button type="button" name="button" class="btn-edit"

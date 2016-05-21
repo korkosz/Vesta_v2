@@ -1,18 +1,23 @@
-<div class="container">
+<div class="VST-view-container">
 
     <!-- Task header -->
 
-    <section class="header-wrapper">
-        <div>
-            <div class="wrapper">
-                <h4 class="label label-default">Project</h4>
-                <p>{{$ctrl.task.project()}}</p>
+    <section class="VST-view-header">
+        <div class="logo-wrapper">
+            <img src="/images/icon-Idea.png" alt="Idea main icon" />
+            <h1>idea</h1>
+        </div>
+        <header>
+            <!-- Project path -->
+            <div class="project-path">
+                <h3 id="project"><span class="project-badge">v</span>{{$ctrl.task.project()}}</h3>
+                <h3 id="module">{{$ctrl.task.moduleName()}}</h3>
+                <h3>Klasa</h3>
             </div>
-            <div class="wrapper">
-                <h4 class="label label-default">Module</h4>
-                <p>{{$ctrl.task.moduleName()}}</p>
-            </div>
-            <div class="wrapper">
+
+            <!-- do przeniesienia -->
+
+            <!--<div class="wrapper">
                 <h4 class="label label-default">Priority</h4>
                 <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
                 </select>
@@ -22,6 +27,7 @@
                 <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
                 </select>
             </div>
+
             <div class="wrapper">
                 <h4 class="label label-default">Reviewers</h4>
                 <ul>
@@ -30,53 +36,66 @@
                     <li class="label label-primary">Marcin Trybulec</li>
                 </ul>
                 <button class="btn btn-default">Add</button>
-            </div><br>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTaskModal">
-                Delete
-            </button>
+            </div
 
-            <!-- DELETE Modal -->
-            <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Remove Task</h4>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to remove this task ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" ng-click="$ctrl.removeTask()">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="wrapper">
                 <h4 class="label label-default">Status</h4>
                 <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
                     <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
                 </select>
+            </div>-->
+
+            <!-- END -->
+            <!-- Buttons -->
+            <div class="buttons">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn-V btn-V-default"
+                        data-toggle="modal" data-target="#deleteTaskModal">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+
+                <!-- DELETE Modal -->
+                <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Remove Task</h4>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to remove this task ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" ng-click="$ctrl.removeTask()">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </header>
     </section>
-    <section class="task-content col-xs-12 col-sm-7 col-md-6">
-        <h4>{{$ctrl.task.title}}</h4>
-        <div class="description-wrapper">
-            <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
+
+    <!-- Task description -->
+
+    <section class="VST-view-content row">
+        <header>
+            <p>Title:</p>
+            <h4>{{$ctrl.task.title}}</h4>
+            <div class="description-wrapper">
+                <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
+                    <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                </div>
+                <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
             </div>
-            <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
-        </div>
+        </header>
     </section>
     <!--Comments-->
     <section class="task-content col-xs-12 col-sm-2 col-md-4">
