@@ -2,71 +2,95 @@
     {{newTaskVm.title}}
 </button> {{output.a}}
 <!-- Modal -->
-<div class="modal fade" id="newTaskModal" role="dialog">
+<div class="modal fade VST-main-modal" id="newTaskModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
+            <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4>{{newTaskVm.title}}</h4>
+                <!-- Button cancel -->
+                <button type="button" class="btn-V btn-V-cancel"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <!-- Logo -->
+                <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                <h4>{{newTaskVm.title}}<span class="VST-label">new</span></h4>
             </div>
+
             <div class="modal-body">
                 <form novalidate>
-                    <br />
-                    <fieldset id="project">
-                        <label class="label label-default">Project</label>
+
+                    <!-- Project -->
+                    <fieldset id="project" class="field-wrapper">
+                        <label class="label-modal">Project:</label>
                         <select ng-model="newTaskVm.task.project" ng-options="project as project.name for project in newTaskVm.projects">
                             <option>Choose project...</option>
                         </select>
                         <label class="label label-default" ng-show="!!newTaskVm.task.project">Sprint</label>
                         {{newTaskVm.task.project.sprint}}
                     </fieldset>
-                    <br />
-                    <fieldset id="module">
-                        <label class="label label-default">Module</label>
+
+                    <!-- Module -->
+                    <fieldset id="module" class="field-wrapper">
+                        <label class="label-modal">Module:</label>
                         <select ng-model="newTaskVm.task.module" ng-options="module._id as module.name for module in newTaskVm.modules track by module._id">
                         </select>
                     </fieldset>
-                    <br />
-                    <fieldset id="type">
-                        <label class="label label-default">Type</label>
+
+                    <!-- Type -->
+                    <fieldset id="type" class="field-wrapper">
+                        <label class="label-modal">Type:</label>
                         <select ng-model="newTaskVm.task.type">
                             <option ng-repeat="type in newTaskVm.taskTypes.value">
                                 {{type}}
                             </option>
                         </select>
                     </fieldset>
-                    <br />
-                    <fieldset id="priority">
-                        <label class="label label-default">Priority</label>
+
+                    <!-- Priority -->
+                    <fieldset id="priority" class="field-wrapper">
+                        <label class="label-modal">Priority:</label>
                         <select ng-model="newTaskVm.task.priority">
                             <option ng-repeat="priority in newTaskVm.taskPriority.value">
                                 {{priority}}
                             </option>
                         </select>
                     </fieldset>
-                    <br />
-                    <fieldset id="title" class="fsStyle">
-                        <label class="label label-default">Title</label>
-                        <input type="text" ng-model="newTaskVm.task.title" />
-                    </fieldset>
-                    <br />
-                    <fieldset id="title" class="fsStyle">
-                        <label class="label label-default">Description</label>
-                        <div text-angular ng-model="newTaskVm.output"></div>
-                    </fieldset>
-                    <br>
-                    <fieldset id="assign">
-                        <label class="label label-default">
-                            Assign user
+
+                    <!-- Assign -->
+                    <fieldset id="assign" class="field-wrapper">
+                        <label class="label-modal">
+                            Assign user:
                         </label>
                         <select ng-model="newTaskVm.task.assigned" ng-options="user._id as user.profile.fullname for user in
                                             newTaskVm.users">
                         </select>
                     </fieldset>
-                    <br>
-                    <button id="acceptBtn" class="btn-V btn-success" ng-click="newTaskVm.accept()">Click</button>
-                    <button id="cancelBtn" class="btn-V btn-danger" ng-click="newTaskVm.cancel()">Cancel</button>
+
+                    <!-- Title -->
+                    <fieldset id="title" class="fsStyle field-wrapper last">
+                        <div class="title-wrapper">
+                            <label class="label-modal">Title</label>
+                            <input type="text" ng-model="newTaskVm.task.title" placeholder="Add title here..."/>
+                        </div>
+                    </fieldset>
+
+                    <!-- Description -->
+                    <fieldset id="title" class="fsStyle">
+                        <div class="description-wrapper">
+                            <label class="label-modal">Description</label>
+                            <div text-angular ng-model="newTaskVm.output" class="description"></div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Footer buttons -->
+                    <div class="btn-wrapper">
+                        <button id="acceptBtn" class="btn-V btn-V-primary"
+                                ng-click="newTaskVm.accept()">
+                            Create
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
