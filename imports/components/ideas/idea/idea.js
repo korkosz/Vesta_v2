@@ -55,6 +55,7 @@ class IdeaCtrl {
                 if (idea) return Reviews.find({ _id: { $in: idea.reviews } });
             },
             users() {
+                this.getReactively('reviewers.length');
                 if (this.idea) {
                     return Meteor.users.find({
                         _id: {
@@ -62,7 +63,6 @@ class IdeaCtrl {
                         }
                     });
                 }
-
             }
         });
     }
@@ -82,18 +82,13 @@ class IdeaCtrl {
             this.$location.url('/');
         }, 500);
     }
-
+    
     reviewerSelected() {
-        console.log(this.reviewer);
-        console.log(this.idea.reviewers);
-
         Ideas.update(this.idea._id, {
             $push: {
                 reviewers: this.reviewer._id
             }
         });
-
-        console.log(this.idea.reviewers);
     }
 
     newReviewVisible() {
