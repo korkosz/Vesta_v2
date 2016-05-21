@@ -85,12 +85,14 @@
             <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
             <!-- Reviewers -->
             <div class="reviewers">
-                <pill direction="read-only"
-                          ng-model="$ctrl.reviewers"></pill>
+                <pill ng-repeat="reviewer in $ctrl.reviewers"
+                      value="reviewer"
+                      read-only="!$ctrl.descriptionEdited"></pill>
                 <select ng-model="$ctrl.reviewer"
                         ng-change="$ctrl.reviewerSelected()"
                         ng-options="user.profile.fullname for user in
-                                        $ctrl.users">
+                                        $ctrl.users"
+                        ng-hide="$ctrl.users.length < 1">
                 </select>
             </div>
         </div>
