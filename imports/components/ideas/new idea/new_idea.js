@@ -8,10 +8,24 @@ class NewIdeaCtrl {
     constructor($scope) {
         $scope.viewModel(this);
 
-        this.idea = {};
-        this.selectedReviewers = [];
-        this.reviewersChanged = false;
-        this.idea.description = '';
+        this.init = () => {
+            this.idea = {};
+            this.idea.description = '';
+            this.selectedReviewers = [];
+            this.reviewersChanged = false;            
+            this.output = "";
+        }
+        /// init
+        this.init();
+        
+        this.setPristine = ()=> {
+            $scope.newIdeaForm.$setPristine();
+            $scope.newIdeaForm.project.$setPristine();
+            $scope.newIdeaForm.module.$setPristine();
+            $scope.newIdeaForm.reviewer.$setPristine();
+            $scope.newIdeaForm.title.$setPristine();  
+            $scope.newIdeaForm.description.$setPristine();  
+        }
         
         this.helpers({
             projects() {
@@ -21,7 +35,7 @@ class NewIdeaCtrl {
                 this.getReactively('reviewersChanged');
                 return Meteor.users.find({
                     _id: {
-                        $nin: this.selectedReviewers.map((rev)=>rev._id)
+                        $nin: this.selectedReviewers.map((rev) => rev._id)
                     }
                 });
             },
@@ -57,8 +71,8 @@ class NewIdeaCtrl {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.creationDate = new Date();
-            this.idea.reviewers.concat(this.selectedReviewers.map(
-                (rev) => rev._id));
+            this.idea.reviewers = this.selectedReviewers.map(
+                (rev) => rev._id);
             this.idea.reviews = [];
             Ideas.insert(this.idea);
             this.closeModal();
@@ -66,11 +80,12 @@ class NewIdeaCtrl {
     }
 
     cancel() {
+        this.setPristine();
         this.closeModal();
     }
 
     openModal() {
-        this.idea = null;
+        this.init();
     }
 }
 NewIdeaCtrl.$inject = ['$scope'];

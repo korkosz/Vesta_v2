@@ -157,6 +157,6 @@
     }
 }
 
-.ng-invalid.ng-dirty {
-    border: 1px solid red;
+:not(form).ng-invalid.ng-dirty {
+    border: 1px solid red !important;
 }
