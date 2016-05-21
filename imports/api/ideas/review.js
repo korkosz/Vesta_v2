@@ -50,6 +50,10 @@ ReviewSchema = new SimpleSchema({
         type: [String],
         optional: true
     },
+    createdAt: {
+        type: Date,
+        defaultValue: new Date()
+    },
     _createdBy: {
         type: String
     }
