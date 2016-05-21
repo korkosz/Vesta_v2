@@ -1,11 +1,14 @@
 @import "{}/client/styles/imports/variables.scss";
-@import "{}/client/styles/modal_description.scss";
 
 // Variables
 $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
+.VST-view-container{
+    width: 1170px;
+    margin: auto;
+}
 // Idea HEADER
-section.idea-header-wrapper{
+section.header-wrapper{
     .logo-wrapper{
         margin-top: 35px;
         margin-bottom: -5px;
@@ -297,6 +300,7 @@ section.idea-reviews{
         position: relative;
         h3{
             display: inline-block;
+            font-size: 20px;
         }
     }
     p.review-addTime{

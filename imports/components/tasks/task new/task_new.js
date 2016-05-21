@@ -88,15 +88,15 @@ export default angular.module("task")
             bindToController: true
         }
 
-        function link(scope, el, attrs, ctrl) {                      
-           
-         ///Init with Project && / || Module present    
+        function link(scope, el, attrs, ctrl) {
+
+         ///Init with Project && / || Module present
             var moduleAttrDefer = $q.defer();
             var projectAttrDefer = $q.defer();
 
             $q.all([projectAttrDefer, moduleAttrDefer,
                 ctrl.projectsColDef]).then(ctrl.initValuesPresent);
-            
+
             attrs.$observe('project', function () {
                 if (ctrl.project !== '') {
                     ctrl.task.project = ctrl.projects.find(function (p) {
@@ -112,12 +112,12 @@ export default angular.module("task")
                 }
             });
             ///
-            
-            
-            
-            
-            if (!ctrl.title) ctrl.title = 'New Task';
-            
+
+
+
+
+            if (!ctrl.title) ctrl.title = 'Task';
+
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({
                     url: "https://api.cloudinary.com/v1_1/" +
