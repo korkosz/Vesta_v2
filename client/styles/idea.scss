@@ -37,6 +37,7 @@ section.idea-header-wrapper{
                 display: inline-block;
                 position: relative;
                 margin-right: 20px;
+                color: $vesta-color;
                 .project-badge{
                     display: inline-block;
                     width: 1.4em; height: 1.4em;
@@ -45,7 +46,7 @@ section.idea-header-wrapper{
                     font-size: 0.6em;
                     line-height: 1.4em;
                     vertical-align: bottom;
-                    margin-right: 8px; margin-bottom: 0.15em;
+                    margin-right: 6px; margin-bottom: 0.15em;
                     color: #fff;
                     background: $vesta-color;
                     font-weight: 700;
@@ -177,7 +178,7 @@ section.idea-content{
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-        margin-top: 20px;
+        margin-top: 10px;
         // poprawne wyswietlanie list
         ul,ol{
             padding-left: 1.2em;

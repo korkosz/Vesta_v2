@@ -13,6 +13,7 @@
         -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
         box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
         background: #f4f4f4;
+        border-radius: 0;
     }
     // Modal header
     .modal-header{
@@ -162,5 +163,5 @@
 }
 
 form.ng-invalid.ng-submitted .ng-invalid {
-    border: 1px solid red !important;    
+    border: 1px solid red !important;
 }
