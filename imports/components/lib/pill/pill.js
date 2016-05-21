@@ -31,8 +31,8 @@ class PillCtrl {
 export default angular.module("lib.pill", [])
     .component("pill",
     {
-        templateUrl: 'imports/components/lib/pill/pill.html', 
-        controller: PillCtrl, 
+        templateUrl: 'imports/components/lib/pill/pill.html',
+        controller: PillCtrl,
         bindings: {
             state: '@',
             value: '<',

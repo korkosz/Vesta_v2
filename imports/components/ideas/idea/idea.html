@@ -1,5 +1,7 @@
 <div class="container">
+
     <!-- Idea header -->
+
     <section class="idea-header-wrapper row">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Idea main icon" />
@@ -45,7 +47,9 @@
             </div>
         </header>
     </section>
+
     <!-- Idea description -->
+
     <section class="idea-content row">
         <header>
             <p>Title:</p>
@@ -65,9 +69,9 @@
             <div class="idea-date">05.05.2016</div>
         </header>
         <!-- Description wrapper -->
-        <div class="idea-description-wrapper">
+        <div class="idea-desc-wrapper">
             <!-- Buttons -->
-            <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
+            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
                 <button type="button" name="button" class="btn-edit"
                         ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
@@ -91,8 +95,10 @@
             </div>
         </div>
     </section>
+
     <!-- Idea comments -->
-    <section class="idea-comments row">
+
+    <section class="idea-reviews row">
 
         <!--        nowy review. widoczny tylko gdy
             a) uzytkownik jest zgloszony jako reviewer do tego idea
@@ -169,35 +175,86 @@
             </div>
         </div>
 
-        <div class="comment row">
-            <div class="wrapper">
-                <div class="col-xs-3 status-wrapper">
-                    <div class="status"></div>
-                </div>
-                <h3 class="col-xs-9">Maciej Chmiel
-                    <button >
-                        X
-                    </button>
-                </h3>
-                <div class="col-xs-3">
-                </div>
-                <div class="comment-content col-xs-9">
-                    <div class="row features">
-                        <div class="pill-container col-xs-6">
-                            <pill state="plus">mdkemdek</pill>
-                            <pill state="plus">mdkemdek</pill>
-                            <pill state="plus">mdkemdek</pill>
+        <!-- NOWE - dodane tylko do ostylowania -->
+
+        <div class="reviews-wrapper">
+            <h2>reviwes</h2>
+            <!-- Added rewiews -->
+            <div class="reviews-added-wrapper">
+                <!-- Review box -->
+                <div class="review-box">
+                    <div class="btn-group-desc">
+                        <button><!-- button edycji komentarza -->
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <!--
+                        <button> ** button zapisz komentarza
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
+                    -->
+                    </div>
+                    <div class="review-content-box">
+                        <header>
+                            <h3>{{review.creator()}}Maciej Chmiel
+                                <button class="btn-V btn-V-cancel">  <!-- ng-click="$ctrl.removeReview(review._id)"
+                                        ng-if="$ctrl.removeReviewVisible(review._createdBy)"-->
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </h3>
+                            <p class="review-addTime">
+                                5 min ago
+                            </p>
+                        </header>
+                        <div class="prons-cons-wrapper">
+                            <div class="prons-box">
+                                <!--<pill state="plus" ng-model="review.merits" direction="read-only"></pill>-->
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Jakis kurwa komentarz
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Penis korka
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Jakis kurwa komentarz moze troche dluzszy
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                            </div>
+                            <div class="cons-box">
+                                <!--<pill state="minus" ng-model="review.drawbacks" direction="read-only"></pill>-->
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                    Korek worek
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                    Jakis kurwa komentarz moze troche dluzszy tak zeby zajebac nic nieznaczaca trescia
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xs-6">
-                            <pill state="minus">dede</pill>
-                            <pill state="minus">dede</pill>
-                            <pill state="minus">dede</pill>
-                            <pill state="minus">dede</pill>
+                        <div class="desc-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
                         </div>
                     </div>
-                    <textarea readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
                 </div>
-                <div class="clearfix"></div>
             </div>
         </div>
     </section>
