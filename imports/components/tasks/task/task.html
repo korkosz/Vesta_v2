@@ -4,8 +4,8 @@
 
     <section class="VST-view-header">
         <div class="logo-wrapper">
-            <img src="/images/icon-Idea.png" alt="Idea main icon" />
-            <h1>idea</h1>
+            <img src="/images/icon-Task.png" alt="Idea main icon" />
+            <h1>task</h1>
         </div>
         <header>
             <!-- Project path -->
@@ -14,38 +14,6 @@
                 <h3 id="module">{{$ctrl.task.moduleName()}}</h3>
                 <h3>Klasa</h3>
             </div>
-
-            <!-- do przeniesienia -->
-
-            <!--<div class="wrapper">
-                <h4 class="label label-default">Priority</h4>
-                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
-                </select>
-            </div>
-            <div class="wrapper">
-                <h4 class="label label-default">Type</h4>
-                <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
-                </select>
-            </div>
-
-            <div class="wrapper">
-                <h4 class="label label-default">Reviewers</h4>
-                <ul>
-                    <li class="label label-primary">Mateusz Korkosz</li>
-                    <li class="label label-primary">Maciej Chmiel</li>
-                    <li class="label label-primary">Marcin Trybulec</li>
-                </ul>
-                <button class="btn btn-default">Add</button>
-            </div
-
-            <div class="wrapper">
-                <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
-                    <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
-                </select>
-            </div>-->
-
-            <!-- END -->
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
@@ -84,6 +52,7 @@
         <header>
             <p>Title:</p>
             <h4>{{$ctrl.task.title}}</h4>
+            <div class="VST-view-addDate">05.05.2016</div>
         </header>
         <!-- Description wrapper -->
         <div class="VST-view-desc-wrapper">
@@ -98,7 +67,33 @@
             <!-- Description -->
             <div text-angular ng-model="$ctrl.task.description"
                  ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
-            <div class="reviewers">
+            <!-- Info box -->
+            <div class="info-box">
+                <div class="wrapper">
+                    <h4 class="label label-default">Reviewers</h4>
+                    <ul>
+                        <li class="label label-primary">Mateusz Korkosz</li>
+                        <li class="label label-primary">Maciej Chmiel</li>
+                        <li class="label label-primary">Marcin Trybulec</li>
+                    </ul>
+                    <button class="btn btn-default">Add</button>
+                </div>
+                <div class="wrapper">
+                    <h4 class="label label-default">Priority</h4>
+                    <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
+                    </select>
+                </div>
+                <div class="wrapper">
+                    <h4 class="label label-default">Type</h4>
+                    <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
+                    </select>
+                </div>
+                <div class="wrapper">
+                    <h4 class="label label-default">Status</h4>
+                    <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
+                        <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
+                    </select>
+                </div>
             </div>
         </div>
     </section>

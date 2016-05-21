@@ -45,7 +45,7 @@ section.VST-view-header{
                 margin-right: 20px;
                 font-size: 19px;
                 font-weight: 400;
-                color: #666;
+                color: #999;
                 .project-badge{
                     display: inline-block;
                     width: 1.6em; height: 1.6em;
@@ -67,7 +67,7 @@ section.VST-view-header{
                     position: absolute;
                     width: 10px; height: 10px;
                     border: 5px solid transparent;
-                    border-left: 5px solid #aaa;
+                    border-left: 5px solid #ccc;
                     bottom: 4px;
                     margin-left: 10px;
                 }
@@ -120,61 +120,61 @@ section.VST-view-content{
             line-height: 1.4;
             flex: 1;
         }
-        // Status idea
-        .idea-status-wrapper{
-            display: inline;
-            button.idea-status{
-                border: none;
-            }
-            .idea-status{
-                display: inline-block;
-                padding: 2px 20px 3px 7px;
-                border-radius: 4px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                font-weight: 400;
-                color: white;
-                font-size: 8px;
-                vertical-align: super;
-                margin-left: 7px;
-                // Strzałeczka
-                &:after{
-                    content: "";
-                    position: absolute;
-                    width: 6px;
-                    height: 6px;
-                    border: 3px solid transparent;
-                    border-top: 3px solid #fff;
-                    margin-left: 5px;
-                    margin-top: 4px;
-                }
-                &-New{
-                    background: #14D1DA;
-                }
-                &-Consider{
-                    background: #FF9900;
-                }
-                &-Implemented{
-                    background: #2ecc71;
-                }
-                &-Rejected{
-                    background: #e74c3c;
-                }
-            }
-            &.open{
-                .dropdown-menu {
-                    display: flex;
-                }
-            }
-            // Secelct list
-            .dropdown-menu{
-                padding: 10px 20px;
-                .idea-status{
-                    padding-right: 7px;
-                    &:after{
-                        display: none;
-                    }
-                }
+    }
+}
+// Status idea
+.idea-status-wrapper{
+    display: inline;
+    button.idea-status{
+        border: none;
+    }
+    .idea-status{
+        display: inline-block;
+        padding: 2px 20px 3px 7px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 400;
+        color: white;
+        font-size: 8px;
+        vertical-align: super;
+        margin-left: 7px;
+        // Strzałeczka
+        &:after{
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border: 3px solid transparent;
+            border-top: 3px solid #fff;
+            margin-left: 5px;
+            margin-top: 4px;
+        }
+        &-New{
+            background: #14D1DA;
+        }
+        &-Consider{
+            background: #FF9900;
+        }
+        &-Implemented{
+            background: #2ecc71;
+        }
+        &-Rejected{
+            background: #e74c3c;
+        }
+    }
+    &.open{
+        .dropdown-menu {
+            display: flex;
+        }
+    }
+    // Secelct list
+    .dropdown-menu{
+        padding: 10px 20px;
+        .idea-status{
+            padding-right: 7px;
+            &:after{
+                display: none;
             }
         }
     }
@@ -238,7 +238,7 @@ section.VST-view-content{
         }
     }
     // Reviwers
-    .tools{
+    .info-box{
         flex-basis: 200px;
         text-align: right;
         .reviewers-box{
