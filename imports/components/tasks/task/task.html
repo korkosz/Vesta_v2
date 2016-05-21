@@ -84,18 +84,23 @@
         <header>
             <p>Title:</p>
             <h4>{{$ctrl.task.title}}</h4>
-            <div class="description-wrapper">
-                <div class="btn-group-description" ng-switch="$ctrl.descriptionEdited">
-                    <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                    </button>
-                </div>
-                <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="wrapper"></div>
-            </div>
         </header>
+        <!-- Description wrapper -->
+        <div class="VST-view-desc-wrapper">
+            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
+                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+            <!-- Description -->
+            <div text-angular ng-model="$ctrl.task.description"
+                 ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
+            <div class="reviewers">
+            </div>
+        </div>
     </section>
     <!--Comments-->
     <section class="task-content col-xs-12 col-sm-2 col-md-4">

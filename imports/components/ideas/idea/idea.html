@@ -83,7 +83,8 @@
                 </button>
             </div>
             <!-- Description -->
-            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
+            <div text-angular ng-model="$ctrl.idea.description"
+                 ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
             <!-- Reviewers -->
             <div class="reviewers">
                 <pill ng-repeat="reviewer in $ctrl.reviewers"
@@ -148,7 +149,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-        </div> 
+        </div>
 
         <!-- NOWE - NOWE - NOWE -->
 
@@ -163,9 +164,9 @@
                     <div class="prons-cons-wrapper">
                         <div class="prons-box">
                             <form action="" ng-submit="$ctrl.addMerit()">
-                                <input placeholder="+&nbsp;prons" 
-                                       ng-model="$ctrl.merit"/>   
-                            </form>                            
+                                <input placeholder="+&nbsp;prons"
+                                       ng-model="$ctrl.merit"/>
+                            </form>
                             <pill state="plus" value="merit"
                                 ng-repeat="merit in $ctrl.review.merits"
                                 remove="$ctrl.removeMerit(merit)">
@@ -173,7 +174,7 @@
                         </div>
                         <div class="cons-box">
                             <form action="" ng-submit="$ctrl.addDrawback()">
-                                <input placeholder="-&nbsp;prons" 
+                                <input placeholder="-&nbsp;prons"
                                        ng-model="$ctrl.drawback"/>
                             </form>
                             <pill state="minus" value="drawback"
@@ -182,8 +183,8 @@
                             </pill>
                         </div>
                     </div>
-                    <textarea placeholder="Add description here..." 
-                              ng-model="$ctrl.review.comment" 
+                    <textarea placeholder="Add description here..."
+                              ng-model="$ctrl.review.comment"
                               class="desc-wrapper"></textarea>
                     <button class="btn btn-default" ng-click="$ctrl.addReview()">
                         Add
@@ -208,7 +209,7 @@
                     <div class="review-content-box">
                         <header>
                             <h3>{{review.creator()}}
-                                <button class="btn-V btn-V-cancel" 
+                                <button class="btn-V btn-V-cancel"
                                         ng-click="$ctrl.removeReview(review._id)"
                                         ng-if="$ctrl.removeReviewVisible(review._createdBy)">
                                     <span class="glyphicon glyphicon-remove"></span>
@@ -219,7 +220,7 @@
                             </p>
                         </header>
                         <div class="prons-cons-wrapper">
-                            <div class="prons-box">                          
+                            <div class="prons-box">
                                 <pill state="plus" value="merit"
                                       ng-repeat="merit in review.merits"
                                       remove="$ctrl.removeMerit(merit)">
