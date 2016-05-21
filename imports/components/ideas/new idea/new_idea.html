@@ -24,7 +24,7 @@
             </div>
 
             <div class="modal-body">
-                <form name="newIdea" novalidate>
+                <form name="newIdeaForm" novalidate>
 
                     <!--Project-->
                     <fieldset id="project" class="field-wrapper">
@@ -52,7 +52,8 @@
                         <select ng-model="newIdeaVm.reviewer"
                                 ng-change="newIdeaVm.reviewerSelected()"
                                 ng-options="user.profile.fullname for user in
-                                            newIdeaVm.users">
+                                            newIdeaVm.users"
+                                name="reviewer">
                         </select>
                     </fieldset>
                     
@@ -69,13 +70,13 @@
                         </div>
                     </fieldset>
 
-
                     <!--Description-->
                     <fieldset id="description" class="fsStyle">
                         <div class="description-wrapper">
                             <label class="label-modal">Description:</label>
-                            <div text-angular ng-model="newIdeaVm.output" class="description"></div>
-                            <!--<drag-and-drop output="newIdeaVm.output"></drag-and-drop>-->
+                            <div text-angular ng-model="newIdeaVm.output" class="description"
+                                 name="description">
+                            </div>
                         </div>
                     </fieldset>
                     <br>
@@ -83,7 +84,7 @@
                     <!--Footer buttons-->
                     <div class="btn-wrapper">
                         <button id="acceptBtn" class="btn-V btn-V-primary"
-                                ng-click="newIdeaVm.accept(newIdea.$valid)">
+                                ng-click="newIdeaVm.accept(newIdeaForm.$valid)">
                             Create
                         </button>
                     </div>
