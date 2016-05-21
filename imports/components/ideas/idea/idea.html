@@ -105,6 +105,8 @@
             b) uzytkownik nie dodal jeszcze swojego review
         -->
 
+        <!-- STARE - STARE - STARE -->
+
         <div class="new-comment row" ng-if="$ctrl.newReviewVisible()">
             <div class="wrapper">
                 <div class="col-xs-3 status-wrapper">
@@ -175,12 +177,109 @@
             </div>
         </div>
 
-        <!-- NOWE - dodane tylko do ostylowania -->
+        <!-- NOWE - NOWE - NOWE -->
 
         <div class="reviews-wrapper">
             <h2>reviwes</h2>
+
+            <!-- New review box -->
+
+            <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
+                <div class="new-review-content-box">
+                    <h3 class="col-xs-9">{{$ctrl.currentUserName()}}</h3>
+                    <div class="prons-cons-wrapper">
+                        <div class="prons-box">
+                            <pill state="plus" ct-placeholder="+&nbsp;prons" ng-model="$ctrl.review.merits"></pill>
+                        </div>
+                        <div class="cons-box">
+                            <pill state="minus" ct-placeholder="-&nbsp;cons" ng-model="$ctrl.review.drawbacks"></pill>
+                        </div>
+                    </div>
+                    <textarea placeholder="Add description here..." ng-model="$ctrl.review.comment" class="desc-wrapper"></textarea>
+                    <button class="btn btn-default" ng-click="$ctrl.addReview()">
+                        Add
+                    </button>
+                </div>
+            </div>
+
             <!-- Added rewiews -->
+
             <div class="reviews-added-wrapper">
+                <!-- Review box -->
+                <div class="review-box">
+                    <div class="btn-group-desc">
+                        <button><!-- button edycji komentarza -->
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <!--
+                        <button> ** button zapisz komentarza
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
+                    -->
+                    </div>
+                    <div class="review-content-box">
+                        <header>
+                            <h3>{{review.creator()}}Maciej Chmiel
+                                <button class="btn-V btn-V-cancel">  <!-- ng-click="$ctrl.removeReview(review._id)"
+                                        ng-if="$ctrl.removeReviewVisible(review._createdBy)"-->
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </h3>
+                            <p class="review-addTime">
+                                5 min ago
+                            </p>
+                        </header>
+                        <div class="prons-cons-wrapper">
+                            <div class="prons-box">
+                                <!--<pill state="plus" ng-model="review.merits" direction="read-only"></pill>-->
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Jakis kurwa komentarz
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Penis korka
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    Jakis kurwa komentarz moze troche dluzszy
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                            </div>
+                            <div class="cons-box">
+                                <!--<pill state="minus" ng-model="review.drawbacks" direction="read-only"></pill>-->
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                    Korek worek
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                                <!-- Pill -->
+                                <div class="pill" ng-class="$ctrl.stateClass">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                    Jakis kurwa komentarz moze troche dluzszy tak zeby zajebac nic nieznaczaca trescia
+                                    <button class="glyphicon glyphicon-remove"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc-wrapper">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Review box -->
                 <div class="review-box">
                     <div class="btn-group-desc">

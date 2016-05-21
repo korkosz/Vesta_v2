@@ -41,7 +41,7 @@ section.idea-header-wrapper{
                 margin-right: 20px;
                 font-size: 19px;
                 font-weight: 400;
-                color: $vesta-color;
+                color: #666;
                 .project-badge{
                     display: inline-block;
                     width: 1.6em; height: 1.6em;
@@ -63,7 +63,7 @@ section.idea-header-wrapper{
                     position: absolute;
                     width: 10px; height: 10px;
                     border: 5px solid transparent;
-                    border-left: 5px solid $vesta-color;
+                    border-left: 5px solid #aaa;
                     bottom: 4px;
                     margin-left: 10px;
                 }
@@ -74,6 +74,7 @@ section.idea-header-wrapper{
                 &:nth-of-type(1){
                     font-weight: 700;
                     text-transform: uppercase;
+                    color: $vesta-color;
                 }
                 &:nth-of-type(2){
                     font-size: 16px;
@@ -250,6 +251,7 @@ section.idea-content{
 }
 //Idea REWIEWS
 section.idea-reviews{
+    margin-bottom: 100px;
     h2{
         text-align: center;
         text-transform: uppercase;
@@ -259,79 +261,93 @@ section.idea-reviews{
         color: #D8D8D8;
         padding: 20px;
     }
+
+    // New reviews
+
+    // Added reviews
     .reviews-added-wrapper{
         padding: 35px;
         background: #fff;
-        .review-box{
-            display: flex;
-            .btn-group-desc{
-                flex-basis: 100px;
-                padding-right: 11px;
-                button{
-                    float: right;
-                    border: none;
-                    border-radius: 4px;
-                    width: 25px;
-                    height: 25px;
-                    background: #eee;
-                }
-            }
-            .review-content-box{
-                flex: 1;
-                header{
-                    position: relative;
-                    h3{
-                        display: inline-block;
-                    }
-                    p.review-addTime{
-                        display: inline-block;
-                    }
-                    .btn-V-cancel{
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                    }
-                }
-                .prons-cons-wrapper{
-                    margin-top: 15px;
-                    margin-bottom: 20px;
-                    .pill{
-                        display: block;
-                        background: transparent;
-                        color: #888;
-                        font-size: 15px;
-                        padding: 0;
-                        padding-right: 30px;
-                        button{
-                            position: relative;
-                        }
-                    }
-                    span.glyphicon{
-                        position: absolute;
-                        left: -23px;
-                        top: 4px;
-                        &-minus-sign{
-                            color: $red;
-                        }
-                        &-plus-sign{
-                            color: $green;
-                        }
-                    }
-                    .prons-box{
-                        display: inline-block;
-                        width: 400px;
-                        vertical-align: top;
-                    }
-                    .cons-box{
-                        display: inline-block;
-                        max-width: 400px;
-                        vertical-align: top;
-                    }
-                }
-                .desc-wrapper{
-                    padding-right: 200px;
-                }
+    }
+    .review-box{
+        display: flex;
+        padding: 40px 0;
+        border-bottom: 1px solid #eee;
+        &:last-child{
+            border: none;
+        }
+    }
+    .btn-group-desc{
+        flex-basis: 100px;
+        padding-right: 11px;
+        button{
+            float: right;
+            border: none;
+            border-radius: 4px;
+            width: 25px;
+            height: 25px;
+            background: #eee;
+        }
+    }
+    // Review content box
+    .review-content-box{
+        flex: 1;
+    }
+    header{
+        position: relative;
+        h3{
+            display: inline-block;
+        }
+    }
+    p.review-addTime{
+        display: inline-block;
+    }
+    .btn-V-cancel{
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #D2D2D2;
+    }
+    .prons-cons-wrapper{
+        margin-top: 15px;
+        margin-bottom: 20px;
+        .pill{
+            display: block;
+            background: transparent;
+            color: #888;
+            font-size: 13px;
+            padding: 0;
+            padding-right: 30px;
+            margin: 0 0 5px 0;
+            button{
+                position: relative;
+                padding-left: 10px;
+                color: #ccc;
             }
         }
+        span.glyphicon{
+            position: absolute;
+            left: -23px;
+            top: 4px;
+            &-minus-sign{
+                color: $red;
+            }
+            &-plus-sign{
+                color: $green;
+            }
+        }
+        .prons-box{
+            display: inline-block;
+            width: 400px;
+            vertical-align: top;
+        }
+        .cons-box{
+            display: inline-block;
+            max-width: 400px;
+            vertical-align: top;
+        }
+    }
+    .desc-wrapper{
+        padding-right: 200px;
     }
 }
