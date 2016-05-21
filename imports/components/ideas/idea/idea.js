@@ -18,6 +18,7 @@ class IdeaCtrl {
         this.$routeParams = $routeParams;
         this.$location = $location;
         this.$timeout = $timeout;
+        this.moment = moment;
         this.reviewers = [];
 
         function clearArray(arr) {
@@ -51,7 +52,7 @@ class IdeaCtrl {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
             },
             reviews() {
-                var idea = Ideas.findOne({ _id: this.$routeParams.id });
+                var idea = Ideas.findOne({ number: parseInt(this.$routeParams.number) });
                 if (idea) return Reviews.find({ _id: { $in: idea.reviews } });
             },
             users() {
@@ -66,7 +67,27 @@ class IdeaCtrl {
             }
         });
     }
-
+    
+    addMerit() {
+        this.review.merits.push(this.merit);
+        this.merit = "";   
+    }
+    
+    addDrawback() {
+        this.review.drawbacks.push(this.drawback);
+        this.drawback = "";
+    }
+    
+    removeMerit(merit) {
+        var idx = this.review.merits.indexOf(merit);
+        this.review.merits.splice(idx, 1);          
+    }
+    
+    removeDrawback(drawback) {       
+        var idx = this.review.drawbacks.indexOf(drawback);
+        this.review.drawbacks.splice(idx, 1); 
+    }
+    
     removeReview(_revId) {
         Reviews.remove(_revId, this.idea._id);
     }
