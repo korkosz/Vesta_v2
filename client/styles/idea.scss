@@ -181,10 +181,15 @@ section.VST-view-content{
 }
 // data dodania
 .VST-view-addDate{
-    flex-basis: 200px;
+    display: flex;
+    flex-basis: 100px;
     text-align: right;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 18px;
+    color: #888;
+    font-weight: 700;
+    text-align: top;
+    align-self: flex-start;
+    justify-content: flex-end;
 }
 
 // Description
@@ -239,7 +244,7 @@ section.VST-view-content{
     }
     // Reviwers
     .info-box{
-        flex-basis: 200px;
+        flex-basis: 300px;
         text-align: right;
         .reviewers-box{
             display: -moz-box;
