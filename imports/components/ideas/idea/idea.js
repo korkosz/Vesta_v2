@@ -26,7 +26,7 @@ class IdeaCtrl {
                 arr.pop();
             return arr;
         }
-        
+
         this.helpers({
             idea() {
                 var idea = Ideas.findOne({ number: parseInt(this.$routeParams.number) });
@@ -39,9 +39,9 @@ class IdeaCtrl {
                     }).map(function (rev) {
                         return rev.profile.fullname;
                     });
-                    
+
                     clearArray(vm.reviewers);
-                    
+
                     reviewers.forEach((rev) => {
                         vm.reviewers.push(rev);
                     });
@@ -67,27 +67,39 @@ class IdeaCtrl {
             }
         });
     }
-    
-    addMerit() {
-        this.review.merits.push(this.merit);
-        this.merit = "";   
+
+    addMerit(_review) {
+        if(angular.isUndefined(_review))
+            _review = this.review;
+
+        _review.merits.push(this.merit);
+        this.merit = "";
     }
-    
-    addDrawback() {
-        this.review.drawbacks.push(this.drawback);
+
+    addDrawback(_review) {
+        if(angular.isUndefined(_review))
+            _review = this.review;
+
+        _review.drawbacks.push(this.drawback);
         this.drawback = "";
     }
-    
-    removeMerit(merit) {
-        var idx = this.review.merits.indexOf(merit);
-        this.review.merits.splice(idx, 1);          
+
+    removeMerit(merit, _review) {
+        if(angular.isUndefined(_review))
+            _review = this.review;
+
+        var idx = _review.merits.indexOf(merit);
+        _review.merits.splice(idx, 1);
     }
-    
-    removeDrawback(drawback) {       
-        var idx = this.review.drawbacks.indexOf(drawback);
-        this.review.drawbacks.splice(idx, 1); 
+
+    removeDrawback(drawback, _review) {
+        if(angular.isUndefined(_review))
+            _review = this.review;
+
+        var idx = _review.drawbacks.indexOf(drawback);
+        _review.drawbacks.splice(idx, 1);
     }
-    
+
     removeReview(_revId) {
         Reviews.remove(_revId, this.idea._id);
     }
@@ -103,7 +115,7 @@ class IdeaCtrl {
             this.$location.url('/');
         }, 500);
     }
-    
+
     reviewerSelected() {
         Ideas.update(this.idea._id, {
             $push: {
@@ -113,8 +125,8 @@ class IdeaCtrl {
     }
 
     newReviewVisible() {
-        if (!this.idea || !this.reviews ||
-            this.reviews.length === 0 || !Meteor.user()) return false;
+        if (!this.idea ||
+            !Meteor.user()) return false;
 
         const vm = this;
 
@@ -123,13 +135,23 @@ class IdeaCtrl {
         ///
         function userInReviewers() {
             return vm.idea.reviewers.findIndex((_rev) =>
-                _rev._id === Meteor.userId()) > -1;
+                _rev === Meteor.userId()) > -1;
         };
 
         function userDidntReviewedYet() {
+            if (!vm.reviews) return true;
             return vm.reviews.findIndex((_rev) =>
                 _rev._createdBy === Meteor.userId()) === -1;
         };
+    }
+
+    currentUserIsReviewOwner(review) {
+        return review._createdBy === Meteor.userId();
+    }
+
+    ownerAndEdit(review) {
+        return this.currentUserIsReviewOwner(review) &&
+            review.edited;
     }
 
     currentUserName() {
@@ -144,11 +166,22 @@ class IdeaCtrl {
         });
         this.stopEditDescription();
     };
-
+    
+    updateReview(review) {
+        review.edited = false;
+        Reviews.update(review._id, {
+            $set: {
+                merits: review.merits,
+                drawbacks: review.drawbacks,
+                comment: review.comment
+            }
+        });  
+    }
+    
     addReview() {
         this.review._createdBy = Meteor.userId();
         this.review._ideaId = this.idea._id;
-        Reviews.insert(this.review, () => alert());
+        Reviews.insert(this.review);
 
         clearArray(this.review.merits);
         clearArray(this.review.drawbacks);
