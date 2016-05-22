@@ -1,4 +1,4 @@
-<section class="idea-reviews row">
+<section class="idea-reviews row" ng-controller="ReviewCtrl as $ctrl">
     <div class="reviews-wrapper">
         <h2>Reviews</h2>
 
@@ -14,7 +14,8 @@
                                     ng-model="$ctrl.merit"/>
                         </form>
                         <pill state="plus" value="merit"
-                            ng-repeat="merit in $ctrl.review.merits"
+                            ng-repeat="merit in $ctrl.review.merits 
+                                       track by $index"
                             remove="$ctrl.removeMerit(merit)">
                         </pill>
                     </div>                    
@@ -25,7 +26,8 @@
                                     ng-model="$ctrl.drawback"/>
                         </form>
                         <pill state="minus" value="drawback"
-                                ng-repeat="drawback in $ctrl.review.drawbacks"
+                                ng-repeat="drawback in $ctrl.review.drawbacks 
+                                           track by $index"
                                 remove="$ctrl.removeDrawback(drawback)">
                         </pill>
                     </div>
@@ -42,7 +44,8 @@
 
         <!-- *** LIST OF REVIEWS *** -->
         <div class="reviews-added-wrapper">
-            <div class="review-box"  ng-repeat="review in $ctrl.reviews track by $index">
+            <div class="review-box"  
+                 ng-repeat="review in $ctrl.reviews track by $index">
                 <div class="btn-group-desc">
                     <!-- EDIT -->
                     <button  ng-if="$ctrl.currentUserIsReviewOwner(review) && 
@@ -79,7 +82,8 @@
                                     ng-model="$ctrl.merit"/>
                             </form>
                             <pill state="plus" value="merit"
-                                    ng-repeat="merit in review.merits"
+                                    ng-repeat="merit in review.merits 
+                                               track by $index"
                                     remove="$ctrl.removeMerit(merit, review)"
                                     read-only="!$ctrl.ownerAndEdit(review)">
                             </pill>
@@ -92,7 +96,8 @@
                                     ng-model="$ctrl.drawback"/>
                             </form>
                             <pill state="minus" value="drawback"
-                                    ng-repeat="drawback in review.drawbacks"
+                                    ng-repeat="drawback in review.drawbacks
+                                               track by $index"
                                     remove="$ctrl.removeDrawback(drawback, review)"
                                     read-only="!$ctrl.ownerAndEdit(review)">
                             </pill>

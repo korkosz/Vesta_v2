@@ -3,19 +3,14 @@ import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 import Reviews from '/imports/api/ideas/review';
 import pill from '/imports/components/lib/pill/pill';
-
+import './review';
 import './review.html';
 import './idea.html';
 
 class IdeaCtrl {
     constructor($scope, $routeParams, $location, $timeout) {
         $scope.viewModel(this);
-
-        this.review = {
-            merits: [],
-            drawbacks: [],
-            comment: ''
-        };
+       
         this.descriptionEdited = false;
         this.$routeParams = $routeParams;
         this.$location = $location;
@@ -52,11 +47,7 @@ class IdeaCtrl {
             },
             ideaStatuses() {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
-            },
-            reviews() {
-                var idea = Ideas.findOne({ number: parseInt(this.$routeParams.number) });
-                if (idea) return Reviews.find({ _id: { $in: idea.reviews } });
-            },
+            },            
             users() {
                 this.getReactively('reviewers.length');
                 if (this.idea) {
@@ -68,46 +59,6 @@ class IdeaCtrl {
                 }
             }
         });
-    }
-
-    addMerit(_review) {
-        if(angular.isUndefined(_review))
-            _review = this.review;
-
-        _review.merits.push(this.merit);
-        this.merit = "";
-    }
-
-    addDrawback(_review) {
-        if(angular.isUndefined(_review))
-            _review = this.review;
-
-        _review.drawbacks.push(this.drawback);
-        this.drawback = "";
-    }
-
-    removeMerit(merit, _review) {
-        if(angular.isUndefined(_review))
-            _review = this.review;
-
-        var idx = _review.merits.indexOf(merit);
-        _review.merits.splice(idx, 1);
-    }
-
-    removeDrawback(drawback, _review) {
-        if(angular.isUndefined(_review))
-            _review = this.review;
-
-        var idx = _review.drawbacks.indexOf(drawback);
-        _review.drawbacks.splice(idx, 1);
-    }
-
-    removeReview(_revId) {
-        Reviews.remove(_revId, this.idea._id);
-    }
-
-    removeReviewVisible(_createdBy) {
-        return Meteor.userId() === _createdBy;
     }
 
     removeIdea() {
@@ -124,42 +75,8 @@ class IdeaCtrl {
                 reviewers: this.reviewer._id
             }
         });
-    }
-
-    newReviewVisible() {
-        if (!this.idea ||
-            !Meteor.user()) return false;
-
-        const vm = this;
-
-        return userInReviewers() && userDidntReviewedYet();
-
-        ///
-        function userInReviewers() {
-            return vm.idea.reviewers.findIndex((_rev) =>
-                _rev === Meteor.userId()) > -1;
-        };
-
-        function userDidntReviewedYet() {
-            if (!vm.reviews) return true;
-            return vm.reviews.findIndex((_rev) =>
-                _rev._createdBy === Meteor.userId()) === -1;
-        };
-    }
-
-    currentUserIsReviewOwner(review) {
-        return review._createdBy === Meteor.userId();
-    }
-
-    ownerAndEdit(review) {
-        return this.currentUserIsReviewOwner(review) &&
-            review.edited;
-    }
-
-    currentUserName() {
-        if (Meteor.user()) return Meteor.user().profile.fullname;
-    }
-
+    }  
+    
     saveDescription() {
         Ideas.update(this.idea._id, {
             $set: {
@@ -169,34 +86,6 @@ class IdeaCtrl {
         this.stopEditDescription();
     };
     
-    updateReview(review) {
-        review.edited = false;
-        Reviews.update(review._id, {
-            $set: {
-                merits: review.merits,
-                drawbacks: review.drawbacks,
-                comment: review.comment
-            }
-        });  
-    }
-    
-    addReview() {
-        this.review._createdBy = Meteor.userId();
-        this.review._ideaId = this.idea._id;
-        Reviews.insert(this.review);
-
-        clearArray(this.review.merits);
-        clearArray(this.review.drawbacks);
-        this.review.comment = '';
-
-        ///
-        function clearArray(arr) {
-            for (var i = 0, len = arr.length; i < len; i++)
-                arr.pop();
-            return arr;
-        }
-    }
-
     setStatus() {
         Ideas.update(this.idea._id, {
             $set: {
