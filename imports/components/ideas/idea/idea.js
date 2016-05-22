@@ -3,6 +3,8 @@ import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 import Reviews from '/imports/api/ideas/review';
 import pill from '/imports/components/lib/pill/pill';
+
+import './review.html';
 import './idea.html';
 
 class IdeaCtrl {
