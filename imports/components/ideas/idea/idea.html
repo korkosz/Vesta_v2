@@ -57,17 +57,29 @@
             <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}
                 <!-- Idea status -->
                 <div class="idea-status-wrapper dropdown">
-                    <button class="idea-status idea-status-Rejected dropdown-toggle" type="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">rejected</button>
+                    <button class="idea-status idea-status-{{$ctrl.idea.status}} 
+                                   dropdown-toggle" 
+                            type="button" data-toggle="dropdown" 
+                            aria-haspopup="true" aria-expanded="true">
+                            {{$ctrl.idea.status}}
+                    </button>
                     <ul class="dropdown-menu">
-                        <li class="idea-status idea-status-New">new</li>
-                        <li class="idea-status idea-status-Consider">conside</li>
-                        <li class="idea-status idea-status-Implemented">implemented</li>
-                        <li class="idea-status idea-status-Rejected">rejected</li>
+                        <li class="idea-status idea-status-New" 
+                            style="cursor:pointer"
+                            ng-click="$ctrl.setStatus('New')">new</li>
+                        <li class="idea-status idea-status-Considered" 
+                            style="cursor:pointer"
+                            ng-click="$ctrl.setStatus('Considered')">considered</li>
+                        <li class="idea-status idea-status-Implemented"
+                            style="cursor:pointer"
+                            ng-click="$ctrl.setStatus('Implemented')">implemented</li>
+                        <li class="idea-status idea-status-Rejected"
+                            style="cursor:pointer"
+                            ng-click="$ctrl.setStatus('Rejected')">rejected</li>
                     </ul>
                 </div>
             </h4>
-            <div class="VST-view-addDate">05.05.2016</div>
+            <div class="VST-view-addDate">{{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
         </header>
         <!-- Description wrapper -->
         <div class="VST-view-desc-wrapper">
@@ -93,7 +105,7 @@
                 <select ng-model="$ctrl.reviewer"
                         ng-change="$ctrl.reviewerSelected()"
                         ng-options="user.profile.fullname for user in
-                                        $ctrl.users"
+                                    $ctrl.users"
                         ng-hide="$ctrl.users.length < 1">
                 </select>
             </div>

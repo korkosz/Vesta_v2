@@ -86,10 +86,10 @@ class IdeaCtrl {
         this.stopEditDescription();
     };
     
-    setStatus() {
+    setStatus(_status) {
         Ideas.update(this.idea._id, {
             $set: {
-                status: this.idea.status
+                status: _status
             }
         });
     }
