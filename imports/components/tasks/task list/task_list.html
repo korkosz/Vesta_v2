@@ -5,7 +5,6 @@
             <tr>
                 <th>Title</th>
                 <th>Project</th>
-                <th>Module</th>
                 <th>Priority</th>
                 <th>Type</th>
                 <th ng-if="$ctrl.hasFilter()">Created By</th>
@@ -20,8 +19,11 @@
                 style="cursor: pointer;
                        opacity: {{$ctrl.getStatusColor(task.status)}}">
                 <td>{{task.title}}</td>
-                <td>{{task.project()}}</td>
-                <td>{{task.moduleName()}}</td>
+                <td>
+                    <span class="project-badge"></span>
+                    <span class="project">{{task.project()}} > </span>
+                    <span class="module">{{task.moduleName()}}</span>
+                </td>  
                 <td class="middle">
                     <div class="priority priority-{{task.priority}}"></div>
                 </td>

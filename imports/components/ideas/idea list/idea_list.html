@@ -4,7 +4,6 @@
         <tr>
             <th>Title</th>
             <th>Project</th>
-            <th>Module</th>
             <th>Created By</th>
             <th>Created</th>
         </tr>
@@ -15,8 +14,11 @@
             ng-click="$ctrl.details(idea.number)"
             style="cursor: pointer">
             <td>{{idea.number}} - {{idea.title}}</td>
-            <td>{{idea.project()}}</td>
-            <td>{{idea.moduleName()}}</td>
+            <td>
+                <span class="project-badge"></span>
+                <span class="project">{{idea.project()}} > </span>
+                <span class="module">{{idea.moduleName()}}</span>
+            </td>           
             <td data-toggle="tooltip" title="{{idea.creator()}}">
                 {{idea.creatorShort()}}
             </td>
@@ -25,3 +27,4 @@
         
     </tbody>
 </table>
+
