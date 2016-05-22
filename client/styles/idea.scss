@@ -129,6 +129,7 @@ section.VST-view-content{
         border: none;
     }
     .idea-status{
+        position: relative;
         display: inline-block;
         padding: 2px 20px 3px 7px;
         border-radius: 4px;
@@ -142,19 +143,20 @@ section.VST-view-content{
         // Strzałeczka
         &:after{
             content: "";
+            display: block;
             position: absolute;
             width: 6px;
             height: 6px;
             border: 3px solid transparent;
             border-top: 3px solid #fff;
-            margin-left: 5px;
-            margin-top: 4px;
+            top: 6px;
+            right: 8px;
         }
         &-New{
             background: #14D1DA;
         }
         &-Considered{
-            background: #FF9900;
+            background: #FFD715;
         }
         &-Implemented{
             background: #2ecc71;
