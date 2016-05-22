@@ -2,9 +2,10 @@ import './comment.html';
 import Comments from '/imports/api/task/comment';
 
 class controller {
-    constructor() {
+    constructor($routeParams) {
         this.moment = moment;
         this.edited = false;
+        this.taskNumber = $routeParams.id;
     }
 
     edit() {
@@ -24,6 +25,7 @@ class controller {
         Comments.remove(this.comment._id, 1);        
     }
 }
+controller.$inject = ['$routeParams'];
 
 export default angular.module('task')
     .component('comment', {

@@ -7,8 +7,14 @@
             </button>
         </span>
     </div>
-    <div class="row" style="border: 1px solid grey;height: 110px;margin-bottom: 3px">
+    <div class="row" style="border: 1px solid grey;height: 110px;margin-bottom: 3px"
+         id="{{$ctrl.comment.number}}">
         <span class="col-md-3" style="border-right: 1px solid grey;height: 110px">
+            <span class="row">
+                <a href=#/task/{{$ctrl.taskNumber}}#{{$ctrl.comment.number}}>
+                    #{{$ctrl.comment.number}}
+                </a>
+            </span>
             <span class="row">
                 {{$ctrl.comment.creator()}}
             </span>
