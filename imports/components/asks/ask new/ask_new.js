@@ -109,10 +109,11 @@ export default angular.module("ask")
                 var defer = $q.defer();
                 var promises = [];
                 var counter = 0;
-                var editEl = $('*[id^="taTextElement"]');
+                var editEl = $('div[name="ask_description"] *[id^="taTextElement"]');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
-
+                var vm = this; 
+                
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let src = img.attr('src');
@@ -129,7 +130,7 @@ export default angular.module("ask")
                     }
                 }
                 return $q.all(promises).then(() => {
-                    this.ask.description = editEl.html();
+                    vm.ask.description = editEl.html();
                 });
             };
         }

@@ -13,8 +13,8 @@ class IdeasCollection extends Mongo.Collection {
                  number: 1
             };
             
-            var cursor = this.findOne({},{fields: fields, sort: sort});
-            var seq = cursor.number ? cursor.number + 1 : 1;
+            var cursor = this.findOne({},{fields: fields, sort: sort});                       
+            var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
 
             var results = super.insert(doc);
