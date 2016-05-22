@@ -20,19 +20,19 @@
                        opacity: {{$ctrl.getStatusColor(task.status)}}">
                 <td>{{task.title}}</td>
                 <td>
-                    <span class="project-badge"></span>
-                    <span class="project">{{task.project()}} > </span>
+                    <span class="project-badge">V</span>
+                    <span class="project">{{task.project()}}</span>
                     <span class="module">{{task.moduleName()}}</span>
-                </td>  
+                </td>
                 <td class="middle">
                     <div class="priority priority-{{task.priority}}"></div>
                 </td>
                 <td>{{task.type}}</td>
-                <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip" 
+                <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip"
                     title="{{task.creator()}}">
                     {{task.creatorShort()}}
                 </td>
-                <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip" 
+                <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip"
                     title="{{task.assignedUser()}}">
                     {{task.assignedUserShort()}}
                 </td>

@@ -15,16 +15,15 @@
             style="cursor: pointer">
             <td>{{idea.number}} - {{idea.title}}</td>
             <td>
-                <span class="project-badge"></span>
-                <span class="project">{{idea.project()}} > </span>
+                <span class="project-badge">V</span>
+                <span class="project">{{idea.project()}}</span>
                 <span class="module">{{idea.moduleName()}}</span>
-            </td>           
+            </td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">
                 {{idea.creatorShort()}}
             </td>
             <td>{{$ctrl.moment(idea.creationDate).fromNow()}}</td>
         </tr>
-        
+
     </tbody>
 </table>
-
