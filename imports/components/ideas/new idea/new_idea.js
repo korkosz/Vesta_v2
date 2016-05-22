@@ -67,15 +67,16 @@ class NewIdeaCtrl {
 
     accept(valid) {
         if (!valid) return;
+        var vm = this;
         this.compileOutput().then(() => {
-            this.idea.projectId = this.idea.project._id;
-            this.idea.createdBy = Meteor.userId();
-            this.idea.creationDate = new Date();
-            this.idea.reviewers = this.selectedReviewers.map(
+            vm.idea.projectId = vm.idea.project._id;
+            vm.idea.createdBy = Meteor.userId();
+            vm.idea.creationDate = new Date();
+            vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
-            this.idea.reviews = [];
-            Ideas.insert(this.idea);
-            this.closeModal();
+            vm.idea.reviews = [];
+            Ideas.insert(vm.idea);
+            vm.closeModal();
         });
     }
 
@@ -136,7 +137,8 @@ export default angular.module("idea")
                 var editEl = $('*[id^="taTextElement"]');
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
-
+                var vm = this;
+                
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let src = img.attr('src');
@@ -153,7 +155,7 @@ export default angular.module("idea")
                     }
                 }
                 return $q.all(promises).then(() => {
-                    this.idea.description = editEl.html();
+                    vm.idea.description = editEl.html();
                 });
             };
         }

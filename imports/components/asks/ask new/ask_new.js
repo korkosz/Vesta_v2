@@ -43,12 +43,13 @@ class NewAskCtrl {
 
     accept(valid) {
         if (!valid) return;
+        var vm = this;
         this.compileOutput().then(() => {
-            this.ask.project = this.ask.project._id;
-            this.ask.createdBy = Meteor.userId();
-            this.ask.creationAt = new Date();
-            Asks.insert(this.ask);
-            this.closeModal();
+            vm.ask.project = vm.ask.project._id;
+            vm.ask.createdBy = Meteor.userId();
+            vm.ask.creationAt = new Date();
+            Asks.insert(vm.ask);
+            vm.closeModal();
         });
     }
 
