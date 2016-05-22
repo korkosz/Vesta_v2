@@ -11,11 +11,12 @@ class IdeaListCtrl {
 
         this.moment = moment;
         this.$location = $location;
-        var imagesDiv = $('#images');
-        console.log(Metadata.find({}).fetch());
         this.helpers({
             ideas() {
-                return Ideas.find();
+                ///Musi byc tutaj bo helper refreshuje sie
+                ///po zmianie kolekcji
+                this.filter = !!this.filter ? this.filter : {};
+                return Ideas.find(this.filter);
             }
         });
     }
@@ -23,10 +24,20 @@ class IdeaListCtrl {
     details(number) {
         this.$location.path('/idea/' + number);
     }
+
+    hasFilter() {
+        return !$.isEmptyObject(this.filter);
+    }
+
 }
 IdeaListCtrl.$inject = ['$scope', '$location'];
+
 export default angular.module("idea")
     .component('ideaList', {
         templateUrl: "imports/components/ideas/idea list/idea_list.html",
-        controller: IdeaListCtrl
+        controller: IdeaListCtrl,
+        bindings: {
+            filter: '<',
+            title: '@'
+        }
     });
