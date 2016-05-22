@@ -82,6 +82,13 @@ Ideas.helpers({
         var user = Meteor.users.findOne(this.createdBy);
         if (user) return user.profile.fullname;
     },
+    creatorShort() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        } 
+    },
     moduleName() {
         var module = Modules.findOne(this.module);
         if (module) return module.name;

@@ -57,9 +57,23 @@ TaskCollection.helpers({
         var user = Meteor.users.findOne(this.createdBy);
         if (user) return user.profile.fullname;
     },
+    creatorShort() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        }
+    },
     assignedUser() {
         var user = Meteor.users.findOne(this.assigned);
         if (user) return user.profile.fullname;
+    },
+    assignedUserShort() {
+        var user = Meteor.users.findOne(this.assigned);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        }
     },
     project() {
         var project = Projects.findOne(this.projectId);
@@ -71,7 +85,7 @@ TaskCollection.helpers({
     },
     getComments() {
         var _commentsIds = this.comments;
-        if(!Array.isArray(_commentsIds)) return [];
+        if (!Array.isArray(_commentsIds)) return [];
         return Comments.find({
             _id: {
                 $in: _commentsIds

@@ -17,8 +17,11 @@
             <td>{{idea.number}} - {{idea.title}}</td>
             <td>{{idea.project()}}</td>
             <td>{{idea.moduleName()}}</td>
-            <td>{{idea.creator()}}</td>
+            <td data-toggle="tooltip" title="{{idea.creator()}}">
+                {{idea.creatorShort()}}
+            </td>
             <td>{{$ctrl.moment(idea.creationDate).fromNow()}}</td>
         </tr>
+        
     </tbody>
 </table>

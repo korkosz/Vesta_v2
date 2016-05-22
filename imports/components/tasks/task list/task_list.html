@@ -26,8 +26,14 @@
                     <div class="priority priority-{{task.priority}}"></div>
                 </td>
                 <td>{{task.type}}</td>
-                <td ng-if="$ctrl.hasFilter()">{{task.creator()}}</td>
-                <td ng-if="!$ctrl.hasFilter()">{{task.assignedUser()}}</td>
+                <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip" 
+                    title="{{task.creator()}}">
+                    {{task.creatorShort()}}
+                </td>
+                <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip" 
+                    title="{{task.assignedUser()}}">
+                    {{task.assignedUserShort()}}
+                </td>
                 <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
             </tr>
         </tbody>
