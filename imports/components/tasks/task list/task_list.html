@@ -1,33 +1,38 @@
-<table class="table" ng-switch="">
-    <caption class="task-caption">{{$ctrl.title}}</caption>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Project</th>
-            <th>Module</th>
-            <th>Priority</th>
-            <th>Type</th>
-            <th ng-if="$ctrl.hasFilter()">Created By</th>
-            <th ng-if="!$ctrl.hasFilter()">Assigned</th>
-            <th>Created</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="task in $ctrl.tasks |
-            orderBy: [$ctrl.statusFilter, '-creationDate']"
-            ng-click="$ctrl.details(task._id)"
-            style="cursor: pointer;
-                   opacity: {{$ctrl.getStatusColor(task.status)}}">
-            <td>{{task.title}}</td>
-            <td>{{task.project()}}</td>
-            <td>{{task.moduleName()}}</td>
-            <td class="middle">
-                <div class="priority priority-{{task.priority}}"></div>
-            </td>
-            <td>{{task.type}}</td>
-            <td ng-if="$ctrl.hasFilter()">{{task.creator()}}</td>
-            <td ng-if="!$ctrl.hasFilter()">{{task.assignedUser()}}</td>
-            <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="VST-table-wrapper">
+    <table class="table" ng-switch="">
+        <caption class="task-caption">{{$ctrl.title}}</caption>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Project</th>
+                <th>Module</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th ng-if="$ctrl.hasFilter()">Created By</th>
+                <th ng-if="!$ctrl.hasFilter()">Assigned</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in $ctrl.tasks |
+                orderBy: [$ctrl.statusFilter, '-creationDate']"
+                ng-click="$ctrl.details(task._id)"
+                style="cursor: pointer;
+                       opacity: {{$ctrl.getStatusColor(task.status)}}">
+                <td>{{task.title}}</td>
+                <td>{{task.project()}}</td>
+                <td>{{task.moduleName()}}</td>
+                <td class="middle">
+                    <div class="priority priority-{{task.priority}}"></div>
+                </td>
+                <td>{{task.type}}</td>
+                <td ng-if="$ctrl.hasFilter()">{{task.creator()}}</td>
+                <td ng-if="!$ctrl.hasFilter()">{{task.assignedUser()}}</td>
+                <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button type="button" name="button" class="btn-V btn-V-default VST-btn-expand">
+    more
+</button>
