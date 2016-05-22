@@ -127,6 +127,8 @@ class ReviewCtrl {
     }
 }
 
+ReviewCtrl.$inject = ['$scope', '$routeParams'];
+
 export default angular
     .module('idea')
     .controller('ReviewCtrl', ReviewCtrl);
