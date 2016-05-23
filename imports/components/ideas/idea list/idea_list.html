@@ -2,8 +2,8 @@
     <caption class="idea-caption">Ideas</caption>
     <thead>
         <tr>
-            <th>Title</th>
             <th>Project</th>
+            <th>Title</th>            
             <th>Created By</th>
             <th>Created</th>
         </tr>
@@ -12,13 +12,13 @@
         <tr ng-repeat="idea in $ctrl.ideas|
                 orderBy: ['-creationDate']"
             ng-click="$ctrl.details(idea.number)"
-            style="cursor: pointer">
-            <td>{{idea.number}} - {{idea.title}}</td>
+            style="cursor: pointer">            
             <td>
                 <span class="project-badge">V</span>
                 <span class="project">{{idea.project()}}</span>
                 <span class="module">{{idea.moduleName()}}</span>
             </td>
+            <td>{{idea.number}} - {{idea.title}}</td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">
                 {{idea.creatorShort()}}
             </td>

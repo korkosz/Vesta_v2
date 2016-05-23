@@ -3,8 +3,8 @@
         <caption class="task-caption">{{$ctrl.title}}</caption>
         <thead>
             <tr>
-                <th>Title</th>
                 <th>Project</th>
+                <th>Title</th>                
                 <th>Priority</th>
                 <th>Type</th>
                 <th ng-if="$ctrl.hasFilter()">Created By</th>
@@ -17,13 +17,13 @@
                 orderBy: [$ctrl.statusFilter, '-creationDate']"
                 ng-click="$ctrl.details(task._id)"
                 style="cursor: pointer;
-                       opacity: {{$ctrl.getStatusColor(task.status)}}">
-                <td>{{task.title}}</td>
+                       opacity: {{$ctrl.getStatusColor(task.status)}}">                
                 <td>
                     <span class="project-badge">V</span>
                     <span class="project">{{task.project()}}</span>
                     <span class="module">{{task.moduleName()}}</span>
                 </td>
+                <td>{{task.title}}</td>
                 <td class="middle">
                     <div class="priority priority-{{task.priority}}"></div>
                 </td>

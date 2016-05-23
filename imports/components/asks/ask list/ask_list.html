@@ -13,11 +13,11 @@
                 orderBy: ['-creationDate']"
             ng-click="$ctrl.details(ask.number)"
             style="cursor: pointer">
-            <td>
-                <span class="project-badge"></span>
-                <span class="project">{{ask.projectName()}} > </span>
+           <td>
+                <span class="project-badge">V</span>
+                <span class="project">{{ask.projectName()}}</span>
                 <span class="module">{{ask.moduleName()}}</span>
-            </td> 
+            </td>
             <td>{{ask.number}} - {{ask.title}}</td>                      
             <td data-toggle="tooltip" title="{{ask.creator()}}">
                 {{ask.creatorShort()}}
