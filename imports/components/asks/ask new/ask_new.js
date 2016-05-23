@@ -30,7 +30,8 @@ class NewAskCtrl {
             },
             modules() {
                 this.getReactively('ask.project');
-                if (this.ask.project) {
+                if (this.ask.project && 
+                    typeof this.ask.project !== 'string') {
                     return this.ask.project.getModules();
                 }
             },

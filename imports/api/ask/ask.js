@@ -1,5 +1,8 @@
 import { Mongo } from 'meteor/mongo';
 
+import Modules from '/imports/api/module/module';
+import Projects from '/imports/api/project/project';
+
 class AsksClass extends Mongo.Collection {
     insert(doc) {
         while (1) {
@@ -22,17 +25,19 @@ export default AsksCollection = new AsksClass('Asks');
 
 AsksCollection.schema = new SimpleSchema({
     number: {
-        type: String
+        type: Number
     },
     title: {
         type: String,
         max: 100
     },
     description: {
-        type: String
+        type: String,
+        optional: true
     },
     statements: {
-        type: [String]
+        type: [String],
+        optional: true
     },
     module: {
         type: String
@@ -40,7 +45,7 @@ AsksCollection.schema = new SimpleSchema({
     project: {
         type: String
     },
-    creationDate: {
+    creationAt: {
         type: Date
     },
     createdBy: {
@@ -48,3 +53,27 @@ AsksCollection.schema = new SimpleSchema({
         defaultValue: this.userId
     }
 });
+
+AsksCollection.helpers({
+    projectName() {
+        var project = Projects.findOne(this.project);
+        if (project) return project.name;
+    },
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) return user.profile.fullname;
+    },
+    creatorShort() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        } 
+    },
+    moduleName() {
+        var module = Modules.findOne(this.module);
+        if (module) return module.name;
+    }
+});
+
+AsksCollection.attachSchema(AsksCollection.schema);

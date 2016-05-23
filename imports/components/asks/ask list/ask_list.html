@@ -1,0 +1,28 @@
+<table class="table">
+    <caption class="idea-caption">Asks</caption>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Title</th>            
+            <th>Created By</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="ask in $ctrl.asks|
+                orderBy: ['-creationDate']"
+            ng-click="$ctrl.details(ask.number)"
+            style="cursor: pointer">
+            <td>
+                <span class="project-badge"></span>
+                <span class="project">{{ask.projectName()}} > </span>
+                <span class="module">{{ask.moduleName()}}</span>
+            </td> 
+            <td>{{ask.number}} - {{ask.title}}</td>                      
+            <td data-toggle="tooltip" title="{{ask.creator()}}">
+                {{ask.creatorShort()}}
+            </td>
+            <td>{{$ctrl.moment(ask.creationAt).fromNow()}}</td>
+        </tr>        
+    </tbody>
+</table>

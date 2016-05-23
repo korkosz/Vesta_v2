@@ -23,7 +23,8 @@ class NewTaskCtrl {
             },
             modules() {
                 this.getReactively('task.project');
-                if (this.task.project) {
+                if (this.task.project && 
+                    typeof this.task.project !== 'string') {
                     this.modulesColDef.resolve();
                     return this.task.project.getModules();
                 }

@@ -41,7 +41,8 @@ class NewIdeaCtrl {
             },
             modules() {
                 this.getReactively('idea.project');
-                if (this.idea.project) {
+                if (this.idea.project && 
+                    typeof this.idea.project !== 'string') {
                     return this.idea.project.getModules();
                 }
             },
