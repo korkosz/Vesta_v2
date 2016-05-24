@@ -139,7 +139,10 @@ section.VST-view-content{
             background: #14D1DA;
         }
         &-Considered{
-            background: #FFD715;
+            background: #4AA3DF;
+            .glyphicon{
+                margin-right: 0.3em !important;
+            }
         }
         &-Implemented{
             background: #2ecc71;
@@ -147,10 +150,21 @@ section.VST-view-content{
         &-Rejected{
             background: #e74c3c;
         }
+        &-Working{
+            background: #BE5EE4;
+        }
+        &-Deferred{
+            background: #888;
+        }
+        .glyphicon{
+            display: inline;
+            margin-right: 0.5em;
+        }
     }
     &.open{
         .dropdown-menu {
             display: flex;
+            flex-direction: column;
         }
     }
     // Secelct list
@@ -158,6 +172,7 @@ section.VST-view-content{
         padding: 10px 20px;
         .idea-status{
             padding-right: 7px;
+            margin-bottom: 5px;
             &:after{
                 display: none;
             }
