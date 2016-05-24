@@ -1,0 +1,77 @@
+<div class="VST-view-container">
+    <!-- Ask header -->
+    <section class="VST-view-header row">
+        <div class="logo-wrapper">
+            <img src="/images/icon-Idea.png" alt="Ask main icon" />
+            <h1>ask</h1>
+        </div>
+        <header>
+            <!-- Breadcrumb -->
+            <div class="project-path">
+                <h3 id="project">
+                    <span class="project-badge">v</span>{{$ctrl.ask.projectName()}}
+                </h3>
+                <h3 id="module">{{$ctrl.ask.moduleName()}}</h3>
+                <h3>Klasa</h3>
+            </div>
+            <!-- Buttons -->
+            <div class="buttons">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn-V btn-V-default"
+                        data-toggle="modal" data-target="#deleteAskModal">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+
+                <!-- DELETE Modal -->
+                <div class="modal fade" id="deleteAskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Remove Ask</h4>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to remove this ask ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" ng-click="$ctrl.removeAsk()">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+
+    <!-- Ask description -->
+
+    <section class="VST-view-content row">
+        <header>
+            <p>Title:</p>
+            <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
+            <div class="VST-view-addDate">
+                {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}
+            </div>
+        </header>
+        <!-- Description wrapper -->
+        <div class="VST-view-desc-wrapper">
+            <!-- Buttons -->
+            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
+                <button type="button" name="button" class="btn-edit"
+                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" name="button" class="btn-save"
+                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+            <!-- Description -->
+            <div text-angular ng-model="$ctrl.ask.description"
+                 ta-disabled="!$ctrl.descriptionEdited" class="description"></div>           
+        </div>
+    </section>
+</div>
