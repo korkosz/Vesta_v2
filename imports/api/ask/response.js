@@ -35,7 +35,7 @@ ReponsesCollection.schema = new SimpleSchema({
         type: String,
         optional: true
     },
-    creationAt: {
+    creationDate: {
         type: Date
     },
     createdBy: {

@@ -5,7 +5,7 @@ import TaskCollection from '/imports/api/task/task';
 import TaskCommentsCollection from '/imports/api/task/comment';
 import ReviewsCollection from '/imports/api/ideas/review';
 import AsksCollection from '/imports/api/ask/ask';
-import ResponsesCollection from '/imports/api/ask/reponse';
+import ResponsesCollection from '/imports/api/ask/response';
 import Metadata from '/imports/api/metadata/metadata';
 import ModulesCollection from '/imports/api/module/module';
 
