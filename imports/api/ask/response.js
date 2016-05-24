@@ -3,7 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
-class AsksClass extends Mongo.Collection {
+class ResponsesClass extends Mongo.Collection {
     insert(doc) {
         while (1) {
             var sort = { number: -1 };
@@ -21,9 +21,9 @@ class AsksClass extends Mongo.Collection {
     }
 }
 
-export default AsksCollection = new AsksClass('Asks');
+export default ReponsesCollection = new ResponsesClass('Asks.Reponses');
 
-AsksCollection.schema = new SimpleSchema({
+ReponsesCollection.schema = new SimpleSchema({
     number: {
         type: Number
     },
@@ -35,16 +35,6 @@ AsksCollection.schema = new SimpleSchema({
         type: String,
         optional: true
     },
-    responses: {
-        type: [String],
-        optional: true
-    },
-    module: {
-        type: String
-    },
-    project: {
-        type: String
-    },
     creationAt: {
         type: Date
     },
@@ -54,11 +44,8 @@ AsksCollection.schema = new SimpleSchema({
     }
 });
 
-AsksCollection.helpers({
-    projectName() {
-        var project = Projects.findOne(this.project);
-        if (project) return project.name;
-    },
+
+ReponsesCollection.helpers({
     creator() {
         var user = Meteor.users.findOne(this.createdBy);
         if (user) return user.profile.fullname;
@@ -69,11 +56,7 @@ AsksCollection.helpers({
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;
         } 
-    },
-    moduleName() {
-        var module = Modules.findOne(this.module);
-        if (module) return module.name;
     }
 });
 
-AsksCollection.attachSchema(AsksCollection.schema);
+ReponsesCollection.attachSchema(ReponsesCollection.schema);

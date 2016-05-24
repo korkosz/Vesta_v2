@@ -17,8 +17,7 @@
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn-V btn-V-default"
-                        data-toggle="modal" data-target="#deleteAskModal">
+                <button type="button" class="btn-V btn-V-default" data-toggle="modal" data-target="#deleteAskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -60,18 +59,57 @@
         <div class="VST-view-desc-wrapper">
             <!-- Buttons -->
             <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit"
-                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button type="button" name="button" class="btn-save"
-                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
             <!-- Description -->
-            <div text-angular ng-model="$ctrl.ask.description"
-                 ta-disabled="!$ctrl.descriptionEdited" class="description"></div>           
+            <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
         </div>
     </section>
+
+    <section class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <button class="col-md-offset-10" style="display:none;">S</button>
+                <button class="col-md-offset-10">E</button>
+            </div>
+            <div class="row sideBox">
+                <div>M. Korkosz</div>
+                <div>24.05.16</div>
+                <div>#3216</div>
+            </div>
+        </div>
+        <div class="col-md-9 mainBox">
+            <div class="row">
+                <div class="col-md-3">Title</div>
+                <div class="col-md-offset-9">3+ / 5-</div>
+            </div>
+            <div class="row">
+                In literary theory, a textt is any object that can be "read," whether this object is a work of literature, a street sign,
+                an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits
+                some kind of informative message.[1] This set of symbols is considered in terms of the informative message's
+                content, rather than in terms of its physical form or the medium in which it is represented.
+            </div>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-md-offset-10">
+            <button>ADD RESPONSE</button>
+        </div>
+    </div>
 </div>
+<style>
+    .sideBox {
+        height: 90px;
+        border: 1px solid black;
+    }
+    
+    .mainBox {
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
