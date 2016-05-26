@@ -70,7 +70,7 @@
             <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
         </div>
     </section>
-    
+
     <button ng-click="$ctrl.addResponse()">
         Add Response
     </button>
@@ -78,8 +78,7 @@
     <fieldset id="ask_title" class="fsStyle field-wrapper last">
         <div class="title-wrapper">
             <label class="label-modal">Title:</label>
-            <input name="ask_title" type="text" ng-model="$ctrl.reponse.title"
-                    placeholder="Add title here..." required/>
+            <input name="ask_title" type="text" ng-model="$ctrl.reponse.title" placeholder="Add title here..." required/>
         </div>
     </fieldset>
 
@@ -90,8 +89,8 @@
             <textarea cols="30" rows="10" ng-model="$ctrl.reponse.description"></textarea>
         </div>
     </fieldset>
-     
-     <section class="row" ng-repeat="reponse in $ctrl.responses">
+
+    <section class="row" ng-repeat="reponse in $ctrl.responses">
         <div class="col-md-3">
             <div class="row">
                 <button class="col-md-offset-10" style="display:none;">S</button>
@@ -106,21 +105,28 @@
         <div class="col-md-9 mainBox">
             <div class="row">
                 <div class="col-md-3">{{reponse.title}}</div>
-                <div class="col-md-offset-9">{{reponse.likes.length ? reponse.likes.length : 0}}+ / {{reponse.dislikes.length ? reponse.dislikes.length : 0}}-</div>
+                <div class="col-md-offset-9">
+                    <!--likes-->
+                    {{reponse.likes.length ? reponse.likes.length : 0}}
+                    <button ng-click="$ctrl.likeDislikeResponse(reponse, true)" ng-disabled="!$ctrl.canLike(reponse)" ng-if="!$ctrl.alreadyLiked(reponse)">+</button>
+                    <button ng-if="$ctrl.alreadyLiked(reponse)" ng-click="$ctrl.stopLiking(reponse)">Stop like</button> /
+                    <!--dislikes-->
+                    {{reponse.dislikes.length ? reponse.dislikes.length : 0}}
+                    <button ng-click="$ctrl.likeDislikeResponse(reponse, false)" ng-disabled="!$ctrl.canDislike(reponse)">-</button>
+                    <button ng-if="$ctrl.alreadyDisliked(reponse)" ng-click="$ctrl.stopDisliking(reponse)">Stop dislike</button>
+                </div>
             </div>
             <div class="row">
                 {{reponse.description}}
             </div>
         </div>
     </section>
-    <div class="row">   
+    <div class="row">
         <div class="col-md-offset-10">
             <button>ADD RESPONSE</button>
         </div>
     </div>
-    <div
-        
-    ></div>
+    <div></div>
 </div>
 <style>
     .sideBox {

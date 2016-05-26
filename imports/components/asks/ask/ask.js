@@ -23,11 +23,15 @@ class AskCtrl {
             responses() {
                 this.getReactively('ask.responses.length');
                 if (this.ask) {
-                   return  Responses.find({
+                    return Responses.find({
                         _id: {
                             $in: this.ask.responses
                         }
-                    });
+                    }, {
+                            sort: {
+                                creationDate: 1
+                            }
+                        });
                 }
             }
         });
@@ -48,6 +52,74 @@ class AskCtrl {
             }
         });
         this.stopEditDescription();
+    };
+
+    alreadyLiked(resp) {
+        if (!resp.likes) {
+            return false;
+        }
+        return resp.likes.indexOf(Meteor.userId()) !== -1;
+    };
+
+    stopLiking(resp) {
+        Responses.update(resp._id, {
+            $pull: {
+                likes: Meteor.userId()
+            }
+        })
+    }
+
+    alreadyDisliked(resp) {
+        if (!resp.dislikes) {
+            return false;
+        }
+        return resp.dislikes.indexOf(Meteor.userId()) !== -1;
+    };
+
+    stopDisliking(resp) {
+        Responses.update(resp._id, {
+            $pull: {
+                dislikes: Meteor.userId()
+            }
+        })
+    }
+
+    //jesli juz dislajkowal
+    //to nie moze, albo jesli to jego to tez nie !
+    canLike(resp) {
+        if (!resp.dislikes) {
+            return true;
+        }
+
+        if (resp.dislikes.indexOf(Meteor.userId()) !== -1) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    canDislike(resp) {
+        if (!resp.likes) {
+            return true;
+        }
+
+        if (resp.likes.indexOf(Meteor.userId()) !== -1) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    likeDislikeResponse(resp, like) {
+        if (like) {
+            Responses.update(resp._id, {
+                $push: { likes: Meteor.userId() }
+            });
+        } else {
+            Responses.update(resp._id, {
+                $push: { dislikes: Meteor.userId() }
+            });
+        }
     };
 
     addResponse() {
