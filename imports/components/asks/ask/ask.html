@@ -71,33 +71,26 @@
         </div>
     </section>
     
-    <!--pokazowka - do wyjebania-->
-    <section class="row">
-        <div class="col-md-3">
-            <div class="row">
-                <button class="col-md-offset-10" style="display:none;">S</button>
-                <button class="col-md-offset-10">E</button>
-            </div>
-            <div class="row sideBox">
-                <div>M. Korkosz</div>
-                <div>24.05.16</div>
-                <div>#3216</div>
-            </div>
+    <button ng-click="$ctrl.addResponse()">
+        Add Response
+    </button>
+    <!--Title-->
+    <fieldset id="ask_title" class="fsStyle field-wrapper last">
+        <div class="title-wrapper">
+            <label class="label-modal">Title:</label>
+            <input name="ask_title" type="text" ng-model="$ctrl.reponse.title"
+                    placeholder="Add title here..." required/>
         </div>
-        <div class="col-md-9 mainBox">
-            <div class="row">
-                <div class="col-md-3">Title</div>
-                <div class="col-md-offset-9">3+ / 5-</div>
-            </div>
-            <div class="row">
-                In literary theory, a textt is any object that can be "read," whether this object is a work of literature, a street sign,
-                an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits
-                some kind of informative message.[1] This set of symbols is considered in terms of the informative message's
-                content, rather than in terms of its physical form or the medium in which it is represented.
-            </div>
+    </fieldset>
+
+    <!--Description-->
+    <fieldset id="ask_description" class="fsStyle">
+        <div class="description-wrapper">
+            <label class="label-modal">Description:</label>
+            <textarea cols="30" rows="10" ng-model="$ctrl.reponse.description"></textarea>
         </div>
-    </section>
-    
+    </fieldset>
+     
      <section class="row" ng-repeat="reponse in $ctrl.responses">
         <div class="col-md-3">
             <div class="row">
@@ -106,25 +99,28 @@
             </div>
             <div class="row sideBox">
                 <div>{{reponse.creatorShort()}}</div>
-                <div>{{reponse.creationDate | date: 'dd.MM.yy'}}</div>
+                <div>{{$ctrl.moment(reponse.creationDate).fromNow()}}</div>
                 <div>#{{reponse.number}}</div>
             </div>
         </div>
         <div class="col-md-9 mainBox">
             <div class="row">
                 <div class="col-md-3">{{reponse.title}}</div>
-                <div class="col-md-offset-9">{{reponse.likes.length}}+ / {{reponse.dislikes.length}}-</div>
+                <div class="col-md-offset-9">{{reponse.likes.length ? reponse.likes.length : 0}}+ / {{reponse.dislikes.length ? reponse.dislikes.length : 0}}-</div>
             </div>
             <div class="row">
                 {{reponse.description}}
             </div>
         </div>
     </section>
-    <div class="row">
+    <div class="row">   
         <div class="col-md-offset-10">
             <button>ADD RESPONSE</button>
         </div>
     </div>
+    <div
+        
+    ></div>
 </div>
 <style>
     .sideBox {

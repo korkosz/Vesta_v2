@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 
+import Asks from '/imports/api/ask/ask';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
@@ -14,8 +15,14 @@ class ResponsesClass extends Mongo.Collection {
             var cursor = this.findOne({}, { fields: fields, sort: sort });
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
-
-            var results = super.insert(doc);
+            
+            const askId = doc.askId;
+            super.insert(doc, function (err, res) {  
+                debugger; 
+                Asks.update({ _id: askId }, {
+                    $push: { responses: res }
+                });
+            });
             break;
         }
     }
@@ -34,6 +41,14 @@ ReponsesCollection.schema = new SimpleSchema({
     description: {
         type: String,
         optional: true
+    },
+    likes: {
+        type: [String],
+        optional: true
+    },
+    dislikes: {
+        type: [String],
+        optional: true 
     },
     creationDate: {
         type: Date
@@ -55,7 +70,7 @@ ReponsesCollection.helpers({
         if (user) {
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;
-        } 
+        }
     }
 });
 

@@ -1,23 +1,34 @@
 import Asks from '/imports/api/ask/ask';
 import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
+import Responses from '/imports/api/ask/response';
 
 import './ask.html';
 
 class AskCtrl {
     constructor($scope, $routeParams, $location, $timeout) {
         $scope.viewModel(this);
-       
+
         this.descriptionEdited = false;
         this.$routeParams = $routeParams;
         this.$location = $location;
         this.$timeout = $timeout;
         this.moment = moment;
-        this.reviewers = []; 
+        this.reviewers = [];
 
         this.helpers({
             ask() {
-                return Asks.findOne({ number: parseInt(this.$routeParams.number) });               
+                return Asks.findOne({ number: parseInt(this.$routeParams.number) });
+            },
+            responses() {
+                this.getReactively('ask.responses.length');
+                if (this.ask) {
+                   return  Responses.find({
+                        _id: {
+                            $in: this.ask.responses
+                        }
+                    });
+                }
             }
         });
     };
@@ -29,7 +40,7 @@ class AskCtrl {
             this.$location.url('/');
         }, 500);
     };
-    
+
     saveDescription() {
         Asks.update(this.ask._id, {
             $set: {
@@ -37,7 +48,25 @@ class AskCtrl {
             }
         });
         this.stopEditDescription();
-    }; 
+    };
+
+    addResponse() {
+        var vm = this;
+        this.reponse.createdBy = Meteor.userId();
+        this.reponse.creationDate = new Date();
+        this.reponse.askId = this.ask._id;
+
+        Responses.insert(this.reponse, function (id) {
+            debugger;
+            Asks.update(vm.ask._id, {
+                $push: { responses: id }
+            });
+        });
+
+        this.reponse.title = '';
+        this.reponse.reponse = '';
+
+    };
 };
 AskCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('ask')
