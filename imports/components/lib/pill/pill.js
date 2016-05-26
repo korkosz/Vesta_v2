@@ -7,12 +7,12 @@ class PillCtrl {
         switch (this.state) {
             case 'plus':
                 this.sign = '+';
-                this.signClass = this.state;
+                this.signClass = 'glyphicon glyphicon-plus-sign';
                 this.stateClass = 'pill-advantage';
                 break;
             case 'minus':
                 this.sign = '-';
-                this.signClass = this.state;
+                this.signClass = 'glyphicon glyphicon-minus-sign';
                 this.stateClass = 'pill-disadvantage';
                 break;
             default:

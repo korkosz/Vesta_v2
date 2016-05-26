@@ -139,7 +139,10 @@ section.VST-view-content{
             background: #14D1DA;
         }
         &-Considered{
-            background: #FFD715;
+            background: #4AA3DF;
+            .glyphicon{
+                margin-right: 0.3em !important;
+            }
         }
         &-Implemented{
             background: #2ecc71;
@@ -147,10 +150,21 @@ section.VST-view-content{
         &-Rejected{
             background: #e74c3c;
         }
+        &-Working{
+            background: #BE5EE4;
+        }
+        &-Deferred{
+            background: #888;
+        }
+        .glyphicon{
+            display: inline;
+            margin-right: 0.5em;
+        }
     }
     &.open{
         .dropdown-menu {
             display: flex;
+            flex-direction: column;
         }
     }
     // Secelct list
@@ -158,6 +172,7 @@ section.VST-view-content{
         padding: 10px 20px;
         .idea-status{
             padding-right: 7px;
+            margin-bottom: 5px;
             &:after{
                 display: none;
             }
@@ -263,12 +278,11 @@ section.idea-reviews{
 
     // Added reviews
     .reviews-added-wrapper{
-        padding: 35px;
         background: #fff;
     }
     .review-box{
         display: flex;
-        padding: 40px 0;
+        padding: 40px 35px;
         border-bottom: 1px solid #eee;
         &:last-child{
             border: none;
@@ -292,10 +306,10 @@ section.idea-reviews{
     }
     header{
         position: relative;
-        h3{
-            display: inline-block;
-            font-size: 20px;
-        }
+    }
+    .reviwer-name{
+        display: inline-block;
+        font-size: 20px;
     }
     p.review-addTime{
         display: inline-block;
@@ -308,7 +322,6 @@ section.idea-reviews{
     }
     .prons-cons-wrapper{
         margin-top: 15px;
-        margin-bottom: 20px;
         .pill{
             display: block;
             background: transparent;
@@ -325,7 +338,7 @@ section.idea-reviews{
         }
         span.glyphicon{
             position: absolute;
-            left: -23px;
+            left: -20px;
             top: 4px;
             &-minus-sign{
                 color: $red;
@@ -336,7 +349,7 @@ section.idea-reviews{
         }
         .prons-box{
             display: inline-block;
-            width: 400px;
+            width: 280px;
             vertical-align: top;
         }
         .cons-box{
@@ -344,8 +357,63 @@ section.idea-reviews{
             max-width: 400px;
             vertical-align: top;
         }
+        input{
+            height: 25px;
+            min-width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: #fff;
+            outline: none;
+            font-size: 13px;
+            padding-left: 8px;
+            margin-bottom: 8px; margin-left: -8px;
+            &::-webkit-input-placeholder{
+                color:#ddd;
+            }
+            &::-moz-placeholder{
+                color:#ddd;
+            }
+            &::-ms-input-placeholder{
+                color:#ddd;
+            }
+        }
     }
     .desc-wrapper{
         padding-right: 200px;
+        margin-top: 10px;
+    }
+    textarea.editible-desc{
+        height: 100px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background: #fff;
+        outline: none;
+        font-size: 15px;
+        padding: 8px;
+        resize: none;
+        margin-left: -8px;
+        &::-webkit-input-placeholder{
+            color:#ddd;
+        }
+        &::-moz-placeholder{
+            color:#ddd;
+        }
+        &::-ms-input-placeholder{
+            color:#ddd;
+        }
+    }
+    // New review content box
+    .new-review-content-box{
+        margin-left: 135px;
+        .desc-wrapper{
+            padding-right: 0;
+            width: 700px;
+        }
+        button.btn-V{
+            display: block;
+            float: right;
+            margin-top: 10px;
+        }
     }
 }

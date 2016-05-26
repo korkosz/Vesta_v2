@@ -12,7 +12,6 @@
             <div class="project-path">
                 <h3 id="project">{{$ctrl.idea.projectName()}}<span class="project-badge">v</span>Vesta</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
-                <h3>Klasa</h3>
             </div>
             <!-- Buttons -->
             <div class="buttons">
@@ -66,22 +65,22 @@
                     <ul class="dropdown-menu">
                         <li class="idea-status idea-status-New"
                             style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('New')">new</li>
+                            ng-click="$ctrl.setStatus('New')"><span class="glyphicon glyphicon-leaf"></span>new</li>
                         <li class="idea-status idea-status-Considered"
                             style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Considered')">consider</li>
+                            ng-click="$ctrl.setStatus('Considered')"><span class="glyphicon glyphicon-flash"></span>consider</li>
+                        <li class="idea-status idea-status-Working"
+                            style="cursor:pointer"
+                            ng-click="$ctrl.setStatus('Working')"><span class="glyphicon glyphicon-refresh"></span>working</li>
                         <li class="idea-status idea-status-Implemented"
                             style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Implemented')">implemented</li>
+                            ng-click="$ctrl.setStatus('Implemented')"><span class="glyphicon glyphicon-ok"></span>implemented</li>
                         <li class="idea-status idea-status-Rejected"
                             style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Rejected')">rejected</li>
-                        <li class="idea-status idea-status-Implemented"
+                            ng-click="$ctrl.setStatus('Rejected')"><span class="glyphicon glyphicon-remove"></span>rejected</li>
+                        <li class="idea-status idea-status-Deferred"
                             style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Working')">working</li>
-                        <li class="idea-status idea-status-Implemented"
-                            style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Deferred')">deferred</li>
+                            ng-click="$ctrl.setStatus('Deferred')"><span class="glyphicon glyphicon-share-alt"></span>deferred</li>
                     </ul>
                 </div>
             </h4>
