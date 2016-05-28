@@ -118,7 +118,30 @@
             </div>
         </div>
     </section>
-
+    
+    <!-- Related Tasks -->
+    <div class="VST-table-wrapper">
+        <table class="table">   
+            <thead>
+                <tr>
+                    <th>Title</th>   
+                    <th>Assigned</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in $ctrl.tasks">                   
+                    <td>{{task.title}}</td>               
+                    <td data-toggle="tooltip"
+                        title="{{task.assignedUser()}}">
+                        {{task.assignedUserShort()}}
+                    </td>
+                    <td>{{task.status}}</td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
     <!-- Idea Reviews -->
     <ng-include src="'imports/components/ideas/idea/review.html'"></ng-include>
 </div>

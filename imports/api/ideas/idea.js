@@ -71,6 +71,10 @@ Ideas.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
+    relatedTasks: {
+        type: [String],
+        optional: true
+    },
     creationDate: {
         type: Date,
         defaultValue: new Date()

@@ -2,6 +2,7 @@ import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 import Reviews from '/imports/api/ideas/review';
+import Tasks from '/imports/api/task/task';
 import pill from '/imports/components/lib/pill/pill';
 import './review';
 import './review.html';
@@ -10,7 +11,7 @@ import './idea.html';
 class IdeaCtrl {
     constructor($scope, $routeParams, $location, $timeout) {
         $scope.viewModel(this);
-       
+
         this.descriptionEdited = false;
         this.$routeParams = $routeParams;
         this.$location = $location;
@@ -47,13 +48,26 @@ class IdeaCtrl {
             },
             ideaStatuses() {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
-            },            
+            },
             users() {
                 this.getReactively('reviewers.length');
                 if (this.idea) {
                     return Meteor.users.find({
                         _id: {
                             $nin: this.idea.reviewers
+                        }
+                    });
+                }
+            },
+            tasks() {
+                this.getReactively('idea.relatedTasks.length');
+                if (this.idea) {
+                    if (!Array.isArray(this.idea.relatedTasks)) {
+                        this.idea.relatedTasks = [];
+                    }
+                    return Tasks.find({
+                        _id: {
+                            $in: this.idea.relatedTasks
                         }
                     });
                 }
@@ -75,8 +89,8 @@ class IdeaCtrl {
                 reviewers: this.reviewer._id
             }
         });
-    }  
-    
+    }
+
     saveDescription() {
         Ideas.update(this.idea._id, {
             $set: {
@@ -85,7 +99,7 @@ class IdeaCtrl {
         });
         this.stopEditDescription();
     };
-    
+
     setStatus(_status) {
         Ideas.update(this.idea._id, {
             $set: {
