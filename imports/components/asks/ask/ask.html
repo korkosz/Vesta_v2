@@ -71,14 +71,11 @@
         </div>
     </section>
 
-    <button ng-click="$ctrl.addResponse()">
-        Add Response
-    </button>
     <!--Title-->
     <fieldset id="ask_title" class="fsStyle field-wrapper last">
         <div class="title-wrapper">
             <label class="label-modal">Title:</label>
-            <input name="ask_title" type="text" ng-model="$ctrl.reponse.title" placeholder="Add title here..." required/>
+            <input name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..." required/>
         </div>
     </fieldset>
 
@@ -86,44 +83,47 @@
     <fieldset id="ask_description" class="fsStyle">
         <div class="description-wrapper">
             <label class="label-modal">Description:</label>
-            <textarea cols="30" rows="10" ng-model="$ctrl.reponse.description"></textarea>
+            <textarea cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
         </div>
     </fieldset>
 
-    <section class="row" ng-repeat="reponse in $ctrl.responses">
+    <section class="row" ng-repeat="response in $ctrl.responses">
         <div class="col-md-3">
             <div class="row">
                 <button class="col-md-offset-10" style="display:none;">S</button>
                 <button class="col-md-offset-10">E</button>
             </div>
             <div class="row sideBox">
-                <div>{{reponse.creatorShort()}}</div>
-                <div>{{$ctrl.moment(reponse.creationDate).fromNow()}}</div>
-                <div>#{{reponse.number}}</div>
+                <div>{{response.creatorShort()}}</div>
+                <div>{{$ctrl.moment(response.creationDate).fromNow()}}</div>
+                <div>#{{response.number}}</div>
             </div>
         </div>
         <div class="col-md-9 mainBox">
             <div class="row">
-                <div class="col-md-3">{{reponse.title}}</div>
-                <div class="col-md-offset-9">
+                <div class="col-md-3">{{response.title}}</div>
+                <div class="col-md-offset-6 col-md-2">
                     <!--likes-->
-                    {{reponse.likes.length ? reponse.likes.length : 0}}
-                    <button ng-click="$ctrl.likeDislikeResponse(reponse, true)" ng-disabled="!$ctrl.canLike(reponse)" ng-if="!$ctrl.alreadyLiked(reponse)">+</button>
-                    <button ng-if="$ctrl.alreadyLiked(reponse)" ng-click="$ctrl.stopLiking(reponse)">Stop like</button> /
+                    {{response.likes.length ? response.likes.length : 0}}
+                    <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
+                    <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button> /
                     <!--dislikes-->
-                    {{reponse.dislikes.length ? reponse.dislikes.length : 0}}
-                    <button ng-click="$ctrl.likeDislikeResponse(reponse, false)" ng-disabled="!$ctrl.canDislike(reponse)">-</button>
-                    <button ng-if="$ctrl.alreadyDisliked(reponse)" ng-click="$ctrl.stopDisliking(reponse)">Stop dislike</button>
+                    {{response.dislikes.length ? response.dislikes.length : 0}}
+                    <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)">-</button>
+                    <button ng-if="$ctrl.alreadyDisliked(response)" ng-click="$ctrl.stopDisliking(response)">Stop dislike</button>
+                </div>
+                <div class="col-md-1">
+                    <button ng-click="$ctrl.removeResponse(response)">Remove</button>
                 </div>
             </div>
             <div class="row">
-                {{reponse.description}}
+                {{response.description}}
             </div>
         </div>
     </section>
     <div class="row">
         <div class="col-md-offset-10">
-            <button>ADD RESPONSE</button>
+            <button ng-click="$ctrl.addResponse()">ADD RESPONSE</button>
         </div>
     </div>
     <div></div>

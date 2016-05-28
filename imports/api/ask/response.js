@@ -17,8 +17,7 @@ class ResponsesClass extends Mongo.Collection {
             doc.number = seq;
             
             const askId = doc.askId;
-            super.insert(doc, function (err, res) {  
-                debugger; 
+            super.insert(doc, function (err, res) {   
                 Asks.update({ _id: askId }, {
                     $push: { responses: res }
                 });

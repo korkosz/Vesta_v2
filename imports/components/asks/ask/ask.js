@@ -23,6 +23,10 @@ class AskCtrl {
             responses() {
                 this.getReactively('ask.responses.length');
                 if (this.ask) {
+                    if (!Array.isArray(this.ask.responses)) {
+                        this.ask.responses = [];
+                    }
+
                     return Responses.find({
                         _id: {
                             $in: this.ask.responses
@@ -124,20 +128,26 @@ class AskCtrl {
 
     addResponse() {
         var vm = this;
-        this.reponse.createdBy = Meteor.userId();
-        this.reponse.creationDate = new Date();
-        this.reponse.askId = this.ask._id;
+        this.response.createdBy = Meteor.userId();
+        this.response.creationDate = new Date();
+        this.response.askId = this.ask._id;
 
-        Responses.insert(this.reponse, function (id) {
-            debugger;
+        Responses.insert(this.response, function (id) {
             Asks.update(vm.ask._id, {
                 $push: { responses: id }
             });
         });
 
-        this.reponse.title = '';
-        this.reponse.reponse = '';
+        this.response.title = '';
+        this.response.description = '';
 
+    };
+
+    removeResponse(resp) {
+        Responses.remove(resp._id, true);
+        Asks.update(this.ask._id, {
+            $pull: { responses: resp._id }
+        });
     };
 };
 AskCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
