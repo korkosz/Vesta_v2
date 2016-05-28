@@ -18,8 +18,7 @@ Projects.schema = new SimpleSchema({
         type: [String]
     },
     sprint: {
-        type: String,
-        defaultValue: 'Sprint 2'
+        type: Number
     }
 });
 

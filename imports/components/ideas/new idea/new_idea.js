@@ -12,21 +12,22 @@ class NewIdeaCtrl {
             this.idea = {};
             this.idea.description = '';
             this.selectedReviewers = [];
-            this.reviewersChanged = false;            
+            this.reviewersChanged = false;
             this.output = "";
         }
+
         /// init
         this.init();
-        
-        this.setPristine = ()=> {
+
+        this.setPristine = () => {
             $scope.newIdeaForm.$setPristine();
-            $scope.newIdeaForm.project.$setPristine();
-            $scope.newIdeaForm.module.$setPristine();
-            $scope.newIdeaForm.reviewer.$setPristine();
-            $scope.newIdeaForm.title.$setPristine();  
-            $scope.newIdeaForm.description.$setPristine();  
+            $scope.newIdeaForm.project.$setUntouched();
+            $scope.newIdeaForm.module.$setUntouched();
+            $scope.newIdeaForm.reviewer.$setUntouched();
+            $scope.newIdeaForm.title.$setUntouched();
+            $scope.newIdeaForm.description.$setUntouched();
         }
-        
+
         this.helpers({
             projects() {
                 return Projects.find();
@@ -41,7 +42,7 @@ class NewIdeaCtrl {
             },
             modules() {
                 this.getReactively('idea.project');
-                if (this.idea.project && 
+                if (this.idea.project &&
                     typeof this.idea.project !== 'string') {
                     return this.idea.project.getModules();
                 }
@@ -82,12 +83,12 @@ class NewIdeaCtrl {
     }
 
     cancel() {
-        this.setPristine();
         this.closeModal();
     }
 
     openModal() {
         this.init();
+        this.setPristine();
     }
 }
 NewIdeaCtrl.$inject = ['$scope'];
@@ -139,7 +140,7 @@ export default angular.module("idea")
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
                 var vm = this;
-                
+
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let src = img.attr('src');
