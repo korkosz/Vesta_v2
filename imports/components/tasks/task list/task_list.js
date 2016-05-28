@@ -16,7 +16,13 @@ class TaskListCtrl {
             tasks() {
                 ///Musi byc tutaj bo helper refreshuje sie
                 ///po zmianie kolekcji
-                this.filter = !!this.filter ? this.filter : {};
+                if (angular.isUndefined(this.filter)) {
+                    this.filter = { isDeleted: false };
+                }
+                else {
+                    angular.extend(this.filter,
+                        { isDeleted: false });
+                }
                 return Tasks.find(this.filter);
             }
         });

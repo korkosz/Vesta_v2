@@ -29,7 +29,7 @@ export default Reviews = new ReviewsCollection('Reviews')
 Reviews.helpers({
     creator() {
         var user = Meteor.users.findOne(this._createdBy);
-        if(user) return user.profile.fullname;        
+        if (user) return user.profile.fullname;
     }
 });
 
@@ -55,7 +55,17 @@ ReviewSchema = new SimpleSchema({
     },
     _createdBy: {
         type: String
-    }
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
+    },
 });
 
 Reviews.attachSchema(ReviewSchema);

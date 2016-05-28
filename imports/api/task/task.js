@@ -4,7 +4,17 @@ import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 import Comments from '/imports/api/task/comment'
 
-export default TaskCollection = new Mongo.Collection('Tasks');
+class TaskClass extends Mongo.Collection {
+    remove(taskId) {
+        this.update(taskId, {
+            $set: {
+                isDeleted: true
+            }
+        });
+    }
+}
+
+export default TaskCollection = new TaskClass('Tasks');
 
 TaskCollection.schema = new SimpleSchema({
     title: {
@@ -50,6 +60,20 @@ TaskCollection.schema = new SimpleSchema({
     createdBy: {
         type: String,
         defaultValue: this.userId
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
+    },
+    isDeleted: {
+        type: Boolean,
+        defaultValue: false
     }
 });
 TaskCollection.helpers({

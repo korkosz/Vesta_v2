@@ -4,8 +4,8 @@ import Tasks from '/imports/api/task/task';
 class CommentsCollection extends Mongo.Collection {
     insert(comment, callback) {
         comment.number = performance.now()
-            .toString().slice(0,4).replace('.', 1);
-        super.insert(comment, function (err, res) {            
+            .toString().slice(0, 4).replace('.', 1);
+        super.insert(comment, function (err, res) {
             Tasks.update(comment.taskId, {
                 $push: {
                     comments: res
@@ -25,7 +25,7 @@ CommentsCollection.schema = new SimpleSchema({
         type: String
     },
     number: {
-        type: String  
+        type: String
     },
     createdBy: {
         type: String,
@@ -34,6 +34,16 @@ CommentsCollection.schema = new SimpleSchema({
     },
     createdAt: {
         type: Date,
+        optional: true
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
         optional: true
     }
 });

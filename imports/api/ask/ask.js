@@ -18,7 +18,15 @@ class AsksClass extends Mongo.Collection {
             var results = super.insert(doc);
             break;
         }
-    }
+    };
+
+    remove(askId) {
+        this.update(askId, {
+            $set: {
+                isDeleted: true
+            }
+        });
+    };
 }
 
 export default AsksCollection = new AsksClass('Asks');
@@ -55,6 +63,20 @@ AsksCollection.schema = new SimpleSchema({
     createdBy: {
         type: String,
         defaultValue: this.userId
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
+    },
+    isDeleted: {
+        type: Boolean,
+        defaultValue: false
     }
 });
 
@@ -72,7 +94,7 @@ AsksCollection.helpers({
         if (user) {
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;
-        } 
+        }
     },
     moduleName() {
         var module = Modules.findOne(this.module);

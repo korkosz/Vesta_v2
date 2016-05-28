@@ -7,13 +7,13 @@ import Projects from '/imports/api/project/project';
 class IdeasCollection extends Mongo.Collection {
     insert(doc) {
         while (1) {
-            
-           var sort = { number: -1 };
-           var fields = {               
-                 number: 1
+
+            var sort = { number: -1 };
+            var fields = {
+                number: 1
             };
-            
-            var cursor = this.findOne({},{fields: fields, sort: sort});                       
+
+            var cursor = this.findOne({}, { fields: fields, sort: sort });
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
 
@@ -28,6 +28,14 @@ class IdeasCollection extends Mongo.Collection {
             break;
         }
     }
+
+    remove(ideaId) {
+        this.update(ideaId, {
+            $set: {
+                isDeleted: true
+            }
+        });
+    }
 }
 
 export default Ideas = new IdeasCollection('ideas');
@@ -37,9 +45,9 @@ Ideas.schema = new SimpleSchema({
         type: String,
         max: 100
     },
-    number : {
-      type: Number,
-      optional: true  
+    number: {
+        type: Number,
+        optional: true
     },
     description: {
         type: String
@@ -70,6 +78,20 @@ Ideas.schema = new SimpleSchema({
     createdBy: {
         type: String,
         defaultValue: this.userId
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
+    },
+    isDeleted: {
+        type: Boolean,
+        defaultValue: false
     }
 });
 
@@ -87,7 +109,7 @@ Ideas.helpers({
         if (user) {
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;
-        } 
+        }
     },
     moduleName() {
         var module = Modules.findOne(this.module);

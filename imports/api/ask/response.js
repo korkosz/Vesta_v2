@@ -15,9 +15,9 @@ class ResponsesClass extends Mongo.Collection {
             var cursor = this.findOne({}, { fields: fields, sort: sort });
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
-            
+
             const askId = doc.askId;
-            super.insert(doc, function (err, res) {   
+            super.insert(doc, function (err, res) {
                 Asks.update({ _id: askId }, {
                     $push: { responses: res }
                 });
@@ -47,10 +47,20 @@ ReponsesCollection.schema = new SimpleSchema({
     },
     dislikes: {
         type: [String],
-        optional: true 
+        optional: true
     },
     creationDate: {
         type: Date
+    },
+    updatedAt: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
+        denyInsert: true,
+        optional: true
     },
     createdBy: {
         type: String,
