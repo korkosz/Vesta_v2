@@ -17,7 +17,6 @@ class ReviewsCollection extends Mongo.Collection {
         if (typeof revId === 'undefined') throw new Error('revId is undefined !!!');
 
         super.remove(revId, function (err, res) {
-            console.log(revId, ideaId);
             Ideas.update({ _id: ideaId }, {
                 $pull: { reviews: revId }
             });

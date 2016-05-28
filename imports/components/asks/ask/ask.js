@@ -58,6 +58,19 @@ class AskCtrl {
         this.stopEditDescription();
     };
 
+    addGoodPoint() {
+        Asks.update(this.ask._id, {
+            $push: { goodPoints: this.goodPoint }
+        });
+        this.goodPoint = '';
+    };
+
+    removeGoodPoint(_goodPoint) {
+        Asks.update(this.ask._id, {
+            $pull: { goodPoints: _goodPoint }
+        });
+    };
+
     alreadyLiked(resp) {
         if (!resp.likes) {
             return false;
@@ -148,6 +161,16 @@ class AskCtrl {
         Asks.update(this.ask._id, {
             $pull: { responses: resp._id }
         });
+    };
+
+    saveResponse(resp) {
+        Responses.update(resp._id, {
+            $set: {
+                title: resp.title,
+                description: resp.description
+            }
+        });
+        resp.edited = false;
     };
 };
 AskCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];

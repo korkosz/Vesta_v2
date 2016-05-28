@@ -39,6 +39,10 @@ AsksCollection.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
+    goodPoints: {
+        type: [String],
+        optional: true
+    },
     module: {
         type: String
     },

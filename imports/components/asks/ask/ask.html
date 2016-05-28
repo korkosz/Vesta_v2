@@ -45,53 +45,79 @@
         </header>
     </section>
 
-    <!-- Ask description -->
-
-    <section class="VST-view-content row">
-        <header>
-            <p>Title:</p>
-            <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
-            <div class="VST-view-addDate">
-                {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}
-            </div>
-        </header>
-        <!-- Description wrapper -->
-        <div class="VST-view-desc-wrapper">
-            <!-- Buttons -->
-            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
+    <div class="row">
+        <!-- Ask description -->
+        <section class="VST-view-content col-md-8">
+            <header>
+                <p>Title:</p>
+                <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
+                <div class="VST-view-addDate">
+                    {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}
+                </div>
+            </header>
+            <!-- Description wrapper -->
+            <div class="VST-view-desc-wrapper">
+                <!-- Buttons -->
+                <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
+                    <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                    <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
+                </div>
+                <!-- Description -->
+                <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
             </div>
-            <!-- Description -->
-            <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
-        </div>
+        </section>
+
+        <!-- Good Points -->
+        <section class="col-md-4">
+            <h3>Good Points</h3>
+            <input type="text" ng-model="$ctrl.goodPoint" placeholder="Type good point...">
+            <button ng-click="$ctrl.addGoodPoint()">+</button>
+            <br>
+            <div style="height: 300px; border: 1px solid red; padding: 20px">
+                <div class="row" ng-repeat="goodPoint in $ctrl.ask.goodPoints" 
+                    style="margin-bottom: 16px;">
+                    &#x21AC; {{goodPoint}}
+                    <button ng-click="$ctrl.removeGoodPoint(goodPoint)">-</button>    
+                </div>                
+            </div>
+        </section>
+    </div>
+
+    <!-- New Response -->
+    <section class="row">
+        <!--Title-->
+        <fieldset id="ask_title" class="fsStyle field-wrapper last">
+            <div class="title-wrapper">
+                <label class="label-modal">Title:</label>
+                <input name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..." required/>
+            </div>
+        </fieldset>
+
+        <!--Description-->
+        <fieldset id="ask_description" class="fsStyle">
+            <div class="description-wrapper">
+                <label class="label-modal">Description:</label>
+                <textarea cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
+            </div>
+        </fieldset>
     </section>
 
-    <!--Title-->
-    <fieldset id="ask_title" class="fsStyle field-wrapper last">
-        <div class="title-wrapper">
-            <label class="label-modal">Title:</label>
-            <input name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..." required/>
-        </div>
-    </fieldset>
-
-    <!--Description-->
-    <fieldset id="ask_description" class="fsStyle">
-        <div class="description-wrapper">
-            <label class="label-modal">Description:</label>
-            <textarea cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
-        </div>
-    </fieldset>
-
-    <section class="row" ng-repeat="response in $ctrl.responses">
+    <!-- Ta sekcja ponizej jest klonowana dla kazdego responsa-->
+    <section class="row" ng-repeat="response in $ctrl.responses" id="response.number">
         <div class="col-md-3">
             <div class="row">
-                <button class="col-md-offset-10" style="display:none;">S</button>
-                <button class="col-md-offset-10">E</button>
+                <!-- Save -->
+                <button class="col-md-offset-10" ng-if="response.edited" ng-click="$ctrl.saveResponse(response)">
+                    S
+                </button>
+                <!-- Edit -->
+                <button class="col-md-offset-10" ng-if="!response.edited" ng-click="response.edited = true;">
+                    E
+                </button>
             </div>
             <div class="row sideBox">
                 <div>{{response.creatorShort()}}</div>
@@ -101,23 +127,39 @@
         </div>
         <div class="col-md-9 mainBox">
             <div class="row">
-                <div class="col-md-3">{{response.title}}</div>
+                <!-- Added Response Title -->
+                <!-- View -->
+                <div class="col-md-3" ng-if="!response.edited">
+                    {{response.title}}
+                </div>
+                <!-- Edit -->
+                <div class="col-md-3">
+                    <input type="text" ng-model="response.title" ng-if="response.edited">
+                </div>
+
                 <div class="col-md-offset-6 col-md-2">
-                    <!--likes-->
+                    <!--Added Response Likes-->
                     {{response.likes.length ? response.likes.length : 0}}
                     <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
-                    <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button> /
-                    <!--dislikes-->
+                    <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                    /
+                    <!-- Added Response Dislikes-->
                     {{response.dislikes.length ? response.dislikes.length : 0}}
                     <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)">-</button>
                     <button ng-if="$ctrl.alreadyDisliked(response)" ng-click="$ctrl.stopDisliking(response)">Stop dislike</button>
                 </div>
+                <!-- Remove Button -->
                 <div class="col-md-1">
                     <button ng-click="$ctrl.removeResponse(response)">Remove</button>
                 </div>
             </div>
-            <div class="row">
+            <!-- Added Response Description -->
+            <!-- View -->
+            <div class="row" ng-if="!response.edited">
                 {{response.description}}
+            </div>
+            <!-- Edit -->
+            <div class="row">
+                <textarea ng-if="response.edited" ng-model="response.description" cols="60" rows="7"></textarea>
             </div>
         </div>
     </section>
@@ -126,7 +168,6 @@
             <button ng-click="$ctrl.addResponse()">ADD RESPONSE</button>
         </div>
     </div>
-    <div></div>
 </div>
 <style>
     .sideBox {
