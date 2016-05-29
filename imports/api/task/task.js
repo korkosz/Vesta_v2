@@ -49,6 +49,10 @@ TaskCollection.schema = new SimpleSchema({
         type: String,
         optional: true
     },
+    ideaId: {
+        type: String,
+        optional: true  
+    },
     comments: {
         type: [String],
         optional: true

@@ -60,15 +60,11 @@ class IdeaCtrl {
                 }
             },
             tasks() {
-                this.getReactively('idea.relatedTasks.length');
-                if (this.idea) {
-                    if (!Array.isArray(this.idea.relatedTasks)) {
-                        this.idea.relatedTasks = [];
-                    }
+                this.getReactively('idea');
+                if (this.idea) {                    
                     return Tasks.find({
-                        _id: {
-                            $in: this.idea.relatedTasks
-                        }
+                        ideaId: this.idea._id,
+                        isDeleted: false
                     });
                 }
             }

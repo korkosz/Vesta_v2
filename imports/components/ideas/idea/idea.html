@@ -17,7 +17,9 @@
             <div class="buttons">
                 <!-- Create new task -->
                 <new-task title="Create task" module="{{$ctrl.idea.module}}"
-                          project="{{$ctrl.idea.projectId}}"></new-task>
+                          project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
+                          idea-title="{{$ctrl.idea.title}}">
+                </new-task>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn-V btn-V-default"
                         data-toggle="modal" data-target="#deleteIdeaModal">

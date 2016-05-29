@@ -9,10 +9,8 @@ import './task_new.html';
 class NewTaskCtrl {
     constructor($scope, $q) {
         $scope.viewModel(this);
-        var vm = this;
 
-        this.projectsColDef = $q.defer();
-        this.modulesColDef = $q.defer();
+        var vm = this;
 
         this.task = {};
         this.task.description = '';
@@ -23,9 +21,7 @@ class NewTaskCtrl {
             },
             modules() {
                 this.getReactively('task.project');
-                if (this.task.project && 
-                    typeof this.task.project !== 'string') {
-                    this.modulesColDef.resolve();
+                if (this.task.project) {
                     return this.task.project.getModules();
                 }
             },
@@ -39,16 +35,6 @@ class NewTaskCtrl {
                 return Meteor.users.find();
             }
         });
-
-        this.initValuesPresent = function () {
-            vm.modulesColDef.promise.then(() => {
-                if (vm.module !== '') {
-                    vm.task.module = vm.modules.find(function (m) {
-                        return m._id === vm.module;
-                    });
-                }
-            })
-        };
     }
 
     closeModal() {
@@ -60,6 +46,13 @@ class NewTaskCtrl {
             this.task.projectId = this.task.project._id;
             this.task.createdBy = Meteor.userId();
             this.task.creationDate = new Date();
+            this.task.ideaId = this.ideaId;
+            
+            //this is the case when attributes have been used
+            if(this.task.module && typeof this.task.module !== 'string') {
+                this.task.module = this.task.module._id;    
+            };
+            
             Tasks.insert(this.task);
             this.cancel();
         });
@@ -84,39 +77,30 @@ export default angular.module("task")
             scope: {
                 title: '@',
                 project: '@',
-                module: '@'
+                module: '@',
+                ideaId: '@',
+                ideaTitle: '@'
             },
             bindToController: true
         }
 
         function link(scope, el, attrs, ctrl) {
 
-         ///Init with Project && / || Module present
-            var moduleAttrDefer = $q.defer();
-            var projectAttrDefer = $q.defer();
-
-            $q.all([projectAttrDefer, moduleAttrDefer,
-                ctrl.projectsColDef]).then(ctrl.initValuesPresent);
-
             attrs.$observe('project', function () {
-                if (ctrl.project !== '') {
-                    ctrl.task.project = ctrl.projects.find(function (p) {
-                        return p._id === ctrl.project;
-                    });
-                    projectAttrDefer.resolve();
+                if (ctrl.project) {
+                    ctrl.task.project = Projects.findOne(ctrl.project);
+                    if (ctrl.task.project && ctrl.module) {
+                        ctrl.task.module = Modules.findOne(ctrl.module); 
+                        ctrl.task.type = 'Feature';                                                
+                    }
                 }
             });
+            attrs.$observe('ideaTitle', function () { 
+                if(ctrl.ideaTitle) 
+                    ctrl.task.title = ctrl.ideaTitle;
+            });            
 
-            attrs.$observe('module', function () {
-                if (ctrl.module !== '') {
-                    moduleAttrDefer.resolve();
-                }
-            });
-            ///
-
-
-
-
+            //Set default Title
             if (!ctrl.title) ctrl.title = 'Task';
 
             function uploadToServer(file, def) {
