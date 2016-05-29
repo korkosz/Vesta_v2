@@ -104,8 +104,8 @@ class IdeaCtrl {
         });
     }
 
-    taskDetails(id) {
-        this.$location.path('/task/' + id);
+    taskDetails(number) {
+        this.$location.path('/task/' + number);
     };
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];

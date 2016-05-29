@@ -19,7 +19,7 @@ class TaskCtrl {
 
         this.helpers({
             task() {
-                return Tasks.findOne({ _id: this.$routeParams.id });
+                return Tasks.findOne({ number: parseInt(this.$routeParams.number) });
             },
             taskStatuses() {
                 return Metadata.findOne({ metadataName: 'TaskStatuses' });

@@ -31,8 +31,8 @@ class TaskListCtrl {
         });
     }
 
-    details(id) {
-        this.$location.path('/task/' + id);
+    details(number) {
+        this.$location.path('/task/' + number);
     }
 
     hasFilter() {

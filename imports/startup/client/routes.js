@@ -37,7 +37,7 @@ angular.module('simple-todos')
             when('/idea/:number', {
 				templateUrl: 'imports/pages/idea/idea_view.html'
 			}).
-            when('/task/:id', {
+            when('/task/:number', {
 				templateUrl: 'imports/pages/task/task_view.html'
 			}).
 			when('/ask/:number', {

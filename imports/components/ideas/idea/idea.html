@@ -133,7 +133,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="task in $ctrl.tasks"
-                    ng-click="$ctrl.taskDetails(task._id)"
+                    ng-click="$ctrl.taskDetails(task.number)"
                     style="cursor: pointer;">                   
                     <td>{{task.title}}</td>               
                     <td data-toggle="tooltip"
