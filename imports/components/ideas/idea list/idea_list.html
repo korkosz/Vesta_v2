@@ -17,6 +17,7 @@
                 <span class="project-badge">V</span>
                 <span class="project">{{idea.project()}}</span>
                 <span class="module">{{idea.moduleName()}}</span>
+                <span ng-if="idea.isNew" style="color: red">NEW</span>                
             </td>
             <td>[{{idea.number}}] {{idea.title}}</td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">

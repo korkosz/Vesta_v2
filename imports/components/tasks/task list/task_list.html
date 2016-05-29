@@ -22,6 +22,7 @@
                     <span class="project-badge">V</span>
                     <span class="project">{{task.project()}}</span>
                     <span class="module">{{task.moduleName()}}</span>
+                    <span ng-if="task.isNew" style="color: red">NEW</span> 
                 </td>
                 <td>{{task.title}}</td>
                 <td class="middle">

@@ -21,7 +21,10 @@ class AskListCtrl {
                     angular.extend(this.filter,
                         { isDeleted: false });
                 }
-                return Asks.find(this.filter);
+                return Asks.find(this.filter).map((ask)=> {
+                    ask.isNew = moment().diff(ask.creationAt, 'days') === 0;
+                    return ask;   
+                });
             }
         });
     }

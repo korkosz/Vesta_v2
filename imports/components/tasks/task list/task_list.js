@@ -23,7 +23,10 @@ class TaskListCtrl {
                     angular.extend(this.filter,
                         { isDeleted: false });
                 }
-                return Tasks.find(this.filter);
+                return Tasks.find(this.filter).map((task)=> {
+                    task.isNew = moment().diff(task.creationDate, 'days') === 0;
+                    return task;   
+                });
             }
         });
     }

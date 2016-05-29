@@ -22,7 +22,10 @@ class IdeaListCtrl {
                     angular.extend(this.filter,
                         { isDeleted: false });
                 }
-                return Ideas.find(this.filter);
+                return Ideas.find(this.filter).map((idea)=> {
+                    idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                    return idea;   
+                });
             }
         });
     }
