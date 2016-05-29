@@ -14,6 +14,10 @@ Projects.schema = new SimpleSchema({
     name: {
         type: String
     },
+    prefix: {
+        type: String,
+        defaultValue: 'V'
+    },
     modules: {
         type: [String]
     },

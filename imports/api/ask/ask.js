@@ -15,6 +15,15 @@ class AsksClass extends Mongo.Collection {
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
 
+            var project = Projects.findOne(doc.project);
+            var projectPrefix = project ? project.prefix : null;
+            var sprint = project ? project.sprint : null;
+
+            if (projectPrefix && sprint) {
+                doc.id = projectPrefix.toUpperCase() + sprint +
+                    'A' + seq;
+            }
+
             var results = super.insert(doc);
             break;
         }
@@ -32,6 +41,9 @@ class AsksClass extends Mongo.Collection {
 export default AsksCollection = new AsksClass('Asks');
 
 AsksCollection.schema = new SimpleSchema({
+    id: {
+        type: String
+    },
     number: {
         type: Number
     },

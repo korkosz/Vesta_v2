@@ -17,14 +17,17 @@ class IdeasCollection extends Mongo.Collection {
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
 
+            var project = Projects.findOne(doc.projectId);
+            var projectPrefix = project ? project.prefix : null;
+            var sprint = project ? project.sprint : null;
+
+            if (projectPrefix && sprint) {
+                doc.id = projectPrefix.toUpperCase() + sprint +
+                    'I' + seq;
+            }
+
             var results = super.insert(doc);
 
-            // if (results.hasWriteError()) {
-            //     if (results.writeError.code == 11000 /* dup key */)
-            //         continue;
-            //     else
-            //         console.log("unexpected error inserting data: " + JSON.stringify(results));
-            // }
             break;
         }
     }
@@ -41,6 +44,9 @@ class IdeasCollection extends Mongo.Collection {
 export default Ideas = new IdeasCollection('ideas');
 
 Ideas.schema = new SimpleSchema({
+    id: {
+        type: String
+    },
     title: {
         type: String,
         max: 100

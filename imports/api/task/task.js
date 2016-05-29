@@ -5,6 +5,33 @@ import Projects from '/imports/api/project/project';
 import Comments from '/imports/api/task/comment'
 
 class TaskClass extends Mongo.Collection {
+    insert(doc) {
+        while (1) {
+
+            var sort = { number: -1 };
+            var fields = {
+                number: 1
+            };
+
+            var cursor = this.findOne({}, { fields: fields, sort: sort });
+            var seq = cursor && cursor.number ? cursor.number + 1 : 1;
+            doc.number = seq;
+
+            var project = Projects.findOne(doc.projectId);
+            var projectPrefix = project ? project.prefix : null;
+            var sprint = project ? project.sprint : null;
+
+            if (projectPrefix && sprint) {
+                doc.id = projectPrefix.toUpperCase() + sprint +
+                    'T' + seq;
+            }
+
+            var results = super.insert(doc);
+
+            break;
+        }
+    }
+
     remove(taskId) {
         this.update(taskId, {
             $set: {
@@ -17,9 +44,16 @@ class TaskClass extends Mongo.Collection {
 export default TaskCollection = new TaskClass('Tasks');
 
 TaskCollection.schema = new SimpleSchema({
+    id: {
+        type: String
+    },
     title: {
         type: String,
         max: 100
+    },
+    number: {
+        type: Number,
+        optional: true
     },
     description: {
         type: String
@@ -51,7 +85,7 @@ TaskCollection.schema = new SimpleSchema({
     },
     ideaId: {
         type: String,
-        optional: true  
+        optional: true
     },
     comments: {
         type: [String],
@@ -67,8 +101,8 @@ TaskCollection.schema = new SimpleSchema({
     },
     updatedAt: {
         type: Date,
-        autoValue: function () {           
-          return new Date();          
+        autoValue: function () {
+            return new Date();
         },
         optional: true
     },
