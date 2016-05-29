@@ -15,6 +15,26 @@ class NewTaskCtrl {
         this.task = {};
         this.task.description = '';
 
+        this.init = () => {
+            this.task = {};
+            this.task.description = '';
+            this.output = "";
+        }
+
+        /// init
+        this.init();
+
+        this.setPristine = () => {
+            $scope.newTaskForm.$setPristine();
+            $scope.newTaskForm.project.$setUntouched();
+            $scope.newTaskForm.module.$setUntouched();
+            $scope.newTaskForm.type.$setUntouched();
+            $scope.newTaskForm.priority.$setUntouched();
+            $scope.newTaskForm.assign.$setUntouched();
+            $scope.newTaskForm.title.$setUntouched();
+            $scope.newTaskForm.taskDescription.$setUntouched();
+        }
+
         this.helpers({
             projects() {
                 return Projects.find();
@@ -41,7 +61,9 @@ class NewTaskCtrl {
         $('#' + this.altId + 'newTaskModal').modal('hide');
     }
 
-    accept() {
+    accept(valid) {
+        if (!valid) return;
+
         this.compileOutput().then(() => {
             this.task.projectId = this.task.project._id;
             this.task.createdBy = Meteor.userId();
@@ -54,14 +76,17 @@ class NewTaskCtrl {
             };
 
             Tasks.insert(this.task);
-            this.cancel();
+            this.closeModal();
         });
     }
 
     cancel() {
-        this.task = {};
-        this.task.description = '';
         this.closeModal();
+    }
+
+    openModal() {
+        this.init();
+        this.setPristine();
     }
 }
 NewTaskCtrl.$inject = ['$scope', '$q'];

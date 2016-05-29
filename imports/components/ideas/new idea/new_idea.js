@@ -69,16 +69,17 @@ class NewIdeaCtrl {
 
     accept(valid) {
         if (!valid) return;
-        var vm = this;
+        
         this.compileOutput().then(() => {
-            vm.idea.projectId = vm.idea.project._id;
-            vm.idea.createdBy = Meteor.userId();
-            vm.idea.creationDate = new Date();
-            vm.idea.reviewers = vm.selectedReviewers.map(
+            this.idea.projectId = this.idea.project._id;
+            this.idea.createdBy = Meteor.userId();
+            this.idea.creationDate = new Date();
+            this.idea.reviewers = this.selectedReviewers.map(
                 (rev) => rev._id);
-            vm.idea.reviews = [];
-            Ideas.insert(vm.idea);
-            vm.closeModal();
+            this.idea.reviews = [];
+            
+            Ideas.insert(this.idea);
+            this.closeModal();
         });
     }
 
