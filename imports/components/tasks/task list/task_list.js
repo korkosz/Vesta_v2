@@ -10,7 +10,6 @@ class TaskListCtrl {
         $scope.viewModel(this);
 
         this.moment = moment;
-        var oldDate = new Date('2000');
         this.title = !!this.title ? this.title : 'Tasks';
         this.$location = $location;
         this.helpers({
@@ -26,7 +25,6 @@ class TaskListCtrl {
                 }
                 return Tasks.find(this.filter).map((task)=> {
                     task.isNew = moment().diff(task.creationDate, 'days') === 0;
-                    if(!moment.isDate(task.updatedAt)) task.updatedAt = oldDate;
                     return task;   
                 });
             }
