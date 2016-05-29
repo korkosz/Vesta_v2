@@ -24,6 +24,7 @@ Meteor.startup(() => {
     //	ProjectsCollection.remove({});
     var vesta = ProjectsCollection.findOne();
     const modulesLen = ModulesCollection.find().count();
+
     if (modulesLen === 0) {
         ModulesCollection.insert({
             name: 'Ideas',

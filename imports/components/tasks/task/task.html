@@ -4,7 +4,7 @@
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Task.png" alt="Idea main icon" />
-            <h1>task</h1>
+            <h1>task #{{$ctrl.task.id}}</h1>
         </div>
         <header>
             <!-- Project path -->
@@ -50,7 +50,7 @@
     <section class="VST-view-content row">
         <header>
             <p>Title:</p>
-            <h4>{{$ctrl.task.title}}</h4>
+            <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
             <div class="VST-view-addDate">05.05.2016</div>
         </header>
         <!-- Description wrapper -->
