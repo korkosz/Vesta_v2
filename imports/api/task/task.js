@@ -67,12 +67,9 @@ TaskCollection.schema = new SimpleSchema({
     },
     updatedAt: {
         type: Date,
-        autoValue: function () {
-            if (this.isUpdate) {
-                return new Date();
-            }
+        autoValue: function () {           
+          return new Date();          
         },
-        denyInsert: true,
         optional: true
     },
     isDeleted: {

@@ -8,7 +8,8 @@ import './idea_list.html';
 class IdeaListCtrl {
     constructor($scope, $location) {
         $scope.viewModel(this);
-
+        
+        var oldDate = new Date('2000');
         this.moment = moment;
         this.$location = $location;
         this.helpers({
@@ -24,6 +25,7 @@ class IdeaListCtrl {
                 }
                 return Ideas.find(this.filter).map((idea)=> {
                     idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                    if(!moment.isDate(idea.updatedAt)) idea.updatedAt = oldDate;
                     return idea;   
                 });
             }

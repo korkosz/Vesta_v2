@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="idea in $ctrl.ideas|
-                orderBy: ['-creationDate']"
+                orderBy: ['-updatedAt', '-creationDate']"
             ng-click="$ctrl.details(idea.number)"
             style="cursor: pointer">
             <td>

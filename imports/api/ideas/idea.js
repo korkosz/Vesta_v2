@@ -82,11 +82,8 @@ Ideas.schema = new SimpleSchema({
     updatedAt: {
         type: Date,
         autoValue: function () {
-            if (this.isUpdate) {
-                return new Date();
-            }
+            return new Date();
         },
-        denyInsert: true,
         optional: true
     },
     isDeleted: {
