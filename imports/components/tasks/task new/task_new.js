@@ -19,6 +19,18 @@ class NewTaskCtrl {
             this.task = {};
             this.task.description = '';
             this.output = "";
+            
+            if(this.ideaTitle) 
+                this.task.title = this.ideaTitle;
+            
+            if(this.project) 
+                this.task.project = Projects.findOne(this.project);              
+            
+            if(this.module) 
+                this.task.module = Modules.findOne(this.module);
+                
+            if(this.ideaTitle && this.project && this.module)    
+                this.task.type = 'Feature';
         }
 
         /// init
@@ -32,7 +44,6 @@ class NewTaskCtrl {
             $scope.newTaskForm.priority.$setUntouched();
             $scope.newTaskForm.assign.$setUntouched();
             $scope.newTaskForm.title.$setUntouched();
-            $scope.newTaskForm.taskDescription.$setUntouched();
         }
 
         this.helpers({
