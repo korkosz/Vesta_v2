@@ -79,13 +79,17 @@ export default angular.module("task")
                 project: '@',
                 module: '@',
                 ideaId: '@',
-                ideaTitle: '@'
+                ideaTitle: '@',
+                altId: '@'
             },
             bindToController: true
         }
 
         function link(scope, el, attrs, ctrl) {
-
+            if(!ctrl.altId) {
+                ctrl.altId = '';    
+            }
+            
             attrs.$observe('project', function () {
                 if (ctrl.project) {
                     ctrl.task.project = Projects.findOne(ctrl.project);
