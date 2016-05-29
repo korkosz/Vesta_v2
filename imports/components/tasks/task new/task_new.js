@@ -38,7 +38,7 @@ class NewTaskCtrl {
     }
 
     closeModal() {
-        $('#newTaskModal').modal('hide');
+        $('#' + this.altId + 'newTaskModal').modal('hide');
     }
 
     accept() {
@@ -47,12 +47,12 @@ class NewTaskCtrl {
             this.task.createdBy = Meteor.userId();
             this.task.creationDate = new Date();
             this.task.ideaId = this.ideaId;
-            
+
             //this is the case when attributes have been used
-            if(this.task.module && typeof this.task.module !== 'string') {
-                this.task.module = this.task.module._id;    
+            if (this.task.module && typeof this.task.module !== 'string') {
+                this.task.module = this.task.module._id;
             };
-            
+
             Tasks.insert(this.task);
             this.cancel();
         });
@@ -86,23 +86,23 @@ export default angular.module("task")
         }
 
         function link(scope, el, attrs, ctrl) {
-            if(!ctrl.altId) {
-                ctrl.altId = '';    
+            if (!ctrl.altId) {
+                ctrl.altId = '';
             }
-            
+
             attrs.$observe('project', function () {
                 if (ctrl.project) {
                     ctrl.task.project = Projects.findOne(ctrl.project);
                     if (ctrl.task.project && ctrl.module) {
-                        ctrl.task.module = Modules.findOne(ctrl.module); 
-                        ctrl.task.type = 'Feature';                                                
+                        ctrl.task.module = Modules.findOne(ctrl.module);
+                        ctrl.task.type = 'Feature';
                     }
                 }
             });
-            attrs.$observe('ideaTitle', function () { 
-                if(ctrl.ideaTitle) 
+            attrs.$observe('ideaTitle', function () {
+                if (ctrl.ideaTitle)
                     ctrl.task.title = ctrl.ideaTitle;
-            });            
+            });
 
             //Set default Title
             if (!ctrl.title) ctrl.title = 'Task';
@@ -137,7 +137,14 @@ export default angular.module("task")
                 var defer = $q.defer();
                 var promises = [];
                 var counter = 0;
-                var editEl = $('new-task div[id^="taTextElement"]');
+
+                if (ctrl.altId && ctrl.altId.length > 0) {
+                    var editEl = $('div[id="' + ctrl.altId + 'newTaskModal"]' +
+                        ' div[id^="taTextElement"]');
+                } else {
+                    var editEl = $('new-task div[id^="taTextElement"]');
+                }
+
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
 

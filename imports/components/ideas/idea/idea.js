@@ -61,7 +61,7 @@ class IdeaCtrl {
             },
             tasks() {
                 this.getReactively('idea');
-                if (this.idea) {                    
+                if (this.idea) {
                     return Tasks.find({
                         ideaId: this.idea._id,
                         isDeleted: false
@@ -103,6 +103,10 @@ class IdeaCtrl {
             }
         });
     }
+
+    taskDetails(id) {
+        this.$location.path('/task/' + id);
+    };
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('idea')

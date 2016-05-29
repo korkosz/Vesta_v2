@@ -132,7 +132,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in $ctrl.tasks">                   
+                <tr ng-repeat="task in $ctrl.tasks"
+                    ng-click="$ctrl.taskDetails(task._id)"
+                    style="cursor: pointer;">                   
                     <td>{{task.title}}</td>               
                     <td data-toggle="tooltip"
                         title="{{task.assignedUser()}}">
