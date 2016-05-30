@@ -9,6 +9,9 @@ Notifications.schema = new SimpleSchema({
     entity: {
         type: String
     },
+    entityId: {
+        type: String
+    },
     action: {
         type: String
     },
@@ -33,6 +36,7 @@ export function Notify(_entity, _id, _action, usersIds, _provider, when) {
             Notifications.insert({
                 userId: _userId,
                 entity: _entity,
+                entityId: _id,
                 action: _action,
                 seen: false,
                 provider: _provider,
@@ -45,6 +49,7 @@ export function Notify(_entity, _id, _action, usersIds, _provider, when) {
         Notifications.insert({
             userId: usersIds,
             entity: _entity,
+            entityId: _id,
             action: _action,
             seen: false,
             provider: _provider,
