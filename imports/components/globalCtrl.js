@@ -6,7 +6,6 @@ export default angular.module('global', [])
 
 function globalCtrl() {
     this.currentUser = Meteor.user();
-
     this.userLogIn = function () {
         return !!Meteor.userId();
     };

@@ -8,6 +8,7 @@ import AsksCollection from '/imports/api/ask/ask';
 import ResponsesCollection from '/imports/api/ask/response';
 import Metadata from '/imports/api/metadata/metadata';
 import ModulesCollection from '/imports/api/module/module';
+import Notify from '/imports/api/notification/notification';
 
 Images.allow({
     'insert': function () {

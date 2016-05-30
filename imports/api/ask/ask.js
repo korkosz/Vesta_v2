@@ -3,6 +3,8 @@ import { Mongo } from 'meteor/mongo';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
+import {Notify} from '/imports/api/notification/notification';
+
 class AsksClass extends Mongo.Collection {
     insert(doc) {
         while (1) {

@@ -4,6 +4,8 @@ import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 import Comments from '/imports/api/task/comment'
 
+import {Notify} from '/imports/api/notification/notification';
+
 class TaskClass extends Mongo.Collection {
     insert(doc) {
         while (1) {
@@ -26,8 +28,12 @@ class TaskClass extends Mongo.Collection {
                     'T' + seq;
             }
 
-            var results = super.insert(doc);
-
+            if (doc.assigned !== doc.createdBy) {
+                super.insert(doc, function (res) {
+                    Notify('Task', doc.id, 'New', doc.assigned,
+                        doc.createdBy, doc.creationDate);
+                });
+            }
             break;
         }
     }

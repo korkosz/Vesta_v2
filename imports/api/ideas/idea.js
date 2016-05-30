@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 
+import {Notify} from '/imports/api/notification/notification';
 
 class IdeasCollection extends Mongo.Collection {
     insert(doc) {
@@ -26,7 +27,16 @@ class IdeasCollection extends Mongo.Collection {
                     'I' + seq;
             }
 
-            var results = super.insert(doc);
+            super.insert(doc, function (res) {
+                var usersToNotify = doc.reviewers.map((rev) => {
+                    if (rev._id !== doc.createdBy) return rev;
+                });
+
+                if (usersToNotify.length > 0) {
+                    Notify('Idea', doc.id, 'New', doc.reviewers,
+                        doc.createdBy, doc.creationDate);
+                }
+            });
 
             break;
         }
