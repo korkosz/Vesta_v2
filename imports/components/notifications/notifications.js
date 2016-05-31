@@ -10,13 +10,19 @@ export default angular.module('global')
 
 function controller($scope) {
     $scope.viewModel(this);
-    
+
     this.moment = moment;
-    
+    this.limit = 5;
     this.listVisible = false;
+
+    this.seeMore = function () {
+        this.limit = null;
+    };
+
     this.calculateTop = function (index) {
         return index * 5 + 5;
     };
+
     this.getColor = function (notification) {
         switch (notification.entity) {
             case 'Idea':
@@ -24,7 +30,8 @@ function controller($scope) {
             case 'Task':
                 return '#3AC53A';
         }
-    }
+    };
+
     this.getMessage = function (notification) {
         switch (notification.action) {
             case 'New':
@@ -34,9 +41,23 @@ function controller($scope) {
         }
     };
 
+    this.toggleList = function () {
+        this.listVisible = !this.listVisible;
+        if (!this.listVisible) {
+            this.limit = 5;
+        }
+    };
+
     this.helpers({
         notifications() {
-            return Notifications.find({ userId: Meteor.userId() });
+            var options = {
+                limit: 10,
+                sort: {
+                    creationDate: -1
+                }
+            };
+
+            return Notifications.find({ userId: Meteor.userId() }, options);
         }
     });
 }

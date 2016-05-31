@@ -1,5 +1,5 @@
 <div style="cursor: pointer;" 
-     ng-click="$ctrl.listVisible = !$ctrl.listVisible;"
+     ng-click="$ctrl.toggleList()"
      class="list-group">
     <div class="list-group-item">
         Notifications: <span class="badge">{{$ctrl.notifications.length}}</span>
@@ -9,9 +9,12 @@
 <div style="position: relative;
             top: 5px;     
             z-index: 100" ng-if="$ctrl.listVisible === true" class="list-group">
-    <div class="list-group-item" ng-repeat="notification in $ctrl.notifications">
+    <div class="list-group-item" ng-repeat="notification in $ctrl.notifications | limitTo: 
+        $ctrl.limit">
         <h4 class="list-group-item-heading">{{notification.entity}} <a href="#/{{notification.entityId}}" style="color: {{$ctrl.getColor(notification)}}">{{notification.entityId}}</a> {{$ctrl.getMessage(notification)}}
         </h4>
         <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
+        <a ng-if="$last && $ctrl.limit === 5" ng-click="$ctrl.seeMore()" 
+           style="cursor: pointer">See more</a>
     </div>
 </div>
