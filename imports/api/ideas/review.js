@@ -1,26 +1,53 @@
 import Ideas from '/imports/api/ideas/idea';
+import {Notify} from '/imports/api/notification/notification';
 
 class ReviewsCollection extends Mongo.Collection {
-    insert(review, callback) {
+    insert(review, callback, notify) {
         super.insert(review, function (err, res) {
             //TODO: obsluzyc callback pierwotny
             Ideas.update({ _id: review._ideaId }, {
                 $push: { reviews: res }
-            });
+            }, null, notify);
             return res;
         });
     }
 
     //TODO: ZMIENIC REVID NA SELECTOR
-    remove(revId, ideaId) {
+    remove(revId, ideaId, notify) {
         if (typeof ideaId === 'undefined') throw new Error('ideaId is undefined !!!');
         if (typeof revId === 'undefined') throw new Error('revId is undefined !!!');
 
         super.remove(revId, function (err, res) {
             Ideas.update({ _id: ideaId }, {
                 $pull: { reviews: revId }
-            });
+            }, null, notify);
         });
+    }
+
+    update(selector, updateDoc, callback, notifyObject) {
+        function innerCallback() {
+            //reviewers have to be notified
+            var usersToNotify = notifyObject.reviewers.map((rev) => {
+                if (rev !== notifyObject.provider) return rev;
+            });
+
+            //if creator not already in reviewers and
+            //he is not the one who updated entity 
+            //- notify him
+            if (usersToNotify.indexOf(notifyObject
+                .entityCreator) === -1 && notifyObject
+                    .entityCreator !== notifyObject.provider) {
+                usersToNotify.push(notifyObject.entityCreator);
+            }
+
+            if (usersToNotify.length > 0) {
+                Notify('Idea', notifyObject.id, 'Update', notifyObject.reviewers,
+                    notifyObject.provider, notifyObject.when);
+            }
+
+            if (typeof callback === 'function') callback();
+        }
+        super.update(selector, updateDoc, innerCallback);
     }
 }
 

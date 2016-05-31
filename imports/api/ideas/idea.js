@@ -41,11 +41,33 @@ class IdeasCollection extends Mongo.Collection {
             break;
         }
     }
-    
-    update(doc, callback) {
-        super.update(doc, callback);   
+
+    update(selector, updateDoc, callback, notifyObject) {
+        function innerCallback() {
+            //reviewers have to be notified
+            var usersToNotify = notifyObject.reviewers.map((rev) => {
+                if (rev !== notifyObject.provider) return rev;
+            });
+
+            //if creator not already in reviewers and
+            //he is not the one who updated entity 
+            //- notify him
+            if (usersToNotify.indexOf(notifyObject
+                .entityCreator) === -1 && notifyObject
+                .entityCreator !== notifyObject.provider) {
+                usersToNotify.push(notifyObject.entityCreator);
+            }
+
+            if (usersToNotify.length > 0) {
+                Notify('Idea', notifyObject.id, 'Update', notifyObject.reviewers,
+                    notifyObject.provider, notifyObject.when);
+            }
+
+            if (typeof callback === 'function') callback();
+        }
+        super.update(selector, updateDoc, innerCallback);
     }
-    
+
     remove(ideaId) {
         this.update(ideaId, {
             $set: {

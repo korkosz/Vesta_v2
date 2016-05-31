@@ -1,7 +1,6 @@
 import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
-import Reviews from '/imports/api/ideas/review';
 import Tasks from '/imports/api/task/task';
 import pill from '/imports/components/lib/pill/pill';
 import './review';
@@ -80,28 +79,52 @@ class IdeaCtrl {
     }
 
     reviewerSelected() {
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
         Ideas.update(this.idea._id, {
             $push: {
                 reviewers: this.reviewer._id
             }
-        });
+        }, null, notify);
     }
 
     saveDescription() {
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
         Ideas.update(this.idea._id, {
             $set: {
                 description: this.idea.description
             }
-        });
+        }, null, notify);
         this.stopEditDescription();
     };
 
     setStatus(_status) {
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
         Ideas.update(this.idea._id, {
             $set: {
                 status: _status
             }
-        });
+        }, null, notify);
     }
 
     taskDetails(number) {

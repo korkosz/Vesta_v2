@@ -61,7 +61,15 @@ class ReviewCtrl {
     }
 
     removeReview(_revId) {
-        Reviews.remove(_revId, this.idea._id);
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
+        Reviews.remove(_revId, this.idea._id, notify);
     }
 
     newReviewVisible() {
@@ -100,19 +108,37 @@ class ReviewCtrl {
 
     updateReview(review) {
         review.edited = false;
+
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
         Reviews.update(review._id, {
             $set: {
                 merits: review.merits,
                 drawbacks: review.drawbacks,
                 comment: review.comment
             }
-        });
+        }, null, notify);
     }
 
     addReview() {
         this.review._createdBy = Meteor.userId();
         this.review._ideaId = this.idea._id;
-        Reviews.insert(this.review);
+
+        var notify = {
+            reviewers: this.idea.reviewers,
+            provider: Meteor.userId(),
+            id: this.idea.id,
+            when: new Date(),
+            entityCreator: this.idea.createdBy
+        };
+
+        Reviews.insert(this.review, null, notify);
 
         clearArray(this.review.merits);
         clearArray(this.review.drawbacks);
