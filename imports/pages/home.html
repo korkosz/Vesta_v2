@@ -1,8 +1,6 @@
-<div class="container" ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
+<div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
     <span ng-switch-when="true">
 
-
-        <br /><br />
         <task-list title="Tasks Assigned To Me" filter="globalVm.assignedToMeFilter"></task-list>
         <idea-list filter="globalVm.ideasFilter"></idea-list>
         <ask-list></ask-list>
