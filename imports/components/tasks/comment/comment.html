@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         <span class="col-md-1 col-md-offset-10">
-            <button type="button" name="button" class="btn-V btn-V-cancel"
+            <button type="button" name="button" class="VST-btn VST-btn-cancel"
                     ng-click="$ctrl.remove()">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
@@ -24,12 +24,12 @@
         </span>
         <span class="col-md-8" style="padding-top:5px;">
             <textarea cols="30" rows="5" ng-model="$ctrl.comment.content"
-                    ng-readonly="!$ctrl.edited">            
+                    ng-readonly="!$ctrl.edited">
             </textarea>
         </span>
         <span class="col-md-1" ng-switch="$ctrl.edited">
             <button type="button" name="button" class="btn-edit"
-                    ng-click="$ctrl.edit()" 
+                    ng-click="$ctrl.edit()"
                     ng-switch-when="false">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>

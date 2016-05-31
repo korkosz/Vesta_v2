@@ -1,5 +1,5 @@
-<button type="button" class="btn-V btn-V-primary btn-md" 
-        data-toggle="modal" data-target="#{{newTaskVm.altId}}newTaskModal" 
+<button type="button" class="VST-btn VST-btn-primary btn-md"
+        data-toggle="modal" data-target="#{{newTaskVm.altId}}newTaskModal"
         data-backdrop="false" ng-click="newTaskVm.openModal()">
     {{newTaskVm.title}}
 </button> {{output.a}}
@@ -11,7 +11,7 @@
             <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
                 <!-- Button cancel -->
-                <button type="button" class="btn-V btn-V-cancel"
+                <button type="button" class="VST-btn VST-btn-cancel"
                         data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -82,14 +82,14 @@
                     <fieldset id="title" class="fsStyle">
                         <div class="description-wrapper">
                             <label class="label-modal">Description</label>
-                            <div text-angular ng-model="newTaskVm.output" 
+                            <div text-angular ng-model="newTaskVm.output"
                             class="description"></div>
                         </div>
                     </fieldset>
 
                     <!-- Footer buttons -->
                     <div class="btn-wrapper">
-                        <button id="acceptBtn" class="btn-V btn-V-primary"
+                        <button id="acceptBtn" class="VST-btn VST-btn-primary"
                                 ng-click="newTaskVm.accept(newTaskForm.$valid)">
                             Create
                         </button>

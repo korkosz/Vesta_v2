@@ -1,4 +1,4 @@
-<button type="button" class="btn-V btn-V-primary new-idea" data-toggle="modal"
+<button type="button" class="VST-btn VST-btn-primary new-idea" data-toggle="modal"
             data-target="#newAskModal" data-backdrop="false" ng-click="newAskVm.openModal()">
     Ask
 </button>
@@ -11,7 +11,7 @@
             <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
                 <!-- Button cancel -->
-                <button id="ask_cancelBtn" class="btn-V btn-V-cancel"
+                <button id="ask_cancelBtn" class="VST-btn VST-btn-cancel"
                         ng-click="newAskVm.cancel()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -65,7 +65,7 @@
 
                     <!--Footer buttons-->
                     <div class="btn-wrapper">
-                        <button id="ask_acceptBtn" class="btn-V btn-V-primary"
+                        <button id="ask_acceptBtn" class="VST-btn VST-btn-primary"
                                 ng-click="newAskVm.accept(newAskForm.$valid)">
                             Create
                         </button>

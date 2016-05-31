@@ -21,7 +21,7 @@
                           idea-title="{{$ctrl.idea.title}}" alt-id="0">
                 </new-task>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn-V btn-V-default"
+                <button type="button" class="VST-btn VST-btn-default"
                         data-toggle="modal" data-target="#deleteIdeaModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
@@ -120,13 +120,13 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Related Tasks -->
     <div class="VST-table-wrapper">
-        <table class="table">   
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Title</th>   
+                    <th>Title</th>
                     <th>Assigned</th>
                     <th>Status</th>
                 </tr>
@@ -134,18 +134,18 @@
             <tbody>
                 <tr ng-repeat="task in $ctrl.tasks"
                     ng-click="$ctrl.taskDetails(task.number)"
-                    style="cursor: pointer;">                   
-                    <td>{{task.title}}</td>               
+                    style="cursor: pointer;">
+                    <td>{{task.title}}</td>
                     <td data-toggle="tooltip"
                         title="{{task.assignedUser()}}">
                         {{task.assignedUserShort()}}
                     </td>
-                    <td>{{task.status}}</td> 
+                    <td>{{task.status}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    
+
     <!-- Idea Reviews -->
     <ng-include src="'imports/components/ideas/idea/review.html'"></ng-include>
 </div>

@@ -23,7 +23,7 @@
                     <header>
                         <h3 class="reviwer-name">{{review.creator()}}
                             <!-- REMOVE -->
-                            <button class="btn-V btn-V-cancel"
+                            <button class="VST-btn VST-btn-cancel"
                                     ng-click="$ctrl.removeReview(review._id)"
                                     ng-if="$ctrl.currentUserIsReviewOwner(review)">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -114,7 +114,7 @@
                                 ng-model="$ctrl.review.comment"
                                 class="editible-desc">
                     </textarea>
-                    <button class="btn-V btn-V-primary" ng-click="$ctrl.addReview()">
+                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addReview()">
                         Add
                     </button>
                 </div>
