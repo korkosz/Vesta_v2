@@ -5,7 +5,7 @@
 	font-size: 13px;
 	.table{
 		position: relative;
-		margin: auto; margin-bottom: 0;
+		margin-left: 30px; margin-top: 50px; margin-bottom: 0;
 		width: 900px;
 		th, td{
 			padding: 9px 15px;
@@ -52,21 +52,6 @@
 				margin-left: 0.6em;
 			}
 		}
-	}
-	.#{$VESTA}-table-wrapper{
-		position: relative;
-		width: 900px;
-		margin: auto;
-		overflow-y: hidden;
-		overflow-x: visible;
-	}
-	button.#{$VESTA}-btn-expand{
-		position: relative;
-	    left: 47%;
-	    z-index: 100;
-		background: #fff;
-		border: 1px solid #eee;
-		margin-bottom: 50px; margin-top: 10px;
 	}
 }
 // Project badge
