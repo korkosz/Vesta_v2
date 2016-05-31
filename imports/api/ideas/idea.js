@@ -29,11 +29,11 @@ class IdeasCollection extends Mongo.Collection {
 
             super.insert(doc, function (res) {
                 var usersToNotify = doc.reviewers.map((rev) => {
-                    if (rev._id !== doc.createdBy) return rev;
+                    if (rev !== doc.createdBy) return rev;
                 });
 
                 if (usersToNotify.length > 0) {
-                    Notify('Idea', doc.id, 'New', doc.reviewers,
+                    Notify('Idea', doc.id, 'New', usersToNotify,
                         doc.createdBy, doc.creationDate);
                 }
             });
@@ -59,7 +59,7 @@ class IdeasCollection extends Mongo.Collection {
             }
 
             if (usersToNotify.length > 0) {
-                Notify('Idea', notifyObject.id, 'Update', notifyObject.reviewers,
+                Notify('Idea', notifyObject.id, 'Update', usersToNotify,
                     notifyObject.provider, notifyObject.when);
             }
 

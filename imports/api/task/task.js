@@ -38,8 +38,30 @@ class TaskClass extends Mongo.Collection {
         }
     }
 
-    update(doc, updateDoc, callback) {        
-        super.update(doc, callback);
+    update(selector, updateDoc, callback, notifyObject) {
+        function innerCallback() {
+            //reviewers have to be notified
+            var usersToNotify = [];
+            if (typeof notifyObject.assignedUser === 'string' &&
+                notifyObject.assignedUser !==
+                notifyObject.provider) {
+                usersToNotify.push(notifyObject.assignedUser);
+            }
+
+            if (typeof notifyObject.entityCreator === 'string' &&
+                notifyObject.entityCreator !== notifyObject.provider &&
+                notifyObject.entityCreator !== notifyObject.assignedUser) {
+                usersToNotify.push(notifyObject.entityCreator);
+            }
+
+            if (usersToNotify.length > 0) {
+                Notify('Task', notifyObject.id, 'Update', usersToNotify,
+                    notifyObject.provider, notifyObject.when);
+            }
+
+            if (typeof callback === 'function') callback();
+        }
+        super.update(selector, updateDoc, innerCallback);
     }
 
     remove(taskId) {

@@ -32,14 +32,14 @@ class TaskCtrl {
             },
             comments() {
                 this.getReactively('task');
-                if(this.task) {
+                if (this.task) {
                     var x = this.task.getComments();
                     return x;
                 }
             }
         });
     }
-    
+
     addComment() {
         Comments.insert({
             content: this.comment,
@@ -49,22 +49,39 @@ class TaskCtrl {
         });
         this.comment = '';
     }
-    
+
     saveDescription() {
-         Tasks.update(this.task._id, {
+        var notify = {
+            assignedUser: this.task.assigned,
+            provider: Meteor.userId(),
+            id: this.task.id,
+            when: new Date(),
+            entityCreator: this.task.createdBy
+        };
+
+        Tasks.update(this.task._id, {
             $set: {
                 description: this.task.description
             }
-        });        
+        }, null, notify);
         this.stopEditDescription();
     };
 
     selectListChanged(property) {
         var updateObj = {};
         updateObj[property] = this.task[property];
+
+        var notify = {
+            assignedUser: this.task.assigned,
+            provider: Meteor.userId(),
+            id: this.task.id,
+            when: new Date(),
+            entityCreator: this.task.createdBy
+        };
+
         Tasks.update(this.task._id, {
             $set: updateObj
-        });
+        }, null, notify);
     }
 
     removeTask() {
@@ -86,7 +103,7 @@ export default angular.module('task')
             link
         }
     });
-    
+
 function link(scope, el, attr, ctrl) {
     // hide toolbar
     el.find('[text-angular-toolbar]').css('display', 'none');
