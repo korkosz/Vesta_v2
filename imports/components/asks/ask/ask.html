@@ -17,7 +17,7 @@
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn-V btn-V-default" data-toggle="modal" data-target="#deleteAskModal">
+                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteAskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -78,11 +78,11 @@
             <button ng-click="$ctrl.addGoodPoint()">+</button>
             <br>
             <div style="height: 300px; border: 1px solid red; padding: 20px">
-                <div class="row" ng-repeat="goodPoint in $ctrl.ask.goodPoints" 
+                <div class="row" ng-repeat="goodPoint in $ctrl.ask.goodPoints"
                     style="margin-bottom: 16px;">
                     &#x21AC; {{goodPoint}}
-                    <button ng-click="$ctrl.removeGoodPoint(goodPoint)">-</button>    
-                </div>                
+                    <button ng-click="$ctrl.removeGoodPoint(goodPoint)">-</button>
+                </div>
             </div>
         </section>
     </div>
@@ -174,7 +174,7 @@
         height: 90px;
         border: 1px solid black;
     }
-    
+
     .mainBox {
         height: 200px;
         border: 1px solid black;

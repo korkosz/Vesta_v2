@@ -1,4 +1,4 @@
-<button type="button" class="btn-V btn-V-primary new-idea" data-toggle="modal"
+<button type="button" class="VST-btn VST-btn-primary new-idea" data-toggle="modal"
             data-target="#newIdeaModal" data-backdrop="false" ng-click="newIdeaVm.openModal()">
     New Idea
 </button>
@@ -11,7 +11,7 @@
             <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
                 <!-- Button cancel -->
-                <button id="cancelBtn" class="btn-V btn-V-cancel"
+                <button id="cancelBtn" class="VST-btn VST-btn-cancel"
                         ng-click="newIdeaVm.cancel()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -84,7 +84,7 @@
 
                     <!--Footer buttons-->
                     <div class="btn-wrapper">
-                        <button id="acceptBtn" class="btn-V btn-V-primary"
+                        <button id="acceptBtn" class="VST-btn VST-btn-primary"
                                 ng-click="newIdeaVm.accept(newIdeaForm.$valid)">
                             Create
                         </button>

@@ -1,6 +1,6 @@
 <div class="VST-view-container">
 
-    <!-- Task header -->    
+    <!-- Task header -->
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Task.png" alt="Idea main icon" />
@@ -16,7 +16,7 @@
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn-V btn-V-default"
+                <button type="button" class="VST-btn VST-btn-default"
                         data-toggle="modal" data-target="#deleteTaskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
@@ -67,7 +67,7 @@
             <div text-angular ng-model="$ctrl.task.description"
                  ta-disabled="!$ctrl.descriptionEdited" class="description"></div>
             <!-- Info box -->
-            <div class="info-box">               
+            <div class="info-box">
                 <div class="wrapper">
                     <h4 class="label label-default">Priority</h4>
                     <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">

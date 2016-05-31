@@ -1,6 +1,6 @@
 @import "{}/client/styles/imports/variables.scss";
 
-.VST-main-modal{
+.#{$VESTA}-main-modal{
     background: -moz-linear-gradient(top, rgba(0,0,0,0.64) 0%, rgba(0,0,0,0.29) 99%, rgba(0,0,0,0.29) 100%);
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.64) 0%,rgba(0,0,0,0.29) 99%,rgba(0,0,0,0.29) 100%);
     background: linear-gradient(to bottom, rgba(0,0,0,0.64) 0%,rgba(0,0,0,0.29) 99%,rgba(0,0,0,0.29) 100%);
@@ -18,7 +18,7 @@
     .modal-header{
         padding: 0 0 15px 0 !important;
         // Button cancel
-        .btn-V-cancel{
+        .#{$VESTA}-btn-cancel{
             position: absolute;
             right: 30px;
             top: 30px;
@@ -39,7 +39,7 @@
             color: #B3B3B3;
             padding-top: 6px;
         }
-        .VST-label{
+        .#{$VESTA}-label{
             position: absolute;
             padding: 2px 7px;
             letter-spacing: 1px;
@@ -80,6 +80,9 @@
             margin-left: 5px;
             font-size: 13px;
             padding-left: 5px;
+        }
+        select:active, select:focus{
+            box-shadow: 0 0 4px rgba(74, 163, 223, 0.62);
         }
         .glyphicon-ok-sign{
             color: #3498DB;
@@ -149,4 +152,12 @@
             text-align: left;
         }
     }
+}
+
+// Validacja
+:not(form).ng-invalid.ng-dirty {
+    border: 1px solid $red !important;
+}
+form.ng-invalid.ng-submitted .ng-invalid {
+    border: 1px solid $red !important;
 }
