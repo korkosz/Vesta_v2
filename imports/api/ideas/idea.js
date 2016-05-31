@@ -41,7 +41,11 @@ class IdeasCollection extends Mongo.Collection {
             break;
         }
     }
-
+    
+    update(doc, callback) {
+        super.update(doc, callback);   
+    }
+    
     remove(ideaId) {
         this.update(ideaId, {
             $set: {

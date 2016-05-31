@@ -38,6 +38,10 @@ class TaskClass extends Mongo.Collection {
         }
     }
 
+    update(doc, updateDoc, callback) {        
+        super.update(doc, callback);
+    }
+
     remove(taskId) {
         this.update(taskId, {
             $set: {
