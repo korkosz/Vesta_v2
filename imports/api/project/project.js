@@ -15,11 +15,11 @@ Projects.schema = new SimpleSchema({
         type: String
     },
     prefix: {
-        type: String,
-        defaultValue: 'V'
+        type: String
     },
     modules: {
-        type: [String]
+        type: [String],
+        optional: true
     },
     sprint: {
         type: Number

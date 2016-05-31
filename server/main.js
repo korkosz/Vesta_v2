@@ -10,13 +10,6 @@ import Metadata from '/imports/api/metadata/metadata';
 import ModulesCollection from '/imports/api/module/module';
 import Notify from '/imports/api/notification/notification';
 
-Images.allow({
-    'insert': function () {
-        // add custom authentication code here
-        return true;
-    }
-});
-
 Meteor.publish(null, function () {
     return Meteor.users.find();
 });
@@ -24,41 +17,40 @@ Meteor.publish(null, function () {
 Meteor.startup(() => {
     //	ProjectsCollection.remove({});
     var vesta = ProjectsCollection.findOne();
+    if (typeof vesta === 'undefined') {
+        ProjectsCollection.insert({
+            name: 'Vesta',
+            prefix: 'V',
+            sprint: 3
+        });
+    }
     const modulesLen = ModulesCollection.find().count();
 
     if (modulesLen === 0) {
-        ModulesCollection.insert({
+        var ideaId = ModulesCollection.insert({
             name: 'Ideas',
             project: vesta._id
         });
 
-        ModulesCollection.insert({
+        var Projects = ModulesCollection.insert({
             name: 'Projects',
             project: vesta._id
         });
 
-        ModulesCollection.insert({
+       var Tasks = ModulesCollection.insert({
             name: 'Tasks',
             project: vesta._id
         });
 
-        ModulesCollection.insert({
+        var Global = ModulesCollection.insert({
             name: 'Global',
             project: vesta._id
         });
+        
+        var arr = [ideaId,Projects,Tasks,Global];
+        ProjectsCollection.update(vesta._id, {$set:{modules: arr}})
     }
 
-    const length = ProjectsCollection.find().count();
-    if (length === 0) {
-        ProjectsCollection.insert({
-            name: 'Vesta',
-            modules: [
-                'Ideas',
-                'Projects',
-                'Issues'
-            ]
-        });
-    }
     Metadata.remove({});
     const lenghtMetadata = Metadata.find().count();
     if (lenghtMetadata === 0) {
