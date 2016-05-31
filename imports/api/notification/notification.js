@@ -30,11 +30,11 @@ Notifications.attachSchema(Notifications.schema);
 
 Notifications.helpers({
     creator() {
-        var user = Meteor.users.findOne(this.createdBy);
+        var user = Meteor.users.findOne(this.provider);
         if (user) return user.profile.fullname;
     },
     creatorShort() {
-        var user = Meteor.users.findOne(this.createdBy);
+        var user = Meteor.users.findOne(this.provider);
         if (user) {
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;

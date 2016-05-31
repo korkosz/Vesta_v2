@@ -1,32 +1,17 @@
-<div style="
-    width: 250px;
-    background-color: white;
-    height: 29px;
-    text-align: left;
-    cursor: pointer;
-    padding-left: 8px;" ng-click="$ctrl.listVisible = !$ctrl.listVisible;">
-    Notifications: <span class="badge">{{$ctrl.notifications.length}}</span> &#8595;
+<div style="cursor: pointer;" 
+     ng-click="$ctrl.listVisible = !$ctrl.listVisible;"
+     class="list-group">
+    <div class="list-group-item">
+        Notifications: <span class="badge">{{$ctrl.notifications.length}}</span>
+    </div>
+
 </div>
 <div style="position: relative;
             top: 5px;     
-            z-index: 100" ng-if="$ctrl.listVisible === true"
-            class="list-group">
- 
+            z-index: 100" ng-if="$ctrl.listVisible === true" class="list-group">
     <div class="list-group-item" ng-repeat="notification in $ctrl.notifications">
-        <h4 class="list-group-item-heading">{{notification.entity}} <a href="#/{{notification.entityId}}">{{notification.entityId}}</a> {{$ctrl.getMessage(notification)}}
+        <h4 class="list-group-item-heading">{{notification.entity}} <a href="#/{{notification.entityId}}" style="color: {{$ctrl.getColor(notification)}}">{{notification.entityId}}</a> {{$ctrl.getMessage(notification)}}
         </h4>
         <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
     </div>
-  
-    <!--<div style="
-        height: 30px;
-        border-bottom: 1px solid black;
-        top: {{$ctrl.calculateTop($index)}}px;
-        position: relative;
-        text-align: left;
-        padding-left: 8px;
-        background-color: {{$ctrl.getColor(notification)}}"        
-       >
-             {{notification.entity}} <a href="#/{{notification.entityId}}">{{notification.entityId}}</a> {{$ctrl.getMessage(notification)}}
-    </div>   -->
 </div>

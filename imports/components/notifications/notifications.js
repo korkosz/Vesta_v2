@@ -20,17 +20,17 @@ function controller($scope) {
     this.getColor = function (notification) {
         switch (notification.entity) {
             case 'Idea':
-                return '#FFEFD3';
+                return '#FFAA16';
             case 'Task':
-                return '#EDFFED';
+                return '#3AC53A';
         }
     }
     this.getMessage = function (notification) {
         switch (notification.action) {
             case 'New':
-                return ' has been created.';
+                return ' has been created';
             case 'Update':
-                return ' has been updated.';
+                return ' has been updated';
         }
     };
 
