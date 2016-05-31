@@ -28,6 +28,20 @@ Notifications.schema = new SimpleSchema({
 
 Notifications.attachSchema(Notifications.schema);
 
+Notifications.helpers({
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) return user.profile.fullname;
+    },
+    creatorShort() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        }
+    }
+});
+
 export default Notifications;
 
 export function Notify(_entity, _id, _action, usersIds, _provider, when) {

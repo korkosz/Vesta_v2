@@ -10,7 +10,9 @@ export default angular.module('global')
 
 function controller($scope) {
     $scope.viewModel(this);
-
+    
+    this.moment = moment;
+    
     this.listVisible = false;
     this.calculateTop = function (index) {
         return index * 5 + 5;
