@@ -39,7 +39,11 @@ body,html{
 	height: 100%;
 }
 .container-fluid{
+	display: flex;
 	height: 100%;
+}
+main#main-container{
+	flex: 1;
 }
 // Gorne menu
 #menu-top{
@@ -54,7 +58,7 @@ body,html{
 
 // Side-navbar
 nav{
-
+	flex-basis: 250px;
 }
 
 
