@@ -153,3 +153,11 @@
         }
     }
 }
+
+// Validacja
+:not(form).ng-invalid.ng-dirty {
+    border: 1px solid $red !important;
+}
+form.ng-invalid.ng-submitted .ng-invalid {
+    border: 1px solid $red !important;
+}
