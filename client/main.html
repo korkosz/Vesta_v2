@@ -3,32 +3,37 @@
 </head>
 <!-- moze jakis globalny kontroler bedzie sterowal widocznoscia footer, aside i header-->
 <body ng-app="simple-todos">
-    <div class="container-fluid" >
-        <todos-list></todos-list>
-        <div id="menu-top" class="row">
-            <a style="color:white" href="#/">VESTA</a>
-            <login-buttons></login-buttons>
-            <div class="menu-btn-wrapper">
-                <notifications style="
-                    position: absolute;
-                    left: 300px;">
-                </notifications>
-                <new-idea></new-idea>
-                <new-task></new-task>
-                <new-ask></new-ask>
-                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal"
-                    data-target="#modulesModal" data-backdrop="false">
-                    Modules
-                </button>
-            </div>
+    <todos-list></todos-list>
+    <div id="menu-top">
+        <a style="color:white" href="#/">VESTA</a>
+        <login-buttons></login-buttons>
+        <div class="menu-btn-wrapper">
+            <notifications style="
+                position: absolute;
+                left: 300px;">
+            </notifications>
+            <new-idea></new-idea>
+            <new-task></new-task>
+            <new-ask></new-ask>
+            <button type="button" class="VST-btn VST-btn-default" data-toggle="modal"
+                data-target="#modulesModal" data-backdrop="false">
+                Modules
+            </button>
         </div>
-        <nav>
-
+    </div>
+    <div class="VST-container">
+        <nav class="VST-side-nav">
+            <ul>
+                <li>Dashboard</li>
+                <li>Task</li>
+                <li>Idea</li>
+                <li>Ask</li>
+            </ul>
         </nav>
         <main id="main-container">
             <div ng-view></div>
         </main>
-        <footer>
-        </footer>
     </div>
+    <footer>
+    </footer>
 </body>

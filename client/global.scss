@@ -33,6 +33,18 @@ body{
     font-family: $font;
 	background: #eee;
 }
+body,html{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+.#{$VESTA}-container{
+	display: flex;
+	height: 100%;
+}
+main#main-container{
+	flex: 1;
+}
 // Gorne menu
 #menu-top{
     height: 70px;
@@ -43,6 +55,19 @@ body{
 	    text-align: right;
 	}
 }
+
+// Side-navbar
+nav.#{$VESTA}-side-nav{
+	flex-basis: 250px;
+	background: #fff;
+	li{
+		padding: 10px 50px;
+	    border-bottom: 1px solid #eee;
+	    color: #999;
+		font-size: 14px;
+	}
+}
+
 
 // BUTTONS
 .#{$VESTA}-btn{

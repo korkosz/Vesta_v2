@@ -1,47 +1,42 @@
-<div class="VST-table-wrapper">
-    <table class="table" ng-switch="">
-        <caption class="task-caption">{{$ctrl.title}}</caption>
-        <thead>
-            <tr>
-                <th>Project</th>
-                <th>Title</th>
-                <th>Priority</th>
-                <th>Type</th>
-                <th ng-if="$ctrl.hasFilter()">Created By</th>
-                <th ng-if="!$ctrl.hasFilter()">Assigned</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="task in $ctrl.tasks |
-                orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']"
-                ng-click="$ctrl.details(task.number)"
-                style="cursor: pointer;
-                       opacity: {{$ctrl.getStatusColor(task.status)}}">
-                <td>
-                    <span class="project-badge">V</span>
-                    <span class="project">{{task.project()}}</span>
-                    <span class="module">{{task.moduleName()}}</span>
-                    <span ng-if="task.isNew" style="color: red">NEW</span>
-                </td>
-                <td>[{{task.number}}] {{task.title}}</td>
-                <td class="middle">
-                    <div class="priority priority-{{task.priority}}"></div>
-                </td>
-                <td>{{task.type}}</td>
-                <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip"
-                    title="{{task.creator()}}">
-                    {{task.creatorShort()}}
-                </td>
-                <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip"
-                    title="{{task.assignedUser()}}">
-                    {{task.assignedUserShort()}}
-                </td>
-                <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<button type="button" name="button" class="VST-btn VST-btn-default VST-btn-expand">
-    more
-</button>
+<table class="table" ng-switch="">
+    <caption class="task-caption">{{$ctrl.title}}</caption>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Title</th>
+            <th>Priority</th>
+            <th>Type</th>
+            <th ng-if="$ctrl.hasFilter()">Created By</th>
+            <th ng-if="!$ctrl.hasFilter()">Assigned</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="task in $ctrl.tasks |
+            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']"
+            ng-click="$ctrl.details(task.number)"
+            style="cursor: pointer;
+                   opacity: {{$ctrl.getStatusColor(task.status)}}">
+            <td>
+                <span class="project-badge">V</span>
+                <span class="project">{{task.project()}}</span>
+                <span class="module">{{task.moduleName()}}</span>
+                <span ng-if="task.isNew" style="color: red">NEW</span>
+            </td>
+            <td>[{{task.number}}] {{task.title}}</td>
+            <td class="middle">
+                <div class="priority priority-{{task.priority}}"></div>
+            </td>
+            <td>{{task.type}}</td>
+            <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip"
+                title="{{task.creator()}}">
+                {{task.creatorShort()}}
+            </td>
+            <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip"
+                title="{{task.assignedUser()}}">
+                {{task.assignedUserShort()}}
+            </td>
+            <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
+        </tr>
+    </tbody>
+</table>
