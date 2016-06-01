@@ -40,7 +40,6 @@ class TaskClass extends Mongo.Collection {
 
     update(selector, updateDoc, callback, notifyObject) {
         function innerCallback() {
-            //reviewers have to be notified
             var usersToNotify = [];
             if (typeof notifyObject.assignedUser === 'string' &&
                 notifyObject.assignedUser !==

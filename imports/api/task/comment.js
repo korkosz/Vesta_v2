@@ -1,8 +1,11 @@
 import { Mongo } from 'meteor/mongo';
+
 import Tasks from '/imports/api/task/task';
 
+import {Notify} from '/imports/api/notification/notification';
+
 class CommentsCollection extends Mongo.Collection {
-    insert(comment, callback) {
+    insert(comment, callback, notify) {
         comment.number = performance.now()
             .toString().slice(0, 4).replace('.', 1);
         super.insert(comment, function (err, res) {
@@ -10,8 +13,33 @@ class CommentsCollection extends Mongo.Collection {
                 $push: {
                     comments: res
                 }
-            });
+            }, null, notify);
         });
+    }
+
+    update(selector, updateDoc, callback, notifyObject) {
+        function innerCallback() {
+            var usersToNotify = [];
+            if (typeof notifyObject.assignedUser === 'string' &&
+                notifyObject.assignedUser !==
+                notifyObject.provider) {
+                usersToNotify.push(notifyObject.assignedUser);
+            }
+
+            if (typeof notifyObject.entityCreator === 'string' &&
+                notifyObject.entityCreator !== notifyObject.provider &&
+                notifyObject.entityCreator !== notifyObject.assignedUser) {
+                usersToNotify.push(notifyObject.entityCreator);
+            }
+
+            if (usersToNotify.length > 0) {
+                Notify('Task', notifyObject.id, 'Update', usersToNotify,
+                    notifyObject.provider, notifyObject.when);
+            }
+
+            if (typeof callback === 'function') callback();
+        }
+        super.update(selector, updateDoc, innerCallback);
     }
 }
 
