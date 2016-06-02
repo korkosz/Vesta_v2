@@ -45,9 +45,19 @@ function controller($scope) {
         this.listVisible = !this.listVisible;
         if (!this.listVisible) {
             this.limit = 5;
+            this.notifications.forEach((notf)=> {
+                if(!notf.seen) {
+                    Notifications.update(notf._id, {$set: {seen: true}});   
+                }             
+            });
         }
     };
-
+    
+    this.seenColor = function(seen) {
+        if(!seen) return '#E8F7FF';  
+        return '#fff';  
+    };
+    
     this.helpers({
         notifications() {
             var options = {
