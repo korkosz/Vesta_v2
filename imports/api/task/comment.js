@@ -41,6 +41,17 @@ class CommentsCollection extends Mongo.Collection {
         }
         super.update(selector, updateDoc, innerCallback);
     }
+
+    remove(commentId, taskId, notify) {
+        if (typeof taskId === 'undefined') throw new Error('taskId is undefined !!!');
+        if (typeof commentId === 'undefined') throw new Error('commentId is undefined !!!');
+
+        super.remove(commentId, function (err, res) {
+            Tasks.update({ _id: taskId }, {
+                $pull: { comments: commentId }
+            }, null, notify);
+        });
+    }
 }
 
 export default Comments = new CommentsCollection('Tasks.Comments');

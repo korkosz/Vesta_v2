@@ -5,12 +5,12 @@ import Tasks from '/imports/api/task/task';
 class controller {
     constructor($routeParams, $scope) {
         $scope.viewModel(this);
-        
+
         this.moment = moment;
         this.edited = false;
         this.taskNumber = $routeParams.id;
         this.$routeParams = $routeParams;
-        
+
         this.helpers({
             task() {
                 return Tasks.findOne({ number: parseInt(this.$routeParams.number) });
@@ -40,7 +40,15 @@ class controller {
     }
 
     remove() {
-        Comments.remove(this.comment._id, 1);
+        var notify = {
+            assignedUser: this.task.assigned,
+            provider: Meteor.userId(),
+            id: this.task.id,
+            when: new Date(),
+            entityCreator: this.task.createdBy
+        };
+
+        Comments.remove(this.comment._id, this.task._id, notify);
     }
 }
 controller.$inject = ['$routeParams', '$scope'];

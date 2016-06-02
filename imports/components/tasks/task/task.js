@@ -41,12 +41,20 @@ class TaskCtrl {
     }
 
     addComment() {
+         var notify = {
+            assignedUser: this.task.assigned,
+            provider: Meteor.userId(),
+            id: this.task.id,
+            when: new Date(),
+            entityCreator: this.task.createdBy
+        };
+
         Comments.insert({
             content: this.comment,
             taskId: this.task._id,
             createdBy: Meteor.userId(),
             createdAt: new Date()
-        });
+        }, null, notify);
         this.comment = '';
     }
 
