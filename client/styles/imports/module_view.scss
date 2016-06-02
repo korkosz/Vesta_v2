@@ -1,7 +1,7 @@
 @import "{}/client/styles/imports/variables.scss";
 
 // Variables
-$min-height: 100px; // ta wartość odpowiada za wysokość pola description
+$min-height: 60px; // ta wartość odpowiada za wysokość pola description
 
 .VST-view-container{
     width: 1170px;
@@ -205,4 +205,17 @@ section.#{$VESTA}-view-content{
     font-size: 21px;
     color: #adadad;
     padding: 20px 0 0 0;
+}
+
+.#{$VESTA}-view-input{
+    height: 25px;
+    min-width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    outline: none;
+    font-size: 13px;
+    padding-left: 8px;
+    margin-bottom: 8px;
+    margin-left: -8px;
 }

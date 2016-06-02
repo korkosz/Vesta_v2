@@ -71,22 +71,23 @@
     </section>
 
     <!-- Good Points -->
-    <section class="goodPoints-wrapper row">
+    <section class="goodPoints col-md-4">
         <h2 class="VST-view-subheader">Good points</h2>
-        <input type="text" ng-model="$ctrl.goodPoint" placeholder="Type good point...">
-        <button ng-click="$ctrl.addGoodPoint()">+</button>
-        <br>
-        <div style="height: 300px; border: 1px solid red; padding: 20px">
-            <div class="row" ng-repeat="goodPoint in $ctrl.ask.goodPoints"
-                style="margin-bottom: 16px;">
-                &#x21AC; {{goodPoint}}
-                <button ng-click="$ctrl.removeGoodPoint(goodPoint)">-</button>
+        <div class="goodPoints-wrapper">
+            <input type="text" ng-model="$ctrl.goodPoint" class="VST-view-input" placeholder="Type good point...">
+            <button ng-click="$ctrl.addGoodPoint()" class="VST-btn VST-btn-primary glyphicon glyphicon-plus"></button>
+            <div class="goodPoints-box">
+                <div class="pill" ng-repeat="goodPoint in $ctrl.ask.goodPoints">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    {{goodPoint}}
+                    <button ng-click="$ctrl.removeGoodPoint(goodPoint)" class="glyphicon glyphicon-remove"></button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- New Response -->
-    <section class="row">
+    <section class="col-md-6">
         <!--Title-->
         <fieldset id="ask_title" class="fsStyle field-wrapper last">
             <div class="title-wrapper">

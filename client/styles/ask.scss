@@ -1,8 +1,36 @@
 @import "{}/client/styles/imports/variables.scss";
 
 // Good points
-.goodPoints-wrapper{
+.goodPoints{
     background: #fff;
     padding: 30px;
+    padding-bottom: 60px;
     margin-top: 30px;
+}
+.goodPoints-wrapper{
+    padding-left: 100px;
+    padding-top: 30px;
+    .pill{
+        display: block;
+        background: transparent;
+        color: #888;
+        font-size: 13px;
+        padding: 0;
+        padding-right: 30px;
+        margin: 0 0 5px 0;
+        button{
+            position: relative;
+            padding-left: 10px;
+            color: #ccc;
+        }
+    }
+    .glyphicon.glyphicon-ok{
+        color: #25c525;
+        position: absolute;
+        left: -24px;
+        font-size: 1.2em;
+    }
+}
+.goodPoints-box{
+    margin-top: 10px;
 }
