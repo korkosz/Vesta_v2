@@ -28,12 +28,12 @@ class TaskClass extends Mongo.Collection {
                     'T' + seq;
             }
 
-            if (doc.assigned !== doc.createdBy) {
-                super.insert(doc, function (res) {
+            super.insert(doc, function (res) {
+                if (doc.assigned !== doc.createdBy) {
                     Notify('Task', doc.id, 'New', doc.assigned,
                         doc.createdBy, doc.creationDate);
-                });
-            }
+                }
+            });
             break;
         }
     }
