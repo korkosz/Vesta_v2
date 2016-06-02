@@ -274,20 +274,27 @@ section.idea-reviews{
         padding: 20px;
     }
 
-    // New reviews
-
     // Added reviews
+    .reviews-wrapper{
+        background: #fff;
+        padding: 30px;
+    }
+
     .reviews-added-wrapper{
         background: #fff;
     }
+
     .review-box{
         display: flex;
-        padding: 40px 35px;
         border-bottom: 1px solid #eee;
+        padding-top: 40px;
+        padding-bottom: 30px;
         &:last-child{
             border: none;
+            padding-bottom: 50px;
         }
     }
+
     .btn-group-desc{
         flex-basis: 100px;
         padding-right: 11px;
@@ -300,26 +307,32 @@ section.idea-reviews{
             background: #eee;
         }
     }
+
     // Review content box
     .review-content-box{
         flex: 1;
     }
+
     header{
         position: relative;
     }
+
     .reviwer-name{
         display: inline-block;
         font-size: 20px;
     }
+
     p.review-addTime{
         display: inline-block;
     }
-    .btn-V-cancel{
+
+    .VST-btn-cancel{
         position: absolute;
         right: 0;
         top: 0;
         color: #D2D2D2;
     }
+
     .prons-cons-wrapper{
         margin-top: 15px;
         .pill{
@@ -378,10 +391,12 @@ section.idea-reviews{
             }
         }
     }
+
     .desc-wrapper{
         padding-right: 200px;
         margin-top: 10px;
     }
+
     textarea.editible-desc{
         height: 100px;
         width: 100%;
@@ -403,17 +418,24 @@ section.idea-reviews{
             color:#ddd;
         }
     }
+
     // New review content box
+    .new-review-box{
+        padding-bottom: 60px;
+        padding-top: 30px;
+    }
+
     .new-review-content-box{
-        margin-left: 135px;
+        margin-left: 100px;
         .desc-wrapper{
             padding-right: 0;
             width: 700px;
         }
-        button.btn-V{
+        button.VST-btn{
             display: block;
             float: right;
             margin-top: 10px;
+            margin-right: 8px;
         }
     }
 }
