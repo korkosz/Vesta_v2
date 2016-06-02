@@ -1,3 +1,10 @@
 .meteor/local
 .meteor/meteorite
 node_modules
+documentation
+mup.json
+vesta-starter.pem
+vesta-starter.ppk
+.vscode/settings.json
+TODO.txt
+settings.json
