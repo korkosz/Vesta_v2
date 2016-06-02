@@ -4,12 +4,14 @@
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Task.png" alt="Idea main icon" />
-            <h1>task #{{$ctrl.task.id}}</h1>
+            <h1>task <span class="VST-module-id">#{{$ctrl.task.id}}</span></h1>
         </div>
         <header>
             <!-- Project path -->
             <div class="project-path">
-                <h3 id="project"><span class="project-badge">v</span>{{$ctrl.task.project()}}</h3>
+                <h3 id="project">
+                    <span class="project-badge">v</span>{{$ctrl.task.project()}}
+                </h3>
                 <h3 id="module">{{$ctrl.task.moduleName()}}</h3>
                 <h3>Klasa</h3>
             </div>

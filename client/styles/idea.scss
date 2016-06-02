@@ -3,108 +3,9 @@
 // Variables
 $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
-.VST-view-container{
-    width: 1170px;
-    margin: auto;
-}
-// Idea HEADER
-section.VST-view-header{
-    .logo-wrapper{
-        margin-top: 35px;
-        margin-bottom: -5px;
-        img{
-            display: block;
-            margin: auto;
-        }
-        h1{
-            display: block;
-            margin: auto;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 30px;
-            font-weight: 700;
-            color: #B3B3B3;
-            padding-top: 10px;
-            padding-left: 5px;
-        }
-    }
-    header{
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 15px;
-        min-height: 25px;
-        .project-path{
-            display: block;
-            position: absolute;
-            left: 15px;
-            bottom: 0;
-            h3{
-                display: inline-block;
-                position: relative;
-                margin-right: 20px;
-                font-size: 19px;
-                font-weight: 400;
-                color: #999;
-                // Strzalka
-                &::after{
-                    content: "";
-                    display: inline-block;
-                    position: absolute;
-                    width: 10px; height: 10px;
-                    border: 5px solid transparent;
-                    border-left: 5px solid #ccc;
-                    bottom: 4px;
-                    margin-left: 10px;
-                }
-                &:last-child::after{
-                    display: none;
-                }
-                // Rozmiar
-                &:nth-of-type(1){
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    color: $vesta-color;
-                }
-                &:nth-of-type(3){
-                    font-size: 13px;
-                }
-            }
-        }
-        .buttons{
-            display: block;
-            float: right;
-        }
-    }
-}
+
 //Idea DESCRIPTION
-section.VST-view-content{
-    padding: 35px; padding-bottom: 80px; padding-top: 60px;
-    background: #fff;
-    header{
-        display: flex;
-        align-items: baseline;
-        // Title
-        p{
-            flex-basis: 100px;
-            height: 18px;
-            padding-right: 11px;
-            border-radius: 5px;
-            text-align: right;
-            font-size: 11px;
-            color: #aaa;
-            line-height: 18px;
-            text-transform: uppercase;
-            vertical-align: baseline;
-            font-weight: 700;
-        }
-        h4{
-            font-size: 23px;
-            line-height: 1.4;
-            flex: 1;
-        }
-    }
-}
+
 // Status idea
 .idea-status-wrapper{
     display: inline;
@@ -179,101 +80,11 @@ section.VST-view-content{
         }
     }
 }
-// data dodania
-.VST-view-addDate{
-    display: flex;
-    flex-basis: 200px;
-    text-align: right;
-    font-size: 18px;
-    color: #888;
-    font-weight: 700;
-    text-align: top;
-    align-self: flex-start;
-    justify-content: flex-end;
-}
-
-// Description
-.VST-view-desc-wrapper{
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    margin-top: 10px;
-    // poprawne wyswietlanie list
-    ul,ol{
-        padding-left: 1.2em;
-    }
-    .btn-group-desc{
-        flex-basis: 100px;
-        padding-right: 11px;
-        button{
-            float: right;
-            border: none;
-            border-radius: 4px;
-            width: 25px;
-            height: 25px;
-            background: #eee;
-            margin-top: 10px;
-        }
-    }
-    .description{
-        flex: 3;
-        margin-left: 0;
-        .btn-toolbar{
-            margin-top: 8px;
-        }
-        .ta-scroll-window > .ta-bind{
-            padding: 0;
-            color: #888;
-            min-height: $min-height;
-        }
-        .ta-scroll-window.form-control{
-            border: 1px solid #eee;
-            padding: 15px;
-            background: transparent;
-            min-height: $min-height;
-        }
-        // gdy pole edycji jest nieaktywne
-        &.disabled{
-            .ta-scroll-window.form-control{
-                padding: 0;
-                border: none;
-                transition: 0.5s;
-            }
-        }
-    }
-    // Reviwers
-    .info-box{
-        flex-basis: 300px;
-        text-align: right;
-        .reviewers-box{
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        div.pill{
-            padding-right: 15px;
-            margin-right: 0;
-        }
-    }
-}
 
 //Idea REWIEWS
 section.idea-reviews{
     margin-bottom: 100px;
-    h2{
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 2px;
-        font-size: 21px;
-        color: #D8D8D8;
-        padding: 20px;
-    }
-
+    
     // Added reviews
     .reviews-wrapper{
         background: #fff;
@@ -431,7 +242,7 @@ section.idea-reviews{
             padding-right: 0;
             width: 700px;
         }
-        button.VST-btn{
+        button.#{$VESTA}-btn{
             display: block;
             float: right;
             margin-top: 10px;
