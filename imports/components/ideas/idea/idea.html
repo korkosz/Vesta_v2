@@ -78,26 +78,10 @@
             <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}
                 <!-- Idea status -->
                 <div class="idea-status-wrapper dropdown">
-                    <button class="idea-status idea-status-{{$ctrl.idea.status}}
-                                   dropdown-toggle"
-                            type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="true">
-                            {{$ctrl.idea.status}}
+                    <button class="idea-status idea-status-{{$ctrl.idea.status}}"
+                            type="button">
+                            {{$ctrl.idea.status}}  
                     </button>
-                    <ul class="dropdown-menu">
-                        <li class="idea-status idea-status-New"
-                            ng-click="$ctrl.setStatus('New')"><span class="glyphicon glyphicon-leaf"></span>new</li>
-                        <li class="idea-status idea-status-Considered"
-                            ng-click="$ctrl.setStatus('Considered')"><span class="glyphicon glyphicon-flash"></span>consider</li>
-                        <li class="idea-status idea-status-Working"
-                            ng-click="$ctrl.setStatus('Working')"><span class="glyphicon glyphicon-refresh"></span>working</li>
-                        <li class="idea-status idea-status-Implemented"
-                            ng-click="$ctrl.setStatus('Implemented')"><span class="glyphicon glyphicon-ok"></span>implemented</li>
-                        <li class="idea-status idea-status-Rejected"
-                            ><span class="glyphicon glyphicon-remove"></span>rejected</li>
-                        <li class="idea-status idea-status-Deferred"
-                            ><span class="glyphicon glyphicon-share-alt"></span>deferred</li>
-                    </ul>
                 </div>
             </h4>
             <div class="VST-view-addDate">{{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
