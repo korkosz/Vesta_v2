@@ -98,8 +98,7 @@ export default angular.module("idea")
         cloudinaryProvider
             .set("cloud_name", "korkosz")
             .set("upload_preset", "mxobndkm");
-    }])    
-    .directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
+    }])    .directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,

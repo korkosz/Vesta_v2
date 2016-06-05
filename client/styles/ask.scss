@@ -1,14 +1,25 @@
 @import "{}/client/styles/imports/variables.scss";
 
+// Wrapper
+.#{$VESTA}-view-aditional{
+    margin-top: 30px;
+}
+.responses-wrapper{
+    padding-right: 30px;
+    padding-left: 0;
+}
+.new-response{
+    background: #fff;
+}
+
 // Good points
 .goodPoints{
     background: #fff;
     padding: 30px;
-    padding-bottom: 60px;
-    margin-top: 30px;
+    padding-bottom: 50px;
 }
 .goodPoints-wrapper{
-    padding-left: 100px;
+    padding-left: 50px;
     padding-top: 30px;
     .pill{
         display: block;
