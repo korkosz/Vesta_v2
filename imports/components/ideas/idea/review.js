@@ -140,6 +140,14 @@ class ReviewCtrl {
 
         Reviews.insert(this.review, null, notify);
 
+        if (this.idea.status === "New") {
+            Ideas.update(this.idea._id, {
+                $set: {
+                    status: 'Consider'
+                }
+            });
+        }
+
         clearArray(this.review.merits);
         clearArray(this.review.drawbacks);
         this.review.comment = '';

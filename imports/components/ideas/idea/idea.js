@@ -66,6 +66,18 @@ class IdeaCtrl {
                         isDeleted: false
                     });
                 }
+            },
+            setStatus() {
+                this.getReactively('tasks.length');
+
+                if (this.tasks.length > 0
+                    && this.idea.status === 'consider') {
+                    Ideas.update(this.idea._id, {
+                        $set: {
+                            status: 'Working'
+                        }
+                    });
+                }
             }
         });
     }
@@ -95,9 +107,9 @@ class IdeaCtrl {
     }
 
     changeStatusBtnsVisibility(btn) {
-        if(!this.idea) return;
+        if (!this.idea) return;
         var status = this.idea.status.toUpperCase();
-        
+
         switch (btn) {
             case 'Defer':
             case 'Reject':
