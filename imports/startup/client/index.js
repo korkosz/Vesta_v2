@@ -1,4 +1,5 @@
 import './init';
+import '/imports/components/lib/textAngularPickFile/textAngularPickFile';
 import '/imports/components/ideas';
 import '/imports/components/asks';
 import '/imports/components/tasks';

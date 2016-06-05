@@ -98,36 +98,7 @@ export default angular.module("idea")
         cloudinaryProvider
             .set("cloud_name", "korkosz")
             .set("upload_preset", "mxobndkm");
-    }])
-    .directive('inputFile', function() {
-        return {
-            restrict: 'A',
-            link(scope, el) {
-                debugger;   
-                var btnGrps = el.find('.btn-group');
-                var btnGrp = btnGrps.eq(btnGrps.length - 1);
-                var inputFile = angular.element('<input>');
-                var button = angular.element('<button>');
-                
-                inputFile.attr('type', 'file');
-                inputFile.css('display', 'none');
-                
-                button.addClass('btn', 'btn-default');
-                button.attr('type', 'button');
-                button.text('F');
-                button.on('click', function() {
-                    inputFile.click();
-                });
-                btnGrp.append(button);                                
-                btnGrp.append(inputFile);
-                
-                
-                //dodaj input type file i go ukryj
-                //dodaj tez buttona i klikniecie na niego bedzie
-                //odpalalo klikniecie inputa type file
-            }
-        }
-    })
+    }])    
     .directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",

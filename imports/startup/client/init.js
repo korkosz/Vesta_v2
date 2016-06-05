@@ -10,6 +10,7 @@ angular.module('simple-todos', [
     'idea',
     'lib',
     'lib.pill',
+    'lib.textAngularPickFile',
     'task',
     'global',
     'textAngular',
