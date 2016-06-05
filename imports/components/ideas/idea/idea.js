@@ -69,9 +69,9 @@ class IdeaCtrl {
             },
             setStatus() {
                 this.getReactively('tasks.length');
-
+                if(!this.tasks) return;
                 if (this.tasks.length > 0
-                    && this.idea.status === 'consider') {
+                    && this.idea.status === 'Consider') {
                     Ideas.update(this.idea._id, {
                         $set: {
                             status: 'Working'
@@ -114,7 +114,7 @@ class IdeaCtrl {
             case 'Defer':
             case 'Reject':
                 return status === 'NEW' ||
-                    status === 'WORKING' ||
+                    status === 'CONSIDER' ||
                     status === 'DISCUSSED';
             case 'Close':
                 return status === 'IMPLEMENTED';

@@ -36,7 +36,8 @@
                 <!-- Create new task -->
                 <new-task title="Create task" module="{{$ctrl.idea.module}}"
                           project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
-                          idea-title="{{$ctrl.idea.title}}" alt-id="0">
+                          idea-title="{{$ctrl.idea.title}}" alt-id="0"
+                          ng-if="$ctrl.idea.status === 'Consider'">
                 </new-task>
                 
                 <!-- Button trigger modal -->
