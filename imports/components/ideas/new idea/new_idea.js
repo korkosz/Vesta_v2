@@ -69,7 +69,7 @@ class NewIdeaCtrl {
 
     accept(valid) {
         if (!valid) return;
-        
+
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
@@ -77,7 +77,7 @@ class NewIdeaCtrl {
             this.idea.reviewers = this.selectedReviewers.map(
                 (rev) => rev._id);
             this.idea.reviews = [];
-            
+
             Ideas.insert(this.idea);
             this.closeModal();
         });
@@ -103,25 +103,25 @@ export default angular.module("idea")
         return {
             restrict: 'A',
             link(scope, el) {
-                debugger;   
+                //debugger;   
                 var btnGrps = el.find('.btn-group');
                 var btnGrp = btnGrps.eq(btnGrps.length - 1);
                 var inputFile = angular.element('<input>');
                 var button = angular.element('<button>');
-                
+
                 inputFile.attr('type', 'file');
                 inputFile.css('display', 'none');
-                
+
                 button.addClass('btn', 'btn-default');
                 button.attr('type', 'button');
                 button.text('F');
                 button.on('click', function() {
                     inputFile.click();
                 });
-                btnGrp.append(button);                                
+                btnGrp.append(button);
                 btnGrp.append(inputFile);
-                
-                
+
+
                 //dodaj input type file i go ukryj
                 //dodaj tez buttona i klikniecie na niego bedzie
                 //odpalalo klikniecie inputa type file
