@@ -60,9 +60,13 @@ Meteor.startup(() => {
                 "metadataName": "IdeaStatuses",
                 "value": [
                     "New",
-                    "Considered",
-                    "Resolved",
-                    "Rejected"
+                    "Consider",
+                    "Working",
+                    "Deferred",
+                    "Rejected",
+                    "Closed",
+                    "Implemented",
+                    "Discussed"
                 ]
             }
         );

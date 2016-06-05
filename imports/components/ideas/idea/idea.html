@@ -15,11 +15,29 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
+                
+                <button class="btn btn-danger"
+                    ng-if="$ctrl.changeStatusBtnsVisibility('Reject')"
+                    ng-click="$ctrl.setStatus('Rejected')">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Reject
+                </button>
+                <button class="btn btn-warning"
+                    ng-if="$ctrl.changeStatusBtnsVisibility('Defer')"
+                    ng-click="$ctrl.setStatus('Deferred')">
+                    <span class="glyphicon glyphicon-share-alt"></span>Defer
+                </button>
+                <button class="btn btn-success"
+                    ng-if="$ctrl.changeStatusBtnsVisibility('Close')"
+                    ng-click="$ctrl.setStatus('Closed')">
+                    Close
+                </button>
                 <!-- Create new task -->
                 <new-task title="Create task" module="{{$ctrl.idea.module}}"
                           project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
                           idea-title="{{$ctrl.idea.title}}" alt-id="0">
                 </new-task>
+                
                 <!-- Button trigger modal -->
                 <button type="button" class="VST-btn VST-btn-default"
                         data-toggle="modal" data-target="#deleteIdeaModal">
@@ -66,23 +84,17 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li class="idea-status idea-status-New"
-                            style="cursor:pointer"
                             ng-click="$ctrl.setStatus('New')"><span class="glyphicon glyphicon-leaf"></span>new</li>
                         <li class="idea-status idea-status-Considered"
-                            style="cursor:pointer"
                             ng-click="$ctrl.setStatus('Considered')"><span class="glyphicon glyphicon-flash"></span>consider</li>
                         <li class="idea-status idea-status-Working"
-                            style="cursor:pointer"
                             ng-click="$ctrl.setStatus('Working')"><span class="glyphicon glyphicon-refresh"></span>working</li>
                         <li class="idea-status idea-status-Implemented"
-                            style="cursor:pointer"
                             ng-click="$ctrl.setStatus('Implemented')"><span class="glyphicon glyphicon-ok"></span>implemented</li>
                         <li class="idea-status idea-status-Rejected"
-                            style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Rejected')"><span class="glyphicon glyphicon-remove"></span>rejected</li>
+                            ><span class="glyphicon glyphicon-remove"></span>rejected</li>
                         <li class="idea-status idea-status-Deferred"
-                            style="cursor:pointer"
-                            ng-click="$ctrl.setStatus('Deferred')"><span class="glyphicon glyphicon-share-alt"></span>deferred</li>
+                            ><span class="glyphicon glyphicon-share-alt"></span>deferred</li>
                     </ul>
                 </div>
             </h4>

@@ -94,6 +94,21 @@ class IdeaCtrl {
         }, null, notify);
     }
 
+    changeStatusBtnsVisibility(btn) {
+        if(!this.idea) return;
+        var status = this.idea.status.toUpperCase();
+        
+        switch (btn) {
+            case 'Defer':
+            case 'Reject':
+                return status === 'NEW' ||
+                    status === 'WORKING' ||
+                    status === 'DISCUSSED';
+            case 'Close':
+                return status === 'IMPLEMENTED';
+        }
+    }
+
     saveDescription() {
         var notify = {
             reviewers: this.idea.reviewers,
