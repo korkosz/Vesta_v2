@@ -17,6 +17,8 @@ class IdeaCtrl {
         this.$timeout = $timeout;
         this.moment = moment;
         this.reviewers = [];
+        this.statusImplementedAlreadyChanged = false;
+        this.statusWorkingAlreadyChanged = false;
 
         function clearArray(arr) {
             for (var i = 0, len = arr.length; i < len; i++)
@@ -67,16 +69,63 @@ class IdeaCtrl {
                     });
                 }
             },
-            setStatus() {
+            setWorkingStatus() {
                 this.getReactively('tasks.length');
-                if(!this.tasks) return;
-                if (this.tasks.length > 0
-                    && this.idea.status === 'Consider') {
+                if (!this.tasks || this.tasks.length < 1) return;
+
+                if (this.idea.status === 'Consider') {
+                    debugger
                     Ideas.update(this.idea._id, {
                         $set: {
                             status: 'Working'
                         }
                     });
+                }
+            },
+            setImplemented() {
+                this.getReactively('tasks');
+                if (!this.tasks || this.tasks.length < 1) return;
+
+                if (this.idea.status === 'Working' ||
+                    this.idea.status === 'Implemented') {
+
+                    var notify = {
+                        reviewers: this.idea.reviewers,
+                        provider: Meteor.userId(),
+                        id: this.idea.id,
+                        when: new Date(),
+                        entityCreator: this.idea.createdBy
+                    };
+
+                    var allTasksDone = true;
+                    this.tasks.forEach((task) => {
+                        if (task.status !== "Closed")
+                            allTasksDone = false;
+                    });
+
+                    if (allTasksDone) {
+                        if (this.idea.status === 'Implemented') return;
+                        if (this.statusImplementedAlreadyChanged) return;
+                        debugger
+                        Ideas.update(this.idea._id, {
+                            $set: {
+                                status: 'Implemented'
+                            }
+                        }, null, notify);
+                        this.statusImplementedAlreadyChanged = true;
+                        this.statusWorkingAlreadyChanged = false;
+                    } else if (this.idea.status === 'Implemented') {
+                        if (this.statusWorkingAlreadyChanged) return;
+
+                        Ideas.update(this.idea._id, {
+                            $set: {
+                                status: 'Working'
+                            }
+                        }, null, notify);
+                        
+                        this.statusImplementedAlreadyChanged = false;
+                        this.statusWorkingAlreadyChanged = true;
+                    }
                 }
             }
         });
