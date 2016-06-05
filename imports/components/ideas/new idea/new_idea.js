@@ -12,7 +12,7 @@ class NewIdeaCtrl {
             this.idea = {};
             this.idea.description = '';
             this.selectedReviewers = [];
-            this.reviewersChanged = false;
+            this.reviewersChanged = !this.reviewersChanged;
             this.output = "";
         }
 
