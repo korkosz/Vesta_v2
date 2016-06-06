@@ -41,6 +41,9 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     &-Deferred{
         background: #888;
     }
+    &-Closed{
+        background: #aaa;
+    }
     .glyphicon{
         display: inline;
         margin-right: 0.5em;
