@@ -71,6 +71,10 @@ AsksCollection.schema = new SimpleSchema({
     project: {
         type: String
     },
+    ideaId: {
+        type: String,
+        optional: true
+    },
     creationAt: {
         type: Date
     },

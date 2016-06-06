@@ -2,6 +2,7 @@ import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
 import Metadata from '/imports/api/metadata/metadata';
 import Tasks from '/imports/api/task/task';
+import Asks from '/imports/api/ask/ask';
 import pill from '/imports/components/lib/pill/pill';
 import './review';
 import './review.html';
@@ -69,12 +70,35 @@ class IdeaCtrl {
                     });
                 }
             },
+            asks() {
+                this.getReactively('idea');
+                if (this.idea) {
+                    return Asks.find({
+                        ideaId: this.idea._id,
+                        isDeleted: false
+                    });
+                }
+            },
+            setDiscussed() {
+                this.getReactively('asks.length');
+                if (!this.asks || 
+                    this.asks.length < 1 || 
+                    this.tasks.length > 0) return; 
+                    
+                if (this.idea.status === 'Consider') {
+                    Ideas.update(this.idea._id, {
+                        $set: {
+                            status: 'Discussed'
+                        }
+                    });
+                }   
+            },
             setWorkingStatus() {
                 this.getReactively('tasks.length');
                 if (!this.tasks || this.tasks.length < 1) return;
 
-                if (this.idea.status === 'Consider') {
-                    debugger
+                if (this.idea.status === 'Consider' || 
+                    this.idea.status === 'Discussed') {
                     Ideas.update(this.idea._id, {
                         $set: {
                             status: 'Working'
@@ -106,7 +130,6 @@ class IdeaCtrl {
                     if (allTasksDone) {
                         if (this.idea.status === 'Implemented') return;
                         if (this.statusImplementedAlreadyChanged) return;
-                        debugger
                         Ideas.update(this.idea._id, {
                             $set: {
                                 status: 'Implemented'
@@ -122,7 +145,7 @@ class IdeaCtrl {
                                 status: 'Working'
                             }
                         }, null, notify);
-                        
+
                         this.statusImplementedAlreadyChanged = false;
                         this.statusWorkingAlreadyChanged = true;
                     }
@@ -203,8 +226,8 @@ class IdeaCtrl {
         }, null, notify);
     }
 
-    taskDetails(number) {
-        this.$location.path('/task/' + number);
+    goDetails(entityName, number) {
+        this.$location.path('/' + entityName + '/' + number);
     };
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
