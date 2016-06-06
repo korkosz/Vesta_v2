@@ -81,23 +81,23 @@ class IdeaCtrl {
             },
             setDiscussed() {
                 this.getReactively('asks.length');
-                if (!this.asks || 
-                    this.asks.length < 1 || 
-                    this.tasks.length > 0) return; 
-                    
+                if (!this.asks ||
+                    this.asks.length < 1 ||
+                    this.tasks.length > 0) return;
+
                 if (this.idea.status === 'Consider') {
                     Ideas.update(this.idea._id, {
                         $set: {
                             status: 'Discussed'
                         }
                     });
-                }   
+                }
             },
             setWorkingStatus() {
                 this.getReactively('tasks.length');
                 if (!this.tasks || this.tasks.length < 1) return;
 
-                if (this.idea.status === 'Consider' || 
+                if (this.idea.status === 'Consider' ||
                     this.idea.status === 'Discussed') {
                     Ideas.update(this.idea._id, {
                         $set: {
@@ -219,10 +219,20 @@ class IdeaCtrl {
             entityCreator: this.idea.createdBy
         };
 
+        var updateObj = {
+            status: _status
+        };
+
+        if ((_status === 'Rejected' ||
+            _status === 'Deferred') &&
+            this.reason && this.reason.length > 0) {
+            angular.extend(updateObj, {
+                reason: this.reason
+            });
+        }
+
         Ideas.update(this.idea._id, {
-            $set: {
-                status: _status
-            }
+            $set: updateObj
         }, null, notify);
     }
 
