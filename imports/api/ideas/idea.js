@@ -105,6 +105,10 @@ Ideas.schema = new SimpleSchema({
         type: String,
         defaultValue: "New"
     },
+    reason: {
+        type: String,
+        optional: true
+    },
     reviewers: {
         type: [String],
         optional: true
