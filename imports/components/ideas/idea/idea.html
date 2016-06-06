@@ -15,7 +15,7 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
-                
+
                 <button class="btn btn-danger"
                     ng-if="$ctrl.changeStatusBtnsVisibility('Reject')"
                     ng-click="$ctrl.setStatus('Rejected')">
@@ -47,7 +47,7 @@
                           idea-title="{{$ctrl.idea.title}}" alt-id="0"
                           ng-if="$ctrl.idea.status === 'Consider'">
                 </new-ask>
-                
+
                 <!-- Button trigger modal -->
                 <button type="button" class="VST-btn VST-btn-default"
                         data-toggle="modal" data-target="#deleteIdeaModal">
@@ -88,7 +88,7 @@
                 <div class="idea-status-wrapper dropdown">
                     <button class="idea-status idea-status-{{$ctrl.idea.status}}"
                             type="button">
-                            {{$ctrl.idea.status}}  
+                            {{$ctrl.idea.status}}
                     </button>
                 </div>
             </h4>
