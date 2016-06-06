@@ -15,7 +15,12 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
-
+                
+                  <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" ng-if="$ctrl.changeStatusBtnsVisibility('Consider')">
+                        Reopen
+                </button>
+                
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
                         Reject
