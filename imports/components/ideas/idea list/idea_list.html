@@ -4,6 +4,7 @@
         <tr>
             <th>Project</th>
             <th>Title</th>
+            <th>Status</th>
             <th>Created By</th>
             <th>Created</th>
         </tr>
@@ -20,6 +21,7 @@
                 <span ng-if="idea.isNew" style="color: red">NEW</span>                
             </td>
             <td>[{{idea.number}}] {{idea.title}}</td>
+            <td>{{idea.status}}</td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">
                 {{idea.creatorShort()}}
             </td>
