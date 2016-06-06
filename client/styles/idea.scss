@@ -7,67 +7,46 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 //Idea DESCRIPTION
 
 // Status idea
-.idea-status-wrapper{
-    display: inline;
-    button.idea-status{
-        border: none;
+
+.idea-status{
+    position: relative;
+    display: inline-block;
+    padding: 2px 7px 3px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: white;
+    font-size: 8px;
+    vertical-align: super;
+    margin-left: 7px;
+    &-New{
+        background: #14D1DA;
     }
-    .idea-status{
-        position: relative;
-        display: inline-block;
-        padding: 2px 7px 3px 7px;
-        border-radius: 4px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 400;
-        color: white;
-        font-size: 8px;
-        vertical-align: super;
-        margin-left: 7px;
-        &-New{
-            background: #14D1DA;
-        }
-        &-Considered{
-            background: #4AA3DF;
-            .glyphicon{
-                margin-right: 0.3em !important;
-            }
-        }
-        &-Implemented{
-            background: #2ecc71;
-        }
-        &-Rejected{
-            background: #e74c3c;
-        }
-        &-Working{
-            background: #BE5EE4;
-        }
-        &-Deferred{
-            background: #888;
-        }
+    &-Considered{
+        background: #4AA3DF;
         .glyphicon{
-            display: inline;
-            margin-right: 0.5em;
+            margin-right: 0.3em !important;
         }
     }
-    &.open{
-        .dropdown-menu {
-            display: flex;
-            flex-direction: column;
-        }
+    &-Implemented{
+        background: #2ecc71;
     }
-    // Secelct list
-    .dropdown-menu{
-        padding: 10px 20px;
-        .idea-status{
-            padding-right: 7px;
-            margin-bottom: 5px;
-            &:after{
-                display: none;
-            }
-        }
+    &-Rejected{
+        background: #e74c3c;
+    }
+    &-Working{
+        background: #BE5EE4;
+    }
+    &-Deferred{
+        background: #888;
+    }
+    .glyphicon{
+        display: inline;
+        margin-right: 0.5em;
     }
 }
+
 
 //Idea REWIEWS
 section.idea-reviews{

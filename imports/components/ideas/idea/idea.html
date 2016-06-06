@@ -142,11 +142,8 @@
             <p>Title:</p>
             <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}
                 <!-- Idea status -->
-                <div class="idea-status-wrapper dropdown">
-                    <button class="idea-status idea-status-{{$ctrl.idea.status}}"
-                            type="button">
-                            {{$ctrl.idea.status}}
-                    </button>
+                <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
+                    {{$ctrl.idea.status}}
                 </div>
             </h4>
             <div class="VST-view-addDate">{{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
