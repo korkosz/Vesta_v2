@@ -15,42 +15,75 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
-                
-                <button class="btn btn-danger"
-                    ng-if="$ctrl.changeStatusBtnsVisibility('Reject')"
-                    ng-click="$ctrl.setStatus('Rejected')">
-                    <span class="glyphicon glyphicon-remove"></span>
-                    Reject
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
+                        Reject
                 </button>
-                <button class="btn btn-warning"
-                    ng-if="$ctrl.changeStatusBtnsVisibility('Defer')"
-                    ng-click="$ctrl.setStatus('Deferred')">
+
+                <!-- Reject Modal -->
+                <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to reject the Idea ?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
+                                <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus('Rejected')">
+                                    Reject
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-warning" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
+                    type="button">
                     <span class="glyphicon glyphicon-share-alt"></span>
                     Defer
                 </button>
-                <button class="btn btn-success"
-                    ng-if="$ctrl.changeStatusBtnsVisibility('Close')"
-                    ng-click="$ctrl.setStatus('Closed')">
+                <!-- Defer Modal -->
+                <div class="modal fade" id="deferIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to defer the Idea ?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
+                                <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus('Deferred')">
+                                    Defer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-success" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" ng-click="$ctrl.setStatus('Closed')">
                     Close
                 </button>
                 <!-- Create new task -->
-                <new-task title="Create task" module="{{$ctrl.idea.module}}"
-                          project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
-                          idea-title="{{$ctrl.idea.title}}" alt-id="0"
-                          ng-if="$ctrl.idea.status === 'Consider' ||
+                <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
+                    idea-title="{{$ctrl.idea.title}}" alt-id="0" ng-if="$ctrl.idea.status === 'Consider' ||
                                  $ctrl.idea.status === 'Implemented' ||
                                  $ctrl.idea.status === 'Discussed'">
                 </new-task>
-                 <!-- Create new ask -->
-                <new-ask module="{{$ctrl.idea.module}}"
-                          project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
-                          idea-title="{{$ctrl.idea.title}}" alt-id="0"
-                          ng-if="$ctrl.idea.status === 'Consider'">
+                <!-- Create new ask -->
+                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                    alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
                 </new-ask>
-                
+
                 <!-- Button trigger modal -->
-                <button type="button" class="VST-btn VST-btn-default"
-                        data-toggle="modal" data-target="#deleteIdeaModal">
+                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteIdeaModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -98,29 +131,21 @@
         <div class="VST-view-desc-wrapper">
             <!-- Buttons -->
             <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit"
-                        ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button type="button" name="button" class="btn-save"
-                        ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
                 </button>
             </div>
             <!-- Description -->
-            <div text-angular ng-model="$ctrl.idea.description"
-                 ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
+            <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
             <!-- Reviewers -->
             <div class="info-box">
                 <div class="reviewers-box">
-                    <pill ng-repeat="reviewer in $ctrl.reviewers"
-                          value="reviewer"
-                          read-only="!$ctrl.descriptionEdited"></pill>
-                    <select ng-model="$ctrl.reviewer"
-                            ng-change="$ctrl.reviewerSelected()"
-                            ng-options="user.profile.fullname for user in
-                                        $ctrl.users"
-                            ng-hide="$ctrl.users.length < 1">
+                    <pill ng-repeat="reviewer in $ctrl.reviewers" value="reviewer" read-only="!$ctrl.descriptionEdited"></pill>
+                    <select ng-model="$ctrl.reviewer" ng-change="$ctrl.reviewerSelected()" ng-options="user.profile.fullname for user in
+                                        $ctrl.users" ng-hide="$ctrl.users.length < 1">
                     </select>
                 </div>
             </div>
@@ -138,19 +163,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in $ctrl.tasks"
-                    ng-click="$ctrl.goDetails('task', task.number)"
-                    style="cursor: pointer;">
+                <tr ng-repeat="task in $ctrl.tasks" ng-click="$ctrl.goDetails('task', task.number)" style="cursor: pointer;">
                     <td>{{task.title}}</td>
-                    <td data-toggle="tooltip"
-                        title="{{task.assignedUser()}}">
+                    <td data-toggle="tooltip" title="{{task.assignedUser()}}">
                         {{task.assignedUserShort()}}
                     </td>
                     <td>{{task.status}}</td>
                 </tr>
-                <tr ng-repeat="ask in $ctrl.asks"
-                    ng-click="$ctrl.goDetails('ask', ask.number)"
-                    style="cursor: pointer;">
+                <tr ng-repeat="ask in $ctrl.asks" ng-click="$ctrl.goDetails('ask', ask.number)" style="cursor: pointer;">
                     <td>{{ask.title}}</td>
                     <td>-</td>
                     <td>-</td>
