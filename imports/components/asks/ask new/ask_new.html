@@ -1,10 +1,10 @@
 <button type="button" class="VST-btn VST-btn-primary new-idea" data-toggle="modal"
-            data-target="#newAskModal" data-backdrop="false" ng-click="newAskVm.openModal()">
+            data-target="#{{newAskVm.altId}}newAskModal" data-backdrop="false" ng-click="newAskVm.openModal()">
     Ask
 </button>
 
 <!-- Ask Modal -->
-<div class="modal fade VST-main-modal" id="newAskModal" role="dialog">
+<div class="modal fade VST-main-modal" id="{{newAskVm.altId}}newAskModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -26,24 +26,25 @@
             <div class="modal-body">
                 <form name="newAskForm" novalidate>
 
-                    <!--Project-->
+                    <!-- Project -->
                     <fieldset id="ask_project" class="field-wrapper">
                         <label class="label-modal">Project:</label>
-                        <select ng-model="newAskVm.ask.project" name="ask_project" required
-                                ng-options="project as project.name for project in newAskVm.projects">
+                        <select ng-model="newAskVm.ask.project" ng-options="project as project.name for project in newAskVm.projects track by project._id"
+                            name="ask_project" required>
+                            <option>Choose project...</option>
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" ng-show="newAskVm.ask.project"></div>
-                    </fieldset>
-
-                    <!--Module-->
+                        <label class="label label-default" ng-show="!!newAskVm.ask.project">Sprint</label>
+                        {{newAskVm.ask.project.sprint}}
+                    </fieldset>                   
+                             
+                    <!-- Module -->
                     <fieldset id="ask_module" class="field-wrapper">
                         <label class="label-modal">Module:</label>
-                        <select ng-model="newAskVm.ask.module" name="ask_module" required
-                                ng-options="module._id as module.name for module in newAskVm.modules">
+                        <select ng-model="newAskVm.ask.module" ng-options="module._id as module.name for module in newAskVm.modules track by module._id"
+                            name="ask_module" required>
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" ng-show="newAskVm.ask.module"></div>
                     </fieldset>
-
+                    
                     <!--Title-->
                     <fieldset id="ask_title" class="fsStyle field-wrapper last">
                         <div class="title-wrapper">
@@ -58,7 +59,7 @@
                         <div class="description-wrapper">
                             <label class="label-modal">Description:</label>
                             <div text-angular ng-model="newAskVm.output" class="description"
-                                 name="ask_description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]">
+                                 ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]">
                             </div>
                         </div>
                     </fieldset>

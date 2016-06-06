@@ -10,27 +10,35 @@ class NewAskCtrl {
 
         this.init = () => {
             this.ask = {};
-            this.ask.description = '';           
+            this.ask.description = '';
             this.output = "";
+
+            if (this.ideaTitle)
+                this.ask.title = this.ideaTitle;
+
+            if (this.project)
+                this.ask.project = Projects.findOne(this.project);
+
+            if (this.module)
+                this.ask.module = Modules.findOne(this.module);
         }
         /// init
         this.init();
-        
-        this.setPristine = ()=> {
+
+        this.setPristine = () => {
             $scope.newAskForm.$setPristine();
             $scope.newAskForm.ask_project.$setPristine();
             $scope.newAskForm.ask_module.$setPristine();
-            $scope.newAskForm.ask_title.$setPristine();  
-            $scope.newAskForm.ask_description.$setPristine();  
+            $scope.newAskForm.ask_title.$setPristine();
         }
-        
+
         this.helpers({
             projects() {
                 return Projects.find();
             },
             modules() {
                 this.getReactively('ask.project');
-                if (this.ask.project && 
+                if (this.ask.project &&
                     typeof this.ask.project !== 'string') {
                     return this.ask.project.getModules();
                 }
@@ -39,7 +47,7 @@ class NewAskCtrl {
     }
 
     closeModal() {
-        $('#newAskModal').modal('hide');
+        $('#' + this.altId + 'newAskModal').modal('hide');
     }
 
     accept(valid) {
@@ -49,18 +57,24 @@ class NewAskCtrl {
             vm.ask.project = vm.ask.project._id;
             vm.ask.createdBy = Meteor.userId();
             vm.ask.creationAt = new Date();
+
+            //this is the case when attributes have been used
+            if (this.ask.module && typeof this.ask.module !== 'string') {
+                this.ask.module = this.ask.module._id;
+            };
+
             Asks.insert(vm.ask);
             vm.closeModal();
         });
     }
 
     cancel() {
-        this.setPristine();
         this.closeModal();
     }
 
     openModal() {
         this.init();
+        this.setPristine();
     }
 }
 
@@ -77,10 +91,35 @@ export default angular.module("ask")
             templateUrl: "imports/components/asks/ask new/ask_new.html",
             controller: NewAskCtrl,
             controllerAs: 'newAskVm',
-            link
+            link,
+            scope: {
+                project: '@',
+                module: '@',
+                ideaId: '@',
+                ideaTitle: '@',
+                altId: '@'
+            },
+            bindToController: true
         }
 
         function link(scope, el, attrs, ctrl) {
+            if (!ctrl.altId) {
+                ctrl.altId = '';
+            }
+
+            attrs.$observe('project', function () {
+                if (ctrl.project) {
+                    ctrl.ask.project = Projects.findOne(ctrl.project);
+                    if (ctrl.ask.project && ctrl.module) {
+                        ctrl.ask.module = Modules.findOne(ctrl.module);
+                    }
+                }
+            });
+            attrs.$observe('ideaTitle', function () {
+                if (ctrl.ideaTitle)
+                    ctrl.ask.title = ctrl.ideaTitle;
+            });
+
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);
                 var array = [];
@@ -109,12 +148,19 @@ export default angular.module("ask")
             ctrl.compileOutput = function () {
                 var defer = $q.defer();
                 var promises = [];
-                var counter = 0;
-                var editEl = $('div[name="ask_description"] *[id^="taTextElement"]');
+                var counter = 0;                
+                
+                if (ctrl.altId && ctrl.altId.length > 0) {
+                    var editEl = $('div[id="' + ctrl.altId + 'newAskModal"]' +
+                        ' div[id^="taTextElement"]');
+                } else {
+                    var editEl = $('new-ask div[id^="taTextElement"]');
+                }
+                
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
-                var vm = this; 
-                
+                var vm = this;
+
                 while (imgsLen--) {
                     let img = imgs.eq(imgsLen);
                     let src = img.attr('src');
