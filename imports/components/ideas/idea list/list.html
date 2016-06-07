@@ -1,0 +1,14 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th ng-repeat="field in vm.list.columns">{{vm.getLabel(field)}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="idea in vm.ideas">
+            <td ng-repeat="field in vm.list.columns">
+                {{idea[field]}}
+            </td>
+        </tr>
+    </tbody>
+</table>

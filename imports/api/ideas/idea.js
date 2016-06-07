@@ -99,7 +99,8 @@ Ideas.schema = new SimpleSchema({
         optional: true
     },
     projectId: {
-        type: String
+        type: String,
+        label: 'Project'
     },
     status: {
         type: String,

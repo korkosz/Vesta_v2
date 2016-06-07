@@ -1,5 +1,8 @@
 import ModulesCollection from '/imports/api/module/module';
 import ProjectsCollection from '/imports/api/project/project';
+import Bookmarks from '/imports/api/metadata/bookmark';
+
+import './bookmarks/bookmark'; 
 
 export default angular.module('global', [])
     .controller('globalCtrl', globalCtrl);

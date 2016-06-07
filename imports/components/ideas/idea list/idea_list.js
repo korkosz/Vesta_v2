@@ -4,11 +4,12 @@ import Metadata from '/imports/api/metadata/metadata';
 import Modules from '/imports/api/module/module';
 
 import './idea_list.html';
+import './list.js';
 
 class IdeaListCtrl {
     constructor($scope, $location) {
         $scope.viewModel(this);
-        
+
         this.moment = moment;
         this.$location = $location;
         this.helpers({
@@ -22,9 +23,9 @@ class IdeaListCtrl {
                     angular.extend(this.filter,
                         { isDeleted: false });
                 }
-                return Ideas.find(this.filter).map((idea)=> {
+                return Ideas.find(this.filter).map((idea) => {
                     idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
-                    return idea;   
+                    return idea;
                 });
             }
         });

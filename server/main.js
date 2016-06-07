@@ -9,6 +9,8 @@ import ResponsesCollection from '/imports/api/ask/response';
 import Metadata from '/imports/api/metadata/metadata';
 import ModulesCollection from '/imports/api/module/module';
 import Notify from '/imports/api/notification/notification';
+import ListsSchemas from '/imports/api/metadata/listMetadata';
+import Bookmarks from '/imports/api/metadata/bookmark';
 
 Meteor.publish(null, function () {
     return Meteor.users.find();
@@ -109,4 +111,11 @@ Meteor.startup(() => {
             }
         );
     }
+    
+    ListsSchemas.remove({});
+    ListsSchemas.insert({
+       user: 'cGQZ526BT6BTefZ7a',
+       entities: ['Idea'],
+       columns: ['title']
+    });
 });

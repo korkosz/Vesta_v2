@@ -17,7 +17,7 @@
             <div class="buttons">
                 
                   <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" ng-if="$ctrl.changeStatusBtnsVisibility('Consider')">
+                <button type="button" class="btn btn-danger" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
                         Reopen
                 </button>
                 
