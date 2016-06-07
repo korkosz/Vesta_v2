@@ -4,7 +4,6 @@ import Metadata from '/imports/api/metadata/metadata';
 import Modules from '/imports/api/module/module';
 
 import './idea_list.html';
-import './list.js';
 
 class IdeaListCtrl {
     constructor($scope, $location) {

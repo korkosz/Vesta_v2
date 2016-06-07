@@ -39,7 +39,7 @@ Meteor.startup(() => {
             project: vesta._id
         });
 
-       var Tasks = ModulesCollection.insert({
+        var Tasks = ModulesCollection.insert({
             name: 'Tasks',
             project: vesta._id
         });
@@ -48,9 +48,9 @@ Meteor.startup(() => {
             name: 'Global',
             project: vesta._id
         });
-        
-        var arr = [ideaId,Projects,Tasks,Global];
-        ProjectsCollection.update(vesta._id, {$set:{modules: arr}})
+
+        var arr = [ideaId, Projects, Tasks, Global];
+        ProjectsCollection.update(vesta._id, { $set: { modules: arr } })
     }
 
     Metadata.remove({});
@@ -111,11 +111,19 @@ Meteor.startup(() => {
             }
         );
     }
-    
+
     ListsSchemas.remove({});
     ListsSchemas.insert({
+        _id: 'Ju5XP4domR7ueqJep',
+        user: 'cGQZ526BT6BTefZ7a',
+        entities: ['Idea'],
+        columns: ['title', 'number']
+    });
+    
+    Bookmarks.remove({});
+    Bookmarks.insert({
        user: 'cGQZ526BT6BTefZ7a',
-       entities: ['Idea'],
-       columns: ['title']
+       title: 'Ideas',
+       lists: ['Ju5XP4domR7ueqJep']
     });
 });

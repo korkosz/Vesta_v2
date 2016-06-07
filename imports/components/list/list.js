@@ -1,6 +1,4 @@
 import Ideas from '/imports/api/ideas/idea';
-import Projects from '/imports/api/project/project';
-import Modules from '/imports/api/module/module';
 import ListsSchemas from '/imports/api/metadata/listMetadata';
 
 import './list.html';
@@ -37,7 +35,7 @@ VestaListCtrl.$inject = ['$scope'];
 export default angular.module("idea")
     .directive('vestaList', [function () {
         return {
-            templateUrl: "imports/components/ideas/idea list/list.html",
+            templateUrl: "imports/components/list/list.html",
             controller: VestaListCtrl,
             controllerAs: 'vm',
             link

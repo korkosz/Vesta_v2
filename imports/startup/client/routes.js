@@ -2,6 +2,7 @@ import '/imports/pages/home.html';
 import '/imports/pages/idea/idea_view.html';
 import '/imports/pages/task/task_view.html';
 import '/imports/pages/ask/ask.html';
+import '/imports/pages/bookmark/bookmark.html'
 
 angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
@@ -42,5 +43,8 @@ angular.module('simple-todos')
 			}).
 			when('/ask/:number', {
 				templateUrl: 'imports/pages/ask/ask.html'
+			}).
+			when('/bookmark/:name', {
+				templateUrl: 'imports/pages/bookmark/bookmark.html'
 			});
     }]);
