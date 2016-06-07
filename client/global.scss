@@ -37,7 +37,7 @@ body{
 body,html{
 	padding: 0;
 	margin: 0;
-	height: 100%;
+	min-height: 100%;
 }
 .#{$VESTA}-container{
 	display: flex;
@@ -66,6 +66,20 @@ nav.#{$VESTA}-side-nav{
 	    border-bottom: 1px solid #eee;
 	    color: #999;
 		font-size: 14px;
+	}
+}
+
+// Notifications
+.list-group-item{
+	background: transparent;
+	border: none;
+	text-align: left;
+	position: relative;
+	.badge{
+		position: absolute;
+		background: $red;
+		top: 0;
+		left: -1px;
 	}
 }
 
