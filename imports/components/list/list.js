@@ -44,21 +44,22 @@ class VestaListCtrl {
 
         //filter was off -> asc
         if (angular.isUndefined(_sortArray)) {
-            this.sortArr.push([field, 'asc'])
+            this.sortArr.push([field, 'asc']);
             this.sortArrChanged = !this.sortArrChanged;
             return;
         }
         //filter was asc -> desc
-        if (getSortValue(field) === 'asc') {
+        debugger
+        if (_sortArray[1] === 'asc') {
             _sortArray[1] = 'desc';
             this.sortArrChanged = !this.sortArrChanged;
             return;
         }
 
         //filter was desc -> off
-        if (getSortValue(field) === 'desc') {
-            var idx = me.sortArr.findIndex(() => {
-                return _sortArr[0] === field;
+        if (_sortArray[1] === 'desc') {
+            var idx = me.sortArr.findIndex((_arr) => {
+                return _arr[0] === field;
             });
             me.sortArr.splice(idx, 1);
             this.sortArrChanged = !this.sortArrChanged;

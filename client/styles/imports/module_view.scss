@@ -4,7 +4,7 @@
 $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 
 .VST-view-container{
-    width: 1170px;
+    width: 1070px;
     margin: auto;
 }
 // HEADER
@@ -30,7 +30,7 @@ section.#{$VESTA}-view-header{
             letter-spacing: 4px;
             font-size: 30px;
             font-weight: 700;
-            color: #B3B3B3;
+            color: #909090;
             padding-top: 10px;
             padding-left: 5px;
         }
@@ -77,16 +77,13 @@ section.#{$VESTA}-view-header{
                 }
             }
         }
-        .buttons{
-            display: block;
-            float: right;
-        }
     }
 }
 
 //DESCRIPTION
 section.#{$VESTA}-view-content{
-    padding: 35px; padding-bottom: 80px; padding-top: 60px;
+    position: relative;
+    padding: 35px; padding-bottom: 130px; padding-top: 60px;
     background: #fff;
     header{
         display: flex;
@@ -110,6 +107,11 @@ section.#{$VESTA}-view-content{
             line-height: 1.4;
             flex: 1;
         }
+    }
+    .buttons{
+        position: absolute;
+        bottom: 45px;
+        left: 135px;
     }
 }
 
