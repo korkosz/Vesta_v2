@@ -34,6 +34,15 @@ class VestaListCtrl {
         });
     }
 
+    getValue(field, value) {
+        var metadata = Ideas.schemaMetadata[field];
+        if (metadata) {
+            return metadata.transform(value);
+        } else {
+            return value;
+        }
+    }
+
     getLabel(field) {
         return Ideas.schema.label(field);
     }

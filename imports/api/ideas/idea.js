@@ -142,6 +142,21 @@ Ideas.schema = new SimpleSchema({
     }
 });
 
+Ideas.schemaMetadata = {
+    creationDate: {
+        type: Date,
+        transform(value) {
+            return moment(value).fromNow();   
+        }
+    },
+    updatedAt: {
+        type: Date,
+        transform(value) {
+            return moment(value).fromNow();   
+        }
+    }           
+};
+
 Ideas.helpers({
     project() {
         var project = Projects.findOne(this.projectId);
