@@ -54,7 +54,7 @@ class IdeasCollection extends Mongo.Collection {
             //- notify him
             if (usersToNotify.indexOf(notifyObject
                 .entityCreator) === -1 && notifyObject
-                .entityCreator !== notifyObject.provider) {
+                    .entityCreator !== notifyObject.provider) {
                 usersToNotify.push(notifyObject.entityCreator);
             }
 
@@ -146,15 +146,25 @@ Ideas.schemaMetadata = {
     creationDate: {
         type: Date,
         transform(value) {
-            return moment(value).fromNow();   
+            return moment(value).fromNow();
         }
     },
     updatedAt: {
         type: Date,
         transform(value) {
-            return moment(value).fromNow();   
+            return moment(value).fromNow();
         }
-    }           
+    },
+    createdBy: {
+        type: 'id',
+        transform(value) {
+            var user = Meteor.users.findOne(value);
+            if (user) {
+                return user.profile.firstname[0] + '.' + ' ' +
+                    user.profile.lastname;
+            }
+        }
+    }
 };
 
 Ideas.helpers({
