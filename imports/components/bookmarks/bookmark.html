@@ -1,8 +1,8 @@
 <nav class="VST-side-nav">
     <ul>
-        <li>Dashboard</li>
+        <li style="cursor:pointer"><a href="#/bookmark/{{bookmark.title}}">Dashboard</a></li>
         <li ng-repeat="bookmark in $ctrl.bookmarks" style="cursor:pointer" ng-click="">
-            <a href="#/bookmark/{{bookmark.title}}">{{bookmark.title}}</a>            
+            <a href="#/bookmark/{{bookmark.title}}">{{bookmark.title}}</a>
         </li>
-    </ul> 
+    </ul>
 </nav>

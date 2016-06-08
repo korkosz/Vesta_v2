@@ -117,7 +117,12 @@ Meteor.startup(() => {
         _id: 'Ju5XP4domR7ueqJep',
         user: 'cGQZ526BT6BTefZ7a',
         entities: ['Idea'],
-        columns: ['title', 'number']
+        columns: ['title', 'number',
+                  'status', 'creationDate',
+                  'createdBy', 'updatedAt',],
+        sort:[ ['creationDate', 'asc']
+         
+        ]
     });
     
     Bookmarks.remove({});

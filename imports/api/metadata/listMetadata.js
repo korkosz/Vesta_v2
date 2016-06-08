@@ -8,7 +8,7 @@ const fieldSchema = new SimpleSchema({
     },
     value: {
         type: Number,
-        allowedValues: [0, 1]
+        allowedValues: [-1, 1]
     }        
 });
 
@@ -25,8 +25,11 @@ ListsSchema.schema = new SimpleSchema({
     filters: {
         type: [String],
         optional: true
+    },
+    sort: {
+        type: [[String]],
+        optional: true
     }
-    // ,
     // sort: {
     //     type: [fieldSchema],
     //     optional: true

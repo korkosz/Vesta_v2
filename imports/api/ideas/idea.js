@@ -120,18 +120,21 @@ Ideas.schema = new SimpleSchema({
     },
     creationDate: {
         type: Date,
-        defaultValue: new Date()
+        defaultValue: new Date(),
+        label: 'Created At'
     },
     createdBy: {
         type: String,
-        defaultValue: this.userId
+        defaultValue: this.userId,
+        label: 'Created By'
     },
     updatedAt: {
         type: Date,
         autoValue: function () {
             return new Date();
         },
-        optional: true
+        optional: true,
+        label: 'Updated At'
     },
     isDeleted: {
         type: Boolean,

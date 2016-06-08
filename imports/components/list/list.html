@@ -1,7 +1,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th ng-repeat="field in vm.list.columns">{{vm.getLabel(field)}}</th>
+            <th ng-repeat="field in vm.list.columns"
+                ng-click="vm.sort(field)"
+                ng-switch="vm.fieldSorted(field)"
+                style="cursor: pointer">
+                {{vm.getLabel(field)}} {{vm.fieldSorted(field)}}
+                <span ng-switch-when="asc">
+                    &nbsp; ASC   
+                </span>
+                <span ng-switch-when="desc">
+                    &nbsp; DESC 
+                </span>
+            </th>
         </tr>
     </thead>
     <tbody>

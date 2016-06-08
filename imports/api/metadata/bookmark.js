@@ -7,7 +7,7 @@ Bookmarks.schema = new SimpleSchema({
         type: String
     },
     title: {
-        type: String
+        type: String,
     },
     lists: {
         type: [String]
