@@ -68,6 +68,25 @@ nav.#{$VESTA}-side-nav{
 		font-size: 14px;
 	}
 }
+bookmarks{
+	background: #fff;
+	.#{$VESTA}-btn{
+		display: block;
+		margin-top: 5px; margin-left: 10px;
+		width: 150px;
+		background: #888;
+	}
+	new-idea{
+		button{
+		margin-top: 15px !important;
+		}
+	}
+	new-ask{
+		button{
+		margin-bottom: 15px;
+		}
+	}
+}
 
 // Notifications
 .list-group-item{
