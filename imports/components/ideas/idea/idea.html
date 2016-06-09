@@ -28,7 +28,7 @@
                     {{$ctrl.idea.status}}
                 </div>
             </h4>
-            <div class="VST-view-addDate">{{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
+            <div class="VST-view-addDate">Creator: {{$ctrl.idea.creator()}} {{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
         </header>
         <!-- Description wrapper -->
         <div class="VST-view-desc-wrapper">
