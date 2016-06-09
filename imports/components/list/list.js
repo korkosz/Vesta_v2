@@ -1,17 +1,24 @@
 import Ideas from '/imports/api/ideas/idea';
+import Tasks from '/imports/api/task/task';
+
 import ListsSchemas from '/imports/api/metadata/listMetadata';
 
 import './list.html';
 
 class VestaListCtrl {
-    constructor($scope) {
+    constructor($scope, $location) {
         $scope.viewModel(this);
+        
         this.sortArr = [];
         this.sortArrChanged = false;
-
+        this.$location = $location;
+        
         this.helpers({
             list() {
-                return ListsSchemas.findOne();
+                this.getReactively('listId');
+                if (this.listId) {
+                    return ListsSchemas.findOne(this.listId);
+                }
             },
             ideas() {
                 this.getReactively('list');
@@ -30,12 +37,60 @@ class VestaListCtrl {
                 } else {
                     return [];
                 }
+            },
+            tasks() {
+                this.getReactively('list');
+                this.getReactively('sortArrChanged');
+
+                if (!this.list || this.list.length === 0) return;
+
+                if (this.list.sort && !this.tasks) {
+                    let me = this;
+                    this.list.sort.forEach((_sort) => {
+                        me.sortArr.push(_sort);
+                    });
+                }
+                if (this.list.entities.indexOf('Task') !== -1) {
+                    return Tasks.find({}, { sort: this.sortArr });
+                } else {
+                    return [];
+                }
             }
         });
     }
 
+    getCursorStyle() {
+        if (!this.list || 
+            this.list.entities.length > 1) return 'auto';           
+        else return 'pointer';   
+    }
+    
+    details(number) {
+        if (!this.list || this.list.entities.length > 1) return;      
+       
+        this.$location.path('/'+ this.list.entities[0].toLowerCase() + '/' + number);
+    }
+    
     getValue(field, value) {
-        var metadata = Ideas.schemaMetadata[field];
+        if (!this.list) return;
+
+        const entity = this.list.entities[0];
+        var EntityCollection = null;
+        switch (entity) {
+            case 'Idea':
+                EntityCollection = Ideas;
+                break;
+            case 'Task':
+                EntityCollection = Tasks;
+                break;
+            case 'Ask':
+                EntityCollection = Ideas;
+                break;
+        }
+        
+        if(!EntityCollection.schemaMetadata) return value;
+        
+        var metadata = EntityCollection.schemaMetadata[field];
         if (metadata) {
             return metadata.transform(value);
         } else {
@@ -44,7 +99,18 @@ class VestaListCtrl {
     }
 
     getLabel(field) {
-        return Ideas.schema.label(field);
+        if (!this.list) return;
+
+        const entity = this.list.entities[0];
+
+        switch (entity) {
+            case 'Idea':
+                return Ideas.schema.label(field);
+            case 'Task':
+                return Tasks.schema.label(field);
+            case 'Ask':
+                return Ideas.schema.label(field);
+        }
     }
 
     sort(field) {
@@ -58,7 +124,6 @@ class VestaListCtrl {
             return;
         }
         //filter was asc -> desc
-        debugger
         if (_sortArray[1] === 'asc') {
             _sortArray[1] = 'desc';
             this.sortArrChanged = !this.sortArrChanged;
@@ -92,7 +157,7 @@ class VestaListCtrl {
     }
 }
 
-VestaListCtrl.$inject = ['$scope'];
+VestaListCtrl.$inject = ['$scope', '$location'];
 
 export default angular.module("idea")
     .directive('vestaList', [function () {
@@ -100,6 +165,10 @@ export default angular.module("idea")
             templateUrl: "imports/components/list/list.html",
             controller: VestaListCtrl,
             controllerAs: 'vm',
+            scope: {
+                listId: '@'
+            },
+            bindToController: true,
             link
         }
 

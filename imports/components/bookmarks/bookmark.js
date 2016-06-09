@@ -4,8 +4,8 @@ import './bookmark.html';
 
 class BookmarksCtrl {
     constructor($scope) {
-        $scope.viewModel(this);
-
+        $scope.viewModel(this);       
+        
         this.helpers({
             bookmarks() {
                 return Bookmarks.find();
@@ -13,7 +13,7 @@ class BookmarksCtrl {
         });
     }
 }
-BookmarksCtrl.$inject = ['$scope'];
+BookmarksCtrl.$inject = ['$scope', '$routeParams'];
 
 export default angular.module("idea")
     .component('bookmarks', {

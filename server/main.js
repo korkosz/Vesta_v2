@@ -118,17 +118,33 @@ Meteor.startup(() => {
         user: 'cGQZ526BT6BTefZ7a',
         entities: ['Idea'],
         columns: ['title', 'number',
-                  'status', 'creationDate',
-                  'createdBy', 'updatedAt',],
-        sort:[ ['creationDate', 'asc']
-         
+            'status', 'creationDate',
+            'createdBy', 'updatedAt',],
+        sort: [['creationDate', 'asc']
+
         ]
     });
-    
+
     Bookmarks.remove({});
     Bookmarks.insert({
-       user: 'cGQZ526BT6BTefZ7a',
-       title: 'Ideas',
-       lists: ['Ju5XP4domR7ueqJep']
+        user: 'cGQZ526BT6BTefZ7a',
+        title: 'Ideas',
+        lists: ['Ju5XP4domR7ueqJep']
+    });
+
+    var listttIds = ListsSchemas.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        entities: ['Task'],
+        columns: ['number', 'title',
+            'type', 'status', 'priority', 'assigned',
+            'createdBy', 'updatedAt', 'creationDate'],
+        sort: [['updatedAt', 'asc']
+        ]
+    });
+
+    Bookmarks.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        title: 'Tasks',
+        lists: [listttIds]
     });
 });

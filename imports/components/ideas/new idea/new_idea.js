@@ -8,16 +8,18 @@ class NewIdeaCtrl {
     constructor($scope) {
         $scope.viewModel(this);
 
-        this.init = () => {
+        this.init = (initial) => {
             this.idea = {};
             this.idea.description = '';
             this.selectedReviewers = [];
             this.reviewersChanged = !this.reviewersChanged;
             this.output = "";
+            
+            if(!initial) this.selectedReviewers.push(Meteor.user());
         }
 
         /// init
-        this.init();
+        this.init(true);
 
         this.setPristine = () => {
             $scope.newIdeaForm.$setPristine();
