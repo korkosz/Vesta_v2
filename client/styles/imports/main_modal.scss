@@ -171,7 +171,7 @@ form.ng-invalid.ng-submitted .ng-invalid {
 // Idea
 #newIdeaModal{
     .modal-content{
-        background: lighten($idea, 44%);
+        background: lighten($idea, 46%);
     }
 
     .#{$VESTA}-btn{
@@ -201,5 +201,77 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
     .glyphicon.glyphicon-ok-sign{
         color: $idea;
+    }
+}
+
+// Task
+#newTaskModal{
+    .modal-content{
+        background: lighten($task, 46%);
+    }
+
+    .#{$VESTA}-btn{
+        background: $task;
+    }
+
+    .pill{
+        background: lighten($task, 15%);
+    }
+
+    input, select, .ta-editor, .modal-header{
+        border-color: lighten($task, 30%);
+    }
+
+     .btn{
+        border-color: lighten($task, 10%);
+        background: lighten($task, 37%);
+     }
+
+    .label-modal{
+        color: lighten($task, 10%);
+    }
+
+     h4{
+        color: $task;
+    }
+
+    .glyphicon.glyphicon-ok-sign{
+        color: $task;
+    }
+}
+
+// Ask
+#newAskModal{
+    .modal-content{
+        background: lighten($ask, 46%);
+    }
+
+    .#{$VESTA}-btn{
+        background: $ask;
+    }
+
+    .pill{
+        background: lighten($ask, 15%);
+    }
+
+    input, select, .ta-editor, .modal-header{
+        border-color: lighten($ask, 30%);
+    }
+
+     .btn{
+        border-color: lighten($ask, 10%);
+        background: lighten($ask, 37%);
+     }
+
+    .label-modal{
+        color: lighten($ask, 10%);
+    }
+
+     h4{
+        color: $ask;
+    }
+
+    .glyphicon.glyphicon-ok-sign{
+        color: $ask;
     }
 }
