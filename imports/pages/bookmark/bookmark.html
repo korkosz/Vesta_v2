@@ -1,3 +1,5 @@
 <div ng-controller="BookmarkCtrl as vm">
-    <vesta-list></vesta-list>  
+    <div ng-repeat="list in vm.bookmark.lists">
+        <vesta-list list-id="{{list}}"></vesta-list>   
+    </div>      
 </div>

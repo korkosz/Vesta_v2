@@ -124,24 +124,63 @@ TaskCollection.schema = new SimpleSchema({
     },
     creationDate: {
         type: Date,
-        defaultValue: new Date()
+        defaultValue: new Date(),
+        label: 'Created At'
     },
     createdBy: {
         type: String,
-        defaultValue: this.userId
+        defaultValue: this.userId,
+        label: 'Created By'
     },
     updatedAt: {
         type: Date,
         autoValue: function () {
             return new Date();
         },
-        optional: true
+        optional: true,
+        label: 'Updated At'
     },
     isDeleted: {
         type: Boolean,
         defaultValue: false
     }
 });
+
+TaskCollection.schemaMetadata = {
+    creationDate: {
+        type: Date,
+        transform(value) {
+            return moment(value).fromNow();
+        }
+    },
+    updatedAt: {
+        type: Date,
+        transform(value) {
+            return moment(value).fromNow();
+        }
+    },
+    createdBy: {
+        type: 'id',
+        transform(value) {
+            var user = Meteor.users.findOne(value);
+            if (user) {
+                return user.profile.firstname[0] + '.' + ' ' +
+                    user.profile.lastname;
+            }
+        }
+    },
+    assigned: {
+        type: 'id',
+        transform(value) {
+            var user = Meteor.users.findOne(value);
+            if (user) {
+                return user.profile.firstname[0] + '.' + ' ' +
+                    user.profile.lastname;
+            }
+        }
+    }
+};
+
 TaskCollection.helpers({
     creator() {
         var user = Meteor.users.findOne(this.createdBy);

@@ -16,9 +16,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="idea in vm.ideas">
+        <tr ng-repeat="idea in vm.ideas" style="cursor: {{vm.getCursorStyle()}}" 
+            ng-click="vm.details(idea.number)">
             <td ng-repeat="field in vm.list.columns">
                 {{vm.getValue(field, idea[field])}}
+            </td>
+        </tr>
+        <tr ng-repeat="task in vm.tasks" style="cursor: {{vm.getCursorStyle()}}"
+            ng-click="vm.details(task.number)">
+            <td ng-repeat="field in vm.list.columns">
+                {{vm.getValue(field, task[field])}}
             </td>
         </tr>
     </tbody>
