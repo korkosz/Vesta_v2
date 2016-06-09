@@ -1,4 +1,4 @@
-<button type="button" class="VST-btn VST-btn-primary new-idea" data-toggle="modal"
+<button type="button" class="VST-btn VST-btn-menu new-idea" data-toggle="modal"
             data-target="#{{newAskVm.altId}}newAskModal" data-backdrop="false" ng-click="newAskVm.openModal()">
     Ask
 </button>
@@ -35,8 +35,8 @@
                         </select>
                         <label class="label label-default" ng-show="!!newAskVm.ask.project">Sprint</label>
                         {{newAskVm.ask.project.sprint}}
-                    </fieldset>                   
-                             
+                    </fieldset>
+
                     <!-- Module -->
                     <fieldset id="ask_module" class="field-wrapper">
                         <label class="label-modal">Module:</label>
@@ -44,7 +44,7 @@
                             name="ask_module" required>
                         </select>
                     </fieldset>
-                    
+
                     <!--Title-->
                     <fieldset id="ask_title" class="fsStyle field-wrapper last">
                         <div class="title-wrapper">

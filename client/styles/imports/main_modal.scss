@@ -22,6 +22,12 @@
             position: absolute;
             right: 30px;
             top: 30px;
+            height: 25px;
+            width: 25px;
+            padding: 0;
+            padding: 0;
+            color: rgba(255, 255, 255, 0.74);
+            letter-spacing: 0;
         }
         // Logo
         img{
@@ -160,4 +166,40 @@
 }
 form.ng-invalid.ng-submitted .ng-invalid {
     border: 1px solid $red !important;
+}
+
+// Idea
+#newIdeaModal{
+    .modal-content{
+        background: lighten($idea, 44%);
+    }
+
+    .#{$VESTA}-btn{
+        background: $idea;
+    }
+
+    .pill{
+        background: lighten($idea, 15%);
+    }
+
+    input, select, .ta-editor, .modal-header{
+        border-color: lighten($idea, 30%);
+    }
+
+     .btn{
+        border-color: lighten($idea, 10%);
+        background: lighten($idea, 37%);
+     }
+
+    .label-modal{
+        color: lighten($idea, 10%);
+    }
+
+     h4{
+        color: $idea;
+    }
+
+    .glyphicon.glyphicon-ok-sign{
+        color: $idea;
+    }
 }

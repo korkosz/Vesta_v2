@@ -70,20 +70,23 @@ nav.#{$VESTA}-side-nav{
 }
 bookmarks{
 	background: #fff;
-	.#{$VESTA}-btn{
+	.#{$VESTA}-btn-menu{
 		display: block;
 		margin-top: 5px; margin-left: 10px;
 		width: 150px;
-		background: #888;
+		background: #00c4ff;
+		color: #fff;
 	}
 	new-idea{
-		button{
+		.#{$VESTA}-btn-menu{
 		margin-top: 15px !important;
+		background: $idea;
 		}
 	}
 	new-ask{
-		button{
+		.#{$VESTA}-btn-menu{
 		margin-bottom: 15px;
+		background: #47dc60;
 		}
 	}
 }
