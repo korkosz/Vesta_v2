@@ -87,9 +87,6 @@
             font-size: 13px;
             padding-left: 5px;
         }
-        select:active, select:focus{
-            box-shadow: 0 0 4px rgba(74, 163, 223, 0.62);
-        }
         .glyphicon-ok-sign{
             color: #3498DB;
             margin-left: 4px;
@@ -174,26 +171,28 @@ form.ng-invalid.ng-submitted .ng-invalid {
     //    background: lighten($idea, 46%);
     //}
 
+    /*
+    .pill{
+        background: lighten($idea, 15%);
+    }
+
+    input, select, .ta-editor, .modal-header{
+        border-color: lighten($idea, 30%);
+    }
+
+    .label-modal{
+        color: lighten($idea, 10%);
+    }
+    */
     .#{$VESTA}-btn{
         background: $idea;
     }
-
-    //.pill{
-    //    background: lighten($idea, 15%);
-    //}
-
-    //input, select, .ta-editor, .modal-header{
-    //    border-color: lighten($idea, 30%);
-    //}
 
      .btn{
         border-color: lighten($idea, 10%);
         background: lighten($idea, 37%);
      }
 
-    .label-modal{
-        color: lighten($idea, 10%);
-    }
 
      h4{
         color: $idea;
@@ -202,12 +201,23 @@ form.ng-invalid.ng-submitted .ng-invalid {
     .glyphicon.glyphicon-ok-sign{
         color: $idea;
     }
+    select:active, select:focus, input:focus, .description.focussed .form-control{
+        border-color: $idea;
+    }
 }
 
 // Task
 #newTaskModal{
     //.modal-content{
     //    background: lighten($task, 46%);
+    //}
+
+    //.label-modal{
+    //    color: lighten($task, 10%);
+    //}
+
+    //input, select, .ta-editor, .modal-header{
+    //    border-color: lighten($task, 30%);
     //}
 
     .#{$VESTA}-btn{
@@ -218,17 +228,9 @@ form.ng-invalid.ng-submitted .ng-invalid {
         background: lighten($task, 15%);
     }
 
-    //input, select, .ta-editor, .modal-header{
-    //    border-color: lighten($task, 30%);
-    //}
-
-     .btn{
+    .btn{
         border-color: lighten($task, 10%);
         background: lighten($task, 37%);
-     }
-
-    .label-modal{
-        color: lighten($task, 10%);
     }
 
      h4{
@@ -237,6 +239,9 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
     .glyphicon.glyphicon-ok-sign{
         color: $task;
+    }
+    select:active, select:focus, input:focus, .description.focussed .form-control{
+        border-color: $task;
     }
 }
 
@@ -246,10 +251,6 @@ form.ng-invalid.ng-submitted .ng-invalid {
     //    background: lighten($ask, 46%);
     //}
 
-    .#{$VESTA}-btn{
-        background: $ask;
-    }
-
     //.pill{
     //    background: lighten($ask, 15%);
     //}
@@ -258,13 +259,17 @@ form.ng-invalid.ng-submitted .ng-invalid {
     //    border-color: lighten($ask, 30%);
     //}
 
-     .btn{
+    //.label-modal{
+    //    color: lighten($ask, 10%);
+    //}
+
+    .#{$VESTA}-btn{
+        background: $ask;
+    }
+
+    .btn{
         border-color: lighten($ask, 10%);
         background: lighten($ask, 37%);
-     }
-
-    .label-modal{
-        color: lighten($ask, 10%);
     }
 
      h4{
@@ -273,5 +278,8 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
     .glyphicon.glyphicon-ok-sign{
         color: $ask;
+    }
+    select:active, select:focus, input:focus, .description.focussed .form-control{
+        border-color: $ask;
     }
 }
