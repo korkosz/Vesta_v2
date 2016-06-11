@@ -16,6 +16,9 @@ h1.idea-color{
         border-color: lighten($idea, 10%);
         background: lighten($idea, 37%);
     }
+    .#{$VESTA}-module-id{
+        color: $idea;
+    }
 }
 
 // Status idea
