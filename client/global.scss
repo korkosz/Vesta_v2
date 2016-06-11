@@ -74,19 +74,17 @@ bookmarks{
 		display: block;
 		margin-top: 5px; margin-left: 10px;
 		width: 150px;
-		background: #00c4ff;
+		background: #999;
 		color: #fff;
 	}
 	new-idea{
 		.#{$VESTA}-btn-menu{
 		margin-top: 15px !important;
-		background: $idea;
 		}
 	}
 	new-ask{
 		.#{$VESTA}-btn-menu{
 		margin-bottom: 15px;
-		background: #47dc60;
 		}
 	}
 }
