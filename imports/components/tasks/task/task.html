@@ -4,16 +4,47 @@
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Task.png" alt="Idea main icon" />
-            <h1>task <span class="VST-module-id">#{{$ctrl.task.id}}</span></h1>
+            <h1>task</h1>
         </div>
         <header>
+
+        </header>
+    </section>
+
+    <section class="VST-view-content">
+        <!-- Task description -->
+        <section class="VST-view-desc">
+            <!-- Number -->
+            <div class="VST-view-number">
+                <span class="VST-module-id">#{{$ctrl.task.id}}</span>
+                <span class="VST-module-date"><span>creted at</span> 05.05.2016</span>
+            </div>
+
             <!-- Project path -->
-            <div class="project-path">
+            <div class="VST-view-project-path">
                 <h3 id="project">
                     <span class="project-badge">v</span>{{$ctrl.task.project()}}
                 </h3>
                 <h3 id="module">{{$ctrl.task.moduleName()}}</h3>
-                <h3>Klasa</h3>
+            </div>
+
+            <header>
+                <p>Title:</p>
+                <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
+            </header>
+            <!-- Description wrapper -->
+            <div class="VST-view-desc-wrapper">
+                <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
+                    <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                </div>
+                <!-- Description -->
+                <div text-angular ng-model="$ctrl.task.description"
+                     ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
             </div>
             <!-- Buttons -->
             <div class="buttons">
@@ -44,51 +75,29 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </section>
+
+        <!-- Info box -->
+        <section class="VST-view-info-box">
+            <div class="wrapper">
+                <h4 class="label label-default">Priority</h4>
+                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
+                </select>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Type</h4>
+                <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
+                </select>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Status</h4>
+                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
+                    <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
+                </select>
+            </div>
+        </section>
     </section>
 
-    <!-- Task description -->
-
-    <section class="VST-view-content row">
-        <header>
-            <p>Title:</p>
-            <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
-            <div class="VST-view-addDate">05.05.2016</div>
-        </header>
-        <!-- Description wrapper -->
-        <div class="VST-view-desc-wrapper">
-            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                </button>
-                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-            </div>
-            <!-- Description -->
-            <div text-angular ng-model="$ctrl.task.description"
-                 ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
-            <!-- Info box -->
-            <div class="info-box">
-                <div class="wrapper">
-                    <h4 class="label label-default">Priority</h4>
-                    <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
-                    </select>
-                </div>
-                <div class="wrapper">
-                    <h4 class="label label-default">Type</h4>
-                    <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
-                    </select>
-                </div>
-                <div class="wrapper">
-                    <h4 class="label label-default">Status</h4>
-                    <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
-                        <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </section>
     <!--Comments-->
     <section class="task-content col-xs-12 col-sm-2 col-md-4">
         <textarea cols="30" rows="10" ng-model="$ctrl.comment"></textarea>

@@ -84,11 +84,10 @@ section.#{$VESTA}-view-desc{
     display: block;
     position: absolute;
     left: 113px;
-    top: 35px;
+    top: 45px;
     h3{
         display: inline-block;
         position: relative;
-        margin-right: 20px;
         font-size: 19px;
         font-weight: 400;
         color: #999;
@@ -96,12 +95,11 @@ section.#{$VESTA}-view-desc{
         &::after{
             content: "";
             display: inline-block;
-            position: absolute;
             width: 10px; height: 10px;
             border: 5px solid transparent;
             border-left: 5px solid #ccc;
             bottom: 4px;
-            margin-left: 10px;
+            margin-left: 8px;
         }
         &:last-child::after{
             display: none;
@@ -128,10 +126,11 @@ section.#{$VESTA}-view-desc{
 .#{$VESTA}-module-id{
     display: block;
     text-align: right;
-    font-size: 22px;
-    letter-spacing: 3px;
+    font-size: 18px;
+    letter-spacing: 2px;
     font-weight: 700;
-    margin-right: -4px; margin-bottom: -3px;
+    color: #888;
+    margin-right: -4px;
 }
 
 .#{$VESTA}-module-date{
