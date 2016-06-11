@@ -8,9 +8,16 @@ h1.idea-color{
 }
 
 //Idea DESCRIPTION
-.#{$VESTA}-view-content-idea{
+.#{$VESTA}-view-desc-idea{
     .pill{
         background: lighten($idea, 15%);
+    }
+    header p{
+        color: $idea !important;
+    }
+    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
+        border-color: lighten($idea, 10%);
+        background: lighten($idea, 37%);
     }
 }
 
