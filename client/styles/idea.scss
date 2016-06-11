@@ -12,12 +12,12 @@ h1.idea-color{
     .pill{
         background: lighten($idea, 15%);
     }
-    header p{
-        color: $idea !important;
-    }
     .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
         border-color: lighten($idea, 10%);
         background: lighten($idea, 37%);
+    }
+    .#{$VESTA}-module-id{
+        color: $idea;
     }
 }
 

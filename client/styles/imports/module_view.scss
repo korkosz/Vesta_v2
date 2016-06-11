@@ -4,7 +4,7 @@
 $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 
 .VST-view-container{
-    width: 1070px;
+    width: 1170px;
     margin: auto;
 }
 
@@ -13,12 +13,6 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 }
 
 // HEADER
-.#{$VESTA}-module-id{
-    position: absolute;
-    font-size: 0.5em;
-    letter-spacing: 0.1em;
-    margin-left: 0.2em;
-}
 section.#{$VESTA}-view-header{
     .logo-wrapper{
         margin-top: 35px;
@@ -45,50 +39,13 @@ section.#{$VESTA}-view-header{
         overflow: hidden;
         margin-bottom: 15px;
         min-height: 25px;
-        .project-path{
-            display: block;
-            position: absolute;
-            left: 15px;
-            bottom: 0;
-            h3{
-                display: inline-block;
-                position: relative;
-                margin-right: 20px;
-                font-size: 19px;
-                font-weight: 400;
-                color: #999;
-                // Strzalka
-                &::after{
-                    content: "";
-                    display: inline-block;
-                    position: absolute;
-                    width: 10px; height: 10px;
-                    border: 5px solid transparent;
-                    border-left: 5px solid #ccc;
-                    bottom: 4px;
-                    margin-left: 10px;
-                }
-                &:last-child::after{
-                    display: none;
-                }
-                // Rozmiar
-                &:nth-of-type(1){
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    color: $vesta-color;
-                }
-                &:nth-of-type(3){
-                    font-size: 13px;
-                }
-            }
-        }
     }
 }
 
 //DESCRIPTION
 section.#{$VESTA}-view-desc{
     position: relative;
-    padding: 35px; padding-bottom: 130px; padding-top: 60px;
+    padding: 100px 80px 130px 35px;
     background: #fff;
     flex: 1;
     header{
@@ -112,6 +69,7 @@ section.#{$VESTA}-view-desc{
             font-size: 23px;
             line-height: 1.4;
             flex: 1;
+            margin-right: 70px;
         }
     }
     .buttons{
@@ -121,17 +79,68 @@ section.#{$VESTA}-view-desc{
     }
 }
 
-// data dodania
-.#{$VESTA}-view-addDate{
-    display: flex;
-    flex-basis: 200px;
+// Project path
+.#{$VESTA}-view-project-path{
+    display: block;
+    position: absolute;
+    left: 113px;
+    top: 35px;
+    h3{
+        display: inline-block;
+        position: relative;
+        margin-right: 20px;
+        font-size: 19px;
+        font-weight: 400;
+        color: #999;
+        // Strzalka
+        &::after{
+            content: "";
+            display: inline-block;
+            position: absolute;
+            width: 10px; height: 10px;
+            border: 5px solid transparent;
+            border-left: 5px solid #ccc;
+            bottom: 4px;
+            margin-left: 10px;
+        }
+        &:last-child::after{
+            display: none;
+        }
+        // Rozmiar
+        &:nth-of-type(1){
+            font-weight: 700;
+            text-transform: uppercase;
+            color: $vesta-color;
+        }
+        &:nth-of-type(3){
+            font-size: 13px;
+        }
+    }
+}
+
+// Number
+.#{$VESTA}-view-number{
+    position: absolute;
+    top: 28px;
+    right: 35px;
+}
+
+.#{$VESTA}-module-id{
+    display: block;
     text-align: right;
-    font-size: 18px;
-    color: #888;
+    font-size: 22px;
+    letter-spacing: 3px;
     font-weight: 700;
-    text-align: top;
-    align-self: flex-start;
-    justify-content: flex-end;
+    margin-right: -4px; margin-bottom: -3px;
+}
+
+.#{$VESTA}-module-date{
+    font-weight: 400;
+    font-size: 15px;
+    color: #999;
+    span{
+        font-size: 10px;
+    }
 }
 
 // Description
@@ -188,7 +197,7 @@ section.#{$VESTA}-view-desc{
 
 // Info box
 .#{$VESTA}-view-info-box{
-    flex-basis: 200px;
+    flex-basis: 250px;
     text-align: right;
     background: #fff;
     border-left: 5px solid #F4F4F4;

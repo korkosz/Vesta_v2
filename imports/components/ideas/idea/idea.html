@@ -5,14 +5,10 @@
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Idea main icon" />
-            <h1 class="idea-color">idea <span class="VST-module-id">#{{$ctrl.idea.id}}</span></h1>
+            <h1 class="idea-color">idea</h1>
         </div>
         <header>
-            <!-- Project path -->
-            <div class="project-path">
-                <h3 id="project">{{$ctrl.idea.projectName()}}<span class="project-badge">v</span>Vesta</h3>
-                <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
-            </div>
+
 
         </header>
     </section>
@@ -20,16 +16,23 @@
     <!-- Idea description -->
     <section class="VST-view-content">
         <section class="VST-view-desc VST-view-desc-idea">
+            <!-- Number -->
+            <div class="VST-view-number">
+                <span class="VST-module-id">#{{$ctrl.idea.id}}</span>
+                <span class="VST-module-date"><span>creted at</span> {{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</span>
+            </div>
+
+            <!-- Project path -->
+            <div class="VST-view-project-path">
+                <h3 id="project">{{$ctrl.idea.projectName()}}<span class="project-badge">v</span>Vesta</h3>
+                <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
+            </div>
+
             <header>
                 <p>Title:</p>
-                <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}
-                    <!-- Idea status -->
-                    <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
-                        {{$ctrl.idea.status}}
-                    </div>
-                </h4>
-                <div class="VST-view-addDate">Creator: {{$ctrl.idea.creator()}} {{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</div>
+                <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}</h4>
             </header>
+
             <!-- Description wrapper -->
             <div class="VST-view-desc-wrapper">
                 <!-- Buttons -->
@@ -178,6 +181,13 @@
                 <select ng-model="$ctrl.reviewer" ng-change="$ctrl.reviewerSelected()" ng-options="user.profile.fullname for user in
                                     $ctrl.users" ng-hide="$ctrl.users.length < 1">
                 </select>
+            </div>
+            <p>
+                Creator: {{$ctrl.idea.creator()}}
+            </p>
+            <!-- Idea status -->
+            <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
+                {{$ctrl.idea.status}}
             </div>
         </section>
     </section>
