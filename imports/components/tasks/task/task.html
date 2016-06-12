@@ -120,6 +120,29 @@
         </section>
     </section>
 
+    <section>
+        <!-- Related -->
+        <div class="VST-table-wrapper">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-click="$ctrl.goDetails('idea', $ctrl.idea.number)" style="cursor: pointer;">
+                        <td>{{$ctrl.idea.number}}</td>
+                        <td>
+                            {{$ctrl.idea.title}}
+                        </td>
+                        <td>{{$ctrl.idea.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
     <!--Comments-->
     <section class="task-content col-xs-12 col-sm-2 col-md-4">
         <textarea cols="30" rows="10" ng-model="$ctrl.comment"></textarea>

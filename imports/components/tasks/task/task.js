@@ -1,5 +1,6 @@
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
+import Ideas from '/imports/api/ideas/idea';
 import Comments from '/imports/api/task/comment';
 import Metadata from '/imports/api/metadata/metadata';
 
@@ -20,6 +21,10 @@ class TaskCtrl {
         this.helpers({
             task() {
                 return Tasks.findOne({ number: parseInt(this.$routeParams.number) });
+            },
+            idea() {
+                this.getReactively('task');
+                if(this.task) return Ideas.findOne(this.task.ideaId);                  
             },
             taskStatuses() {
                 return Metadata.findOne({ metadataName: 'TaskStatuses' });
@@ -107,6 +112,10 @@ class TaskCtrl {
             this.$location.url('/');
         }, 500);
     }
+    
+    goDetails(entityName, number) {
+        this.$location.path('/' + entityName + '/' + number);
+    };
 };
 TaskCtrl.$inject = ['$scope', '$routeParams', '$sce', '$location', '$timeout'];
 
