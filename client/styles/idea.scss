@@ -3,12 +3,8 @@
 // Variables
 $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
-h1.idea-color{
-    color: $idea !important;
-}
-
 //Idea DESCRIPTION
-.#{$VESTA}-view-desc-idea{
+.#{$VESTA}-idea-container{
     .pill{
         background: lighten($idea, 15%);
     }
@@ -18,6 +14,9 @@ h1.idea-color{
     }
     .#{$VESTA}-module-id{
         color: $idea;
+    }
+    h1{
+        color: $idea !important;
     }
 }
 
