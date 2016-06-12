@@ -1,19 +1,55 @@
-<div class="VST-view-container">
+<div class="VST-view-container VST-ask-container">
     <!-- Ask header -->
     <section class="VST-view-header row">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Ask main icon" />
-            <h1>ask <span class="VST-module-id">#{{$ctrl.ask.id}}</span></h1>
+            <h1>ask</h1>
         </div>
         <header>
+
+        </header>
+    </section>
+
+    <section class="VST-view-content">
+        <!-- Ask description -->
+        <section class="VST-view-desc">
+            <!-- Number -->
+            <div class="VST-view-number">
+                <span class="VST-module-id">#{{$ctrl.ask.id}}</span>
+                <span class="VST-module-date"><span>creted at</span> 05.05.2016</span>
+            </div>
+
             <!-- Breadcrumb -->
-            <div class="project-path">
+            <div class="VST-view-project-path">
                 <h3 id="project">
                     <span class="project-badge">v</span>{{$ctrl.ask.projectName()}}
                 </h3>
                 <h3 id="module">{{$ctrl.ask.moduleName()}}</h3>
-                <h3>Klasa</h3>
             </div>
+
+            <header>
+                <p>Title:</p>
+                <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
+                <div class="VST-view-addDate">
+                    {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}
+                </div>
+            </header>
+
+            <!-- Description wrapper -->
+            <div class="VST-view-desc-wrapper">
+                <!-- Buttons -->
+                <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
+                    <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                    <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+                </div>
+                <!-- Description -->
+                <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
+            </div>
+
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
@@ -42,35 +78,15 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </section>
+
+        <!-- Info box -->
+        <section class="VST-view-info-box">
+
+        </section>
     </section>
 
-    <!-- Ask description -->
-    <section class="VST-view-content row">
-        <header>
-            <p>Title:</p>
-            <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
-            <div class="VST-view-addDate">
-                {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}
-            </div>
-        </header>
-        <!-- Description wrapper -->
-        <div class="VST-view-desc-wrapper">
-            <!-- Buttons -->
-            <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
-                <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-                <button type="button" name="button" class="btn-save" ng-switch-when="true" ng-click="$ctrl.saveDescription()">
-                <span class="glyphicon glyphicon-floppy-disk"></span>
-            </button>
-            </div>
-            <!-- Description -->
-            <div text-angular ng-model="$ctrl.ask.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
-        </div>
-    </section>
-
-    <section class="VST-view-aditional row">
+    <section class="VST-view-aditional">
         <!-- Responses -->
         <section class="responses-wrapper col-md-8">
 

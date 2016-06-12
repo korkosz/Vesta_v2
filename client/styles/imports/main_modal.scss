@@ -22,12 +22,14 @@
             position: absolute;
             right: 30px;
             top: 30px;
-            height: 25px;
-            width: 25px;
+            height: 20px;
+            width: 20px;
             padding: 0;
             padding: 0;
-            color: rgba(255, 255, 255, 0.74);
+            color: #f4f4f4;
             letter-spacing: 0;
+            font-size: 9px;
+            background: #888 !important;
         }
         // Logo
         img{
@@ -167,23 +169,6 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
 // Idea
 #newIdeaModal{
-    //.modal-content{
-    //    background: lighten($idea, 46%);
-    //}
-
-    /*
-    .pill{
-        background: lighten($idea, 15%);
-    }
-
-    input, select, .ta-editor, .modal-header{
-        border-color: lighten($idea, 30%);
-    }
-
-    .label-modal{
-        color: lighten($idea, 10%);
-    }
-    */
     .#{$VESTA}-btn{
         background: $idea;
     }
@@ -208,18 +193,6 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
 // Task
 #newTaskModal{
-    //.modal-content{
-    //    background: lighten($task, 46%);
-    //}
-
-    //.label-modal{
-    //    color: lighten($task, 10%);
-    //}
-
-    //input, select, .ta-editor, .modal-header{
-    //    border-color: lighten($task, 30%);
-    //}
-
     .#{$VESTA}-btn{
         background: $task;
     }
@@ -247,22 +220,6 @@ form.ng-invalid.ng-submitted .ng-invalid {
 
 // Ask
 #newAskModal{
-    //.modal-content{
-    //    background: lighten($ask, 46%);
-    //}
-
-    //.pill{
-    //    background: lighten($ask, 15%);
-    //}
-
-    //input, select, .ta-editor, .modal-header{
-    //    border-color: lighten($ask, 30%);
-    //}
-
-    //.label-modal{
-    //    color: lighten($ask, 10%);
-    //}
-
     .#{$VESTA}-btn{
         background: $ask;
     }

@@ -1,3 +1,5 @@
+@import "{}/client/styles/imports/variables.scss";
+
 .description-wrapper{
     position: relative;
     .btn-group-description{
@@ -5,5 +7,21 @@
         right: 0;
         top: 0;
         z-index: 200;
+    }
+}
+// Task DESCRIPTION
+.#{$VESTA}-task-container{
+    .pill{
+        background: lighten($task, 15%);
+    }
+    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
+        border-color: lighten($task, 10%);
+        background: lighten($task, 37%);
+    }
+    .#{$VESTA}-module-id{
+        color: $task;
+    }
+    h1{
+        color: $task !important;
     }
 }

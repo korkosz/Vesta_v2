@@ -1,13 +1,30 @@
 @import "{}/client/styles/imports/variables.scss";
 
+// Ask DESCRIPTION
+.#{$VESTA}-ask-container{
+    .pill{
+        background: lighten($ask, 15%);
+    }
+    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
+        border-color: lighten($ask, 10%);
+        background: lighten($ask, 37%);
+    }
+    .#{$VESTA}-module-id{
+        color: $ask;
+    }
+    h1{
+        color: $ask !important;
+    }
+}
+
 // Wrapper
 .#{$VESTA}-view-aditional{
     margin-top: 30px;
 }
 
 .responses-wrapper{
-    padding-right: 30px;
     padding-left: 0;
+    padding-right: 0;
 }
 
 // Good points
@@ -15,6 +32,7 @@
     background: #fff;
     padding: 30px;
     padding-bottom: 50px;
+    border-left: 5px solid rgb(244, 244, 244);
 }
 
 .goodPoints-wrapper{
