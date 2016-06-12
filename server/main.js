@@ -110,6 +110,21 @@ Meteor.startup(() => {
                 ]
             }
         );
+
+        Metadata.insert(
+            {
+                "_id": "TEZLTpEeKwqydXnFW",
+                "metadataName": "EntitiesRelations",
+                "value": {
+                    task_task: [
+                        'Relative To',
+                        'Clone Of',
+                        'Solution In',
+                        'Similar Problem To'
+                    ]
+                }
+            }
+        );
     }
 
     ListsSchemas.remove({});

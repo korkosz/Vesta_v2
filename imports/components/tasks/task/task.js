@@ -30,6 +30,14 @@ class TaskCtrl {
             taskPriorities() {
                 return Metadata.findOne({ metadataName: 'TaskPriority' });
             },
+            relationsTypes() {
+                var metadata = Metadata.findOne({ metadataName: 'EntitiesRelations' });
+                if(metadata) {
+                    return metadata.value['task_task'];       
+                } else {
+                    return [];
+                }    
+            },
             comments() {
                 this.getReactively('task');
                 if (this.task) {

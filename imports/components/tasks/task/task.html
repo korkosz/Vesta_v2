@@ -43,14 +43,12 @@
                     </button>
                 </div>
                 <!-- Description -->
-                <div text-angular ng-model="$ctrl.task.description"
-                     ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
+                <div text-angular ng-model="$ctrl.task.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
             </div>
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="VST-btn VST-btn-default"
-                        data-toggle="modal" data-target="#deleteTaskModal">
+                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteTaskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -76,7 +74,31 @@
                 </div>
             </div>
         </section>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectIdeaModal">
+            Set Relation
+        </button>
 
+        <!-- Reject Modal -->
+        <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Set Relation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <select ng-model="$ctrl.relationType" ng-options="type for type in $ctrl.relationsTypes" class="form-control">
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Info box -->
         <section class="VST-view-info-box">
             <div class="wrapper">
