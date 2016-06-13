@@ -19,17 +19,17 @@ class NewTaskCtrl {
             this.task = {};
             this.task.description = '';
             this.output = "";
-            
-            if(this.ideaTitle) 
+
+            if (this.ideaTitle)
                 this.task.title = this.ideaTitle;
-            
-            if(this.project) 
-                this.task.project = Projects.findOne(this.project);              
-            
-            if(this.module) 
+
+            if (this.project)
+                this.task.project = Projects.findOne(this.project);
+
+            if (this.module)
                 this.task.module = Modules.findOne(this.module);
-                
-            if(this.ideaTitle && this.project && this.module)    
+
+            if (this.ideaTitle && this.project && this.module)
                 this.task.type = 'Feature';
         }
 
@@ -68,6 +68,14 @@ class NewTaskCtrl {
         });
     }
 
+    projectSelected() {
+        this.task.sprint = this.task.project.currentSprint;
+
+        this.task.project.sprints = this.task.project.sprints.filter((sprint) => {
+            return sprint >= this.task.project.currentSprint;
+        });
+    }
+
     closeModal() {
         $('#' + this.altId + 'newTaskModal').modal('hide');
     }
@@ -75,7 +83,7 @@ class NewTaskCtrl {
     accept(valid) {
         if (!valid) return;
         var vm = this;
-        
+
         this.compileOutput().then(() => {
             vm.task.projectId = vm.task.project._id;
             vm.task.createdBy = Meteor.userId();
@@ -175,7 +183,7 @@ export default angular.module("task")
                 var promises = [];
                 var counter = 0;
                 var vm = this;
-                
+
                 if (ctrl.altId && ctrl.altId.length > 0) {
                     var editEl = $('div[id="' + ctrl.altId + 'newTaskModal"]' +
                         ' div[id^="taTextElement"]');

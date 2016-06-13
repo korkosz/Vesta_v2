@@ -140,7 +140,7 @@ Meteor.startup(() => {
         entities: ['Idea'],
         columns: ['title', 'number',
             'status', 'creationDate',
-            'createdBy', 'updatedAt',],
+            'createdBy', 'updatedAt', 'sprint'],
         sort: [['creationDate', 'asc']
 
         ]
@@ -158,7 +158,7 @@ Meteor.startup(() => {
         entities: ['Task'],
         columns: ['number', 'title',
             'type', 'status', 'priority', 'assigned',
-            'createdBy', 'updatedAt', 'creationDate'],
+            'createdBy', 'updatedAt', 'creationDate', 'sprint'],
         sort: [['updatedAt', 'asc']
         ]
     });

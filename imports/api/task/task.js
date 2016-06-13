@@ -108,6 +108,9 @@ TaskCollection.schema = new SimpleSchema({
     projectId: {
         type: String
     },
+    sprint: {
+        type: Number
+    },
     priority: {
         type: String
     },

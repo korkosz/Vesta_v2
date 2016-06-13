@@ -55,7 +55,11 @@ class VestaListCtrl {
                     });
                 }
                 if (this.list.entities.indexOf('Task') !== -1) {
-                    return Tasks.find({}, { sort: this.sortArr });
+                    if (this.list.filters) {
+                        return Tasks.find(this.list.filters, { sort: this.sortArr });
+                    } else {
+                        return Tasks.find({}, { sort: this.sortArr });
+                    }
                 } else {
                     return [];
                 }
