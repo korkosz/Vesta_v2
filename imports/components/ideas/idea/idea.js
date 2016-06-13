@@ -51,6 +51,18 @@ class IdeaCtrl {
             ideaStatuses() {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
             },
+            project() {
+                this.getReactively('idea');
+                if (this.idea) {
+                    var project = Projects.findOne(this.idea.projectId);
+                    if (project) {
+                        project.sprints = project.sprints.filter((sprint) => {
+                            return sprint >= project.currentSprint;
+                        });
+                        return project;
+                    }
+                }
+            },
             users() {
                 this.getReactively('reviewers.length');
                 if (this.idea) {
@@ -208,7 +220,7 @@ class IdeaCtrl {
             }
         }, null, notify);
         this.stopEditDescription();
-    };
+    }
 
     setStatus(_status) {
         var notify = {
@@ -238,7 +250,13 @@ class IdeaCtrl {
 
     goDetails(entityName, number) {
         this.$location.path('/' + entityName + '/' + number);
-    };
+    }
+
+    setSprint() {
+        Ideas.update(this.idea._id, {
+            $set: { sprint: this.sprint }
+        });
+    }
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('idea')

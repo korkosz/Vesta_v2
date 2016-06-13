@@ -185,6 +185,19 @@
             <p>
                 Creator: {{$ctrl.idea.creator()}}
             </p>
+            <p>
+                Sprint {{$ctrl.idea.sprint}}
+            </p>
+            
+            <!--Sprint-->
+            <fieldset id="sprint" class="field-wrapper">
+                <label class="label-modal">Sprint:</label>
+                <select ng-model="$ctrl.sprint" name="sprint"
+                        ng-options="sprint as sprint for sprint in $ctrl.project.sprints"
+                        ng-change="$ctrl.setSprint()">
+                </select>
+            </fieldset>
+            
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
                 {{$ctrl.idea.status}}
