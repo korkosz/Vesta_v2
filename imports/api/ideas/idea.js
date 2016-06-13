@@ -20,7 +20,7 @@ class IdeasCollection extends Mongo.Collection {
 
             var project = Projects.findOne(doc.projectId);
             var projectPrefix = project ? project.prefix : null;
-            var sprint = project ? project.sprint : null;
+            var sprint = project ? project.currentSprint : null;
 
             if (projectPrefix && sprint) {
                 doc.id = projectPrefix.toUpperCase() + sprint +
@@ -90,6 +90,9 @@ Ideas.schema = new SimpleSchema({
     number: {
         type: Number,
         optional: true
+    },
+    sprint: {
+        type: Number
     },
     description: {
         type: String

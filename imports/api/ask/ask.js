@@ -19,7 +19,7 @@ class AsksClass extends Mongo.Collection {
 
             var project = Projects.findOne(doc.project);
             var projectPrefix = project ? project.prefix : null;
-            var sprint = project ? project.sprint : null;
+            var sprint = project ? project.currentSprint : null;
 
             if (projectPrefix && sprint) {
                 doc.id = projectPrefix.toUpperCase() + sprint +

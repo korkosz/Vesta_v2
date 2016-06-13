@@ -21,8 +21,11 @@ Projects.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
-    sprint: {
+    currentSprint: {
         type: Number
+    },
+    sprints: {
+        type: [Number]
     }
 });
 

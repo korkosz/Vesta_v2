@@ -23,9 +23,16 @@ Meteor.startup(() => {
         ProjectsCollection.insert({
             name: 'Vesta',
             prefix: 'V',
-            sprint: 3
+            currentSprint: 4,
+            sprints: [1, 2, 3, 4, 5, 6]
         });
     }
+    ProjectsCollection.update({ "name": "Vesta" }, {
+        $set: {
+            currentSprint: 4,
+            sprints: [1, 2, 3, 4, 5, 6]
+        }
+    })
     const modulesLen = ModulesCollection.find().count();
 
     if (modulesLen === 0) {
@@ -119,8 +126,7 @@ Meteor.startup(() => {
                     task_task: [
                         'Relative To',
                         'Clone Of',
-                        'Solution In',
-                        'Similar Problem To'
+                        'Solution In'
                     ]
                 }
             }

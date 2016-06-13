@@ -21,7 +21,7 @@ class TaskClass extends Mongo.Collection {
 
             var project = Projects.findOne(doc.projectId);
             var projectPrefix = project ? project.prefix : null;
-            var sprint = project ? project.sprint : null;
+            var sprint = project ? project.currentSprint : null;
 
             if (projectPrefix && sprint) {
                 doc.id = projectPrefix.toUpperCase() + sprint +
@@ -116,7 +116,8 @@ TaskCollection.schema = new SimpleSchema({
         defaultValue: 0
     },
     related: {
-        type: [RelationSchema]
+        type: [RelationSchema],
+        optional: true
     },
     type: {
         type: String

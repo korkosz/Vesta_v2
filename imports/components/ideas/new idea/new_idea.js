@@ -14,8 +14,8 @@ class NewIdeaCtrl {
             this.selectedReviewers = [];
             this.reviewersChanged = !this.reviewersChanged;
             this.output = "";
-            
-            if(!initial) this.selectedReviewers.push(Meteor.user());
+
+            if (!initial) this.selectedReviewers.push(Meteor.user());
         }
 
         /// init
@@ -52,6 +52,14 @@ class NewIdeaCtrl {
         });
     }
 
+    projectSelected() {
+        this.idea.sprint = this.idea.project.currentSprint;
+        
+        this.idea.project.sprints = this.idea.project.sprints.filter((sprint) => {
+            return sprint >= this.idea.project.currentSprint;
+        });
+    }
+
     removeReviewer(reviewer) {
         this.reviewersChanged = !this.reviewersChanged;
         var revIdx = this.selectedReviewers.findIndex((rev) =>
@@ -71,7 +79,7 @@ class NewIdeaCtrl {
 
     accept(valid) {
         if (!valid) return;
-        
+
         this.compileOutput().then(() => {
             this.idea.projectId = this.idea.project._id;
             this.idea.createdBy = Meteor.userId();
@@ -79,7 +87,7 @@ class NewIdeaCtrl {
             this.idea.reviewers = this.selectedReviewers.map(
                 (rev) => rev._id);
             this.idea.reviews = [];
-            
+
             Ideas.insert(this.idea);
             this.closeModal();
         });
@@ -100,7 +108,7 @@ export default angular.module("idea")
         cloudinaryProvider
             .set("cloud_name", "korkosz")
             .set("upload_preset", "mxobndkm");
-    }])    .directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
+    }]).directive('newIdea', ['$q', 'Upload', 'cloudinary', function ($q, Upload, cloudinary) {
         return {
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,

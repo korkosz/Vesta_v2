@@ -74,20 +74,21 @@ class NewTaskCtrl {
 
     accept(valid) {
         if (!valid) return;
-
+        var vm = this;
+        
         this.compileOutput().then(() => {
-            this.task.projectId = this.task.project._id;
-            this.task.createdBy = Meteor.userId();
-            this.task.creationDate = new Date();
-            this.task.ideaId = this.ideaId;
+            vm.task.projectId = vm.task.project._id;
+            vm.task.createdBy = Meteor.userId();
+            vm.task.creationDate = new Date();
+            vm.task.ideaId = vm.ideaId;
 
             //this is the case when attributes have been used
-            if (this.task.module && typeof this.task.module !== 'string') {
-                this.task.module = this.task.module._id;
+            if (vm.task.module && typeof vm.task.module !== 'string') {
+                vm.task.module = vm.task.module._id;
             };
 
-            Tasks.insert(this.task);
-            this.closeModal();
+            Tasks.insert(vm.task);
+            vm.closeModal();
         });
     }
 
@@ -173,7 +174,8 @@ export default angular.module("task")
                 var defer = $q.defer();
                 var promises = [];
                 var counter = 0;
-
+                var vm = this;
+                
                 if (ctrl.altId && ctrl.altId.length > 0) {
                     var editEl = $('div[id="' + ctrl.altId + 'newTaskModal"]' +
                         ' div[id^="taTextElement"]');
@@ -200,7 +202,7 @@ export default angular.module("task")
                     }
                 }
                 return $q.all(promises).then(() => {
-                    this.task.description = editEl.html();
+                    vm.task.description = editEl.html();
                 });
             };
         }
