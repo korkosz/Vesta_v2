@@ -13,7 +13,7 @@
         <tr ng-repeat="idea in $ctrl.ideas|
                 orderBy: ['-updatedAt', '-creationDate']"
             ng-click="$ctrl.details(idea.number)"
-            style="cursor: pointer">
+            style="cursor: pointer" ng-if="idea.sprint === $ctrl.project.currentSprint">
             <td>
                 <span class="project-badge">V</span>
                 <span class="project">{{idea.project()}}</span>

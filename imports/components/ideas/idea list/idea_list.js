@@ -26,6 +26,9 @@ class IdeaListCtrl {
                     idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
                     return idea;
                 });
+            },
+            project() {
+                return Projects.findOne({name: 'Vesta'});
             }
         });
     }

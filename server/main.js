@@ -141,9 +141,9 @@ Meteor.startup(() => {
         columns: ['title', 'number',
             'status', 'creationDate',
             'createdBy', 'updatedAt', 'sprint'],
-        sort: [['creationDate', 'asc']
-
-        ]
+        filters: {
+            isDeleted: false
+        }
     });
 
     Bookmarks.remove({});
@@ -159,8 +159,9 @@ Meteor.startup(() => {
         columns: ['number', 'title',
             'type', 'status', 'priority', 'assigned',
             'createdBy', 'updatedAt', 'creationDate', 'sprint'],
-        sort: [['updatedAt', 'asc']
-        ]
+        filters: {
+            isDeleted: false
+        }
     });
 
     Bookmarks.insert({
@@ -175,9 +176,10 @@ Meteor.startup(() => {
         columns: ['title', 'number',
             'status', 'creationDate',
             'createdBy', 'updatedAt',],
-       filters: {
-           sprint: vesta.currentSprint + 1
-       }
+        filters: {
+            sprint: vesta.currentSprint + 1,
+            isDeleted: false
+        }
     });
 
     var list2 = ListsSchemas.insert({
@@ -186,9 +188,10 @@ Meteor.startup(() => {
         columns: ['number', 'title',
             'type', 'status', 'priority', 'assigned',
             'createdBy', 'updatedAt', 'creationDate'],
-       filters: {
-           sprint: vesta.currentSprint + 1
-       }
+        filters: {
+            sprint: vesta.currentSprint + 1,
+            isDeleted: false
+        }
     });
 
     Bookmarks.insert({
