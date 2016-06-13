@@ -22,6 +22,13 @@ class TaskCtrl {
             task() {
                 return Tasks.findOne({ number: parseInt(this.$routeParams.number) });
             },
+            relatedTasks() {
+                this.getReactively('task.related.length');
+                if (this.task && this.task.related && this.task.related.length > 0) {
+                    var relatedIds = this.task.related.map((relTask) => relTask.id);
+                    return Tasks.find({ _id: { $in: relatedIds } });
+                }
+            },
             idea() {
                 this.getReactively('task');
                 if (this.task) return Ideas.findOne(this.task.ideaId);
@@ -45,7 +52,7 @@ class TaskCtrl {
             },
             searchResults() {
                 this.getReactively('relation.searchText');
-                if (!this.relation || 
+                if (!this.relation ||
                     !this.relation.searchText ||
                     this.relation.searchText.length === 0 ||
                     this.selectedResult) return [];
@@ -61,17 +68,50 @@ class TaskCtrl {
             }
         });
     }
-    
+
+    getRelationType(id) {
+        return this.task.related.find((rel) => {
+            return rel.id === id;
+        }).relation;
+    }
+
+    createRelation() {
+        var relationObj = {
+            entity: 'Task',
+            id: this.selectedResult._id,
+            relation: this.relation.relationType
+        }
+
+        Tasks.update(this.task._id, {
+            $push: {
+                related: relationObj
+            }
+        });
+
+        relationObj.id = this.task._id;
+        if (relationObj.relation === "Solution In") {
+            relationObj.relation = "Solution For";
+        }
+
+        Tasks.update(this.selectedResult._id, {
+            $push: {
+                related: relationObj
+            }
+        });
+
+        this.cancelSearchResult();
+    }
+
     cancelSearchResult() {
         this.selectedResult = null;
-        this.relation.searchText = null;   
+        this.relation.searchText = null;
         this.relation.relationType = null;
     }
-    
+
     selectSearchResult(task) {
-        this.selectedResult = task;        
+        this.selectedResult = task;
     }
-    
+
     addComment() {
         var notify = {
             assignedUser: this.task.assigned,

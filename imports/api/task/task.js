@@ -74,6 +74,18 @@ class TaskClass extends Mongo.Collection {
 
 export default TaskCollection = new TaskClass('Tasks');
 
+var RelationSchema = new SimpleSchema({
+    entity: {
+        type: 'String'
+    },
+    id: {
+        type: 'String'
+    },
+    relation: {
+        type: 'String'
+    }
+});
+
 TaskCollection.schema = new SimpleSchema({
     id: {
         type: String
@@ -102,6 +114,9 @@ TaskCollection.schema = new SimpleSchema({
     progress: {
         type: Number,
         defaultValue: 0
+    },
+    related: {
+        type: [RelationSchema]
     },
     type: {
         type: String

@@ -87,12 +87,12 @@
                         <h4 class="modal-title" id="myModalLabel">Set Relation</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="text" class="form-control" placeholder="Type Task Number or Title..." ng-model="$ctrl.relation.searchText" ng-model-options="{ debounce: 1000 }" ng-if="!$ctrl.selectedResult">
+                        <input type="text" class="form-control" placeholder="Type Task Number or Title..." ng-model="$ctrl.relation.searchText" ng-model-options="{ debounce: 1000 }"
+                            ng-if="!$ctrl.selectedResult">
                         <br />
                         <div class="goodPoints-box" ng-if="$ctrl.selectedResult">
                             <div class="pill">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                {{$ctrl.selectedResult.id}} - {{$ctrl.selectedResult.title}}
+                                <span class="glyphicon glyphicon-ok"></span> {{$ctrl.selectedResult.id}} - {{$ctrl.selectedResult.title}}
                                 <button ng-click="$ctrl.cancelSearchResult()" class="glyphicon glyphicon-remove"></button>
                             </div>
                         </div>
@@ -101,15 +101,14 @@
                             <a class="list-group-item" ng-repeat="result in $ctrl.searchResults" style="cursor: pointer" ng-click="$ctrl.selectSearchResult(result)">
                                 {{result.id}} - {{result.title}}                               
                             </a>
-                        </div>                        
+                        </div>
                         <br />
-                        <select ng-model="$ctrl.relation.relationType" ng-options="type for type in $ctrl.relationsTypes" class="form-control"
-                            ng-disabled="!$ctrl.selectedResult">
+                        <select ng-model="$ctrl.relation.relationType" ng-options="type for type in $ctrl.relationsTypes" class="form-control" ng-disabled="!$ctrl.selectedResult">
                         </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.relation.reason = ''">Cancel</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.createRelation()">
                             Create
                         </button>
                     </div>
@@ -143,18 +142,26 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Relation</th>
                         <th>Number</th>
                         <th>Title</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-click="$ctrl.goDetails('idea', $ctrl.idea.number)" style="cursor: pointer;">
-                        <td>{{$ctrl.idea.number}}</td>
+                    <tr ng-click="$ctrl.goDetails('idea', $ctrl.idea.number)" style="cursor: pointer;" ng-if="$ctrl.idea">
+                        <td>Based On</td>
+                        <td>{{$ctrl.idea.id}}</td>
                         <td>
                             {{$ctrl.idea.title}}
                         </td>
                         <td>{{$ctrl.idea.status}}</td>
+                    </tr>
+                    <tr ng-click="$ctrl.goDetails('task', relatedTask.number)" style="cursor: pointer;" ng-repeat="relatedTask in $ctrl.relatedTasks">
+                        <td>{{$ctrl.getRelationType(relatedTask._id)}}</td>
+                        <td>{{relatedTask.id}}</td>
+                        <td>{{relatedTask.title}}</td>
+                        <td>{{relatedTask.status}}</td>
                     </tr>
                 </tbody>
             </table>
