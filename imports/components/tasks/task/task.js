@@ -24,7 +24,7 @@ class TaskCtrl {
             },
             idea() {
                 this.getReactively('task');
-                if(this.task) return Ideas.findOne(this.task.ideaId);                  
+                if (this.task) return Ideas.findOne(this.task.ideaId);
             },
             taskStatuses() {
                 return Metadata.findOne({ metadataName: 'TaskStatuses' });
@@ -37,11 +37,20 @@ class TaskCtrl {
             },
             relationsTypes() {
                 var metadata = Metadata.findOne({ metadataName: 'EntitiesRelations' });
-                if(metadata) {
-                    return metadata.value['task_task'];       
+                if (metadata) {
+                    return metadata.value['task_task'];
                 } else {
                     return [];
-                }    
+                }
+            },
+            searchResults() {
+                this.getReactively('relation.searchText');
+                if (!this.relation || 
+                    !this.relation.searchText ||
+                    this.relation.searchText.length === 0 ||
+                    this.selectedResult) return [];
+
+                return Tasks.find({ number: parseInt(this.relation.searchText) });
             },
             comments() {
                 this.getReactively('task');
@@ -52,9 +61,19 @@ class TaskCtrl {
             }
         });
     }
-
+    
+    cancelSearchResult() {
+        this.selectedResult = null;
+        this.relation.searchText = null;   
+        this.relation.relationType = null;
+    }
+    
+    selectSearchResult(task) {
+        this.selectedResult = task;        
+    }
+    
     addComment() {
-         var notify = {
+        var notify = {
             assignedUser: this.task.assigned,
             provider: Meteor.userId(),
             id: this.task.id,
@@ -112,7 +131,7 @@ class TaskCtrl {
             this.$location.url('/');
         }, 500);
     }
-    
+
     goDetails(entityName, number) {
         this.$location.path('/' + entityName + '/' + number);
     };
