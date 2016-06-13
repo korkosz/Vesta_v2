@@ -168,4 +168,32 @@ Meteor.startup(() => {
         title: 'Tasks',
         lists: [listttIds]
     });
+
+    var list1 = ListsSchemas.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        entities: ['Idea'],
+        columns: ['title', 'number',
+            'status', 'creationDate',
+            'createdBy', 'updatedAt',],
+       filters: {
+           sprint: vesta.currentSprint + 1
+       }
+    });
+
+    var list2 = ListsSchemas.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        entities: ['Task'],
+        columns: ['number', 'title',
+            'type', 'status', 'priority', 'assigned',
+            'createdBy', 'updatedAt', 'creationDate'],
+       filters: {
+           sprint: vesta.currentSprint + 1
+       }
+    });
+
+    Bookmarks.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        title: 'Next Sprint',
+        lists: [list1, list2]
+    });
 });

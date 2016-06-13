@@ -8,11 +8,11 @@ import './list.html';
 class VestaListCtrl {
     constructor($scope, $location) {
         $scope.viewModel(this);
-        
+
         this.sortArr = [];
         this.sortArrChanged = false;
         this.$location = $location;
-        
+
         this.helpers({
             list() {
                 this.getReactively('listId');
@@ -33,7 +33,11 @@ class VestaListCtrl {
                     });
                 }
                 if (this.list.entities.indexOf('Idea') !== -1) {
-                    return Ideas.find({}, { sort: this.sortArr });
+                    if (this.list.filters) {
+                        return Ideas.find(this.list.filters, { sort: this.sortArr });
+                    } else {
+                        return Ideas.find({}, { sort: this.sortArr });
+                    }
                 } else {
                     return [];
                 }
@@ -60,17 +64,17 @@ class VestaListCtrl {
     }
 
     getCursorStyle() {
-        if (!this.list || 
-            this.list.entities.length > 1) return 'auto';           
-        else return 'pointer';   
+        if (!this.list ||
+            this.list.entities.length > 1) return 'auto';
+        else return 'pointer';
     }
-    
+
     details(number) {
-        if (!this.list || this.list.entities.length > 1) return;      
-       
-        this.$location.path('/'+ this.list.entities[0].toLowerCase() + '/' + number);
+        if (!this.list || this.list.entities.length > 1) return;
+
+        this.$location.path('/' + this.list.entities[0].toLowerCase() + '/' + number);
     }
-    
+
     getValue(field, value) {
         if (!this.list) return;
 
@@ -87,9 +91,9 @@ class VestaListCtrl {
                 EntityCollection = Ideas;
                 break;
         }
-        
-        if(!EntityCollection.schemaMetadata) return value;
-        
+
+        if (!EntityCollection.schemaMetadata) return value;
+
         var metadata = EntityCollection.schemaMetadata[field];
         if (metadata) {
             return metadata.transform(value);

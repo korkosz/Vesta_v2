@@ -23,8 +23,9 @@ ListsSchema.schema = new SimpleSchema({
         type: [String]
     },
     filters: {
-        type: [String],
-        optional: true
+        type: Object,
+        optional: true,
+        blackbox: true
     },
     sort: {
         type: [[String]],
