@@ -13,14 +13,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="idea in vm.ideas" style="cursor: {{vm.getCursorStyle()}}" ng-click="vm.details(idea.number)">
+        <tr ng-repeat="idea in vm.ideas">
             <td ng-repeat="field in vm.list.columns">
                 <a href="#/idea/{{idea.number}}">
                     {{vm.getValue(field, idea[field])}}
                 </a>
             </td>
         </tr>
-        <tr ng-repeat="task in vm.tasks" style="cursor: {{vm.getCursorStyle()}}" ng-click="vm.details(task.number)">
+        <tr ng-repeat="task in vm.tasks">
             <td ng-repeat="field in vm.list.columns">
                 <a href="#/task/{{task.number}}">
                     {{vm.getValue(field, task[field])}}

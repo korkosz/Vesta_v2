@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="ask in $ctrl.asks|
-                orderBy: ['-creationDate']" ng-click="$ctrl.details(ask.number)" style="cursor: pointer">
+                orderBy: ['-creationDate']">
             <td>
                 <a href="#/ask/{{ask.number}}">
                     <span class="project-badge">V</span>

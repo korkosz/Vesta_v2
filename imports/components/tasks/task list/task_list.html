@@ -13,8 +13,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="task in $ctrl.tasks |
-            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']" ng-click="$ctrl.details(task.number)" style="cursor: pointer;
-                   opacity: {{$ctrl.getStatusColor(task.status)}}">
+            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']" style="opacity: {{$ctrl.getStatusColor(task.status)}}">
             <td>
                 <a href="#/task/{{task.number}}">
                     <span class="project-badge">V</span>
