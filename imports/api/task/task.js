@@ -1,43 +1,14 @@
 import {Mongo} from 'meteor/mongo';
+import Entity from '../entity';
 
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
+
 import Comments from '/imports/api/task/comment'
 
 import {Notify} from '/imports/api/notification/notification';
 
-class TaskClass extends Mongo.Collection {
-    insert(doc) {
-        while (1) {
-
-            var sort = { number: -1 };
-            var fields = {
-                number: 1
-            };
-
-            var cursor = this.findOne({}, { fields: fields, sort: sort });
-            var seq = cursor && cursor.number ? cursor.number + 1 : 1;
-            doc.number = seq;
-
-            var project = Projects.findOne(doc.projectId);
-            var projectPrefix = project ? project.prefix : null;
-            var sprint = project ? project.currentSprint : null;
-
-            if (projectPrefix && sprint) {
-                doc.id = projectPrefix.toUpperCase() + sprint +
-                    'T' + seq;
-            }
-
-            super.insert(doc, function (res) {
-                if (doc.assigned !== doc.createdBy) {
-                    Notify('Task', doc.id, 'New', doc.assigned,
-                        doc.createdBy, doc.creationDate);
-                }
-            });
-            break;
-        }
-    }
-
+class TaskClass extends Entity {
     update(selector, updateDoc, callback, notifyObject) {
         function innerCallback() {
             var usersToNotify = [];
@@ -62,14 +33,6 @@ class TaskClass extends Mongo.Collection {
         }
         super.update(selector, updateDoc, innerCallback);
     }
-
-    remove(taskId) {
-        this.update(taskId, {
-            $set: {
-                isDeleted: true
-            }
-        });
-    }
 }
 
 export default TaskCollection = new TaskClass('Tasks');
@@ -86,31 +49,7 @@ var RelationSchema = new SimpleSchema({
     }
 });
 
-TaskCollection.schema = new SimpleSchema({
-    id: {
-        type: String
-    },
-    title: {
-        type: String,
-        max: 100
-    },
-    number: {
-        type: Number,
-        optional: true
-    },
-    description: {
-        type: String
-    },
-    module: {
-        type: String,
-        optional: true
-    },
-    projectId: {
-        type: String
-    },
-    sprint: {
-        type: Number
-    },
+TaskCollection.schema = Entity.createSchema({
     priority: {
         type: String
     },
@@ -125,10 +64,6 @@ TaskCollection.schema = new SimpleSchema({
     type: {
         type: String
     },
-    status: {
-        type: String,
-        defaultValue: "Open"
-    },
     assigned: {
         type: String,
         optional: true
@@ -140,28 +75,6 @@ TaskCollection.schema = new SimpleSchema({
     comments: {
         type: [String],
         optional: true
-    },
-    creationDate: {
-        type: Date,
-        defaultValue: new Date(),
-        label: 'Created At'
-    },
-    createdBy: {
-        type: String,
-        defaultValue: this.userId,
-        label: 'Created By'
-    },
-    updatedAt: {
-        type: Date,
-        autoValue: function () {
-            return new Date();
-        },
-        optional: true,
-        label: 'Updated At'
-    },
-    isDeleted: {
-        type: Boolean,
-        defaultValue: false
     }
 });
 
