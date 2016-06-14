@@ -1,9 +1,6 @@
 import {Mongo} from 'meteor/mongo';
 import Entity from '../entity';
 
-import Modules from '/imports/api/module/module';
-import Projects from '/imports/api/project/project';
-
 import Comments from '/imports/api/task/comment'
 
 import {Notify} from '/imports/api/notification/notification';
@@ -78,29 +75,7 @@ TaskCollection.schema = Entity.createSchema({
     }
 });
 
-TaskCollection.schemaMetadata = {
-    creationDate: {
-        type: Date,
-        transform(value) {
-            return moment(value).fromNow();
-        }
-    },
-    updatedAt: {
-        type: Date,
-        transform(value) {
-            return moment(value).fromNow();
-        }
-    },
-    createdBy: {
-        type: 'id',
-        transform(value) {
-            var user = Meteor.users.findOne(value);
-            if (user) {
-                return user.profile.firstname[0] + '.' + ' ' +
-                    user.profile.lastname;
-            }
-        }
-    },
+TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
     assigned: {
         type: 'id',
         transform(value) {
@@ -111,20 +86,9 @@ TaskCollection.schemaMetadata = {
             }
         }
     }
-};
+});
 
-TaskCollection.helpers({
-    creator() {
-        var user = Meteor.users.findOne(this.createdBy);
-        if (user) return user.profile.fullname;
-    },
-    creatorShort() {
-        var user = Meteor.users.findOne(this.createdBy);
-        if (user) {
-            return user.profile.firstname[0] + '.' + ' ' +
-                user.profile.lastname;
-        }
-    },
+Entity.extendHelpers(TaskCollection, {
     assignedUser() {
         var user = Meteor.users.findOne(this.assigned);
         if (user) return user.profile.fullname;
@@ -136,14 +100,6 @@ TaskCollection.helpers({
                 user.profile.lastname;
         }
     },
-    projectName() {
-        var project = Projects.findOne(this.project);
-        if (project) return project.name;
-    },
-    moduleName() {
-        var module = Modules.findOne(this.module);
-        if (module) return module.name;
-    },
     getComments() {
         var _commentsIds = this.comments;
         if (!Array.isArray(_commentsIds)) return [];
@@ -154,4 +110,5 @@ TaskCollection.helpers({
         });
     }
 });
+
 TaskCollection.attachSchema(TaskCollection.schema);

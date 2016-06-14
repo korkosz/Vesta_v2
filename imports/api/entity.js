@@ -1,5 +1,4 @@
 import {Mongo} from 'meteor/mongo';
-//import angular from 'angular';
 
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
@@ -105,6 +104,58 @@ Entity.createSchema = function (schemaExtension) {
     return new SimpleSchema(schema);
 };
 
-function extend() {
+Entity.createSchemaMetadata = function (meta) {
+    var basicSchemaMeta = {
+        creationDate: {
+            type: Date,
+            transform(value) {
+                return moment(value).fromNow();
+            }
+        },
+        updatedAt: {
+            type: Date,
+            transform(value) {
+                return moment(value).fromNow();
+            }
+        },
+        createdBy: {
+            type: 'id',
+            transform(value) {
+                var user = Meteor.users.findOne(value);
+                if (user) {
+                    return user.profile.firstname[0] + '.' + ' ' +
+                        user.profile.lastname;
+                }
+            }
+        }
+    }
 
-}
+    return Object.assign(basicSchemaMeta, meta);
+};
+
+Entity.extendHelpers = function (collection, helpers) {
+    var basicHelpers = {
+        creator() {
+            var user = Meteor.users.findOne(this.createdBy);
+            if (user) return user.profile.fullname;
+        },
+        creatorShort() {
+            var user = Meteor.users.findOne(this.createdBy);
+            if (user) {
+                return user.profile.firstname[0] + '.' + ' ' +
+                    user.profile.lastname;
+            }
+        },
+        projectName() {
+            var project = Projects.findOne(this.project);
+            if (project) return project.name;
+        },
+        moduleName() {
+            var module = Modules.findOne(this.module);
+            if (module) return module.name;
+        }
+    };
+    
+    var helpers = Object.assign(basicHelpers, helpers);
+    collection.helpers(helpers);
+}; 
