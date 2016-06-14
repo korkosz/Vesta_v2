@@ -37,9 +37,29 @@ class AskCtrl {
                             }
                         });
                 }
-            }
+            },
+            setDiscussed() {
+                this.getReactively('responses.length');
+
+                if (!this.responses ||
+                    this.responses.length < 1) return;
+
+                if (this.ask.status === 'New') {
+                    Asks.update(this.ask._id, {
+                        $set: {
+                            status: 'Working'
+                        }
+                    });
+                }
+            },
         });
     };
+
+    closeAsk() {
+        Asks.update(this.ask._id, {
+            $set: { status: 'Closed' }
+        });
+    }
 
     removeAsk() {
         $('#deleteAskModal').modal('hide');
