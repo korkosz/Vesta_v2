@@ -9,7 +9,7 @@
 		width: 900px;
 		th, td{
 			position: relative;
-			padding: 9px 15px;
+			padding: 0;
 			max-width: 300px;
 			background: #fff;
 			border-bottom: 1px solid #eee;
@@ -20,7 +20,7 @@
 				color: #7B7B7B;
 				font-weight: 700;
 			}
-			&:first-child{
+			&:first-child a{
 				padding-left: 90px;
 			}
 		}
@@ -30,13 +30,13 @@
 		}
 		tr:nth-of-type(1), tr:nth-of-type(2),
 		tr:nth-of-type(3), tr:nth-of-type(4), tr:nth-of-type(5){
-			td{
+			td a{
 				padding-top: 13px;
 				padding-bottom: 13px;
 			}
 		}
 		a{
-			padding: 0;
+			padding: 9px 15px;
 			border: none;
 			text-decoration: none;
 			color: inherit;
