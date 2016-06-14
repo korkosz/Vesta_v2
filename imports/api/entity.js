@@ -70,7 +70,7 @@ Entity.createSchema = function (schemaExtension) {
         },
         status: {
             type: String,
-            defaultValue: "Open"
+            defaultValue: "New"
         },
         description: {
             type: String,
