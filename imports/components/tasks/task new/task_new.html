@@ -30,6 +30,7 @@
                             name="project" required ng-change="newTaskVm.projectSelected()">
                             <option>Choose project...</option>
                         </select>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task._project._id"></div>
                     </fieldset>
 
                     <!-- Module -->
@@ -38,6 +39,7 @@
                         <select ng-model="newTaskVm.task.module" ng-options="module._id as module.name for module in newTaskVm.modules track by module._id"
                             name="module" required ng-disabled="!newTaskVm.task._project">
                         </select>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.module"></div>
                     </fieldset>
                     
                     <!--Sprint-->
