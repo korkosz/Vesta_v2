@@ -50,7 +50,7 @@
             <!-- Buttons -->
             <div class="buttons">
 
-                  <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
                         Reopen
                 </button>
@@ -73,8 +73,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus('Rejected')"
-                                    data-dismiss="modal">
+                                <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus('Rejected')" data-dismiss="modal">
                                     Reject
                                 </button>
                             </div>
@@ -112,7 +111,7 @@
                     type="button">
                     Close
                 </button>
-                  <!-- Close Modal -->
+                <!-- Close Modal -->
                 <div class="modal fade" id="closeIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -125,8 +124,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-success" ng-click="$ctrl.setStatus('Closed')"
-                                    data-dismiss="modal">
+                                <button type="button" class="btn btn-success" ng-click="$ctrl.setStatus('Closed')" data-dismiss="modal">
                                     Close
                                 </button>
                             </div>
@@ -188,16 +186,14 @@
             <p>
                 Sprint {{$ctrl.idea.sprint}}
             </p>
-            
+
             <!--Sprint-->
             <fieldset id="sprint" class="field-wrapper">
                 <label class="label-modal">Sprint:</label>
-                <select ng-model="$ctrl.sprint" name="sprint"
-                        ng-options="sprint as sprint for sprint in $ctrl.project.sprints"
-                        ng-change="$ctrl.setSprint()">
+                <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint()">
                 </select>
             </fieldset>
-            
+
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
                 {{$ctrl.idea.status}}
@@ -209,24 +205,25 @@
     <div class="VST-table-wrapper">
         <table class="table">
             <thead>
-                <tr>
+                <tr ng-if="$ctrl.tasks.length + $ctrl.asks.length > 0">
+                    <th>Relation</th>
+                    <th>Number</th>
                     <th>Title</th>
-                    <th>Assigned</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="task in $ctrl.tasks" ng-click="$ctrl.goDetails('task', task.number)" style="cursor: pointer;">
+                    <td>Working in</td>
+                    <td>{{task.number}}</td>
                     <td>{{task.title}}</td>
-                    <td data-toggle="tooltip" title="{{task.assignedUser()}}">
-                        {{task.assignedUserShort()}}
-                    </td>
                     <td>{{task.status}}</td>
                 </tr>
                 <tr ng-repeat="ask in $ctrl.asks" ng-click="$ctrl.goDetails('ask', ask.number)" style="cursor: pointer;">
+                    <td>Discussion in</td>
+                    <td>{{ask.number}}</td>
                     <td>{{ask.title}}</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{ask.status}}</td>
                 </tr>
             </tbody>
         </table>
