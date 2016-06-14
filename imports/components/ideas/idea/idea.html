@@ -173,6 +173,10 @@
 
         <!-- Info box -->
         <section class="VST-view-info-box">
+            <!-- Idea status -->
+            <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
+                {{$ctrl.idea.status}}
+            </div>
             <!-- Reviewers -->
             <div class="reviewers-box">
                 <pill ng-repeat="reviewer in $ctrl.reviewers" value="reviewer" read-only="!$ctrl.descriptionEdited"></pill>
@@ -193,11 +197,6 @@
                 <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint()">
                 </select>
             </fieldset>
-
-            <!-- Idea status -->
-            <div class="idea-status idea-status-{{$ctrl.idea.status}}" type="button">
-                {{$ctrl.idea.status}}
-            </div>
         </section>
     </section>
 
