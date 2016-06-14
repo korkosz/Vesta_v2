@@ -5,9 +5,10 @@
 	font-size: 13px;
 	.table{
 		position: relative;
-		margin-left: 30px; margin-top: 50px; margin-bottom: 0;
+		margin: 50px auto 0 auto;
 		width: 900px;
 		th, td{
+			position: relative;
 			padding: 9px 15px;
 			max-width: 300px;
 			background: #fff;
@@ -19,6 +20,9 @@
 				color: #7B7B7B;
 				font-weight: 700;
 			}
+			&:first-child{
+				padding-left: 90px;
+			}
 		}
 		th{
 			background: #eee !important;
@@ -27,7 +31,17 @@
 		tr:nth-of-type(1), tr:nth-of-type(2),
 		tr:nth-of-type(3), tr:nth-of-type(4), tr:nth-of-type(5){
 			td{
-				padding:13px 15px;
+				padding-top: 13px;
+				padding-bottom: 13px;
+			}
+		}
+		a{
+			padding: 0;
+			border: none;
+			text-decoration: none;
+			color: inherit;
+			&:focus{
+				outline: none;
 			}
 		}
 		.project-badge{
@@ -51,6 +65,21 @@
 				bottom: 4px;
 				margin-left: 0.6em;
 			}
+		}
+	}
+	span.module-badge {
+		display: flex;
+	    position: absolute;
+	    width: 50px;
+	    height: 100%;
+	    left: 0;
+	    top: 0;
+		background: lighten($idea, 43%);
+		justify-content: center;
+		align-items: center;
+		img{
+			display: block;
+			width: 50%;
 		}
 	}
 }

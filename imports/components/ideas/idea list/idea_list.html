@@ -9,10 +9,13 @@
             <th>Created</th>
         </tr>
     </thead>
-    <tbody class="no-padding">
+    <tbody>
         <tr ng-repeat="idea in $ctrl.ideas|
                 orderBy: ['-updatedAt', '-creationDate']" ng-if="idea.sprint === $ctrl.project.currentSprint">
             <td>
+                <span class="module-badge module-badge-idea">
+                    <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                </span>
                 <a href="">
                     <span class="project-badge">V</span>
                     <span class="project">{{idea.projectName()}}</span>
@@ -45,13 +48,13 @@
         </tr>
     </tbody>
 </table>
-<style>   
+<style>
     td a {
         display: block;
         border: 1px solid white;
         padding: 16px;
     }
-    
+
     .no-padding td{
         padding: 0px !important;
     }
