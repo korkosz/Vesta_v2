@@ -16,7 +16,7 @@
             style="cursor: pointer" ng-if="idea.sprint === $ctrl.project.currentSprint">
             <td>
                 <span class="project-badge">V</span>
-                <span class="project">{{idea.project()}}</span>
+                <span class="project">{{idea.projectName()}}</span>
                 <span class="module">{{idea.moduleName()}}</span>
                 <span ng-if="idea.isNew" style="color: red">NEW</span>
             </td>

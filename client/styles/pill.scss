@@ -61,7 +61,7 @@
     <!-- Buttons -->
     <footer class="idea-header-footer">
         <new-task title="Create task" module="{{$ctrl.idea.module}}"
-                  project="{{$ctrl.idea.projectId}}"></new-task>
+                  project="{{$ctrl.idea.project}}"></new-task>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteIdeaModal">
             Delete

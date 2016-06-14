@@ -29,18 +29,18 @@
                     <!--Project-->
                     <fieldset id="project" class="field-wrapper">
                         <label class="label-modal">Project:</label>
-                        <select ng-model="newIdeaVm.idea.project" name="project" required
+                        <select ng-model="newIdeaVm.idea._project" name="project" required
                                 ng-options="project as project.name for project in newIdeaVm.projects" 
                                 ng-change="newIdeaVm.projectSelected()">
                         </select>
-                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.project"></div>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea._project"></div>
                     </fieldset>
 
                     <!--Module-->
                     <fieldset id="module" class="field-wrapper">
                         <label class="label-modal">Module:</label>
                         <select ng-model="newIdeaVm.idea.module" name="module" required
-                                ng-options="module._id as module.name for module in newIdeaVm.modules" ng-disabled="!newIdeaVm.idea.project">
+                                ng-options="module._id as module.name for module in newIdeaVm.modules" ng-disabled="!newIdeaVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>
                     </fieldset>
@@ -49,8 +49,8 @@
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
                         <select ng-model="newIdeaVm.idea.sprint" name="sprint" required
-                                ng-options="sprint as sprint for sprint in newIdeaVm.idea.project.sprints"
-                                ng-disabled="!newIdeaVm.idea.project">
+                                ng-options="sprint as sprint for sprint in newIdeaVm.idea._project.sprints"
+                                ng-disabled="!newIdeaVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.sprint"></div>
                     </fieldset>

@@ -14,7 +14,7 @@ function globalCtrl() {
     };
     this.assignedToMeFilter = {assigned: Meteor.userId(), status: {$in: ['Open', 'Working']}};
     this.activeTasksFilter = {status: {$in: ['Open', 'Working']}};
-    this.ideasFilter = {status: {$in: ['New', 'Consider', 'Working', 'Implemented', 'Discussed']}};
+    this.ideasFilter = {status: {$in: ['Open', 'Consider', 'Working', 'Implemented', 'Discussed']}};
     
     this.createAccount = function () {
         Accounts.createUser({

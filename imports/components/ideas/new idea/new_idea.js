@@ -43,20 +43,20 @@ class NewIdeaCtrl {
                 });
             },
             modules() {
-                this.getReactively('idea.project');
-                if (this.idea.project &&
-                    typeof this.idea.project !== 'string') {
-                    return this.idea.project.getModules();
+                this.getReactively('idea._project');
+                if (this.idea._project &&
+                    typeof this.idea._project !== 'string') {
+                    return this.idea._project.getModules();
                 }
             },
         });
     }
 
     projectSelected() {
-        this.idea.sprint = this.idea.project.currentSprint;
+        this.idea.sprint = this.idea._project.currentSprint;
         
-        this.idea.project.sprints = this.idea.project.sprints.filter((sprint) => {
-            return sprint >= this.idea.project.currentSprint;
+        this.idea._project.sprints = this.idea._project.sprints.filter((sprint) => {
+            return sprint >= this.idea._project.currentSprint;
         });
     }
 
@@ -81,7 +81,7 @@ class NewIdeaCtrl {
         if (!valid) return;
 
         this.compileOutput().then(() => {
-            this.idea.projectId = this.idea.project._id;
+            this.idea.project = this.idea._project._id;
             this.idea.createdBy = Meteor.userId();
             this.idea.creationDate = new Date();
             this.idea.reviewers = this.selectedReviewers.map(
