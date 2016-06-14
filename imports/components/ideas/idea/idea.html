@@ -24,7 +24,7 @@
 
             <!-- Project path -->
             <div class="VST-view-project-path">
-                <h3 id="project">{{$ctrl.idea.projectName()}}<span class="project-badge">v</span>Vesta</h3>
+                <h3 id="project"><span class="project-badge">v</span>{{$ctrl.idea.projectName()}}</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
             </div>
 
@@ -138,12 +138,12 @@
                                  $ctrl.idea.status === 'Implemented' ||
                                  $ctrl.idea.status === 'Discussed'">
                 </new-task>
-                
+
                 <!-- Create New Idea -->
                 <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}"
                     idea-title="{{$ctrl.idea.title}}" alt-id="0" sprint="$ctrl.idea.sprint">
                 </new-idea>
-                
+
                 <!-- Create New Ask -->
                 <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}" sprint="$ctrl.idea.sprint"
                     alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
