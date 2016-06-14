@@ -29,6 +29,19 @@ class NewIdeaCtrl {
 
             if (this.sprint)
                 this.idea.sprint = this.sprint;
+
+            if (this.reviewers && this.reviewers.length > 0) {
+                var _reviewers = Meteor.users.find({
+                    _id: {
+                        $in: this.reviewers
+                    }
+                });
+                _reviewers.forEach((rev) => {
+                    if (rev._id !== Meteor.userId())
+                        this.selectedReviewers.push(rev);
+                });
+                this.reviewersChanged = !this.reviewersChanged;
+            }
         }
 
         /// init
@@ -85,22 +98,50 @@ class NewIdeaCtrl {
     }
 
     closeModal() {
-        $('#newIdeaModal').modal('hide');
+        $('#' + this.altId + 'newIdeaModal').modal('hide');
     }
 
     accept(valid) {
         if (!valid) return;
 
-        this.compileOutput().then(() => {
-            this.idea.project = this.idea._project._id;
-            this.idea.createdBy = Meteor.userId();
-            this.idea.creationDate = new Date();
-            this.idea.reviewers = this.selectedReviewers.map(
-                (rev) => rev._id);
-            this.idea.reviews = [];
+        var vm = this;
 
-            Ideas.insert(this.idea);
-            this.closeModal();
+        this.compileOutput().then(() => {
+            vm.idea.project = vm.idea._project._id;
+            vm.idea.createdBy = Meteor.userId();
+            vm.idea.creationDate = new Date();
+            vm.idea.reviewers = vm.selectedReviewers.map(
+                (rev) => rev._id);
+            vm.idea.reviews = [];
+
+            var relationObj = {
+                entity: 'Idea'
+            };
+
+            if (this.ideaId) {
+                relationObj.id = this.ideaId;
+                relationObj.relation = 'Based On';
+
+                vm.idea.related = [relationObj];
+            }
+
+            //this is the case when attributes have been used
+            if (vm.idea.module && typeof vm.idea.module !== 'string') {
+                vm.idea.module = vm.idea.module._id;
+            };
+
+            var newIdeaId = Ideas.insert(vm.idea);
+            if (this.ideaId) {
+                relationObj.id = newIdeaId;
+                relationObj.relation = 'Sub-Idea';
+
+                Ideas.update(this.ideaId, {
+                    $push: {
+                        related: relationObj
+                    }
+                });
+            }
+            vm.closeModal();
         });
     }
 
@@ -132,7 +173,8 @@ export default angular.module("idea")
                 ideaId: '@',
                 ideaTitle: '@',
                 altId: '@',
-                sprint: '='
+                sprint: '=',
+                reviewers: '='
             },
             bindToController: true
         }
@@ -150,14 +192,31 @@ export default angular.module("idea")
                     }
                 }
             });
+
             attrs.$observe('ideaTitle', function () {
                 if (ctrl.ideaTitle)
                     ctrl.idea.title = ctrl.ideaTitle;
             });
+
             attrs.$observe('sprint', function () {
                 if (ctrl.sprint)
                     ctrl.idea.sprint = ctrl.sprint;
             });
+            // scope.$watch(function () {
+            //     return ctrl.reviewers && ctrl.reviewers.length;
+            // }, function () {
+            //     if (ctrl.reviewers && ctrl.reviewers.length > 0) {
+            //         var _reviewers = Meteor.users.find({
+            //             _id: {
+            //                 $in: ctrl.reviewers
+            //             }
+            //         });
+            //         _reviewers.forEach((rev) => {
+            //             ctrl.selectedReviewers.push(rev);
+            //         });
+            //         ctrl.reviewersChanged = !ctrl.reviewersChanged;
+            //     }
+            // });
 
             //Set default Title
             if (!ctrl.title) ctrl.title = 'Idea';

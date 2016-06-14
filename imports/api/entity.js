@@ -22,19 +22,18 @@ export default class Entity extends Mongo.Collection {
             var projectPrefix = project ? project.prefix : null;
             var sprint = project ? project.currentSprint : null;
             var entityLetter = this._name[0].toUpperCase();
-            
+
             if (projectPrefix && sprint) {
                 doc.id = projectPrefix.toUpperCase() + sprint +
                     entityLetter + seq;
             }
 
-            super.insert(doc, function (res) {
+            return super.insert(doc, function (res) {
                 if (doc.assigned !== doc.createdBy) {
                     Notify(me._name, doc.id, 'New', doc.assigned,
                         doc.createdBy, doc.creationDate);
                 }
             });
-            break;
         }
     }
 
@@ -75,6 +74,10 @@ Entity.createSchema = function (schemaExtension) {
         description: {
             type: String,
             optional: true
+        },
+        related: {
+            type: [RelationSchema],
+            optional: true  
         },
         creationDate: {
             type: Date,
@@ -156,7 +159,19 @@ Entity.extendHelpers = function (collection, helpers) {
             if (module) return module.name;
         }
     };
-    
+
     var helpers = Object.assign(basicHelpers, helpers);
     collection.helpers(helpers);
-}; 
+};
+
+var RelationSchema = new SimpleSchema({
+    entity: {
+        type: 'String'
+    },
+    id: {
+        type: 'String'
+    },
+    relation: {
+        type: 'String'
+    }
+});
