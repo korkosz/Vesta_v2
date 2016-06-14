@@ -9,24 +9,50 @@
             <th>Created</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="no-padding">
         <tr ng-repeat="idea in $ctrl.ideas|
-                orderBy: ['-updatedAt', '-creationDate']"
-            ng-click="$ctrl.details(idea.number)"
-            style="cursor: pointer" ng-if="idea.sprint === $ctrl.project.currentSprint">
+                orderBy: ['-updatedAt', '-creationDate']" ng-if="idea.sprint === $ctrl.project.currentSprint">
             <td>
-                <span class="project-badge">V</span>
-                <span class="project">{{idea.projectName()}}</span>
-                <span class="module">{{idea.moduleName()}}</span>
-                <span ng-if="idea.isNew" style="color: red">NEW</span>
+                <a href="">
+                    <span class="project-badge">V</span>
+                    <span class="project">{{idea.projectName()}}</span>
+                    <span class="module">{{idea.moduleName()}}</span>
+                    <span ng-if="idea.isNew" style="color: red">NEW</span>
+                </a>
             </td>
-            <td>[{{idea.number}}] {{idea.title}}</td>
-            <td><span class="idea-status idea-status-{{idea.status}}">{{idea.status}}</span></td>
+            <td>
+                <a href="">
+                    [{{idea.number}}] {{idea.title}}
+                </a>
+            </td>
+            <td>
+                <a href="">
+                    <span class="idea-status idea-status-{{idea.status}}">
+                    {{idea.status}}
+                    </span>
+                </a>
+            </td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">
-                {{idea.creatorShort()}}
+                <a href="">
+                    {{idea.creatorShort()}}
+                </a>
             </td>
-            <td>{{$ctrl.moment(idea.creationDate).fromNow()}}</td>
+            <td>
+                <a href="">
+                    {{$ctrl.moment(idea.creationDate).fromNow()}}
+                </a>
+            </td>
         </tr>
-
     </tbody>
 </table>
+<style>   
+    td a {
+        display: block;
+        border: 1px solid white;
+        padding: 16px;
+    }
+    
+    .no-padding td{
+        padding: 0px !important;
+    }
+</style>
