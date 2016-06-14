@@ -21,10 +21,11 @@ export default class Entity extends Mongo.Collection {
             var project = Projects.findOne(doc.project);
             var projectPrefix = project ? project.prefix : null;
             var sprint = project ? project.currentSprint : null;
-
+            var entityLetter = this._name[0].toUpperCase();
+            
             if (projectPrefix && sprint) {
                 doc.id = projectPrefix.toUpperCase() + sprint +
-                    'T' + seq;
+                    entityLetter + seq;
             }
 
             super.insert(doc, function (res) {

@@ -54,7 +54,7 @@ function controller($scope) {
        
     this.getMessage = function (notification) {
         switch (notification.action) {
-            case 'New':
+            case 'Open':
                 return ' has been created';
             case 'Update':
                 return ' has been updated';

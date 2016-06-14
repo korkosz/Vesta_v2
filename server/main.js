@@ -68,7 +68,7 @@ Meteor.startup(() => {
                 "_id": "CBJNeBr7WrnA8FmqH",
                 "metadataName": "IdeaStatuses",
                 "value": [
-                    "New",
+                    "Open",
                     "Consider",
                     "Working",
                     "Deferred",
