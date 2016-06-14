@@ -134,12 +134,12 @@
 
                 <!-- Create new task -->
                 <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}"
-                    idea-title="{{$ctrl.idea.title}}" alt-id="0" ng-if="$ctrl.idea.status === 'Consider' ||
+                    idea-title="{{$ctrl.idea.title}}" alt-id="0" sprint="$ctrl.idea.sprint" ng-if="$ctrl.idea.status === 'Consider' ||
                                  $ctrl.idea.status === 'Implemented' ||
                                  $ctrl.idea.status === 'Discussed'">
                 </new-task>
                 <!-- Create new ask -->
-                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.projectId}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}" sprint="$ctrl.idea.sprint"
                     alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
                 </new-ask>
 

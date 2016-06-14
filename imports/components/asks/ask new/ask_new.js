@@ -21,6 +21,9 @@ class NewAskCtrl {
 
             if (this.module)
                 this.ask.module = Modules.findOne(this.module);
+
+            if (this.sprint)
+                this.ask.sprint = this.sprint;
         }
         /// init
         this.init();
@@ -45,15 +48,15 @@ class NewAskCtrl {
             },
         });
     }
-    
+
     projectSelected() {
         this.ask.sprint = this.ask.project.currentSprint;
-        
+
         this.ask.project.sprints = this.ask.project.sprints.filter((sprint) => {
             return sprint >= this.ask.project.currentSprint;
         });
     }
-    
+
     closeModal() {
         $('#' + this.altId + 'newAskModal').modal('hide');
     }
@@ -66,7 +69,7 @@ class NewAskCtrl {
             vm.ask.createdBy = Meteor.userId();
             vm.ask.creationAt = new Date();
             vm.ask.ideaId = vm.ideaId;
-            
+
             //this is the case when attributes have been used
             if (this.ask.module && typeof this.ask.module !== 'string') {
                 this.ask.module = this.ask.module._id;
@@ -106,7 +109,8 @@ export default angular.module("ask")
                 module: '@',
                 ideaId: '@',
                 ideaTitle: '@',
-                altId: '@'
+                altId: '@',
+                sprint: '='
             },
             bindToController: true
         }
@@ -124,9 +128,15 @@ export default angular.module("ask")
                     }
                 }
             });
+
             attrs.$observe('ideaTitle', function () {
                 if (ctrl.ideaTitle)
                     ctrl.ask.title = ctrl.ideaTitle;
+            });
+
+            attrs.$observe('sprint', function () {
+                if (ctrl.sprint)
+                    ctrl.ask.sprint = ctrl.sprint;
             });
 
             function dataURItoBlob(dataURI) {
@@ -157,15 +167,15 @@ export default angular.module("ask")
             ctrl.compileOutput = function () {
                 var defer = $q.defer();
                 var promises = [];
-                var counter = 0;                
-                
+                var counter = 0;
+
                 if (ctrl.altId && ctrl.altId.length > 0) {
                     var editEl = $('div[id="' + ctrl.altId + 'newAskModal"]' +
                         ' div[id^="taTextElement"]');
                 } else {
                     var editEl = $('new-ask div[id^="taTextElement"]');
                 }
-                
+
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
                 var vm = this;

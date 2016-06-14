@@ -12,8 +12,9 @@ class NewTaskCtrl {
 
         var vm = this;
 
-        this.task = {};
-        this.task.description = '';
+        //14.06 zakomentowane - jesli nic sie nie wypierdala to usun
+        // this.task = {};
+        // this.task.description = '';
 
         this.init = () => {
             this.task = {};
@@ -31,6 +32,9 @@ class NewTaskCtrl {
 
             if (this.ideaTitle && this.project && this.module)
                 this.task.type = 'Feature';
+            
+            if (this.sprint)
+                this.task.sprint = this.sprint;  
         }
 
         /// init
@@ -125,7 +129,8 @@ export default angular.module("task")
                 module: '@',
                 ideaId: '@',
                 ideaTitle: '@',
-                altId: '@'
+                altId: '@',
+                sprint: '='
             },
             bindToController: true
         }
@@ -148,7 +153,11 @@ export default angular.module("task")
                 if (ctrl.ideaTitle)
                     ctrl.task.title = ctrl.ideaTitle;
             });
-
+            attrs.$observe('sprint', function () {
+                if (ctrl.sprint)
+                    ctrl.task.sprint = ctrl.sprint;
+            });
+            
             //Set default Title
             if (!ctrl.title) ctrl.title = 'Task';
 
