@@ -53,6 +53,9 @@ AsksCollection.schema = new SimpleSchema({
         type: String,
         max: 100
     },
+    sprint: {
+        type: Number
+    },
     description: {
         type: String,
         optional: true

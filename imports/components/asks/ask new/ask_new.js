@@ -45,7 +45,15 @@ class NewAskCtrl {
             },
         });
     }
-
+    
+    projectSelected() {
+        this.ask.sprint = this.ask.project.currentSprint;
+        
+        this.ask.project.sprints = this.ask.project.sprints.filter((sprint) => {
+            return sprint >= this.ask.project.currentSprint;
+        });
+    }
+    
     closeModal() {
         $('#' + this.altId + 'newAskModal').modal('hide');
     }
