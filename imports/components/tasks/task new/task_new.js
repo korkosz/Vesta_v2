@@ -10,12 +10,6 @@ class NewTaskCtrl {
     constructor($scope, $q) {
         $scope.viewModel(this);
 
-        var vm = this;
-
-        //14.06 zakomentowane - jesli nic sie nie wypierdala to usun
-        // this.task = {};
-        // this.task.description = '';
-
         this.init = () => {
             this.task = {};
             this.task.description = '';

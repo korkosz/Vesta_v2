@@ -13,30 +13,45 @@
     </thead>
     <tbody>
         <tr ng-repeat="task in $ctrl.tasks |
-            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']"
-            ng-click="$ctrl.details(task.number)"
-            style="cursor: pointer;
-                   opacity: {{$ctrl.getStatusColor(task.status)}}">
+            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']" style="opacity: {{$ctrl.getStatusColor(task.status)}}">
             <td>
-                <span class="project-badge">V</span>
-                <span class="project">{{task.projectName()}}</span>
-                <span class="module">{{task.moduleName()}}</span>
-                <span ng-if="task.isNew" style="color: red">NEW</span>
+                <a href="#/task/{{task.number}}">
+                    <span class="project-badge">V</span>
+                    <span class="project">{{task.projectName()}}</span>
+                    <span class="module">{{task.moduleName()}}</span>
+                    <span ng-if="task.isNew" style="color: red">NEW</span>
+                </a>
             </td>
-            <td>[{{task.number}}] {{task.title}}</td>
+            <td>
+                <a href="#/task/{{task.number}}">
+                    [{{task.number}}] {{task.title}}
+                </a>
+            </td>
             <td class="middle">
-                <div class="priority priority-{{task.priority}}"></div>
+                <a href="#/task/{{task.number}}">
+                    <div class="priority priority-{{task.priority}}"></div>
+                </a>
             </td>
-            <td>{{task.type}}</td>
-            <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip"
-                title="{{task.creator()}}">
-                {{task.creatorShort()}}
+            <td>
+                <a href="#/task/{{task.number}}">
+                    {{task.type}}
+                </a>
             </td>
-            <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip"
-                title="{{task.assignedUser()}}">
+            <td ng-if="$ctrl.hasFilter()" data-toggle="tooltip" title="{{task.creator()}}">
+                <a href="/task/{{task.number}}">
+                    {{task.creatorShort()}}
+                </a>
+            </td>
+            <td ng-if="!$ctrl.hasFilter()" data-toggle="tooltip" title="{{task.assignedUser()}}">
+                <a href="#/task/{{task.number}}">
                 {{task.assignedUserShort()}}
+                </a>
             </td>
-            <td>{{$ctrl.moment(task.creationDate).fromNow()}}</td>
+            <td>
+                <a href="#/task/{{task.number}}">
+                {{$ctrl.moment(task.creationDate).fromNow()}}
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>

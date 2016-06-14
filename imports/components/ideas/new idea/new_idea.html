@@ -1,10 +1,10 @@
 <button type="button" class="VST-btn VST-btn-menu new-idea" data-toggle="modal"
-            data-target="#newIdeaModal" data-backdrop="false" ng-click="newIdeaVm.openModal()">
-    Idea
+            data-target="#{{newIdeaVm.altId}}newIdeaModal" data-backdrop="false" ng-click="newIdeaVm.openModal()">
+    {{newIdeaVm.title}}
 </button>
 
 <!-- Modal idea-->
-<div class="modal fade VST-main-modal" id="newIdeaModal" role="dialog">
+<div class="modal fade VST-main-modal" id="{{newIdeaVm.altId}}newIdeaModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -30,7 +30,7 @@
                     <fieldset id="project" class="field-wrapper">
                         <label class="label-modal">Project:</label>
                         <select ng-model="newIdeaVm.idea._project" name="project" required
-                                ng-options="project as project.name for project in newIdeaVm.projects" 
+                                ng-options="project as project.name for project in newIdeaVm.projects track by project._id" 
                                 ng-change="newIdeaVm.projectSelected()">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea._project"></div>
@@ -40,7 +40,7 @@
                     <fieldset id="module" class="field-wrapper">
                         <label class="label-modal">Module:</label>
                         <select ng-model="newIdeaVm.idea.module" name="module" required
-                                ng-options="module._id as module.name for module in newIdeaVm.modules" ng-disabled="!newIdeaVm.idea._project">
+                                ng-options="module._id as module.name for module in newIdeaVm.modules track by module._id" ng-disabled="!newIdeaVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>
                     </fieldset>
@@ -88,7 +88,7 @@
                         <div class="description-wrapper">
                             <label class="label-modal">Description:</label>
                             <div text-angular ng-model="newIdeaVm.output" class="description"
-                                 name="description"  ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]" pick-file>
+                                 ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]" pick-file>
                             </div>
                         </div>
                     </fieldset>

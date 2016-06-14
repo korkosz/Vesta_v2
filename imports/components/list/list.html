@@ -1,10 +1,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th ng-repeat="field in vm.list.columns"
-                ng-click="vm.sort(field)"
-                ng-switch="vm.fieldSorted(field)"
-                style="cursor: pointer">
+            <th ng-repeat="field in vm.list.columns" ng-click="vm.sort(field)" ng-switch="vm.fieldSorted(field)" style="cursor: pointer">
                 {{vm.getLabel(field)}}
                 <span ng-switch-when="asc">
                     &nbsp; ASC   
@@ -16,16 +13,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="idea in vm.ideas" style="cursor: {{vm.getCursorStyle()}}" 
-            ng-click="vm.details(idea.number)">
+        <tr ng-repeat="idea in vm.ideas">
             <td ng-repeat="field in vm.list.columns">
-                {{vm.getValue(field, idea[field])}}
+                <a href="#/idea/{{idea.number}}">
+                    {{vm.getValue(field, idea[field])}}
+                </a>
             </td>
         </tr>
-        <tr ng-repeat="task in vm.tasks" style="cursor: {{vm.getCursorStyle()}}"
-            ng-click="vm.details(task.number)">
+        <tr ng-repeat="task in vm.tasks">
             <td ng-repeat="field in vm.list.columns">
-                {{vm.getValue(field, task[field])}}
+                <a href="#/task/{{task.number}}">
+                    {{vm.getValue(field, task[field])}}
+                </a>
             </td>
         </tr>
     </tbody>

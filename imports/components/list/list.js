@@ -67,12 +67,6 @@ class VestaListCtrl {
         });
     }
 
-    getCursorStyle() {
-        if (!this.list ||
-            this.list.entities.length > 1) return 'auto';
-        else return 'pointer';
-    }
-
     details(number) {
         if (!this.list || this.list.entities.length > 1) return;
 

@@ -11,11 +11,24 @@ class NewIdeaCtrl {
         this.init = (initial) => {
             this.idea = {};
             this.idea.description = '';
-            this.selectedReviewers = [];
-            this.reviewersChanged = !this.reviewersChanged;
             this.output = "";
 
+            this.selectedReviewers = [];
+            this.reviewersChanged = !this.reviewersChanged;
+
             if (!initial) this.selectedReviewers.push(Meteor.user());
+
+            if (this.ideaTitle)
+                this.idea.title = this.ideaTitle;
+
+            if (this.project)
+                this.idea._project = Projects.findOne(this.project);
+
+            if (this.module)
+                this.idea.module = Modules.findOne(this.module);
+
+            if (this.sprint)
+                this.idea.sprint = this.sprint;
         }
 
         /// init
@@ -27,12 +40,17 @@ class NewIdeaCtrl {
             $scope.newIdeaForm.module.$setUntouched();
             $scope.newIdeaForm.reviewer.$setUntouched();
             $scope.newIdeaForm.title.$setUntouched();
-            $scope.newIdeaForm.description.$setUntouched();
         }
 
         this.helpers({
             projects() {
                 return Projects.find();
+            },
+            modules() {
+                this.getReactively('idea._project');
+                if (this.idea._project) { //&&typeof this.idea._project !== 'string'
+                    return this.idea._project.getModules();
+                }
             },
             users() {
                 this.getReactively('reviewersChanged');
@@ -41,20 +59,13 @@ class NewIdeaCtrl {
                         $nin: this.selectedReviewers.map((rev) => rev._id)
                     }
                 });
-            },
-            modules() {
-                this.getReactively('idea._project');
-                if (this.idea._project &&
-                    typeof this.idea._project !== 'string') {
-                    return this.idea._project.getModules();
-                }
-            },
+            }
         });
     }
 
     projectSelected() {
         this.idea.sprint = this.idea._project.currentSprint;
-        
+
         this.idea._project.sprints = this.idea._project.sprints.filter((sprint) => {
             return sprint >= this.idea._project.currentSprint;
         });
@@ -113,10 +124,44 @@ export default angular.module("idea")
             templateUrl: "imports/components/ideas/new idea/new_idea.html",
             controller: NewIdeaCtrl,
             controllerAs: 'newIdeaVm',
-            link
+            link,
+            scope: {
+                title: '@',
+                project: '@',
+                module: '@',
+                ideaId: '@',
+                ideaTitle: '@',
+                altId: '@',
+                sprint: '='
+            },
+            bindToController: true
         }
 
         function link(scope, el, attrs, ctrl) {
+            if (!ctrl.altId) {
+                ctrl.altId = '';
+            }
+
+            attrs.$observe('project', function () {
+                if (ctrl.project) {
+                    ctrl.idea._project = Projects.findOne(ctrl.project);
+                    if (ctrl.idea._project && ctrl.module) {
+                        ctrl.idea.module = Modules.findOne(ctrl.module);
+                    }
+                }
+            });
+            attrs.$observe('ideaTitle', function () {
+                if (ctrl.ideaTitle)
+                    ctrl.idea.title = ctrl.ideaTitle;
+            });
+            attrs.$observe('sprint', function () {
+                if (ctrl.sprint)
+                    ctrl.idea.sprint = ctrl.sprint;
+            });
+
+            //Set default Title
+            if (!ctrl.title) ctrl.title = 'Idea';
+
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);
                 var array = [];
