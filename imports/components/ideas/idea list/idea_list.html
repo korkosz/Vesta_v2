@@ -16,7 +16,7 @@
                 <span class="module-badge module-badge-idea">
                     <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
                 </span>
-                <a href="">
+                <a href="#/idea/{{idea.number}}">
                     <span class="project-badge">V</span>
                     <span class="project">{{idea.projectName()}}</span>
                     <span class="module">{{idea.moduleName()}}</span>
@@ -24,24 +24,24 @@
                 </a>
             </td>
             <td>
-                <a href="">
+                <a href="#/idea/{{idea.number}}">
                     [{{idea.number}}] {{idea.title}}
                 </a>
             </td>
             <td>
-                <a href="">
+                <a href="#/idea/{{idea.number}}">
                     <span class="idea-status idea-status-{{idea.status}}">
                     {{idea.status}}
                     </span>
                 </a>
             </td>
             <td data-toggle="tooltip" title="{{idea.creator()}}">
-                <a href="">
+                <a href="#/idea/{{idea.number}}">
                     {{idea.creatorShort()}}
                 </a>
             </td>
             <td>
-                <a href="">
+                <a href="#/idea/{{idea.number}}">
                     {{$ctrl.moment(idea.creationDate).fromNow()}}
                 </a>
             </td>

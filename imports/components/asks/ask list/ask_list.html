@@ -3,27 +3,37 @@
     <thead>
         <tr>
             <th>Project</th>
-            <th>Title</th>            
+            <th>Title</th>
             <th>Created By</th>
             <th>Created</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="ask in $ctrl.asks|
-                orderBy: ['-creationDate']"
-            ng-click="$ctrl.details(ask.number)"
-            style="cursor: pointer">
-           <td>
-                <span class="project-badge">V</span>
-                <span class="project">{{ask.projectName()}}</span>
-                <span class="module">{{ask.moduleName()}}</span>
-                <span ng-if="ask.isNew" style="color: red">NEW</span> 
+                orderBy: ['-creationDate']" ng-click="$ctrl.details(ask.number)" style="cursor: pointer">
+            <td>
+                <a href="#/ask/{{ask.number}}">
+                    <span class="project-badge">V</span>
+                    <span class="project">{{ask.projectName()}}</span>
+                    <span class="module">{{ask.moduleName()}}</span>
+                    <span ng-if="ask.isNew" style="color: red">NEW</span>
+                </a>
             </td>
-            <td>[{{ask.number}}] {{ask.title}}</td>                      
+            <td>
+                <a href="#/ask/{{ask.number}}">
+                    [{{ask.number}}] {{ask.title}}
+                </a>
+            </td>
             <td data-toggle="tooltip" title="{{ask.creator()}}">
-                {{ask.creatorShort()}}
+                <a href="#/ask/{{ask.number}}">
+                    {{ask.creatorShort()}}
+                </a>
             </td>
-            <td>{{$ctrl.moment(ask.creationAt).fromNow()}}</td>
-        </tr>        
+            <td>
+                <a href="#/ask/{{ask.number}}">
+                    {{$ctrl.moment(ask.creationAt).fromNow()}}
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
