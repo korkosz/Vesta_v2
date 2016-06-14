@@ -77,6 +77,31 @@
                         </div>
                     </div>
                 </div>
+
+                <button class="btn btn-success" data-toggle="modal" data-target="#closeAskModal"
+                    type="button">
+                    Close
+                </button>
+                <!-- Close Modal -->
+                <div class="modal fade" id="closeAskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Close Discussion</h4>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to close this discussion ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success" ng-click="$ctrl.closeAsk('Closed')" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -104,7 +129,7 @@
                             <!--Added Response Likes-->
                             {{response.likes.length ? response.likes.length : 0}}
                             <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
-                            <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                    /
+                            <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                            /
                             <!-- Added Response Dislikes-->
                             {{response.dislikes.length ? response.dislikes.length : 0}}
                             <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)">-</button>
@@ -147,7 +172,8 @@
                 <fieldset id="ask_title" class="fsStyle field-wrapper last">
                     <div class="title-wrapper">
                         <label class="label-modal">Title:</label>
-                        <input class="VST-view-input" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..." required/>
+                        <input class="VST-view-input" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..."
+                            required/>
                     </div>
                 </fieldset>
 
@@ -155,7 +181,7 @@
                 <fieldset id="ask_description" class="fsStyle">
                     <div class="desc-wrapper">
                         <label class="label-modal">Description:</label>
-                        <textarea  class="VST-view-input" cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
+                        <textarea class="VST-view-input" cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
                         <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addResponse()">ADD</button>
                     </div>
                 </fieldset>
@@ -170,8 +196,7 @@
                 <button ng-click="$ctrl.addGoodPoint()" class="VST-btn VST-btn-primary glyphicon glyphicon-plus"></button>
                 <div class="goodPoints-box">
                     <div class="pill" ng-repeat="goodPoint in $ctrl.ask.goodPoints">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        {{goodPoint}}
+                        <span class="glyphicon glyphicon-ok"></span> {{goodPoint}}
                         <button ng-click="$ctrl.removeGoodPoint(goodPoint)" class="glyphicon glyphicon-remove"></button>
                     </div>
                 </div>

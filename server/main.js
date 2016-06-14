@@ -120,6 +120,18 @@ Meteor.startup(() => {
 
         Metadata.insert(
             {
+                "_id": "orb7v9a457r3T2snk",
+                "metadataName": "AskStatuses",
+                "value": [
+                    "New",
+                    "Working",
+                    "Closed"
+                ]
+            }
+        );
+
+        Metadata.insert(
+            {
                 "_id": "TEZLTpEeKwqydXnFW",
                 "metadataName": "EntitiesRelations",
                 "value": {
