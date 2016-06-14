@@ -9,7 +9,7 @@ import {Notify} from '/imports/api/notification/notification';
 export default class Entity extends Mongo.Collection {
     insert(doc) {
         while (1) {
-
+            var me = this;
             var sort = { number: -1 };
             var fields = {
                 number: 1
@@ -19,7 +19,7 @@ export default class Entity extends Mongo.Collection {
             var seq = cursor && cursor.number ? cursor.number + 1 : 1;
             doc.number = seq;
 
-            var project = Projects.findOne(doc.projectId);
+            var project = Projects.findOne(doc.project);
             var projectPrefix = project ? project.prefix : null;
             var sprint = project ? project.currentSprint : null;
 
@@ -30,7 +30,7 @@ export default class Entity extends Mongo.Collection {
 
             super.insert(doc, function (res) {
                 if (doc.assigned !== doc.createdBy) {
-                    Notify(this._name, doc.id, 'New', doc.assigned,
+                    Notify(me._name, doc.id, 'New', doc.assigned,
                         doc.createdBy, doc.creationDate);
                 }
             });
@@ -68,6 +68,10 @@ Entity.createSchema = function (schemaExtension) {
             type: String,
             max: 100
         },
+        status: {
+            type: String,
+            defaultValue: "Open"
+        },
         description: {
             type: String,
             optional: true
@@ -102,5 +106,5 @@ Entity.createSchema = function (schemaExtension) {
 };
 
 function extend() {
-    
+
 }

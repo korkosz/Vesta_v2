@@ -25,7 +25,7 @@ class NewTaskCtrl {
                 this.task.title = this.ideaTitle;
 
             if (this.project)
-                this.task.project = Projects.findOne(this.project);
+                this.task._project = Projects.findOne(this.project);
 
             if (this.module)
                 this.task.module = Modules.findOne(this.module);
@@ -55,9 +55,9 @@ class NewTaskCtrl {
                 return Projects.find();
             },
             modules() {
-                this.getReactively('task.project');
-                if (this.task.project) {
-                    return this.task.project.getModules();
+                this.getReactively('task._project');
+                if (this.task._project) {
+                    return this.task._project.getModules();
                 }
             },
             taskTypes() {
@@ -73,10 +73,10 @@ class NewTaskCtrl {
     }
 
     projectSelected() {
-        this.task.sprint = this.task.project.currentSprint;
+        this.task.sprint = this.task._project.currentSprint;
 
-        this.task.project.sprints = this.task.project.sprints.filter((sprint) => {
-            return sprint >= this.task.project.currentSprint;
+        this.task._project.sprints = this.task._project.sprints.filter((sprint) => {
+            return sprint >= this.task._project.currentSprint;
         });
     }
 
@@ -89,7 +89,7 @@ class NewTaskCtrl {
         var vm = this;
 
         this.compileOutput().then(() => {
-            vm.task.projectId = vm.task.project._id;
+            vm.task.project = vm.task._project._id;
             vm.task.createdBy = Meteor.userId();
             vm.task.creationDate = new Date();
             vm.task.ideaId = vm.ideaId;
@@ -142,8 +142,8 @@ export default angular.module("task")
 
             attrs.$observe('project', function () {
                 if (ctrl.project) {
-                    ctrl.task.project = Projects.findOne(ctrl.project);
-                    if (ctrl.task.project && ctrl.module) {
+                    ctrl.task._project = Projects.findOne(ctrl.project);
+                    if (ctrl.task._project && ctrl.module) {
                         ctrl.task.module = Modules.findOne(ctrl.module);
                         ctrl.task.type = 'Feature';
                     }

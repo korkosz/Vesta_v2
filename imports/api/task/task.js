@@ -136,8 +136,8 @@ TaskCollection.helpers({
                 user.profile.lastname;
         }
     },
-    project() {
-        var project = Projects.findOne(this.projectId);
+    projectName() {
+        var project = Projects.findOne(this.project);
         if (project) return project.name;
     },
     moduleName() {

@@ -26,7 +26,7 @@
                     <!-- Project -->
                     <fieldset id="project" class="field-wrapper">
                         <label class="label-modal">Project:</label>
-                        <select ng-model="newTaskVm.task.project" ng-options="project as project.name for project in newTaskVm.projects track by project._id"
+                        <select ng-model="newTaskVm.task._project" ng-options="project as project.name for project in newTaskVm.projects track by project._id"
                             name="project" required ng-change="newTaskVm.projectSelected()">
                             <option>Choose project...</option>
                         </select>
@@ -36,7 +36,7 @@
                     <fieldset id="module" class="field-wrapper">
                         <label class="label-modal">Module:</label>
                         <select ng-model="newTaskVm.task.module" ng-options="module._id as module.name for module in newTaskVm.modules track by module._id"
-                            name="module" required ng-disabled="!newTaskVm.task.project">
+                            name="module" required ng-disabled="!newTaskVm.task._project">
                         </select>
                     </fieldset>
                     
@@ -44,8 +44,8 @@
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
                         <select ng-model="newTaskVm.task.sprint" name="sprint" required
-                                ng-options="sprint as sprint for sprint in newTaskVm.task.project.sprints"
-                                ng-disabled="!newTaskVm.task.project">
+                                ng-options="sprint as sprint for sprint in newTaskVm.task._project.sprints"
+                                ng-disabled="!newTaskVm.task._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.sprint"></div>
                     </fieldset>

@@ -19,7 +19,7 @@
                    opacity: {{$ctrl.getStatusColor(task.status)}}">
             <td>
                 <span class="project-badge">V</span>
-                <span class="project">{{task.project()}}</span>
+                <span class="project">{{task.projectName()}}</span>
                 <span class="module">{{task.moduleName()}}</span>
                 <span ng-if="task.isNew" style="color: red">NEW</span>
             </td>
