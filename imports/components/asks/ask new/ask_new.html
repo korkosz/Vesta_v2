@@ -34,6 +34,7 @@
                             ng-change="newAskVm.projectSelected()">
                             <option>Choose project...</option>
                         </select>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newAskVm.ask.project"></div>
                     </fieldset>
 
                     <!-- Module -->
@@ -42,6 +43,7 @@
                         <select ng-model="newAskVm.ask.module" ng-options="module._id as module.name for module in newAskVm.modules track by module._id"
                             name="ask_module" required ng-disabled="!newAskVm.ask.project">
                         </select>
+                        <div class="glyphicon glyphicon-ok-sign" ng-show="newAskVm.ask.module"></div>
                     </fieldset>
                     
                     <!--Sprint-->
