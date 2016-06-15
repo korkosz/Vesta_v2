@@ -1,8 +1,8 @@
 import { Mongo } from 'meteor/mongo';
 import Entity from '../entity';
+import { Notify } from '/imports/api/notification/notification';
 
-import {Notify} from '/imports/api/notification/notification';
-
+import './methods';
 class IdeasCollection extends Entity {
     update(selector, updateDoc, callback, notifyObject) {
         function innerCallback() {

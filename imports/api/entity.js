@@ -6,7 +6,7 @@ import Projects from '/imports/api/project/project';
 import {Notify} from '/imports/api/notification/notification';
 
 export default class Entity extends Mongo.Collection {
-    insert(doc) {
+    insert(doc, callback) {
         while (1) {
             var me = this;
             var sort = { number: -1 };
@@ -28,11 +28,13 @@ export default class Entity extends Mongo.Collection {
                     entityLetter + seq;
             }
 
-            return super.insert(doc, function (res) {
+            return super.insert(doc, function (err, res) {
                 if (doc.assigned !== doc.createdBy) {
                     Notify(me._name, doc.id, 'New', doc.assigned,
                         doc.createdBy, doc.creationDate);
                 }
+                
+                callback(err, res);
             });
         }
     }

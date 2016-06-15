@@ -108,40 +108,22 @@ class NewIdeaCtrl {
 
         this.compileOutput().then(() => {
             vm.idea.project = vm.idea._project._id;
-            vm.idea.createdBy = Meteor.userId();
-            vm.idea.creationDate = new Date();
             vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
-            vm.idea.reviews = [];
-
-            var relationObj = {
-                entity: 'Idea'
-            };
-
-            if (vm.ideaId) {
-                relationObj.id = vm.ideaId;
-                relationObj.relation = 'Based On';
-
-                vm.idea.related = [relationObj];
-            }
-
+            vm.idea.ideaId = vm.ideaId;
+            
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
                 vm.idea.module = vm.idea.module._id;
             };
 
-            var newIdeaId = Ideas.insert(vm.idea);
-            if (vm.ideaId) {
-                relationObj.id = newIdeaId;
-                relationObj.relation = 'Sub-Idea';
+            Meteor.call('ideas.createIdea', vm.idea, (err, res) => {
+                if (err) window.alert(err)
+                else {
+                    vm.closeModal();
+                }
+            });
 
-                Ideas.update(vm.ideaId, {
-                    $push: {
-                        related: relationObj
-                    }
-                });
-            }
-            vm.closeModal();
         });
     }
 
