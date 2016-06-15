@@ -71,3 +71,8 @@ export function Notify(_entity, _id, _action, usersIds, _provider, when) {
         });
     }
 }
+
+export function getNotificationMsg(notificationObj) {
+    //create
+        
+}

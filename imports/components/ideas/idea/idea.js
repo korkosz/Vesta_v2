@@ -51,6 +51,29 @@ class IdeaCtrl {
             ideaStatuses() {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
             },
+            relatedIdeas() {
+                this.getReactively('idea');
+                var me = this;
+
+                if (me.idea &&
+                    me.idea.related &&
+                    me.idea.related.length > 0) {
+
+                    var ideasIds = me.idea.related.filter((rel) => {
+                        return rel.entity === 'Idea';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Ideas.find({ _id: { $in: ideasIds } }).map((idea) => {
+                        idea.relation = me.idea.related.find((rel) => {
+                            return rel.id === idea._id;
+                        }).relation;
+
+                        return idea;
+                    });
+                }
+            },
             project() {
                 this.getReactively('idea');
                 if (this.idea) {
@@ -73,8 +96,31 @@ class IdeaCtrl {
                     });
                 }
             },
-            tasks() {
+            relatedTasks() {
                 this.getReactively('idea');
+
+                var me = this;
+
+                if (me.idea &&
+                    me.idea.related &&
+                    me.idea.related.length > 0) {
+
+                    var tasksIds = me.idea.related.filter((rel) => {
+                        return rel.entity === 'Task';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Tasks.find({ _id: { $in: tasksIds } }).map((task) => {
+                        task.relation = me.idea.related.find((rel) => {
+                            return rel.id === task._id;
+                        }).relation;
+
+                        return task;
+                    });
+                }
+
+
                 if (this.idea) {
                     return Tasks.find({
                         ideaId: this.idea._id,

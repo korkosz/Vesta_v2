@@ -99,7 +99,8 @@ Meteor.startup(() => {
                 "metadataName": "TaskType",
                 "value": [
                     "Bug",
-                    "Feature"
+                    "Feature",
+                    "Subtask"
                 ]
             }
         );

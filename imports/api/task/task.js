@@ -54,10 +54,6 @@ TaskCollection.schema = Entity.createSchema({
         type: Number,
         defaultValue: 0
     },
-    related: {
-        type: [RelationSchema],
-        optional: true
-    },
     type: {
         type: String
     },
