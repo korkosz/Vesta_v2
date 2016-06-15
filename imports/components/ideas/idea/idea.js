@@ -51,6 +51,21 @@ class IdeaCtrl {
             ideaStatuses() {
                 return Metadata.findOne({ metadataName: 'IdeaStatuses' });
             },
+            relatedIdeas() {
+                this.getReactively('idea');
+                if (this.idea &&
+                    this.idea.related &&
+                    this.idea.related.length > 0) {
+
+                    var ideasIds = this.idea.related.filter((rel) => {
+                        return rel.entity === 'Idea';
+                    }).map((relObj)=> {
+                        return relObj.id;     
+                    });
+                    
+                    return Ideas.find({_id: {$in: ideasIds}});
+                }
+            },
             project() {
                 this.getReactively('idea');
                 if (this.idea) {

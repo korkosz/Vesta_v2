@@ -231,6 +231,12 @@
                     <td>{{ask.title}}</td>
                     <td>{{ask.status}}</td>
                 </tr>
+                <tr ng-repeat="idea in $ctrl.relatedIdeas">
+                    <td>Sub-Idea</td>
+                    <td>{{idea.number}}</td>
+                    <td>{{idea.title}}</td>
+                    <td>{{idea.status}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
