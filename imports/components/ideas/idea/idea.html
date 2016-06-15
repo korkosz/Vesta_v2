@@ -49,135 +49,114 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
+                <div class="btn-group">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="VST-btn-module" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
+                            <span class="glyphicon glyphicon-repeat"></span>
+                            Reopen
+                    </button>
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
-                        Reopen
-                </button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Reject
+                    </button>
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
-                        Reject
-                </button>
-
-                <!-- Reject Modal -->
-                <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to reject the Idea ?</h4>
+                    <!-- Reject Modal -->
+                    <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to reject the Idea ?</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
+                                    <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus('Rejected')" data-dismiss="modal">
+                                        Reject
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
+                        type="button">
+                        <span class="glyphicon glyphicon-share-alt"></span>
+                        Defer
+                    </button>
+                    <!-- Defer Modal -->
+                    <div class="modal fade" id="deferIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to defer the Idea ?</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
+                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus('Deferred')" data-dismiss="modal">
+                                        Defer
+                                    </button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus('Rejected')" data-dismiss="modal">
-                                    Reject
-                                </button>
+                        </div>
+                    </div>
+
+                    <button class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" data-toggle="modal" data-target="#closeIdeaModal"
+                        type="button">
+                        Close
+                    </button>
+                    <!-- Close Modal -->
+                    <div class="modal fade" id="closeIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Close Idea</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to close this idea ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-success" ng-click="$ctrl.setStatus('Closed')" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="btn btn-warning" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
-                    type="button">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                    Defer
-                </button>
-                <!-- Defer Modal -->
-                <div class="modal fade" id="deferIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to defer the Idea ?</h4>
-                            </div>
-                            <div class="modal-body">
-                                <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus('Deferred')" data-dismiss="modal">
-                                    Defer
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="btn-group">
+                    <!-- Create New Task -->
+                    <new-task title="Create task"
+                        parent-module="{{$ctrl.idea.module}}"
+                        parent-project="{{$ctrl.idea.project}}"
+                        parent-title="{{$ctrl.idea.title}}"
+                        parent-sprint="$ctrl.idea.sprint"
+                        idea-id="{{$ctrl.idea._id}}" alt-id="0"
+                        ng-if="$ctrl.idea.status === 'Consider' ||
+                            $ctrl.idea.status === 'Implemented' ||
+                            $ctrl.idea.status === 'Discussed'">
+                    </new-task>
 
-                <button class="btn btn-success" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" data-toggle="modal" data-target="#closeIdeaModal"
-                    type="button">
-                    Close
-                </button>
-                <!-- Close Modal -->
-                <div class="modal fade" id="closeIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Close Idea</h4>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to close this idea ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-success" ng-click="$ctrl.setStatus('Closed')" data-dismiss="modal">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <!-- Create New Idea -->
+                    <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                        alt-id="0" sprint="$ctrl.idea.sprint" reviewers="$ctrl.idea.reviewers">
+                    </new-idea>
 
-                <!-- Create New Task -->
-                <new-task title="Create task" 
-                    parent-module="{{$ctrl.idea.module}}" 
-                    parent-project="{{$ctrl.idea.project}}"               
-                    parent-title="{{$ctrl.idea.title}}"
-                    parent-sprint="$ctrl.idea.sprint"
-                    idea-id="{{$ctrl.idea._id}}" alt-id="0"
-                    ng-if="$ctrl.idea.status === 'Consider' ||
-                        $ctrl.idea.status === 'Implemented' ||
-                        $ctrl.idea.status === 'Discussed'">
-                </new-task>
-
-                <!-- Create New Idea -->
-                <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
-                    alt-id="0" sprint="$ctrl.idea.sprint" reviewers="$ctrl.idea.reviewers">
-                </new-idea>
-
-                <!-- Create New Ask -->
-                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
-                    sprint="$ctrl.idea.sprint" alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
-                </new-ask>
-
-                <!-- Button trigger modal -->
-                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteIdeaModal">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
-
-                <!-- DELETE Modal -->
-                <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to remove this idea ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Create New Ask -->
+                    <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                        sprint="$ctrl.idea.sprint" alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
+                    </new-ask>
                 </div>
             </div>
         </section>
@@ -208,6 +187,32 @@
                 <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint()">
                 </select>
             </fieldset>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteIdeaModal">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+
+            <!-- DELETE Modal -->
+            <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove this idea ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </section>
 

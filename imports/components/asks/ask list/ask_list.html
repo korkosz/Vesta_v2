@@ -12,6 +12,9 @@
         <tr ng-repeat="ask in $ctrl.asks|
                 orderBy: ['-creationDate']">
             <td>
+                <span class="module-badge module-badge-ask">
+                    <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
+                </span>
                 <a href="#/ask/{{ask.number}}">
                     <span class="project-badge">V</span>
                     <span class="project">{{ask.projectName()}}</span>

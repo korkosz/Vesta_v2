@@ -89,6 +89,10 @@
 			background: lighten($task, 43%);
 			padding-bottom: 5px;
 		}
+		&-ask{
+			background: lighten($ask, 43%);
+			padding-bottom: 5px;
+		}
 	}
 }
 // Project badge

@@ -19,6 +19,11 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     h1{
         color: $idea !important;
     }
+
+    .btn-group .#{$VESTA}-btn-module{
+        border-color: lighten($idea, 10%);
+        background: lighten($idea, 37%);
+    }
 }
 
 // Status idea
@@ -26,7 +31,6 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     position: relative;
     display: inline-block;
     padding: 2px 7px 3px 7px;
-    border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 400;
