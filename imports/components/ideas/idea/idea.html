@@ -49,15 +49,15 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
-                <div class="btn-group">
+                <div class="VST-btn-group VST-btn-group-menu">
                     <!-- Button trigger modal -->
-                    <button type="button" class="VST-btn-module" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
+                    <button type="button" class="VST-btn" ng-if="$ctrl.idea.status === 'Deferred'" ng-click="$ctrl.setStatus('Consider')">
                             <span class="glyphicon glyphicon-repeat"></span>
                             Reopen
                     </button>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
+                    <button type="button" class="VST-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
                             <span class="glyphicon glyphicon-remove"></span>
                             Reject
                     </button>
@@ -83,7 +83,7 @@
                         </div>
                     </div>
 
-                    <button class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
+                    <button class="VST-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
                         type="button">
                         <span class="glyphicon glyphicon-share-alt"></span>
                         Defer
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <button class="VST-btn-module" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" data-toggle="modal" data-target="#closeIdeaModal"
+                    <button class="VST-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" data-toggle="modal" data-target="#closeIdeaModal"
                         type="button">
                         Close
                     </button>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group">
+                <div class="VST-btn-group VST-btn-group-create">
                     <!-- Create New Task -->
                     <new-task title="Create task"
                         parent-module="{{$ctrl.idea.module}}"

@@ -76,9 +76,17 @@ section.#{$VESTA}-view-desc{
         bottom: 45px;
         left: 0;
         width: 100%;
+        display: flex;
     }
-    .btn-group{
+    .#{$VESTA}-btn-group{
+        display: inline-block;
+    }
+    .#{$VESTA}-btn-group-menu{
         margin-left: 135px;
+    }
+    .#{$VESTA}-btn-group-create{
+        margin-right: 80px;
+        margin-left: auto;
     }
 }
 

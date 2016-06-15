@@ -20,7 +20,7 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
         color: $idea !important;
     }
 
-    .btn-group .#{$VESTA}-btn-module{
+    .#{$VESTA}-btn-group-menu .#{$VESTA}-btn{
         border-color: lighten($idea, 10%);
         background: lighten($idea, 37%);
     }
