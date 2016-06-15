@@ -133,10 +133,15 @@
                 </div>
 
                 <!-- Create New Task -->
-                <new-task title="Create task" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}"
-                    idea-title="{{$ctrl.idea.title}}" alt-id="0" sprint="$ctrl.idea.sprint" ng-if="$ctrl.idea.status === 'Consider' ||
-                                 $ctrl.idea.status === 'Implemented' ||
-                                 $ctrl.idea.status === 'Discussed'">
+                <new-task title="Create task" 
+                    parent-module="{{$ctrl.idea.module}}" 
+                    parent-project="{{$ctrl.idea.project}}"               
+                    parent-title="{{$ctrl.idea.title}}"
+                    parent-sprint="$ctrl.idea.sprint"
+                    idea-id="{{$ctrl.idea._id}}" alt-id="0"
+                    ng-if="$ctrl.idea.status === 'Consider' ||
+                        $ctrl.idea.status === 'Implemented' ||
+                        $ctrl.idea.status === 'Discussed'">
                 </new-task>
 
                 <!-- Create New Idea -->
@@ -210,7 +215,7 @@
     <div class="VST-table-wrapper">
         <table class="table">
             <thead>
-                <tr ng-if="$ctrl.tasks.length + $ctrl.asks.length > 0">
+                <tr ng-if="$ctrl.relatedTasks.length + $ctrl.asks.length + $ctrl.relatedIdeas.length > 0">
                     <th></th>
                     <th>Relation</th>
                     <th>Number</th>
@@ -221,7 +226,7 @@
             <tbody>
                 <tr ng-repeat="task in $ctrl.relatedTasks">
                     <td>
-                        <a href="#/idea/{{idea.number}}">
+                        <a href="#/task/{{task.number}}">
                             <span class="module-badge module-badge-task">
                                 <img src="/images/icon-Task-small.png" alt="Task main icon" />
                             </span>

@@ -15,20 +15,22 @@ class NewTaskCtrl {
             this.task.description = '';
             this.output = "";
 
-            if (this.ideaTitle)
-                this.task.title = this.ideaTitle;
+            if (this.parentTitle)
+                this.task.title = this.parentTitle;
 
-            if (this.project)
-                this.task._project = Projects.findOne(this.project);
+            if (this.parentProject)
+                this.task._project = Projects.findOne(this.parentProject);
 
-            if (this.module)
-                this.task.module = Modules.findOne(this.module);
+            if (this.parentModule)
+                this.task.module = Modules.findOne(this.parentModule);
 
-            if (this.ideaTitle && this.project && this.module)
+            if (this.ideaId)
                 this.task.type = 'Feature';
+            else if (this.taskId)
+                this.task.type = 'Subtask';
 
-            if (this.sprint)
-                this.task.sprint = this.sprint;
+            if (this.parentSprint)
+                this.task.sprint = this.parentSprint;
         }
 
         /// init
@@ -87,8 +89,9 @@ class NewTaskCtrl {
             vm.task.createdBy = Meteor.userId();
             vm.task.creationDate = new Date();
 
-            var relationObj = {
-                entity: 'Idea'
+            //this is the case when attributes have been used
+            if (vm.task.module && typeof vm.task.module !== 'string') {
+                vm.task.module = vm.task.module._id;
             };
 
             if (vm.ideaId) {
@@ -99,12 +102,15 @@ class NewTaskCtrl {
                 };
 
                 vm.task.related = [relationObj];
-            }
+            } else if (vm.taskId) {
+                let relationObj = {
+                    entity: 'Task',
+                    id: vm.taskId,
+                    relation: 'Based On'
+                };
 
-            //this is the case when attributes have been used
-            if (vm.task.module && typeof vm.task.module !== 'string') {
-                vm.task.module = vm.task.module._id;
-            };
+                vm.task.related = [relationObj];
+            }
 
             var newTaskId = Tasks.insert(vm.task);
             if (vm.ideaId) {
@@ -115,6 +121,19 @@ class NewTaskCtrl {
                 };
 
                 Ideas.update(vm.ideaId, {
+                    $push: {
+                        related: relationObj
+                    }
+                });
+            }
+            if (vm.taskId) {
+                let relationObj = {
+                    entity: 'Task',
+                    id: newTaskId,
+                    relation: 'Subtask'
+                };
+
+                Tasks.update(vm.taskId, {
                     $push: {
                         related: relationObj
                     }
@@ -145,12 +164,13 @@ export default angular.module("task")
             link,
             scope: {
                 title: '@',
-                project: '@',
-                module: '@',
+                parentProject: '@',
+                parentModule: '@',
+                parentTitle: '@',
+                parentSprint: '=',
                 ideaId: '@',
-                ideaTitle: '@',
-                altId: '@',
-                sprint: '='
+                taskId: '@',
+                altId: '@'
             },
             bindToController: true
         }
@@ -160,22 +180,23 @@ export default angular.module("task")
                 ctrl.altId = '';
             }
 
-            attrs.$observe('project', function () {
-                if (ctrl.project) {
-                    ctrl.task._project = Projects.findOne(ctrl.project);
-                    if (ctrl.task._project && ctrl.module) {
-                        ctrl.task.module = Modules.findOne(ctrl.module);
-                        ctrl.task.type = 'Feature';
+            attrs.$observe('parentProject', function () {
+                if (ctrl.parentProject) {
+                    ctrl.task._project = Projects.findOne(ctrl.parentProject);
+                    if (ctrl.task._project && ctrl.parentModule) {
+                        ctrl.task.module = Modules.findOne(ctrl.parentModule);
                     }
                 }
             });
-            attrs.$observe('ideaTitle', function () {
-                if (ctrl.ideaTitle)
-                    ctrl.task.title = ctrl.ideaTitle;
+
+            attrs.$observe('parentTitle', function () {
+                if (ctrl.parentTitle)
+                    ctrl.task.title = ctrl.parentTitle;
             });
-            attrs.$observe('sprint', function () {
-                if (ctrl.sprint)
-                    ctrl.task.sprint = ctrl.sprint;
+
+            attrs.$observe('parentSprint', function () {
+                if (ctrl.parentSprint)
+                    ctrl.task.sprint = ctrl.parentSprint;
             });
 
             //Set default Title

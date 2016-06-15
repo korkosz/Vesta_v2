@@ -3,7 +3,7 @@
     <!-- Task header -->
     <section class="VST-view-header">
         <div class="logo-wrapper">
-            <img src="/images/icon-Task.png" alt="Idea main icon" />
+            <img src="/images/icon-Task.png" alt="Task main icon" />
             <h1>task</h1>
         </div>
         <header>
@@ -72,14 +72,25 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Create New Task -->
+                <new-task title="Sub-Task" 
+                    parent-module="{{$ctrl.task.module}}" 
+                    parent-project="{{$ctrl.task.project}}" 
+                    parent-title="{{$ctrl.task.title}}" 
+                    parent-sprint="$ctrl.task.sprint"
+                    task-id="{{$ctrl.task._id}}" alt-id="0"
+                    ng-if="$ctrl.task.status === 'New' || 
+                           $ctrl.task.status === 'Working'">
+                </new-task>
             </div>
         </section>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#rejectIdeaModal">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relationModal">
             Set Relation
         </button>
 
         <!-- Relation Modal -->
-        <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -141,7 +152,7 @@
         <div class="VST-table-wrapper">
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr ng-if="$ctrl.relatedTasks.length + $ctrl.relatedIdeas.length > 0">
                         <th></th>
                         <th>Relation</th>
                         <th>Number</th>
@@ -165,7 +176,7 @@
                     </tr>
                     <tr ng-repeat="task in $ctrl.relatedTasks">
                         <td>
-                            <a href="#/idea/{{idea.number}}">
+                            <a href="#/task/{{task.number}}">
                                 <span class="module-badge module-badge-task">
                                 <img src="/images/icon-Task-small.png" alt="Task main icon" />
                             </span>
