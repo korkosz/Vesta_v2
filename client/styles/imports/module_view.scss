@@ -195,10 +195,12 @@ section.#{$VESTA}-view-desc{
 
 // Info box
 .#{$VESTA}-view-info-box{
+    position: relative;
     flex-basis: 250px;
     text-align: right;
     background: #fff;
     border-left: 5px solid #F4F4F4;
+    padding: 100px 30px;
     .reviewers-box{
         display: -moz-box;
         display: -ms-flexbox;
@@ -210,6 +212,18 @@ section.#{$VESTA}-view-desc{
     div.pill{
         padding-right: 15px;
         margin-right: 0;
+    }
+    .idea-status{
+        position: absolute;
+        top: 34px;
+        left: 50%;
+        margin-left: -30%;
+        min-width: 60%;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        font-size: 14px;
+        padding: 0;
     }
 }
 
