@@ -98,3 +98,14 @@
 	font-weight: 700;
 	text-transform: uppercase;
 }
+
+
+td a {
+	display: block;
+	border: 1px solid white;
+	padding: 16px;
+}
+
+.no-padding td{
+	padding: 0px !important;
+}

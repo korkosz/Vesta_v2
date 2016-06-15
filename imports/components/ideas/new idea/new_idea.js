@@ -118,8 +118,8 @@ class NewIdeaCtrl {
                 entity: 'Idea'
             };
 
-            if (this.ideaId) {
-                relationObj.id = this.ideaId;
+            if (vm.ideaId) {
+                relationObj.id = vm.ideaId;
                 relationObj.relation = 'Based On';
 
                 vm.idea.related = [relationObj];
@@ -131,11 +131,11 @@ class NewIdeaCtrl {
             };
 
             var newIdeaId = Ideas.insert(vm.idea);
-            if (this.ideaId) {
+            if (vm.ideaId) {
                 relationObj.id = newIdeaId;
                 relationObj.relation = 'Sub-Idea';
 
-                Ideas.update(this.ideaId, {
+                Ideas.update(vm.ideaId, {
                     $push: {
                         related: relationObj
                     }

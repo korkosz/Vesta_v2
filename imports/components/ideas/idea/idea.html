@@ -140,14 +140,13 @@
                 </new-task>
 
                 <!-- Create New Idea -->
-                <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}"
-                    idea-title="{{$ctrl.idea.title}}" alt-id="0" sprint="$ctrl.idea.sprint"
-                    reviewers="$ctrl.idea.reviewers">
+                <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                    alt-id="0" sprint="$ctrl.idea.sprint" reviewers="$ctrl.idea.reviewers">
                 </new-idea>
 
                 <!-- Create New Ask -->
-                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}" sprint="$ctrl.idea.sprint"
-                    alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
+                <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
+                    sprint="$ctrl.idea.sprint" alt-id="0" ng-if="$ctrl.idea.status === 'Consider'">
                 </new-ask>
 
                 <!-- Button trigger modal -->
@@ -212,6 +211,7 @@
         <table class="table">
             <thead>
                 <tr ng-if="$ctrl.tasks.length + $ctrl.asks.length > 0">
+                    <th></th>
                     <th>Relation</th>
                     <th>Number</th>
                     <th>Title</th>
@@ -219,11 +219,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in $ctrl.tasks" ng-click="$ctrl.goDetails('task', task.number)" style="cursor: pointer;">
-                    <td>Working in</td>
-                    <td>{{task.number}}</td>
-                    <td>{{task.title}}</td>
-                    <td>{{task.status}}</td>
+                <tr ng-repeat="task in $ctrl.relatedTasks">
+                    <td>
+                        <a href="#/idea/{{idea.number}}">
+                            <span class="module-badge module-badge-task">
+                                <img src="/images/icon-Task-small.png" alt="Task main icon" />
+                            </span>
+                        </a>
+                    </td>
+                    <td><a href="#/task/{{task.number}}">{{task.relation}}</a></td>
+                    <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
+                    <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
+                    <td><a href="#/task/{{task.number}}">{{task.status}}</a></td>
                 </tr>
                 <tr ng-repeat="ask in $ctrl.asks" ng-click="$ctrl.goDetails('ask', ask.number)" style="cursor: pointer;">
                     <td>Discussion in</td>
@@ -232,10 +239,17 @@
                     <td>{{ask.status}}</td>
                 </tr>
                 <tr ng-repeat="idea in $ctrl.relatedIdeas">
-                    <td>Sub-Idea</td>
-                    <td>{{idea.number}}</td>
-                    <td>{{idea.title}}</td>
-                    <td>{{idea.status}}</td>
+                    <td>
+                        <a href="#/idea/{{idea.number}}">
+                            <span class="module-badge module-badge-idea">
+                                <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                            </span>
+                        </a>
+                    </td>
+                    <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
+                    <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
+                    <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
+                    <td><a href="#/idea/{{idea.number}}">{{idea.status}}</a></td>
                 </tr>
             </tbody>
         </table>

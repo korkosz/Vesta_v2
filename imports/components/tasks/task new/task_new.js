@@ -26,9 +26,9 @@ class NewTaskCtrl {
 
             if (this.ideaTitle && this.project && this.module)
                 this.task.type = 'Feature';
-            
+
             if (this.sprint)
-                this.task.sprint = this.sprint;  
+                this.task.sprint = this.sprint;
         }
 
         /// init
@@ -86,14 +86,40 @@ class NewTaskCtrl {
             vm.task.project = vm.task._project._id;
             vm.task.createdBy = Meteor.userId();
             vm.task.creationDate = new Date();
-            vm.task.ideaId = vm.ideaId;
+
+            var relationObj = {
+                entity: 'Idea'
+            };
+
+            if (vm.ideaId) {
+                let relationObj = {
+                    entity: 'Idea',
+                    id: vm.ideaId,
+                    relation: 'Based On'
+                };
+
+                vm.task.related = [relationObj];
+            }
 
             //this is the case when attributes have been used
             if (vm.task.module && typeof vm.task.module !== 'string') {
                 vm.task.module = vm.task.module._id;
             };
 
-            Tasks.insert(vm.task);
+            var newTaskId = Tasks.insert(vm.task);
+            if (vm.ideaId) {
+                let relationObj = {
+                    entity: 'Task',
+                    id: newTaskId,
+                    relation: 'Working in'
+                };
+
+                Ideas.update(vm.ideaId, {
+                    $push: {
+                        related: relationObj
+                    }
+                });
+            }
             vm.closeModal();
         });
     }
@@ -151,7 +177,7 @@ export default angular.module("task")
                 if (ctrl.sprint)
                     ctrl.task.sprint = ctrl.sprint;
             });
-            
+
             //Set default Title
             if (!ctrl.title) ctrl.title = 'Task';
 
