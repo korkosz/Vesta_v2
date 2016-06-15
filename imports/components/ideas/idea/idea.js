@@ -105,13 +105,13 @@ class IdeaCtrl {
                     me.idea.related &&
                     me.idea.related.length > 0) {
 
-                    var taskssIds = me.idea.related.filter((rel) => {
+                    var tasksIds = me.idea.related.filter((rel) => {
                         return rel.entity === 'Task';
                     }).map((relObj) => {
                         return relObj.id;
                     });
 
-                    return Tasks.find({ _id: { $in: taskssIds } }).map((task) => {
+                    return Tasks.find({ _id: { $in: tasksIds } }).map((task) => {
                         task.relation = me.idea.related.find((rel) => {
                             return rel.id === task._id;
                         }).relation;

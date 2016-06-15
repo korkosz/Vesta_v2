@@ -24,14 +24,58 @@ class TaskCtrl {
             },
             relatedTasks() {
                 this.getReactively('task.related.length');
-                if (this.task && this.task.related && this.task.related.length > 0) {
-                    var relatedIds = this.task.related.map((relTask) => relTask.id);
-                    return Tasks.find({ _id: { $in: relatedIds } });
+
+                var me = this;
+
+                if (me.task &&
+                    me.task.related &&
+                    me.task.related.length > 0) {
+
+                    var tasksIds = me.task.related.filter((rel) => {
+                        return rel.entity === 'Task';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Tasks.find({ _id: { $in: tasksIds } }).map((task) => {
+                        task.relation = me.task.related.find((rel) => {
+                            return rel.id === task._id;
+                        }).relation;
+
+                        return task;
+                    });
+                }
+
+
+                if (me.idea) {
+                    return Tasks.find({
+                        ideaId: me.idea._id,
+                        isDeleted: false
+                    });
                 }
             },
-            idea() {
+            relatedIdeas() { //should be one
                 this.getReactively('task');
-                if (this.task) return Ideas.findOne(this.task.ideaId);
+                var me = this;
+
+                if (me.task &&
+                    me.task.related &&
+                    me.task.related.length > 0) {
+
+                    var ideasIds = me.task.related.filter((rel) => {
+                        return rel.entity === 'Idea';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Ideas.find({ _id: { $in: ideasIds } }).map((idea) => {
+                        idea.relation = me.task.related.find((rel) => {
+                            return rel.id === idea._id;
+                        }).relation;
+
+                        return idea;
+                    });
+                }
             },
             taskStatuses() {
                 return Metadata.findOne({ metadataName: 'TaskStatuses' });

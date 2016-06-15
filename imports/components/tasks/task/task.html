@@ -142,6 +142,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Relation</th>
                         <th>Number</th>
                         <th>Title</th>
@@ -149,19 +150,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-click="$ctrl.goDetails('idea', $ctrl.idea.number)" style="cursor: pointer;" ng-if="$ctrl.idea">
-                        <td>Based On</td>
-                        <td>{{$ctrl.idea.id}}</td>
+                    <tr ng-repeat="idea in $ctrl.relatedIdeas">
                         <td>
-                            {{$ctrl.idea.title}}
+                            <a href="#/idea/{{idea.number}}">
+                                <span class="module-badge module-badge-idea">
+                                <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                            </span>
+                            </a>
                         </td>
-                        <td>{{$ctrl.idea.status}}</td>
+                        <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
+                        <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
+                        <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
+                        <td><a href="#/idea/{{idea.number}}">{{idea.status}}</a></td>
                     </tr>
-                    <tr ng-click="$ctrl.goDetails('task', relatedTask.number)" style="cursor: pointer;" ng-repeat="relatedTask in $ctrl.relatedTasks">
-                        <td>{{$ctrl.getRelationType(relatedTask._id)}}</td>
-                        <td>{{relatedTask.id}}</td>
-                        <td>{{relatedTask.title}}</td>
-                        <td>{{relatedTask.status}}</td>
+                    <tr ng-repeat="task in $ctrl.relatedTasks">
+                        <td>
+                            <a href="#/idea/{{idea.number}}">
+                                <span class="module-badge module-badge-task">
+                                <img src="/images/icon-Task-small.png" alt="Task main icon" />
+                            </span>
+                            </a>
+                        </td>
+                        <td><a href="#/task/{{task.number}}">{{task.relation}}</a></td>
+                        <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
+                        <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
+                        <td><a href="#/task/{{task.number}}">{{task.status}}</a></td>
                     </tr>
                 </tbody>
             </table>
