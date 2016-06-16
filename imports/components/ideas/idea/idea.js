@@ -119,21 +119,28 @@ class IdeaCtrl {
                         return task;
                     });
                 }
-
-
-                if (this.idea) {
-                    return Tasks.find({
-                        ideaId: this.idea._id,
-                        isDeleted: false
-                    });
-                }
             },
-            asks() {
+            relatedAsks() {
                 this.getReactively('idea');
-                if (this.idea) {
-                    return Asks.find({
-                        ideaId: this.idea._id,
-                        isDeleted: false
+
+                var me = this;
+
+                if (me.idea &&
+                    me.idea.related &&
+                    me.idea.related.length > 0) {
+
+                    var asksIds = me.idea.related.filter((rel) => {
+                        return rel.entity === 'Ask';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Asks.find({ _id: { $in: asksIds } }).map((ask) => {
+                        ask.relation = me.idea.related.find((rel) => {
+                            return rel.id === ask._id;
+                        }).relation;
+
+                        return ask;
                     });
                 }
             },

@@ -106,7 +106,7 @@ class NewIdeaCtrl {
 
         var vm = this;
 
-        this.compileOutput().then(() => {
+        vm.compileOutput().then(() => {
             vm.idea.project = vm.idea._project._id;
             vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
@@ -123,7 +123,6 @@ class NewIdeaCtrl {
                     vm.closeModal();
                 }
             });
-
         });
     }
 
@@ -184,21 +183,6 @@ export default angular.module("idea")
                 if (ctrl.sprint)
                     ctrl.idea.sprint = ctrl.sprint;
             });
-            // scope.$watch(function () {
-            //     return ctrl.reviewers && ctrl.reviewers.length;
-            // }, function () {
-            //     if (ctrl.reviewers && ctrl.reviewers.length > 0) {
-            //         var _reviewers = Meteor.users.find({
-            //             _id: {
-            //                 $in: ctrl.reviewers
-            //             }
-            //         });
-            //         _reviewers.forEach((rev) => {
-            //             ctrl.selectedReviewers.push(rev);
-            //         });
-            //         ctrl.reviewersChanged = !ctrl.reviewersChanged;
-            //     }
-            // });
 
             //Set default Title
             if (!ctrl.title) ctrl.title = 'Idea';

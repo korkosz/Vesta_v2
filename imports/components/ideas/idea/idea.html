@@ -241,12 +241,19 @@
                     <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
                     <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
                     <td><a href="#/task/{{task.number}}">{{task.status}}</a></td>
-                </tr>
-                <tr ng-repeat="ask in $ctrl.asks" ng-click="$ctrl.goDetails('ask', ask.number)" style="cursor: pointer;">
-                    <td>Discussion in</td>
-                    <td>{{ask.number}}</td>
-                    <td>{{ask.title}}</td>
-                    <td>{{ask.status}}</td>
+                </tr>  
+                 <tr ng-repeat="ask in $ctrl.relatedAsks">
+                    <td>
+                        <a href="#/ask/{{ask.number}}">
+                            <span class="module-badge module-badge-ask">
+                                <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
+                            </span>
+                        </a>
+                    </td>
+                    <td><a href="#/ask/{{ask.number}}">{{ask.relation}}</a></td>
+                    <td><a href="#/ask/{{ask.number}}">{{ask.number}}</a></td>
+                    <td><a href="#/ask/{{ask.number}}">{{ask.title}}</a></td>
+                    <td><a href="#/ask/{{ask.number}}">{{ask.status}}</a></td>
                 </tr>
                 <tr ng-repeat="idea in $ctrl.relatedIdeas">
                     <td>

@@ -66,17 +66,19 @@ class NewAskCtrl {
         var vm = this;
         this.compileOutput().then(() => {
             vm.ask.project = vm.ask.project._id;
-            vm.ask.createdBy = Meteor.userId();
-            vm.ask.creationAt = new Date();
             vm.ask.ideaId = vm.ideaId;
-
+            
             //this is the case when attributes have been used
             if (this.ask.module && typeof this.ask.module !== 'string') {
                 this.ask.module = this.ask.module._id;
             };
 
-            Asks.insert(vm.ask);
-            vm.closeModal();
+            Meteor.call('asks.createAsk', vm.ask, (err, res) => {
+                if (err) window.alert(err)
+                else {
+                    vm.closeModal();
+                }
+            });
         });
     }
 
