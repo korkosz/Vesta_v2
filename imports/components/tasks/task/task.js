@@ -146,6 +146,12 @@ class TaskCtrl {
         this.cancelSearchResult();
     }
 
+    closeTask() {
+        Meteor.call('tasks.closeTask', this.task._id, (err, res) => {
+            if (err) window.alert(err) 
+        });
+    }
+
     cancelSearchResult() {
         this.selectedResult = null;
         this.relation.searchText = null;

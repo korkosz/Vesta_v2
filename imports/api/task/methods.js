@@ -22,20 +22,56 @@ function createTask(task) {
     }
 }
 
+function closeTask(taskId) {
+    var task = Tasks.findOne(taskId);
+
+    var relatedIdea = task.related.filter((rel) => {
+        return rel.entity === 'Idea';
+    });
+
+    if (!relatedIdea) {
+        Tasks.update(taskId, {
+            $set: {
+                status: 'Closed'
+            }
+        });
+    } else {
+        Tasks.update(taskId, {
+            $set: {
+                status: 'Closed'
+            }
+        }, (err, res) => {
+            if (err) return;
+            var idea = Ideas.findOne(relatedIdea.id);
+
+            if (idea.status === 'Working') return;
+
+            var otherTasksRelatedToIdea_Ids = idea.related
+                .filter((rel) => rel.entity === 'Tasks')
+                .map((rel) => rel.id);
+            var otherTasksRelatedToIdea = Tasks.find({
+                _id: {
+                    $in: otherTasksRelatedToIdea_Ids
+                }
+            }).fetch();
+
+            if (otherTasksRelatedToIdea.every((_task) => _task.status === 'Closed')) {
+                Ideas.update(relatedIdea.id, {
+                    $set: {
+                        status: 'Implemented'
+                    }
+                });
+            }
+        });
+    }
+}
+
 Meteor.methods({
-    'tasks.createTask': createTask
+    'tasks.createTask': createTask,
+    'tasks.closeTask': closeTask
 });
 
 ///inner
-function taskRelation(relation) {
-    relation.entity === 'Tasks';
-}
-
-function canBecameWorking(idea) {
-    return idea.status === 'Consider' ||
-        idea.status === 'Discussed';
-}
-
 function createTaskFromIdea(task) {
     var parentIdea = Ideas.findOne(task.ideaId);
 
@@ -63,8 +99,7 @@ function createTaskFromIdea(task) {
         };
         //if first related Task change Idea
         //status to "Working"
-        if (!parentIdea.related.some(taskRelation) &&
-            canBecameWorking(parentIdea)) {
+        if (canBecameWorking(parentIdea)) {
             updateObj['$set'] = {
                 status: 'Working'
             };
@@ -100,4 +135,9 @@ function createTaskFromTask(task) {
             }
         });
     });
+}
+
+function canBecameWorking(idea) {
+    return idea.status === 'Consider' ||
+        idea.status === 'Discussed';
 }

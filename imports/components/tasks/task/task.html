@@ -83,6 +83,9 @@
                     ng-if="$ctrl.task.status === 'New' || 
                            $ctrl.task.status === 'Working'">
                 </new-task>
+                <button class="btn btn-success" ng-click="$ctrl.closeTask()">
+                    Close
+                </button>
             </div>
         </section>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relationModal">

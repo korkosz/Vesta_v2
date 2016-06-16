@@ -8,22 +8,24 @@ import {Notify} from '/imports/api/notification/notification';
 class TaskClass extends Entity {
     update(selector, updateDoc, callback, notifyObject) {
         function innerCallback() {
-            var usersToNotify = [];
-            if (typeof notifyObject.assignedUser === 'string' &&
-                notifyObject.assignedUser !==
-                notifyObject.provider) {
-                usersToNotify.push(notifyObject.assignedUser);
-            }
+            if (notifyObject) {
+                var usersToNotify = [];
+                if (typeof notifyObject.assignedUser === 'string' &&
+                    notifyObject.assignedUser !==
+                    notifyObject.provider) {
+                    usersToNotify.push(notifyObject.assignedUser);
+                }
 
-            if (typeof notifyObject.entityCreator === 'string' &&
-                notifyObject.entityCreator !== notifyObject.provider &&
-                notifyObject.entityCreator !== notifyObject.assignedUser) {
-                usersToNotify.push(notifyObject.entityCreator);
-            }
+                if (typeof notifyObject.entityCreator === 'string' &&
+                    notifyObject.entityCreator !== notifyObject.provider &&
+                    notifyObject.entityCreator !== notifyObject.assignedUser) {
+                    usersToNotify.push(notifyObject.entityCreator);
+                }
 
-            if (usersToNotify.length > 0) {
-                Notify('Task', notifyObject.id, 'Update', usersToNotify,
-                    notifyObject.provider, notifyObject.when);
+                if (usersToNotify.length > 0) {
+                    Notify('Task', notifyObject.id, 'Update', usersToNotify,
+                        notifyObject.provider, notifyObject.when);
+                }
             }
 
             if (typeof callback === 'function') callback();

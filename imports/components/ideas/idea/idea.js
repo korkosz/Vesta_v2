@@ -18,8 +18,6 @@ class IdeaCtrl {
         this.$timeout = $timeout;
         this.moment = moment;
         this.reviewers = [];
-        this.statusImplementedAlreadyChanged = false;
-        this.statusWorkingAlreadyChanged = false;
 
         function clearArray(arr) {
             for (var i = 0, len = arr.length; i < len; i++)
@@ -48,9 +46,6 @@ class IdeaCtrl {
                 }
                 return idea;
             },
-            ideaStatuses() {
-                return Metadata.findOne({ metadataName: 'IdeaStatuses' });
-            },
             relatedIdeas() {
                 this.getReactively('idea');
                 var me = this;
@@ -71,28 +66,6 @@ class IdeaCtrl {
                         }).relation;
 
                         return idea;
-                    });
-                }
-            },
-            project() {
-                this.getReactively('idea');
-                if (this.idea) {
-                    var project = Projects.findOne(this.idea.project);
-                    if (project) {
-                        project.sprints = project.sprints.filter((sprint) => {
-                            return sprint >= project.currentSprint;
-                        });
-                        return project;
-                    }
-                }
-            },
-            users() {
-                this.getReactively('reviewers.length');
-                if (this.idea) {
-                    return Meteor.users.find({
-                        _id: {
-                            $nin: this.idea.reviewers
-                        }
                     });
                 }
             },
@@ -144,63 +117,26 @@ class IdeaCtrl {
                     });
                 }
             },
-            setDiscussed() {
-                this.getReactively('asks.length');
-                if (!this.asks ||
-                    this.asks.length < 1 ||
-                    this.tasks.length > 0) return;
-
-                if (this.idea.status === 'Consider') {
-                    Ideas.update(this.idea._id, {
-                        $set: {
-                            status: 'Discussed'
-                        }
-                    });
+            project() {
+                this.getReactively('idea');
+                if (this.idea) {
+                    var project = Projects.findOne(this.idea.project);
+                    if (project) {
+                        project.sprints = project.sprints.filter((sprint) => {
+                            return sprint >= project.currentSprint;
+                        });
+                        return project;
+                    }
                 }
             },
-            setImplemented() {
-                this.getReactively('tasks');
-                if (!this.tasks || this.tasks.length < 1) return;
-
-                if (this.idea.status === 'Working' ||
-                    this.idea.status === 'Implemented') {
-
-                    var notify = {
-                        reviewers: this.idea.reviewers,
-                        provider: Meteor.userId(),
-                        id: this.idea.id,
-                        when: new Date(),
-                        entityCreator: this.idea.createdBy
-                    };
-
-                    var allTasksDone = true;
-                    this.tasks.forEach((task) => {
-                        if (task.status !== "Closed")
-                            allTasksDone = false;
+            users() {
+                this.getReactively('reviewers.length');
+                if (this.idea) {
+                    return Meteor.users.find({
+                        _id: {
+                            $nin: this.idea.reviewers
+                        }
                     });
-
-                    if (allTasksDone) {
-                        if (this.idea.status === 'Implemented') return;
-                        if (this.statusImplementedAlreadyChanged) return;
-                        Ideas.update(this.idea._id, {
-                            $set: {
-                                status: 'Implemented'
-                            }
-                        }, null, notify);
-                        this.statusImplementedAlreadyChanged = true;
-                        this.statusWorkingAlreadyChanged = false;
-                    } else if (this.idea.status === 'Implemented') {
-                        if (this.statusWorkingAlreadyChanged) return;
-
-                        Ideas.update(this.idea._id, {
-                            $set: {
-                                status: 'Working'
-                            }
-                        }, null, notify);
-
-                        this.statusImplementedAlreadyChanged = false;
-                        this.statusWorkingAlreadyChanged = true;
-                    }
                 }
             }
         });
@@ -261,7 +197,7 @@ class IdeaCtrl {
         }, null, notify);
         this.stopEditDescription();
     }
-
+    
     setStatus(_status) {
         var notify = {
             reviewers: this.idea.reviewers,

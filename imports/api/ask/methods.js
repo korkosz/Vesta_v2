@@ -5,7 +5,7 @@ import Asks from '/imports/api/ask/ask';
 function createAsk(ask) {
     ask.createdBy = this.userId;
     ask.creationDate = new Date();
-  
+
     const relatedIdeaSpecified = typeof ask.ideaId === 'string';
 
     if (relatedIdeaSpecified) {
@@ -15,7 +15,7 @@ function createAsk(ask) {
             throw new Meteor.Error('wrong-parentId',
                 'There is no Idea with Id specified as parent Id');
 
-        let relationObj = {
+        const relationObj = {
             entity: 'Idea',
             id: parentIdea._id,
             relation: 'Based On'
@@ -23,16 +23,22 @@ function createAsk(ask) {
         ask.related = [relationObj];
 
         Asks.insert(ask, (err, newAskId) => {
-            let relationObj = {
+            const relationObj = {
                 entity: 'Ask',
                 id: newAskId,
                 relation: 'Discussion In'
             };
-            Ideas.update(parentIdea._id, {
+            var updateObj = {
                 $push: {
                     related: relationObj
                 }
-            });
+            };
+            if (canBecameDiscussed(parentIdea)) {
+                updateObj['$set'] = {
+                    status: 'Discussed'
+                };
+            }
+            Ideas.update(parentIdea._id, updateObj);
         });
     } else {
         return Asks.insert(ask);
@@ -42,3 +48,7 @@ function createAsk(ask) {
 Meteor.methods({
     'asks.createAsk': createAsk
 });
+
+function canBecameDiscussed(idea) {
+    return idea.status === 'Consider';
+}
