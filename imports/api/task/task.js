@@ -1,6 +1,6 @@
 import {Mongo} from 'meteor/mongo';
 import Entity from '../entity';
-
+import './methods';
 import Comments from '/imports/api/task/comment'
 
 import {Notify} from '/imports/api/notification/notification';

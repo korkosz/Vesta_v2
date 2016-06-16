@@ -158,19 +158,6 @@ class IdeaCtrl {
                     });
                 }
             },
-            setWorkingStatus() {
-                this.getReactively('tasks.length');
-                if (!this.tasks || this.tasks.length < 1) return;
-
-                if (this.idea.status === 'Consider' ||
-                    this.idea.status === 'Discussed') {
-                    Ideas.update(this.idea._id, {
-                        $set: {
-                            status: 'Working'
-                        }
-                    });
-                }
-            },
             setImplemented() {
                 this.getReactively('tasks');
                 if (!this.tasks || this.tasks.length < 1) return;

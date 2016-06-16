@@ -86,60 +86,20 @@ class NewTaskCtrl {
 
         this.compileOutput().then(() => {
             vm.task.project = vm.task._project._id;
-            vm.task.createdBy = Meteor.userId();
-            vm.task.creationDate = new Date();
+            vm.task.ideaId = vm.ideaId;
+            vm.task.taskId = vm.taskId;
 
             //this is the case when attributes have been used
             if (vm.task.module && typeof vm.task.module !== 'string') {
                 vm.task.module = vm.task.module._id;
             };
 
-            if (vm.ideaId) {
-                let relationObj = {
-                    entity: 'Idea',
-                    id: vm.ideaId,
-                    relation: 'Based On'
-                };
-
-                vm.task.related = [relationObj];
-            } else if (vm.taskId) {
-                let relationObj = {
-                    entity: 'Task',
-                    id: vm.taskId,
-                    relation: 'Based On'
-                };
-
-                vm.task.related = [relationObj];
-            }
-
-            var newTaskId = Tasks.insert(vm.task);
-            if (vm.ideaId) {
-                let relationObj = {
-                    entity: 'Task',
-                    id: newTaskId,
-                    relation: 'Working in'
-                };
-
-                Ideas.update(vm.ideaId, {
-                    $push: {
-                        related: relationObj
-                    }
-                });
-            }
-            if (vm.taskId) {
-                let relationObj = {
-                    entity: 'Task',
-                    id: newTaskId,
-                    relation: 'Subtask'
-                };
-
-                Tasks.update(vm.taskId, {
-                    $push: {
-                        related: relationObj
-                    }
-                });
-            }
-            vm.closeModal();
+            Meteor.call('tasks.createTask', vm.task, (err, res) => {
+                if (err) window.alert(err)
+                else {
+                    vm.closeModal();
+                }
+            });
         });
     }
 

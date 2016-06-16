@@ -6,6 +6,7 @@ import './methods';
 class IdeasCollection extends Entity {
     update(selector, updateDoc, callback, notifyObject) {
         function innerCallback() {
+            if(!notifyObject) return;
             //reviewers have to be notified
             var usersToNotify = notifyObject.reviewers.map((rev) => {
                 if (rev !== notifyObject.provider) return rev;
