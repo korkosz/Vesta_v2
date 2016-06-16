@@ -25,7 +25,7 @@ function createTask(task) {
 function closeTask(taskId) {
     var task = Tasks.findOne(taskId);
 
-    var relatedIdea = task.related.filter((rel) => {
+    var relatedIdea = task.related.find((rel) => {
         return rel.entity === 'Idea';
     });
 
@@ -44,10 +44,10 @@ function closeTask(taskId) {
             if (err) return;
             var idea = Ideas.findOne(relatedIdea.id);
 
-            if (idea.status === 'Working') return;
+            if (idea.status !== 'Working') return;
 
             var otherTasksRelatedToIdea_Ids = idea.related
-                .filter((rel) => rel.entity === 'Tasks')
+                .filter((rel) => rel.entity === 'Task')
                 .map((rel) => rel.id);
             var otherTasksRelatedToIdea = Tasks.find({
                 _id: {
@@ -97,9 +97,8 @@ function createTaskFromIdea(task) {
                 related: relationObj
             }
         };
-        //if first related Task change Idea
-        //status to "Working"
-        if (canBecameWorking(parentIdea)) {
+        
+        if (parentIdea.status !== 'Working') {
             updateObj['$set'] = {
                 status: 'Working'
             };
