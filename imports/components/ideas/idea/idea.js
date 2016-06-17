@@ -168,16 +168,16 @@ class IdeaCtrl {
 
     changeStatusBtnsVisibility(btn) {
         if (!this.idea) return;
-        var status = this.idea.status.toUpperCase();
+        var status = this.idea.status;
 
         switch (btn) {
             case 'Defer':
             case 'Reject':
-                return status === 'NEW' ||
-                    status === 'CONSIDER' ||
-                    status === 'DISCUSSED';
+                return status === 1 ||
+                    status === 6 ||
+                    status === 8;
             case 'Close':
-                return status === 'IMPLEMENTED';
+                return status === 7;
         }
     }
 

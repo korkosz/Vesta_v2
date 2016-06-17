@@ -104,7 +104,7 @@
         <!-- Info box -->
         <section class="VST-view-info-box">
             <!--STATUS !!!-->
-            STATUS: {{$ctrl.ask.status}}
+            STATUS: {{$ctrl.ask.getStatusName()}}
         </section>
     </section>
 
@@ -187,7 +187,7 @@
                             <td><a href="#/ask/{{ask.number}}">{{ask.relation}}</a></td>
                             <td><a href="#/ask/{{ask.number}}">{{ask.number}}</a></td>
                             <td><a href="#/ask/{{ask.number}}">{{ask.title}}</a></td>
-                            <td><a href="#/ask/{{ask.number}}">{{ask.status}}</a></td>
+                            <td><a href="#/ask/{{ask.number}}">{{ask.getStatusName()}}</a></td>
                         </tr>
                         <tr ng-repeat="idea in $ctrl.relatedIdeas">
                             <td>
@@ -200,7 +200,7 @@
                             <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
                             <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
                             <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
-                            <td><a href="#/idea/{{idea.number}}">{{idea.status}}</a></td>
+                            <td><a href="#/idea/{{idea.number}}">{{idea.getStatusName()}}</a></td>
                         </tr>
                     </tbody>
                 </table>

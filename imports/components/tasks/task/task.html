@@ -175,7 +175,7 @@
                         <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
                         <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
                         <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
-                        <td><a href="#/idea/{{idea.number}}">{{idea.status}}</a></td>
+                        <td><a href="#/idea/{{idea.number}}">{{idea.getStatusName()}}</a></td>
                     </tr>
                     <tr ng-repeat="task in $ctrl.relatedTasks">
                         <td>
@@ -188,7 +188,7 @@
                         <td><a href="#/task/{{task.number}}">{{task.relation}}</a></td>
                         <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
                         <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
-                        <td><a href="#/task/{{task.number}}">{{task.status}}</a></td>
+                        <td><a href="#/task/{{task.number}}">{{task.getStatusName()}}</a></td>
                     </tr>
                 </tbody>
             </table>
