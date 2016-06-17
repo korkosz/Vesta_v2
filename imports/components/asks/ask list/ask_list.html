@@ -16,8 +16,8 @@
                     <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
                 </span>
                 <a href="#/ask/{{ask.number}}">
-                    <span class="project-badge">V</span>
-                    <span class="project">{{ask.projectName()}}</span>
+                    <span class="project-badge">{{ask.projectName()[0].toUpperCase()}}</span>
+                    <span class="project"></span>
                     <span class="module">{{ask.moduleName()}}</span>
                     <span ng-if="ask.isNew" style="color: red">NEW</span>
                 </a>

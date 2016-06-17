@@ -17,8 +17,8 @@
                     <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
                 </span>
                 <a href="#/idea/{{idea.number}}">
-                    <span class="project-badge">V</span>
-                    <span class="project">{{idea.projectName()}}</span>
+                    <span class="project-badge">{{idea.projectName()[0].toUpperCase()}}</span>
+                    <span class="project"></span>
                     <span class="module">{{idea.moduleName()}}</span>
                     <span ng-if="idea.isNew" style="color: red">NEW</span>
                 </a>
