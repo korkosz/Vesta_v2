@@ -112,7 +112,7 @@ Meteor.startup(() => {
                 "value": [
                     { id: 1, value: "New" },
                     { id: 2, value: "Working" },
-                    { id: 3, value: "Closed" },
+                    { id: 3, value: "Done" },
                     { id: 4, value: "Rejected" },
                     { id: 5, value: "Ready for testing" }
                 ]
