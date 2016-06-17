@@ -38,6 +38,29 @@ class AskCtrl {
                         });
                 }
             },
+            relatedIdeas() {
+                this.getReactively('ask');
+                var me = this;
+
+                if (me.ask &&
+                    me.ask.related &&
+                    me.ask.related.length > 0) {
+
+                    var ideasIds = me.ask.related.filter((rel) => {
+                        return rel.entity === 'Idea';
+                    }).map((relObj) => {
+                        return relObj.id;
+                    });
+
+                    return Ideas.find({ _id: { $in: ideasIds } }).map((idea) => {
+                        idea.relation = me.ask.related.find((rel) => {
+                            return rel.id === idea._id;
+                        }).relation;
+
+                        return idea;
+                    });
+                }
+            },
             setDiscussed() {
                 this.getReactively('responses.length');
 
