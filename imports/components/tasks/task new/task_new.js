@@ -69,8 +69,11 @@ class NewTaskCtrl {
     }
 
     projectSelected() {
-        this.task.sprint = this.task._project.currentSprint;
+        if (!this.task.priority) {
+            this.task.priority = 'Normal';
+        }
 
+        this.task.sprint = this.task._project.currentSprint;
         this.task._project.sprints = this.task._project.sprints.filter((sprint) => {
             return sprint >= this.task._project.currentSprint;
         });
