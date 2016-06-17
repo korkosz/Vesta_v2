@@ -2,6 +2,7 @@ import {Mongo} from 'meteor/mongo';
 import Entity from '../entity';
 import './methods';
 import Comments from '/imports/api/task/comment'
+import Metadata from '/imports/api/metadata/metadata';
 
 import {Notify} from '/imports/api/notification/notification';
 
@@ -57,7 +58,7 @@ TaskCollection.schema = Entity.createSchema({
         defaultValue: 0
     },
     type: {
-        type: String
+        type: Number
     },
     assigned: {
         type: String,
@@ -106,6 +107,10 @@ Entity.extendHelpers(TaskCollection, {
                 $in: _commentsIds
             }
         });
+    },
+    getTypeName() {
+        const taskTypes = Metadata.findOne('5vdA3vyJ2qCTMabwL').value;
+        return taskTypes.find((type) => type.id === this.type).value;
     }
 });
 

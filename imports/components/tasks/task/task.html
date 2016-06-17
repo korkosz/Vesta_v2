@@ -138,7 +138,7 @@
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Type</h4>
-                <select ng-model="$ctrl.task.type" ng-options="type for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
+                <select ng-model="$ctrl.task.type" ng-options="type.id as type.value for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
                 </select>
             </div>
             <div class="wrapper">

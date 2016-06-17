@@ -71,7 +71,7 @@ Meteor.startup(() => {
                     { id: 1, value: "New" },
                     { id: 2, value: "Working" },
                     { id: 3, value: "Closed" },
-                    { id: 4, value: "Rejected" },                    
+                    { id: 4, value: "Rejected" },
                     { id: 5, value: "Deferred" },
                     { id: 6, value: "Consider" },
                     { id: 7, value: "Implemented" },
@@ -98,9 +98,9 @@ Meteor.startup(() => {
                 "_id": "5vdA3vyJ2qCTMabwL",
                 "metadataName": "TaskType",
                 "value": [
-                    "Bug",
-                    "Feature",
-                    "Subtask"
+                    { id: 1, value: "Bug" },
+                    { id: 2, value: "Feature" },
+                    { id: 3, value: "Subtask" }
                 ]
             }
         );

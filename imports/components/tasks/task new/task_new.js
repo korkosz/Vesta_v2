@@ -25,9 +25,9 @@ class NewTaskCtrl {
                 this.task.module = Modules.findOne(this.parentModule);
 
             if (this.ideaId)
-                this.task.type = 'Feature';
+                this.task.type = 2;
             else if (this.taskId)
-                this.task.type = 'Subtask';
+                this.task.type = 3;
 
             if (this.parentSprint)
                 this.task.sprint = this.parentSprint;
