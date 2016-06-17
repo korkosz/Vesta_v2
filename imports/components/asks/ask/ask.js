@@ -76,7 +76,7 @@ class AskCtrl {
                 }
             },
         });
-    };
+    }
 
     closeAsk() {
         Asks.update(this.ask._id, {
@@ -90,7 +90,7 @@ class AskCtrl {
         this.$timeout(() => {
             this.$location.url('/');
         }, 500);
-    };
+    }
 
     saveDescription() {
         Asks.update(this.ask._id, {
@@ -99,27 +99,27 @@ class AskCtrl {
             }
         });
         this.stopEditDescription();
-    };
+    }
 
     addGoodPoint() {
         Asks.update(this.ask._id, {
             $push: { goodPoints: this.goodPoint }
         });
         this.goodPoint = '';
-    };
+    }
 
     removeGoodPoint(_goodPoint) {
         Asks.update(this.ask._id, {
             $pull: { goodPoints: _goodPoint }
         });
-    };
+    }
 
     alreadyLiked(resp) {
         if (!resp.likes) {
             return false;
         }
         return resp.likes.indexOf(Meteor.userId()) !== -1;
-    };
+    }
 
     stopLiking(resp) {
         Responses.update(resp._id, {
@@ -134,7 +134,7 @@ class AskCtrl {
             return false;
         }
         return resp.dislikes.indexOf(Meteor.userId()) !== -1;
-    };
+    }
 
     stopDisliking(resp) {
         Responses.update(resp._id, {
@@ -156,7 +156,7 @@ class AskCtrl {
         } else {
             return true;
         }
-    };
+    }
 
     canDislike(resp) {
         if (!resp.likes) {
@@ -168,7 +168,7 @@ class AskCtrl {
         } else {
             return true;
         }
-    };
+    }
 
     likeDislikeResponse(resp, like) {
         if (like) {
@@ -180,7 +180,7 @@ class AskCtrl {
                 $push: { dislikes: Meteor.userId() }
             });
         }
-    };
+    }
 
     addResponse() {
         var vm = this;
@@ -197,14 +197,14 @@ class AskCtrl {
         this.response.title = '';
         this.response.description = '';
 
-    };
+    }
 
     removeResponse(resp) {
         Responses.remove(resp._id, true);
         Asks.update(this.ask._id, {
             $pull: { responses: resp._id }
         });
-    };
+    }
 
     saveResponse(resp) {
         Responses.update(resp._id, {
@@ -214,7 +214,21 @@ class AskCtrl {
             }
         });
         resp.edited = false;
-    };
+    }
+
+    currentUserIsPostOwner(post) {
+        return post.createdBy === Meteor.userId();
+    }
+
+    ownerAndEdit(post) {
+        return this.currentUserIsPostOwner(post) &&
+            post.edited;
+    }
+    
+    ownerAndNotEdit(post) {
+        return this.currentUserIsPostOwner(post) &&
+            !post.edited;
+    }    
 };
 AskCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('ask')

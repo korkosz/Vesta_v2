@@ -125,21 +125,33 @@
                         <div class="gowno">
                             <!--Added Response Likes-->
                             {{response.likes.length ? response.likes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
-                            <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                            /
+                            <button ng-click="$ctrl.likeDislikeResponse(response, true)"
+                                    ng-disabled="!$ctrl.canLike(response)" 
+                                    ng-if="!$ctrl.alreadyLiked(response)">+</button>
+                            <button ng-if="$ctrl.alreadyLiked(response)" 
+                                    ng-click="$ctrl.stopLiking(response)">Stop like</button>       
+                                /
                             <!-- Added Response Dislikes-->
                             {{response.dislikes.length ? response.dislikes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)">-</button>
+                            <button ng-click="$ctrl.likeDislikeResponse(response, false)"
+                                    ng-disabled="!$ctrl.canDislike(response)"
+                                    ng-if="!$ctrl.alreadyDisliked(response)">-</button>
                             <button ng-if="$ctrl.alreadyDisliked(response)" ng-click="$ctrl.stopDisliking(response)">Stop dislike</button>
                             <!-- Save -->
-                            <button ng-if="response.edited" ng-click="$ctrl.saveResponse(response)">
+                            <button ng-if="$ctrl.ownerAndEdit(response)" 
+                                    ng-click="$ctrl.saveResponse(response)">
                                 S
                             </button>
                             <!-- Edit -->
-                            <button ng-if="!response.edited" ng-click="response.edited = true;">
+                            <button ng-if="$ctrl.ownerAndNotEdit(response)" 
+                                    ng-click="response.edited = true;">
                                 E
                             </button>
-                            <button ng-click="$ctrl.removeResponse(response)">Remove</button>
+                            <!-- Remove -->
+                            <button ng-click="$ctrl.removeResponse(response)"
+                                    ng-if="$ctrl.currentUserIsPostOwner(response)">
+                                Remove
+                            </button>
                         </div>
                     </div>
                     <!-- Added Response Title -->
