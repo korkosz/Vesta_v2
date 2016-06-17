@@ -15,7 +15,8 @@ function globalCtrl() {
     this.assignedToMeFilter = {assigned: Meteor.userId(), status: {$in: ['New', 'Working']}};
     this.activeTasksFilter = {status: {$in: ['New', 'Working']}};
     this.ideasFilter = {status: {$in: ['New', 'Consider', 'Working', 'Implemented', 'Discussed']}};
-    
+    this.activeAsksFilter = {status: {$in: ['New', 'Working']}};
+     
     this.createAccount = function () {
         Accounts.createUser({
             email: this.email,

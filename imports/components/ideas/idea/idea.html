@@ -143,7 +143,8 @@
                         parent-title="{{$ctrl.idea.title}}"
                         parent-sprint="$ctrl.idea.sprint"
                         idea-id="{{$ctrl.idea._id}}" alt-id="0"
-                        ng-if="$ctrl.idea.status === 'Consider' ||
+                        ng-if="$ctrl.idea.status === 'Working' ||
+                            $ctrl.idea.status === 'Consider' ||
                             $ctrl.idea.status === 'Implemented' ||
                             $ctrl.idea.status === 'Discussed'">
                     </new-task>
