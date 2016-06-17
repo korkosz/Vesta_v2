@@ -67,10 +67,10 @@ class AskCtrl {
                 if (!this.responses ||
                     this.responses.length < 1) return;
 
-                if (this.ask.status === 'New') {
+                if (this.ask.status === 1) {
                     Asks.update(this.ask._id, {
                         $set: {
-                            status: 'Working'
+                            status: 2
                         }
                     });
                 }
@@ -80,7 +80,7 @@ class AskCtrl {
 
     closeAsk() {
         Asks.update(this.ask._id, {
-            $set: { status: 'Closed' }
+            $set: { status: 3 }
         });
     }
 

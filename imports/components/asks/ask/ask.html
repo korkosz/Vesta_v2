@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-success" data-toggle="modal" data-target="#closeAskModal" type="button" ng-if="$ctrl.ask.status === 'Working'">
+                <button class="btn btn-success" data-toggle="modal" data-target="#closeAskModal" type="button" ng-if="$ctrl.ask.status === 2">
                     Close
                 </button>
                 <!-- Close Modal -->
@@ -207,7 +207,7 @@
             </div>
 
             <!-- New Response -->
-            <section class="new-response" ng-if="$ctrl.ask.status !== 'Closed'">
+            <section class="new-response" ng-if="$ctrl.ask.status !== 3">
                 <!--Title-->
                 <fieldset id="ask_title" class="fsStyle field-wrapper last">
                     <div class="title-wrapper">
@@ -232,8 +232,8 @@
         <section class="goodPoints col-md-4">
             <h2 class="VST-view-subheader">Good points</h2>
             <div class="goodPoints-wrapper">
-                <input type="text" ng-model="$ctrl.goodPoint" class="VST-view-input" placeholder="Type good point..." ng-if="$ctrl.ask.status !== 'Closed'">
-                <button ng-click="$ctrl.addGoodPoint()" class="VST-btn VST-btn-primary glyphicon glyphicon-plus" ng-if="$ctrl.ask.status !== 'Closed'"></button>
+                <input type="text" ng-model="$ctrl.goodPoint" class="VST-view-input" placeholder="Type good point..." ng-if="$ctrl.ask.status !== 3">
+                <button ng-click="$ctrl.addGoodPoint()" class="VST-btn VST-btn-primary glyphicon glyphicon-plus" ng-if="$ctrl.ask.status !== 3"></button>
                 <div class="goodPoints-box">
                     <div class="pill" ng-repeat="goodPoint in $ctrl.ask.goodPoints">
                         <span class="glyphicon glyphicon-ok"></span> {{goodPoint}}

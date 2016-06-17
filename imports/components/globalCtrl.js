@@ -12,10 +12,10 @@ function globalCtrl() {
     this.userLogIn = function () {
         return !!Meteor.userId();
     };
-    this.assignedToMeFilter = {assigned: Meteor.userId(), status: {$in: ['New', 'Working']}};
-    this.activeTasksFilter = {status: {$in: ['New', 'Working']}};
-    this.ideasFilter = {status: {$in: ['New', 'Consider', 'Working', 'Implemented', 'Discussed']}};
-    this.activeAsksFilter = {status: {$in: ['New', 'Working']}};
+    this.assignedToMeFilter = {assigned: Meteor.userId(), status: {$in: [1, 2]}};
+    this.activeTasksFilter = {status: {$in: [1, 2]}};
+    this.ideasFilter = {status: {$in: [1, 6, 2, 7, 8]}};
+    this.activeAsksFilter = {status: {$in: [1, 2]}};
      
     this.createAccount = function () {
         Accounts.createUser({

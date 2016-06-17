@@ -32,19 +32,19 @@ function closeTask(taskId) {
     if (!relatedIdea) {
         Tasks.update(taskId, {
             $set: {
-                status: 'Closed'
+                status: 3
             }
         });
     } else {
         Tasks.update(taskId, {
             $set: {
-                status: 'Closed'
+                status: 3
             }
         }, (err, res) => {
             if (err) return;
             var idea = Ideas.findOne(relatedIdea.id);
 
-            if (idea.status !== 'Working') return;
+            if (idea.status !== 2) return;
 
             var otherTasksRelatedToIdea_Ids = idea.related
                 .filter((rel) => rel.entity === 'Task')
@@ -55,10 +55,10 @@ function closeTask(taskId) {
                 }
             }).fetch();
 
-            if (otherTasksRelatedToIdea.every((_task) => _task.status === 'Closed')) {
+            if (otherTasksRelatedToIdea.every((_task) => _task.status === 3)) {
                 Ideas.update(relatedIdea.id, {
                     $set: {
-                        status: 'Implemented'
+                        status: 7
                     }
                 });
             }
@@ -97,10 +97,10 @@ function createTaskFromIdea(task) {
                 related: relationObj
             }
         };
-        
-        if (parentIdea.status !== 'Working') {
+
+        if (parentIdea.status !== 2) {
             updateObj['$set'] = {
-                status: 'Working'
+                status: 2
             };
         }
         Ideas.update(parentIdea._id, updateObj);
@@ -137,6 +137,6 @@ function createTaskFromTask(task) {
 }
 
 function canBecameWorking(idea) {
-    return idea.status === 'Consider' ||
-        idea.status === 'Discussed';
+    return idea.status === 6 ||
+        idea.status === 8;
 }

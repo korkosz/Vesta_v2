@@ -4,10 +4,10 @@ import Ideas from '/imports/api/ideas/idea';
 function setDiscussed(ideaId) {
     var idea = Ideas.find(ideaId);
 
-    if (idea.status === 'Consider') {
+    if (idea.status === 6) {
         Ideas.update(ideaId, {
             $set: {
-                status: 'Discussed'
+                status: 8
             }
         });
     }
@@ -16,11 +16,11 @@ function setDiscussed(ideaId) {
 function setWorking(ideaId) {
     var idea = Ideas.find(ideaId);
 
-    if (idea.status === 'Consider' ||
-        idea.status === 'Discussed') {
+    if (idea.status === 6 ||
+        idea.status === 8) {
         Ideas.update(ideaId, {
             $set: {
-                status: 'Working'
+                status: 2
             }
         });
     }

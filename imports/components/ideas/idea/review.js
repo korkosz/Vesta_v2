@@ -140,10 +140,10 @@ class ReviewCtrl {
 
         Reviews.insert(this.review, null, notify);
 
-        if (this.idea.status === "New") {
+        if (this.idea.status === 1) {
             Ideas.update(this.idea._id, {
                 $set: {
-                    status: 'Consider'
+                    status: 6
                 }
             });
         }

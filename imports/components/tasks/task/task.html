@@ -80,8 +80,8 @@
                     parent-title="{{$ctrl.task.title}}" 
                     parent-sprint="$ctrl.task.sprint"
                     task-id="{{$ctrl.task._id}}" alt-id="0"
-                    ng-if="$ctrl.task.status === 'New' || 
-                           $ctrl.task.status === 'Working'">
+                    ng-if="$ctrl.task.status === 1 || 
+                           $ctrl.task.status === 2">
                 </new-task>
                 <button class="btn btn-success" ng-click="$ctrl.closeTask()">
                     Close
@@ -143,8 +143,8 @@
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')">
-                    <option ng-repeat="status in $ctrl.taskStatuses.value">{{status}}</option>
+                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')"
+                    ng-options="status.id as status.value for status in $ctrl.taskStatuses.value">
                 </select>
             </div>
         </section>

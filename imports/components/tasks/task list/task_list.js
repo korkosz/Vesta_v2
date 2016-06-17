@@ -41,9 +41,9 @@ class TaskListCtrl {
 
     statusFilter(task) {
         switch (task.status) {
-            case 'Closed':
+            case 3:
                 return 3;
-            case 'Ready for testing':
+            case 5:
                 return 2;
             default:
                 return 1;
@@ -52,9 +52,9 @@ class TaskListCtrl {
 
     getStatusColor(status) {
         switch (status) {
-            case 'Closed':
+            case 3:
                 return '0.5';
-            case 'Ready for testing':
+            case 5:
                 return 'aliceblue';
             default:
                 return 'White';

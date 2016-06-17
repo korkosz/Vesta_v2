@@ -70,8 +70,8 @@ Entity.createSchema = function (schemaExtension) {
             max: 100
         },
         status: {
-            type: String,
-            defaultValue: "New"
+            type: Number,
+            defaultValue: 1
         },
         description: {
             type: String,

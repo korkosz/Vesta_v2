@@ -68,14 +68,14 @@ Meteor.startup(() => {
                 "_id": "CBJNeBr7WrnA8FmqH",
                 "metadataName": "IdeaStatuses",
                 "value": [
-                    "New",
-                    "Consider",
-                    "Working",
-                    "Deferred",
-                    "Rejected",
-                    "Closed",
-                    "Implemented",
-                    "Discussed"
+                    { id: 1, value: "New" },
+                    { id: 2, value: "Working" },
+                    { id: 3, value: "Closed" },
+                    { id: 4, value: "Rejected" },                    
+                    { id: 5, value: "Deferred" },
+                    { id: 6, value: "Consider" },
+                    { id: 7, value: "Implemented" },
+                    { id: 8, value: "Discussed" }
                 ]
             }
         );
@@ -110,11 +110,11 @@ Meteor.startup(() => {
                 "_id": "orb7v9aZq7r3T2snk",
                 "metadataName": "TaskStatuses",
                 "value": [
-                    "New",
-                    "Closed",
-                    "Working",
-                    "Rejected",
-                    "Ready for testing"
+                    { id: 1, value: "New" },
+                    { id: 2, value: "Working" },
+                    { id: 3, value: "Closed" },
+                    { id: 4, value: "Rejected" },
+                    { id: 5, value: "Ready for testing" }
                 ]
             }
         );
@@ -124,9 +124,9 @@ Meteor.startup(() => {
                 "_id": "orb7v9a457r3T2snk",
                 "metadataName": "AskStatuses",
                 "value": [
-                    "New",
-                    "Working",
-                    "Closed"
+                    { id: 1, value: "New" },
+                    { id: 2, value: "Working" },
+                    { id: 3, value: "Closed" }
                 ]
             }
         );

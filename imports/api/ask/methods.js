@@ -35,7 +35,7 @@ function createAsk(ask) {
             };
             if (canBecameDiscussed(parentIdea)) {
                 updateObj['$set'] = {
-                    status: 'Discussed'
+                    status: 8
                 };
             }
             Ideas.update(parentIdea._id, updateObj);
@@ -50,5 +50,5 @@ Meteor.methods({
 });
 
 function canBecameDiscussed(idea) {
-    return idea.status === 'Consider';
+    return idea.status === 6;
 }

@@ -211,8 +211,8 @@ class IdeaCtrl {
             status: _status
         };
 
-        if ((_status === 'Rejected' ||
-            _status === 'Deferred') &&
+        if ((_status === 4 ||
+            _status === 5) &&
             this.reason && this.reason.length > 0) {
             angular.extend(updateObj, {
                 reason: this.reason
