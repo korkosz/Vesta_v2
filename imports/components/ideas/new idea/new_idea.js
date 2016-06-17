@@ -14,7 +14,6 @@ class NewIdeaCtrl {
             this.output = "";
 
             this.selectedReviewers = [];
-            this.reviewersChanged = !this.reviewersChanged;
 
             if (!initial) this.selectedReviewers.push(Meteor.user());
 
@@ -40,7 +39,6 @@ class NewIdeaCtrl {
                     if (rev._id !== Meteor.userId())
                         this.selectedReviewers.push(rev);
                 });
-                this.reviewersChanged = !this.reviewersChanged;
             }
         }
 
@@ -66,7 +64,7 @@ class NewIdeaCtrl {
                 }
             },
             users() {
-                this.getReactively('reviewersChanged');
+                this.getReactively('this.selectedReviewers.length');
                 return Meteor.users.find({
                     _id: {
                         $nin: this.selectedReviewers.map((rev) => rev._id)
@@ -85,14 +83,12 @@ class NewIdeaCtrl {
     }
 
     removeReviewer(reviewer) {
-        this.reviewersChanged = !this.reviewersChanged;
         var revIdx = this.selectedReviewers.findIndex((rev) =>
             rev._id === reviewer._id);
         this.selectedReviewers.splice(revIdx, 1);
     }
 
     reviewerSelected() {
-        this.reviewersChanged = !this.reviewersChanged;
         this.selectedReviewers.push(this.reviewer);
         this.reviewer = null;
     }
