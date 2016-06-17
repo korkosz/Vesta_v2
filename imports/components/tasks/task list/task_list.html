@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="task in $ctrl.tasks |
-            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']" style="opacity: {{$ctrl.getStatusColor(task.status)}}">
+            orderBy: [$ctrl.statusFilter, '-updatedAt', '-creationDate']" style="opacity: {{$ctrl.getStatusColor(task.status)}}" ng-if="task.sprint === $ctrl.project.currentSprint">
             <td>
                 <span class="module-badge module-badge-task">
                     <img src="/images/icon-Task-small.png" alt="Task main icon" />

@@ -1,7 +1,5 @@
-import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
-import Metadata from '/imports/api/metadata/metadata';
 
 import './task_list.html';
 
@@ -27,6 +25,9 @@ class TaskListCtrl {
                     task.isNew = moment().diff(task.creationDate, 'days') === 0;
                     return task;   
                 });
+            },
+            project() {
+                return Projects.findOne({name: 'Vesta'});
             }
         });
     }
