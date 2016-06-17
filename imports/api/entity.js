@@ -2,6 +2,7 @@ import {Mongo} from 'meteor/mongo';
 
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
+import Metadata from '/imports/api/metadata/metadata';
 
 import {Notify} from '/imports/api/notification/notification';
 
@@ -33,7 +34,7 @@ export default class Entity extends Mongo.Collection {
                     Notify(me._name, doc.id, 'New', doc.assigned,
                         doc.createdBy, doc.creationDate);
                 }
-                
+
                 callback(err, res);
             });
         }
@@ -79,7 +80,7 @@ Entity.createSchema = function (schemaExtension) {
         },
         related: {
             type: [RelationSchema],
-            optional: true  
+            optional: true
         },
         creationDate: {
             type: Date,
@@ -159,6 +160,32 @@ Entity.extendHelpers = function (collection, helpers) {
         moduleName() {
             var module = Modules.findOne(this.module);
             if (module) return module.name;
+        },
+        getStatusName() {
+            var id = this.id;
+            //reverse to search from the end
+            id = id.split("").reverse().join("");
+            var idx = id.search(/[AIT]/);
+            var letter = id[idx];
+            var _id = id.substring(0, idx);
+            _id = _id.split("").reverse().join("");
+
+            if (!Number.isSafeInteger(Number.parseInt(_id)))
+                return 'ERROR';
+
+            switch (letter) {
+                case 'A':
+                    const askStatuses = Metadata.findOne('orb7v9a457r3T2snk').value;
+                    return askStatuses.find((stat) => stat.id === this.status).value;
+                case 'I':
+                    const ideaStatuses = Metadata.findOne('CBJNeBr7WrnA8FmqH').value;
+                    return ideaStatuses.find((stat) => stat.id === this.status).value;
+                case 'T':
+                    const taskStatuses = Metadata.findOne('orb7v9aZq7r3T2snk').value;
+                    return taskStatuses.find((stat) => stat.id === this.status).value;
+                default:
+                    return 'ERROR2';
+            }
         }
     };
 

@@ -30,8 +30,8 @@
             </td>
             <td>
                 <a href="#/idea/{{idea.number}}">
-                    <span class="idea-status idea-status-{{idea.status}}">
-                    {{idea.status}}
+                    <span class="idea-status idea-status-{{idea.getStatusName()}}">
+                    {{idea.getStatusName()}}
                     </span>
                 </a>
             </td>
