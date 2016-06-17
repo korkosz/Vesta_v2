@@ -57,7 +57,14 @@ class NewTaskCtrl {
                 }
             },
             taskTypes() {
-                return Metadata.findOne({ metadataName: 'TaskType' });
+                var taskTypes = Metadata.findOne({ metadataName: 'TaskType' });
+                if (taskTypes) {
+                    if(!this.taskId) {
+                        return taskTypes.value.filter((type) => type.id !== 3);    
+                    } else {
+                        return taskTypes.value.filter((type) => type.id === 3);
+                    }                    
+                }
             },
             taskPriority() {
                 return Metadata.findOne({ metadataName: 'TaskPriority' });
