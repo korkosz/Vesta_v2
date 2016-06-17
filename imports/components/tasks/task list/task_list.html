@@ -19,7 +19,10 @@
                     <img src="/images/icon-Task-small.png" alt="Task main icon" />
                 </span>
                 <a href="#/task/{{task.number}}">
-                    <span class="project-badge">{{task.projectName()[0].toUpperCase()}}</span>
+                    <span class="project-badge" data-toggle="tooltip" 
+                          title="{{task.projectName()}}">
+                              {{task.projectName()[0].toUpperCase()}}
+                          </span>
                     <span class="project"></span>
                     <span class="module">{{task.moduleName()}}</span>
                     <span ng-if="task.isNew" style="color: red">NEW</span>
