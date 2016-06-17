@@ -111,7 +111,7 @@ class NewIdeaCtrl {
             vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
             vm.idea.ideaId = vm.ideaId;
-            
+
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
                 vm.idea.module = vm.idea.module._id;
@@ -216,7 +216,14 @@ export default angular.module("idea")
                 var defer = $q.defer();
                 var promises = [];
                 var counter = 0;
-                var editEl = $('*[id^="taTextElement"]');
+
+                if (ctrl.altId && ctrl.altId.length > 0) {
+                    var editEl = $('div[id="' + ctrl.altId + 'newIdeaModal"]' +
+                        ' div[id^="taTextElement"]');
+                } else {
+                    var editEl = $('new-idea div[id^="taTextElement"]');
+                }
+
                 var imgs = editEl.find('img');
                 var imgsLen = imgs.length;
                 var vm = this;
