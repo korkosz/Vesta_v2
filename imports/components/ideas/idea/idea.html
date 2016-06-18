@@ -75,7 +75,9 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus(4)" data-dismiss="modal">
+                                    <button type="button" class="btn btn-danger"  
+                                            ng-click="$ctrl.rejectIdea($ctrl.reason)" 
+                                            data-dismiss="modal">
                                         Reject
                                     </button>
                                 </div>
@@ -136,6 +138,7 @@
                 </div>
 
                 <div class="VST-btn-group VST-btn-group-create">
+                    REASON: {{$ctrl.idea.reason}} 
                     <!-- Create New Task -->
                     <new-task title="Create task"
                         parent-module="{{$ctrl.idea.module}}"

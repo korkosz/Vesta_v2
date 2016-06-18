@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
+import Tasks from '/imports/api/task/task';
+import Asks from '/imports/api/ask/ask';
 
 function setDiscussed(ideaId) {
     var idea = Ideas.find(ideaId);
@@ -11,6 +13,67 @@ function setDiscussed(ideaId) {
             }
         });
     }
+}
+
+function rejectIdea(ideaId, msg) {
+    //every related Ask and Task should
+    //be closed or rejected
+
+    var idea = Ideas.findOne(ideaId);
+
+    if (!idea.related || idea.related.length === 0) {
+        Ideas.update(ideaId, {
+            $set: {
+                status: 4,
+                reason: msg
+            }
+        });
+        return;
+    }
+
+    var relatedAsks = idea.related.filter(
+        (rel) => rel.entity === 'Ask');
+
+    var relatedTasks = idea.related.filter(
+        (rel) => rel.entity === 'Task');
+
+    if (relatedAsks.length > 0) {
+        const relatedAsksIds = relatedAsks.map((ask) => ask.id);
+        let asks = Asks.find({
+            _id: {
+                $in: relatedAsksIds
+            }
+        }).fetch();
+
+        let openAsk = asks.find((ask) =>
+            ask.status !== 3)
+
+        if (openAsk) throw new Meteor.Error('Can\'t Reject',
+            'Please close all related Tasks and Asks first !');
+    }
+
+    if (relatedTasks.length > 0) {
+        const relatedTasksIds = relatedTasks.map((task) => task.id);
+        let tasks = Tasks.find({
+            _id: {
+                $in: relatedTasksIds
+            }
+        }).fetch();
+
+        let openTask = tasks.find((task) =>
+            task.status !== 3 ||
+            task.status !== 4);
+
+        if (openTask) throw new Meteor.Error('Can\'t Reject',
+            'Please close all related Tasks and Asks first !');
+    }
+
+    Ideas.update(ideaId, {
+        $set: {
+            status: 4,
+            reason: msg
+        }
+    });
 }
 
 function setWorking(ideaId) {
@@ -81,5 +144,6 @@ Meteor.methods({
     'ideas.setDiscussed': setDiscussed,
     'ideas.setWorking': setWorking,
     'ideas.createIdea': createIdea,
-    'ideas.setDeferred': setDeferred
+    'ideas.setDeferred': setDeferred,
+    'ideas.rejectIdea': rejectIdea
 });

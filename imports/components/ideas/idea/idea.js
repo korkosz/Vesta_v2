@@ -174,6 +174,7 @@ class IdeaCtrl {
             case 'Defer':
             case 'Reject':
                 return status === 1 ||
+                    status === 2 ||
                     status === 6 ||
                     status === 8;
             case 'Close':
@@ -196,6 +197,12 @@ class IdeaCtrl {
             }
         }, null, notify);
         this.stopEditDescription();
+    }
+
+    rejectIdea(msg) {
+        Meteor.call('ideas.rejectIdea', this.idea._id, msg, (err, res) => {
+            if (err) window.alert(err);
+        });
     }
 
     deferIdea() {
