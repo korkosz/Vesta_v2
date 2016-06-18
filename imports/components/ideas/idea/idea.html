@@ -138,7 +138,10 @@
                 </div>
 
                 <div class="VST-btn-group VST-btn-group-create">
-                    REASON: {{$ctrl.idea.reason}} 
+                    <span ng-if="$ctrl.idea.reason.length > 0">
+                        REASON: {{$ctrl.idea.reason}}
+                    </span> 
+                    
                     <!-- Create New Task -->
                     <new-task title="Create task"
                         parent-module="{{$ctrl.idea.module}}"

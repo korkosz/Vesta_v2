@@ -61,7 +61,7 @@ function rejectIdea(ideaId, msg) {
         }).fetch();
 
         let openTask = tasks.find((task) =>
-            task.status !== 3 ||
+            task.status !== 3 &&
             task.status !== 4);
 
         if (openTask) throw new Meteor.Error('Can\'t Reject',
