@@ -8,16 +8,8 @@ class AsksClass extends Entity { }
 export default AsksCollection = new AsksClass('Asks');
 
 AsksCollection.schema = Entity.createSchema({
-    responses: {
-        type: [String],
-        optional: true
-    },
     goodPoints: {
         type: [String],
-        optional: true
-    },
-    ideaId: {
-        type: String,
         optional: true
     }
 });

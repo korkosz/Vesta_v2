@@ -14,28 +14,25 @@ class AskCtrl {
         this.$location = $location;
         this.$timeout = $timeout;
         this.moment = moment;
-        this.reviewers = [];
 
         this.helpers({
             ask() {
                 return Asks.findOne({ number: parseInt(this.$routeParams.number) });
             },
             responses() {
-                this.getReactively('ask.responses.length');
+                this.getReactively('ask');
                 if (this.ask) {
-                    if (!Array.isArray(this.ask.responses)) {
-                        this.ask.responses = [];
-                    }
-
-                    return Responses.find({
-                        _id: {
-                            $in: this.ask.responses
+                    return Responses.find({ ask: this.ask._id }, {
+                        sort: {
+                            creationDate: 1
                         }
-                    }, {
-                            sort: {
-                                creationDate: 1
-                            }
-                        });
+                    });
+                }
+            },
+            mainResponses() {
+                this.getReactively('responses.length');
+                if (this.responses && this.responses.length > 0) {
+                    return this.responses.filter((resp) => !resp.parentResponse)
                 }
             },
             relatedIdeas() {
@@ -186,24 +183,49 @@ class AskCtrl {
         var vm = this;
         this.response.createdBy = Meteor.userId();
         this.response.creationDate = new Date();
-        this.response.askId = this.ask._id;
-
-        Responses.insert(this.response, function (id) {
-            Asks.update(vm.ask._id, {
-                $push: { responses: id }
-            });
-        });
+        this.response.ask = this.ask._id;
+        this.response.parentResponse = parentId;
+        Responses.insert(this.response);
 
         this.response.title = '';
         this.response.description = '';
+    }
 
+    addSubResponse(resp, valid) {
+        if (!valid) return;
+
+        var response = {};
+
+        response.createdBy = Meteor.userId();
+        response.creationDate = new Date();
+        response.ask = this.ask._id;
+        response.parentResponse = resp._id;
+
+        response.title = resp.sub.title;
+        response.description = resp.sub.description;
+        Responses.insert(response);
+
+        resp.sub = {};
+        resp.replyVisible = false;
+    }
+
+    getSubResponses(respId) {
+        if (this.responses && this.responses.length > 0) {
+            return this.responses.filter((res) => res.parentResponse === respId);
+        }
+    }
+
+    cancelSubResponse(resp) {
+        resp.sub = {};
+        resp.replyVisible = false;
+    }
+
+    replingToResponse(resp) {
+        resp.replyVisible = true;
     }
 
     removeResponse(resp) {
-        Responses.remove(resp._id, true);
-        Asks.update(this.ask._id, {
-            $pull: { responses: resp._id }
-        });
+        Responses.remove(resp._id);
     }
 
     saveResponse(resp) {
@@ -224,11 +246,11 @@ class AskCtrl {
         return this.currentUserIsPostOwner(post) &&
             post.edited;
     }
-    
+
     ownerAndNotEdit(post) {
         return this.currentUserIsPostOwner(post) &&
             !post.edited;
-    }    
+    }
 };
 AskCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
 export default angular.module('ask')

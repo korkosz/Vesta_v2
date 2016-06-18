@@ -113,7 +113,7 @@
         <section class="responses-wrapper col-md-8">
 
             <!-- Ta sekcja ponizej jest klonowana dla kazdego responsa-->
-            <section class="added-response" ng-repeat="response in $ctrl.responses" id="response.number">
+            <section class="added-response" ng-repeat="response in $ctrl.mainResponses" id="response.number">
                 <div class="response-header">
                     <div class="response-number">#{{response.number}}</div>
                     <div class="response-name">{{response.creatorShort()}}</div>
@@ -123,33 +123,24 @@
                 <div class="response-desc">
                     <div>
                         <div class="gowno">
-                            <!--Added Response Likes-->
+                            <!-- Response Likes -->
                             {{response.likes.length ? response.likes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, true)"
-                                    ng-disabled="!$ctrl.canLike(response)" 
-                                    ng-if="!$ctrl.alreadyLiked(response)">+</button>
-                            <button ng-if="$ctrl.alreadyLiked(response)" 
-                                    ng-click="$ctrl.stopLiking(response)">Stop like</button>       
-                                /
-                            <!-- Added Response Dislikes-->
+                            <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
+                            <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                            /
+                            <!-- Response Dislikes -->
                             {{response.dislikes.length ? response.dislikes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, false)"
-                                    ng-disabled="!$ctrl.canDislike(response)"
-                                    ng-if="!$ctrl.alreadyDisliked(response)">-</button>
+                            <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)" ng-if="!$ctrl.alreadyDisliked(response)">-</button>
                             <button ng-if="$ctrl.alreadyDisliked(response)" ng-click="$ctrl.stopDisliking(response)">Stop dislike</button>
                             <!-- Save -->
-                            <button ng-if="$ctrl.ownerAndEdit(response)" 
-                                    ng-click="$ctrl.saveResponse(response)">
+                            <button ng-if="$ctrl.ownerAndEdit(response)" ng-click="$ctrl.saveResponse(response)">
                                 S
                             </button>
                             <!-- Edit -->
-                            <button ng-if="$ctrl.ownerAndNotEdit(response)" 
-                                    ng-click="response.edited = true;">
+                            <button ng-if="$ctrl.ownerAndNotEdit(response)" ng-click="response.edited = true;">
                                 E
                             </button>
                             <!-- Remove -->
-                            <button ng-click="$ctrl.removeResponse(response)"
-                                    ng-if="$ctrl.currentUserIsPostOwner(response)">
+                            <button ng-click="$ctrl.removeResponse(response)" ng-if="$ctrl.currentUserIsPostOwner(response)">
                                 Remove
                             </button>
                         </div>
@@ -172,6 +163,89 @@
                     <div>
                         <textarea ng-if="response.edited" ng-model="response.description" cols="60" rows="7"></textarea>
                     </div>
+
+
+                    <button class="VST-btn VST-btn-primary" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
+                        Reply
+                    </button>
+                    <!-- New Sub-Response -->
+                    <section class="new-response" ng-if="response.replyVisible">
+                        <form novalidate name="subresponse">
+                            <!--Title-->
+                            <fieldset class="fsStyle field-wrapper last">
+                                <div class="title-wrapper">
+                                    <label class="label-modal">Title:</label>
+                                    <input class="VST-view-input" type="text" ng-model="response.sub.title" placeholder="Add title here..." required/>
+                                </div>
+                            </fieldset>
+
+                            <!--Description-->
+                            <fieldset id="ask_description" class="fsStyle">
+                                <div class="desc-wrapper">
+                                    <label class="label-modal">Description:</label>
+                                    <textarea class="VST-view-input" cols="30" rows="10" ng-model="response.sub.description" required>
+                                </textarea>
+                                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addSubResponse(
+                                                response, subresponse.$valid)">
+                                        ADD
+                                </button>
+                                    <button class="VST-btn VST-btn-warning" ng-click="$ctrl.cancelSubResponse(response)">
+                                        CANCEL
+                                </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </section>
+
+                    <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+                    <section class="added-response" ng-repeat="subresponse in $ctrl.getSubResponses(response._id)" id="subresponse.number">
+                        <div class="response-header">
+                            <div class="response-number">#{{subresponse.number}}</div>
+                            <div class="response-name">{{subresponse.creatorShort()}}</div>
+                            <div class="response-addTime">{{$ctrl.moment(subresponse.creationDate).fromNow()}}</div>
+                        </div>
+
+                        <div class="response-desc">
+                            <div>
+                                <div class="gowno">                                 
+                                    <!-- Save -->
+                                    <button ng-if="$ctrl.ownerAndEdit(subresponse)"
+                                            ng-click="$ctrl.saveResponse(subresponse)">
+                                        S
+                                    </button>
+                                    <!-- Edit -->
+                                    <button ng-if="$ctrl.ownerAndNotEdit(subresponse)"
+                                            ng-click="subresponse.edited = true;">
+                                        E
+                                    </button>
+                                    <!-- Remove -->
+                                    <button ng-click="$ctrl.removeResponse(subresponse)"
+                                            ng-if="$ctrl.currentUserIsPostOwner(subresponse)">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Added Response Title -->
+                            <!-- View -->
+                            <div class="response-desc-title" ng-if="!subresponse.edited">
+                                {{subresponse.title}}
+                            </div>
+                            <!-- Edit -->
+                            <div>
+                                <input type="text" ng-model="subresponse.title" ng-if="subresponse.edited">
+                            </div>
+                            <!-- Added Response Description -->
+                            <!-- View -->
+                            <div class="response-desc-desc" ng-if="!subresponse.edited">
+                                {{subresponse.description}}
+                            </div>
+                            <!-- Edit -->
+                            <div>
+                                <textarea ng-if="subresponse.edited" ng-model="subresponse.description" cols="60" rows="7"></textarea>
+                            </div>
+                        </div>
+                    </section>
+
                 </div>
             </section>
 

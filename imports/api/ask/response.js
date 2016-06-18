@@ -27,9 +27,16 @@ class ResponsesClass extends Mongo.Collection {
     }
 }
 
-export default ReponsesCollection = new ResponsesClass('Asks.Reponses');
+export default ReponsesCollection = new ResponsesClass('Asks.Responses');
 
 ReponsesCollection.schema = new SimpleSchema({
+    ask: {
+        type: String
+    },
+    parentResponse: {
+        type: String,
+        optional: true    
+    },
     number: {
         type: Number
     },
