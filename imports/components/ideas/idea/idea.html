@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus(5)" data-dismiss="modal">
+                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.deferIdea()" data-dismiss="modal">
                                         Defer
                                     </button>
                                 </div>
@@ -178,7 +178,7 @@
             <p>
                 Creator: {{$ctrl.idea.creator()}}
             </p>
-            <p>
+            <p ng-if="$ctrl.idea.sprint !== -1">
                 Sprint {{$ctrl.idea.sprint}}
             </p>
 

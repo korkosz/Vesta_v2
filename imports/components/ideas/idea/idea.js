@@ -197,7 +197,13 @@ class IdeaCtrl {
         }, null, notify);
         this.stopEditDescription();
     }
-    
+
+    deferIdea() {
+        Meteor.call('ideas.setDeferred', this.idea._id, (err, res) => {
+            if (err) window.alert(err);
+        });
+    }
+
     setStatus(_status) {
         var notify = {
             reviewers: this.idea.reviewers,

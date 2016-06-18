@@ -83,8 +83,22 @@
                     ng-if="$ctrl.task.status === 1 || 
                            $ctrl.task.status === 2">
                 </new-task>
-                <button class="btn btn-success" ng-click="$ctrl.closeTask()">
-                    Close
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(3)"
+                    ng-if="$ctrl.task.status === 2 || $ctrl.task.status === 5">
+                    Done
+                </button>
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(2)"
+                    ng-if="$ctrl.task.status === 1">
+                    Working
+                </button>
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(4)"
+                    ng-if="$ctrl.task.status !== 3 && 
+                           $ctrl.task.status !== 4">
+                    Reject
+                </button>
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(5)"
+                    ng-if="$ctrl.task.status === 2">
+                    Ready For Testing
                 </button>
             </div>
         </section>

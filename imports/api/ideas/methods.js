@@ -26,11 +26,24 @@ function setWorking(ideaId) {
     }
 }
 
+function setDeferred(ideaId) {
+    Ideas.update(ideaId, {
+        $set: {
+            status: 5,
+            sprint: -1
+        }
+    });
+}
+
 function createIdea(idea) {
     idea.createdBy = this.userId;
     idea.creationDate = new Date();
     idea.reviews = [];
-  
+
+    if (idea.sprint === -1) {
+        idea.status = 5;
+    }
+
     const relatedIdeaSpecified = typeof idea.ideaId === 'string';
 
     if (relatedIdeaSpecified) {
@@ -67,5 +80,6 @@ function createIdea(idea) {
 Meteor.methods({
     'ideas.setDiscussed': setDiscussed,
     'ideas.setWorking': setWorking,
-    'ideas.createIdea': createIdea
+    'ideas.createIdea': createIdea,
+    'ideas.setDeferred': setDeferred
 });

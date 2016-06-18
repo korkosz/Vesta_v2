@@ -20,14 +20,21 @@ class NewIdeaCtrl {
             if (this.ideaTitle)
                 this.idea.title = this.ideaTitle;
 
-            if (this.project)
+            if (this.project) {
                 this.idea._project = Projects.findOne(this.project);
+                this.projectSelected();
+            }
 
             if (this.module)
                 this.idea.module = Modules.findOne(this.module);
 
-            if (this.sprint)
-                this.idea.sprint = this.sprint;
+            if (this.sprint) {
+                if (this.sprint === -1) {
+                    this.idea.sprint = 'Defer';
+                } else {
+                    this.idea.sprint = this.sprint;
+                }
+            }
 
             if (this.reviewers && this.reviewers.length > 0) {
                 var _reviewers = Meteor.users.find({
@@ -59,7 +66,7 @@ class NewIdeaCtrl {
             },
             modules() {
                 this.getReactively('idea._project');
-                if (this.idea._project) { //&&typeof this.idea._project !== 'string'
+                if (this.idea._project) {
                     return this.idea._project.getModules();
                 }
             },
@@ -80,6 +87,10 @@ class NewIdeaCtrl {
         this.idea._project.sprints = this.idea._project.sprints.filter((sprint) => {
             return sprint >= this.idea._project.currentSprint;
         });
+
+        if (this.idea._project.sprints.indexOf('Defer') === -1) {
+            this.idea._project.sprints.push('Defer');
+        }
     }
 
     removeReviewer(reviewer) {
@@ -107,6 +118,10 @@ class NewIdeaCtrl {
             vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
             vm.idea.ideaId = vm.ideaId;
+
+            if (vm.idea.sprint === 'Defer') {
+                vm.idea.sprint = -1;
+            }
 
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
@@ -176,8 +191,13 @@ export default angular.module("idea")
             });
 
             attrs.$observe('sprint', function () {
-                if (ctrl.sprint)
-                    ctrl.idea.sprint = ctrl.sprint;
+                if (ctrl.sprint) {
+                    if (ctrl.idea.sprint === -1) {
+                        ctrl.idea.sprint = 'Defer';
+                    } else {
+                        ctrl.idea.sprint = ctrl.sprint;
+                    }
+                }
             });
 
             //Set default Title

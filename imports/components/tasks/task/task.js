@@ -113,42 +113,9 @@ class TaskCtrl {
         });
     }
 
-    getRelationType(id) {
-        return this.task.related.find((rel) => {
-            return rel.id === id;
-        }).relation;
-    }
-
-    createRelation() {
-        var relationObj = {
-            entity: 'Task',
-            id: this.selectedResult._id,
-            relation: this.relation.relationType
-        }
-
-        Tasks.update(this.task._id, {
-            $push: {
-                related: relationObj
-            }
-        });
-
-        relationObj.id = this.task._id;
-        if (relationObj.relation === "Solution In") {
-            relationObj.relation = "Solution For";
-        }
-
-        Tasks.update(this.selectedResult._id, {
-            $push: {
-                related: relationObj
-            }
-        });
-
-        this.cancelSearchResult();
-    }
-
-    closeTask() {
-        Meteor.call('tasks.closeTask', this.task._id, (err, res) => {
-            if (err) window.alert(err) 
+    changeStatus(statusId) {
+        Meteor.call('tasks.changeStatus', this.task._id, statusId, (err, res) => {
+            if (err) window.alert(err);
         });
     }
 
@@ -221,10 +188,6 @@ class TaskCtrl {
             this.$location.url('/');
         }, 500);
     }
-
-    goDetails(entityName, number) {
-        this.$location.path('/' + entityName + '/' + number);
-    };
 };
 TaskCtrl.$inject = ['$scope', '$routeParams', '$sce', '$location', '$timeout'];
 
