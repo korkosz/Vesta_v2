@@ -184,7 +184,6 @@ class AskCtrl {
         this.response.createdBy = Meteor.userId();
         this.response.creationDate = new Date();
         this.response.ask = this.ask._id;
-        this.response.parentResponse = parentId;
         Responses.insert(this.response);
 
         this.response.title = '';

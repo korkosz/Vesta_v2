@@ -84,6 +84,12 @@ TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
                     user.profile.lastname;
             }
         }
+    },
+    type: {
+        transform(value) {
+            const taskTypes = Metadata.findOne('5vdA3vyJ2qCTMabwL').value;
+            return taskTypes.find((type) => type.id === value).value;
+        }
     }
 });
 

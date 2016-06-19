@@ -134,6 +134,23 @@ Entity.createSchemaMetadata = function (meta) {
                         user.profile.lastname;
                 }
             }
+        },
+        status: {
+            transform(value, additionalValue) {
+                switch (additionalValue) {
+                    case 'Ask':
+                        const askStatuses = Metadata.findOne('orb7v9a457r3T2snk').value;
+                        return askStatuses.find((stat) => stat.id === value).value;
+                    case 'Idea':
+                        const ideaStatuses = Metadata.findOne('CBJNeBr7WrnA8FmqH').value;
+                        return ideaStatuses.find((stat) => stat.id === value).value;
+                    case 'Task':
+                        const taskStatuses = Metadata.findOne('orb7v9aZq7r3T2snk').value;
+                        return taskStatuses.find((stat) => stat.id === value).value;
+                    default:
+                        return 'ERROR2';
+                }
+            }
         }
     }
 

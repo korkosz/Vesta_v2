@@ -3,10 +3,7 @@ import { Mongo } from 'meteor/mongo';
 var Notifications = new Mongo.Collection('notifications');
 
 Notifications.schema = new SimpleSchema({
-    userId: {
-        type: String
-    },
-    entity: {
+    userId: { //because one notification per user
         type: String
     },
     entityId: {
@@ -15,7 +12,7 @@ Notifications.schema = new SimpleSchema({
     action: {
         type: String
     },
-    provider: {
+    actionProvider: {
         type: String
     },
     creationDate: {
