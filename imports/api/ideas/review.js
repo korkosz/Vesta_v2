@@ -74,7 +74,7 @@ export default Reviews = new ReviewsCollection('Reviews')
 
 Reviews.helpers({
     creator() {
-        var user = Meteor.users.findOne(this._createdBy);
+        var user = Meteor.users.findOne(this.createdBy);
         if (user) return user.profile.fullname;
     }
 });
