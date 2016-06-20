@@ -95,9 +95,11 @@ function setStatus(statusId, ideaId, msg) {
 }
 
 function createIdea(idea) {
-    idea.createdBy = this.userId;
-    //idea.creationDate = new Date();
+    var me = this;
     idea.reviews = [];
+    //must be here because we need this value
+    //to watchers
+    idea.createdBy = this.userId;
 
     if (idea.sprint === -1) {
         idea.status = 5;
@@ -125,11 +127,15 @@ function createIdea(idea) {
                 id: newIdeaId,
                 relation: 'Sub-Idea'
             };
+            const additionalParams = {
+                relatedId: idea.id
+            };
+
             Ideas.update(parentIdea._id, {
                 $push: {
                     related: relationObj
                 }
-            });
+            }, null, parentIdea, me.userId, additionalParams);
         });
     } else {
         return Ideas.insert(idea);

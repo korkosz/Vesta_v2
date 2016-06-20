@@ -24,25 +24,35 @@ export default class Entity extends Mongo.Collection {
                 }
                 return;
             }
-
+            //1) notifications
             handleCreateNotification(me._name, doc);
+            //2) callback
+            if (typeof callback === 'function') callback(null, res);
         });
     }
 
-    update(selector, updateDoc, callback, updatedObject, userId) {
+    update(selector, modifier, callback, updatedObject, userId,
+        additionalParams) {
         var me = this;
-        if (!updatedObject) {
-            //here to save old value before update
-            updatedObject = me.findOne(selector);
-        }
-        function innerCallback() {
+        super.update(selector, modifier, (err, res) => {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+
+            //0) here to save old value before update
+            if (!updatedObject) updatedObject =
+                me.findOne(selector);
+
             //1) notifications
-            handleUpdateNotification.call(
-                me, updateDoc, updatedObject, userId);
+            handleUpdateNotification.call(me,
+                modifier, updatedObject, userId, additionalParams);
             //2) callback
-            if (typeof callback === 'function') callback();
-        }
-        super.update(selector, updateDoc, innerCallback);
+            if (typeof callback === 'function')
+                callback(null, res);
+        });
     }
 
     remove(id) {
@@ -89,13 +99,25 @@ Entity.createSchema = function (schemaExtension) {
         },
         creationDate: {
             type: Date,
-            defaultValue: new Date(),
-            label: 'Created At'
+            label: 'Created At',
+            autoValue() {
+                if (this.isInsert) {
+                    return new Date();
+                } else {
+                    this.unset();
+                }
+            }
         },
         createdBy: {
             type: String,
-            defaultValue: this.userId,
-            label: 'Created By'
+            label: 'Created By',
+            autoValue() {
+                if (this.isInsert) {
+                    return this.userId;
+                } else {
+                    this.unset();
+                }
+            }
         },
         watchers: {
             type: [String],
@@ -178,6 +200,35 @@ Entity.createSchemaMetadata = function (meta) {
 
                 oldNewNotification(usersToNotify, oldEntity.id, 'Sprint',
                     oldVal, newVal, 'updated');
+            }
+        },
+        related: {
+            notify: function (modifier, oldEntity, modifierMethod, userId, additionalParams) {
+                const usersToNotify = oldEntity.watchers.filter(
+                    (user) => user !== userId);
+                const related = modifier[modifierMethod].related;
+                const msg = '"' + related.relation + ' ' + additionalParams.relatedId + '"';
+
+                switch (modifierMethod) {
+                    case '$push':
+                        msgNotification(usersToNotify,
+                            oldEntity.id, 'Relation', msg, 'created',
+                            [{ 
+                                word: additionalParams.relatedId , 
+                                url: additionalParams.relatedId  
+                            }]);
+                        break;
+                    case '$pull':
+                        msgNotification(usersToNotify,
+                            oldEntity.id, 'Relation', msg, 'removed',
+                            [{
+                                word: additionalParams.relatedId,
+                                url: additionalParams.relatedId
+                            }]);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -316,14 +367,14 @@ function handleCreateNotification(entityName, doc) {
 
 }
 
-function handleUpdateNotification(modifier, oldObject, userId) {
+function handleUpdateNotification(modifier, oldObject, userId, additionalParams) {
     var updateModifiers = Object.getOwnPropertyNames(modifier);
     for (property of updateModifiers) { //$set, $pull etc
         let fields = Object.getOwnPropertyNames(modifier[property]);
         for (field of fields) {//status, description etc
             let meta = this.schemaMetadata[field];
             if (meta && typeof meta.notify === 'function') {
-                meta.notify(modifier, oldObject, property, userId);
+                meta.notify(modifier, oldObject, property, userId, additionalParams);
             }
         }
     }

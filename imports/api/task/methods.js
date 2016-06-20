@@ -2,6 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 
+Meteor.methods({
+    'tasks.createTask': createTask,
+    'tasks.changeStatus': changeStatus,
+    'tasks.changePriority': changePriority
+});
+
 function changeStatus(taskId, statusId) {
     switch (statusId) {
         case 2://working
@@ -18,7 +24,6 @@ function changeStatus(taskId, statusId) {
 
 function createTask(task) {
     task.createdBy = this.userId;
-    task.creationDate = new Date();
 
     const relationSpecified = typeof task.ideaId === 'string' ||
         typeof task.taskId === 'string';
@@ -27,11 +32,11 @@ function createTask(task) {
         return Tasks.insert(task);
     } else {
         if (typeof task.ideaId === 'string') {
-            createTaskFromIdea(task);
+            createTaskFromIdea.call(this, task);
         }
 
         if (typeof task.taskId === 'string') {
-            createTaskFromTask(task);
+            createTaskFromTask.call(this, task);
         }
     }
 }
@@ -40,12 +45,6 @@ function changePriority(taskId, priority) {
     Tasks.update(taskId, { $set: { priority: priority } },
         null, null, this.userId)
 }
-
-Meteor.methods({
-    'tasks.createTask': createTask,
-    'tasks.changeStatus': changeStatus,
-    'tasks.changePriority': changePriority
-});
 
 ///inner
 function setStatus(taskId, statusId) {
@@ -113,7 +112,7 @@ function closeTask(taskId) {
             $set: {
                 status: 3
             }
-        }, null, task,  me.userId);
+        }, null, task, me.userId);
         return;
     }
 
@@ -124,7 +123,7 @@ function closeTask(taskId) {
             $set: {
                 status: 3
             }
-        }, null, task,  me.userId);
+        }, null, task, me.userId);
         return;
     }
 
@@ -190,9 +189,12 @@ function closeTask(taskId) {
 }
 
 function createTaskFromIdea(task) {
-    var parentIdea = Ideas.findOne(task.ideaId);
     var me = this;
-    
+
+    task.createdBy = this.userId;
+
+    var parentIdea = Ideas.findOne(task.ideaId);
+
     if (typeof parentIdea === 'undefined')
         throw new Meteor.Error('wrong-parentId',
             'There is no Idea with Id specified as parent Id');
@@ -204,7 +206,7 @@ function createTaskFromIdea(task) {
     };
     task.related = [relationObj];
 
-    Tasks.insert(task, (task, newTaskId) => {
+    Tasks.insert(task, (err, newTaskId) => {
         const relationObj = {
             entity: 'Task',
             id: newTaskId,
@@ -221,13 +223,22 @@ function createTaskFromIdea(task) {
                 status: 2
             };
         }
+
+        const additionalParams = {
+            relatedId: task.id
+        };
+
         Ideas.update(parentIdea._id, updateObj, null,
-            parentIdea, me.userId);
+            parentIdea, me.userId, additionalParams);
     });
 }
 
 function createTaskFromTask(task) {
+    var me = this;
+
     var parentTask = Tasks.findOne(task.taskId);
+
+    task.createdBy = this.userId;
 
     if (typeof parentTask === 'undefined')
         throw new Meteor.Error('wrong-parentId',
@@ -240,18 +251,23 @@ function createTaskFromTask(task) {
     };
     task.related = [relationObj];
 
-    Tasks.insert(task, (task, newTaskId) => {
+    Tasks.insert(task, (err, newTaskId) => {
         const relationObj = {
             entity: 'Task',
             id: newTaskId,
             relation: 'Subtask'
         };
 
+        const additionalParams = {
+            relatedId: task.id
+        };
+
         Tasks.update(parentTask._id, {
             $push: {
                 related: relationObj
             }
-        });
+        }, null, parentTask,
+            me.userId, additionalParams);
     });
 }
 

@@ -26,8 +26,10 @@ Notifications.schema = new SimpleSchema({
         optional: true
     },
     links: {
-        type: [linkSchema],
-        optional: true
+        //type: [linkSchema],
+        type: [Object],
+        optional: true,
+        blackbox: true
     },
     action: {
         type: String
@@ -37,6 +39,8 @@ Notifications.schema = new SimpleSchema({
         autoValue() {
             if (this.isInsert) {
                 return this.userId;
+            } else {
+                this.unset();
             }
         }
     },
@@ -132,12 +136,12 @@ function msgNotification(usersIds,
     }
 }
 
-const linkSchema = new SimpleSchema({
+var linkSchema = new SimpleSchema({
     word: {
-        type: String
+        type: 'String'
     },
     url: {
-        type: String
+        type: 'String'
     }
 });
 
