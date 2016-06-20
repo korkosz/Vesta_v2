@@ -34,6 +34,11 @@ export default class Entity extends Mongo.Collection {
     update(selector, modifier, callback, updatedObject, userId,
         additionalParams) {
         var me = this;
+
+        //0) here to save old value before update
+        if (!updatedObject) updatedObject =
+            me.findOne(selector);
+
         super.update(selector, modifier, (err, res) => {
             if (err) {
                 if (typeof callback === 'function') {
@@ -41,11 +46,6 @@ export default class Entity extends Mongo.Collection {
                 }
                 return;
             }
-
-            //0) here to save old value before update
-            if (!updatedObject) updatedObject =
-                me.findOne(selector);
-
             //1) notifications
             handleUpdateNotification.call(me,
                 modifier, updatedObject, userId, additionalParams);
@@ -182,7 +182,17 @@ Entity.createSchemaMetadata = function (meta) {
                         return 'ERROR2';
                 }
             },
-            notify: oldNewNotifyHelper('status')
+            notify: function (modifier, oldEntity, modifierMethod, userId) {
+                const usersToNotify = oldEntity.watchers.filter(
+                    (user) => user !== userId);
+                const entityName = oldEntity.getEntityName();
+                //map 'Defer' sprint
+                var oldVal = this.transform(oldEntity['status'], entityName);
+                var newVal = this.transform(modifier[modifierMethod]['status'], entityName);
+
+                oldNewNotification(usersToNotify, oldEntity.id, 'Status',
+                    oldVal, newVal, 'changed');
+            }
         },
         priority: {
             notify: oldNewNotifyHelper('priority')
@@ -213,9 +223,9 @@ Entity.createSchemaMetadata = function (meta) {
                     case '$push':
                         msgNotification(usersToNotify,
                             oldEntity.id, 'Relation', msg, 'created',
-                            [{ 
-                                word: additionalParams.relatedId , 
-                                url: additionalParams.relatedId  
+                            [{
+                                word: additionalParams.relatedId,
+                                url: additionalParams.relatedId
                             }]);
                         break;
                     case '$pull':
@@ -281,6 +291,24 @@ Entity.extendHelpers = function (collection, helpers) {
                     return taskStatuses.find((stat) => stat.id === this.status).value;
                 default:
                     return 'ERROR2';
+            }
+        },
+        getEntityName() {
+            var id = this.id;
+            //reverse to search from the end
+            id = id.split("").reverse().join("");
+            var idx = id.search(/[AIT]/);
+            var letter = id[idx];
+            var _id = id.substring(0, idx);
+            _id = _id.split("").reverse().join("");
+
+            switch (letter) {
+                case 'A':
+                    return 'Ask'
+                case 'I':
+                    return 'Idea'
+                case 'T':
+                    return 'Task'
             }
         }
     };

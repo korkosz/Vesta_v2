@@ -16,7 +16,7 @@ class ReviewsCollection extends Mongo.Collection {
                 (user) => user !== userId);
 
             simpleNotification(usersToNotify, relatedIdea.id,
-                'Review', 'created');
+                'Review', 'added');
 
             if (typeof callback === 'function') callback(null, res);
 

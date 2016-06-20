@@ -39,20 +39,18 @@ Notifications.schema = new SimpleSchema({
         autoValue() {
             if (this.isInsert) {
                 return this.userId;
-            } else {
-                this.unset();
             }
-        }
+        },
+        optional: true
     },
     creationDate: {
         type: Number,
         autoValue() {
             if (this.isInsert) {
                 return (new Date()).getTime();
-            } else {
-                this.unset();
             }
-        }
+        },
+        optional: true
     },
     seen: {
         type: Boolean,
@@ -60,7 +58,8 @@ Notifications.schema = new SimpleSchema({
             if (this.isInsert) {
                 return false;
             }
-        }
+        },
+        optional: true
     }
 });
 
@@ -104,7 +103,6 @@ function oldNewNotification(
 //ex. V3I15: Description updated by M. Korkosz few seconds ago
 function simpleNotification(usersIds,
     entityId, field, action) {
-
     if (Array.isArray(usersIds)) {
         usersIds.forEach((_userId) => {
             Notifications.insert({
