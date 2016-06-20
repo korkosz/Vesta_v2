@@ -13,15 +13,20 @@
 			max-width: 300px;
 			background: #fff;
 			border-bottom: 1px solid #eee;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 			&:last-child{
 				color: #7B7B7B;
 				font-weight: 700;
 			}
-			&:first-child a{
-				padding-left: 90px;
+			&:first-child {
+				width: 120px;
+				a{
+					padding-left: 80px;
+					padding-right: 0;
+					text-align: right;
+				}
+			}
+			&:nth-child(2){
+				width: 350px;
 			}
 		}
 		th{
@@ -41,6 +46,9 @@
 			border: none;
 			text-decoration: none;
 			color: inherit;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 			&:focus{
 				outline: none;
 			}
@@ -48,6 +56,7 @@
 		.project-badge{
 			vertical-align: middle;
 			margin-right: 0.3em;
+			font-size: 10px;
 		}
 		.project{
 			position: relative;
