@@ -17,16 +17,15 @@
                     <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
                 </span>
                 <a href="#/idea/{{idea.number}}">
-                    <span class="project-badge" data-toggle="tooltip" 
+                    <span class="project-badge" data-toggle="tooltip"
                           title="{{idea.projectName()}}">
                             {{idea.projectName()[0].toUpperCase()}}
                     </span>
-                    <span ng-if="idea.isNew" style="color: red">NEW</span>
                 </a>
             </td>
             <td>
                 <a href="#/idea/{{idea.number}}">
-                    [{{idea.number}}] {{idea.title}}
+                    [{{idea.number}}] <span ng-if="idea.isNew" style="color: red; font-size: 0.7em; font-weight: 700;">NEW</span> {{idea.title}}
                 </a>
             </td>
             <td>

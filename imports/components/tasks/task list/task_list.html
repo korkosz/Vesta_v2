@@ -19,16 +19,15 @@
                     <img src="/images/icon-Task-small.png" alt="Task main icon" />
                 </span>
                 <a href="#/task/{{task.number}}">
-                    <span class="project-badge" data-toggle="tooltip" 
+                    <span class="project-badge" data-toggle="tooltip"
                           title="{{task.projectName()}}">
                               {{task.projectName()[0].toUpperCase()}}
                           </span>
-                    <span ng-if="task.isNew" style="color: red">NEW</span>
                 </a>
             </td>
             <td>
                 <a href="#/task/{{task.number}}">
-                    [{{task.number}}] {{task.title}}
+                    [{{task.number}}] <span ng-if="task.isNew" style="color: red; font-size: .7em; font-weight: 700;">NEW</span> {{task.title}}
                 </a>
             </td>
             <td class="middle">
