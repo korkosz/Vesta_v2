@@ -18,27 +18,33 @@ class ReviewsCollection extends Mongo.Collection {
             simpleNotification(usersToNotify, relatedIdea.id,
                 'Review', 'created');
 
-            Ideas.update(relatedIdea._id, {
-                $push: { reviews: res }
-            });
+            if (typeof callback === 'function') callback(null, res);
+
             return res;
         });
     }
 
     //TODO: ZMIENIC REVID NA SELECTOR
-    remove(revId, ideaId, notify) {
-        if (typeof ideaId === 'undefined') throw new Error('ideaId is undefined !!!');
-        if (typeof revId === 'undefined') throw new Error('revId is undefined !!!');
-
+    remove(revId, callback, relatedIdea, userId) {
         super.remove(revId, function (err, res) {
-            Ideas.update({ _id: ideaId }, {
-                $pull: { reviews: revId }
-            }, null, notify);
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedIdea.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedIdea.id,
+                'Review', 'removed');
+
+            if (typeof callback === 'function') callback(null, res); 
         });
     }
 
     update(selector, updateDoc, callback, notifyObject) {
-        function innerCallback() {
+        function innerCallback(err, res) {
             //reviewers have to be notified
             var usersToNotify = notifyObject.reviewers.map((rev) => {
                 if (rev !== notifyObject.provider) return rev;
@@ -58,7 +64,7 @@ class ReviewsCollection extends Mongo.Collection {
                     notifyObject.provider, notifyObject.when);
             }
 
-            if (typeof callback === 'function') callback();
+            if (typeof callback === 'function') callback(null, res);
         }
         super.update(selector, updateDoc, innerCallback);
     }

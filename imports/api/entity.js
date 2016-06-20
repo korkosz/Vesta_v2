@@ -166,7 +166,19 @@ Entity.createSchemaMetadata = function (meta) {
             notify: oldNewNotifyHelper('priority')
         },
         sprint: {
-            notify: oldNewNotifyHelper('sprint')
+            notify: function (modifier, oldEntity, modifierMethod, userId) {
+                const usersToNotify = oldEntity.watchers.filter(
+                    (user) => user !== userId);
+
+                //map 'Defer' sprint
+                var oldVal = oldEntity['sprint'];
+                var newVal = modifier[modifierMethod]['sprint'];
+                if (oldVal === -1) oldVal = 'Defer';
+                if (newVal === -1) newVal = 'Defer';
+
+                oldNewNotification(usersToNotify, oldEntity.id, 'Sprint',
+                    oldVal, newVal, 'updated');
+            }
         }
     }
 

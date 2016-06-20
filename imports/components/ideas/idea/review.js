@@ -61,15 +61,7 @@ class ReviewCtrl {
     }
 
     removeReview(_revId) {
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
-
-        Reviews.remove(_revId, this.idea._id, notify);
+        Meteor.call('ideas.removeReview', _revId, this.idea._id);
     }
 
     newReviewVisible() {

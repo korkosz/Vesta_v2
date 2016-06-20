@@ -8,23 +8,64 @@ Meteor.methods({
     'ideas.createIdea': createIdea,
     'ideas.setStatus': setStatus,
     'ideas.setSprint': setSprint,
-    'ideas.addReview': addReview
+    'ideas.addReview': addReview,
+    'ideas.removeReview': removeReview
 });
 
 function addReview(review, ideaId) {
     var idea = Ideas.findOne(ideaId);
+    var me = this;
 
     Reviews.insert(review, (err, res) => {
         if (err) return;
 
+        var updateObj = {
+            $push: { reviews: res }
+        };
+
+        //if first Review for this Idea, then
+        //change status to Consider
         if (idea.status === 1) {
-            Ideas.update(idea._id, {
+            updateObj = Object.assign(updateObj, {
                 $set: {
                     status: 6 //consider
                 }
-            }, null, idea, this.userId);
+            });
         }
-    }, idea, this.userId);
+
+        Ideas.update(idea._id, updateObj,
+            null, idea, me.userId);
+    }, idea, me.userId);
+}
+
+function removeReview(reviewId, ideaId) {
+    var idea = Ideas.findOne(ideaId);
+    var me = this;
+
+    Reviews.remove(reviewId, (err, res) => {
+        if (err) return;
+
+        var updateObj = {
+            $pull: { reviews: reviewId }
+        };
+
+        //check if removed Review isn't last Review
+        //for this Idea - if so, change status to New
+        var reviews = idea.reviews.filter((rev) => {
+            return rev !== reviewId;
+        });
+        if (reviews.length === 0
+            && idea.status === 6) {//consider
+            updateObj = Object.assign(updateObj, {
+                $set: {
+                    status: 1
+                }
+            });
+        }
+
+        Ideas.update(ideaId, updateObj,
+            null, idea, me.userId);
+    }, idea, me.userId);
 }
 
 function setSprint(sprintId, ideaId) {
