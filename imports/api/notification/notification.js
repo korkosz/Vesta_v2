@@ -68,11 +68,11 @@ Notifications.attachSchema(Notifications.schema);
 
 Notifications.helpers({
     creator() {
-        var user = Meteor.users.findOne(this.provider);
+        var user = Meteor.users.findOne(this.actionProvider);
         if (user) return user.profile.fullname;
     },
     creatorShort() {
-        var user = Meteor.users.findOne(this.provider);
+        var user = Meteor.users.findOne(this.actionProvider);
         if (user) {
             return user.profile.firstname[0] + '.' + ' ' +
                 user.profile.lastname;
