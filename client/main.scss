@@ -26,7 +26,26 @@
 				}
 			}
 			&:nth-child(2){
-				width: 350px;
+				max-width: 350px;
+			}
+			&:nth-last-child(2){
+				width: 130px;
+				a{
+					width: 130px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+			&:last-child{
+				width: 130px;
+				a{
+					width: 130px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					font-size: 12px;
+				}
 			}
 		}
 		th{
