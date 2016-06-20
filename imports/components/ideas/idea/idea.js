@@ -199,51 +199,21 @@ class IdeaCtrl {
         this.stopEditDescription();
     }
 
-    rejectIdea(msg) {
-        Meteor.call('ideas.rejectIdea', this.idea._id, msg, (err, res) => {
+    setStatus(_status, msg) {
+        Meteor.call('ideas.setStatus', _status, this.idea._id, msg, (err, res) => {
             if (err) window.alert(err);
         });
-    }
 
-    deferIdea() {
-        Meteor.call('ideas.setDeferred', this.idea._id, (err, res) => {
-            if (err) window.alert(err);
-        });
-    }
-
-    setStatus(_status) {
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
-
-        var updateObj = {
-            status: _status
-        };
-
-        if ((_status === 4 ||
-            _status === 5) &&
-            this.reason && this.reason.length > 0) {
-            angular.extend(updateObj, {
-                reason: this.reason
-            });
-        }
-
-        Ideas.update(this.idea._id, {
-            $set: updateObj
-        }, null, notify);
+        this.reason = '';
     }
 
     goDetails(entityName, number) {
         this.$location.path('/' + entityName + '/' + number);
     }
 
-    setSprint() {
-        Ideas.update(this.idea._id, {
-            $set: { sprint: this.sprint }
+    setSprint(sprint) {
+        Meteor.call('ideas.setSprint', sprint, this.idea._id, (err, res)=> {
+            if(err) window.alert(err);
         });
     }
 };

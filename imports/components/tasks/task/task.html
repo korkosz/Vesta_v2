@@ -17,7 +17,7 @@
             <!-- Number -->
             <div class="VST-view-number">
                 <span class="VST-module-id">#{{$ctrl.task.id}}</span>
-                <span class="VST-module-date"><span>created at</span>  {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
+                <span class="VST-module-date"><span>created at</span> {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
             </div>
 
             <!-- Project path -->
@@ -74,30 +74,21 @@
                 </div>
 
                 <!-- Create New Task -->
-                <new-task title="Sub-Task" 
-                    parent-module="{{$ctrl.task.module}}" 
-                    parent-project="{{$ctrl.task.project}}" 
-                    parent-title="{{$ctrl.task.title}}" 
-                    parent-sprint="$ctrl.task.sprint"
-                    task-id="{{$ctrl.task._id}}" alt-id="0"
-                    ng-if="$ctrl.task.status === 1 || 
+                <new-task title="Sub-Task" parent-module="{{$ctrl.task.module}}" parent-project="{{$ctrl.task.project}}" parent-title="{{$ctrl.task.title}}"
+                    parent-sprint="$ctrl.task.sprint" task-id="{{$ctrl.task._id}}" alt-id="0" ng-if="$ctrl.task.status === 1 || 
                            $ctrl.task.status === 2">
                 </new-task>
-                <button class="btn btn-success" ng-click="$ctrl.changeStatus(3)"
-                    ng-if="$ctrl.task.status === 2 || $ctrl.task.status === 5">
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(3)" ng-if="$ctrl.task.status === 2 || $ctrl.task.status === 5">
                     Done
                 </button>
-                <button class="btn btn-success" ng-click="$ctrl.changeStatus(2)"
-                    ng-if="$ctrl.task.status === 1">
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(2)" ng-if="$ctrl.task.status === 1">
                     Working
                 </button>
-                <button class="btn btn-success" ng-click="$ctrl.changeStatus(4)"
-                    ng-if="$ctrl.task.status !== 3 && 
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(4)" ng-if="$ctrl.task.status !== 3 && 
                            $ctrl.task.status !== 4">
                     Reject
                 </button>
-                <button class="btn btn-success" ng-click="$ctrl.changeStatus(5)"
-                    ng-if="$ctrl.task.status === 2">
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(5)" ng-if="$ctrl.task.status === 2">
                     Ready For Testing
                 </button>
             </div>
@@ -147,7 +138,7 @@
         <section class="VST-view-info-box">
             <div class="wrapper">
                 <h4 class="label label-default">Priority</h4>
-                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.selectListChanged('priority')">
+                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
                 </select>
             </div>
             <div class="wrapper">
@@ -157,8 +148,7 @@
             </div>
             <div class="wrapper">
                 <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')"
-                    ng-options="status.id as status.value for status in $ctrl.taskStatuses.value">
+                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')" ng-options="status.id as status.value for status in $ctrl.taskStatuses.value">
                 </select>
             </div>
         </section>

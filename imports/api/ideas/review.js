@@ -1,13 +1,26 @@
 import Ideas from '/imports/api/ideas/idea';
-import {Notify} from '/imports/api/notification/notification';
+
+import {oldNewNotification, simpleNotification,
+    msgNotification} from '/imports/api/notification/notification';
 
 class ReviewsCollection extends Mongo.Collection {
-    insert(review, callback, notify) {
+    insert(review, callback, relatedIdea, userId) {
         super.insert(review, function (err, res) {
-            //TODO: obsluzyc callback pierwotny
-            Ideas.update({ _id: review._ideaId }, {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedIdea.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedIdea.id,
+                'Review', 'created');
+
+            Ideas.update(relatedIdea._id, {
                 $push: { reviews: res }
-            }, null, notify);
+            });
             return res;
         });
     }
@@ -61,9 +74,6 @@ Reviews.helpers({
 });
 
 ReviewSchema = new SimpleSchema({
-    _ideaId: {
-        type: String
-    },
     comment: {
         type: String,
         optional: true
@@ -78,10 +88,21 @@ ReviewSchema = new SimpleSchema({
     },
     createdAt: {
         type: Date,
-        defaultValue: new Date()
+        autoValue() {
+            if (this.isInsert) {
+                return new Date();
+            } else {
+                this.unset();
+            }
+        }
     },
-    _createdBy: {
-        type: String
+    createdBy: {
+        type: String,
+        autoValue() {
+            if (this.isInsert) {
+                return this.userId;
+            }
+        }
     },
     updatedAt: {
         type: Date,

@@ -89,12 +89,12 @@ class ReviewCtrl {
         function userDidntReviewedYet() {
             if (!vm.reviews) return true;
             return vm.reviews.findIndex((_rev) =>
-                _rev._createdBy === Meteor.userId()) === -1;
+                _rev.createdBy === Meteor.userId()) === -1;
         };
     }
 
     currentUserIsReviewOwner(review) {
-        return review._createdBy === Meteor.userId();
+        return review.createdBy === Meteor.userId();
     }
 
     ownerAndEdit(review) {
@@ -127,37 +127,20 @@ class ReviewCtrl {
     }
 
     addReview() {
-        this.review._createdBy = Meteor.userId();
-        this.review._ideaId = this.idea._id;
 
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
+        Meteor.call('ideas.addReview', this.review, this.idea._id);
+        this.review = {}
 
-        Reviews.insert(this.review, null, notify);
+        // clearArray(this.review.merits);
+        // clearArray(this.review.drawbacks);
+        // this.review.comment = '';
 
-        if (this.idea.status === 1) {
-            Ideas.update(this.idea._id, {
-                $set: {
-                    status: 6
-                }
-            });
-        }
-
-        clearArray(this.review.merits);
-        clearArray(this.review.drawbacks);
-        this.review.comment = '';
-
-        ///
-        function clearArray(arr) {
-            for (var i = 0, len = arr.length; i < len; i++)
-                arr.pop();
-            return arr;
-        }
+        // ///
+        // function clearArray(arr) {
+        //     for (var i = 0, len = arr.length; i < len; i++)
+        //         arr.pop();
+        //     return arr;
+        // }
     }
 }
 

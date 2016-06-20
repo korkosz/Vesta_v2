@@ -2,6 +2,98 @@ import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
+import Reviews from '/imports/api/ideas/review';
+
+Meteor.methods({
+    'ideas.createIdea': createIdea,
+    'ideas.setStatus': setStatus,
+    'ideas.setSprint': setSprint,
+    'ideas.addReview': addReview
+});
+
+function addReview(review, ideaId) {
+    var idea = Ideas.findOne(ideaId);
+
+    Reviews.insert(review, (err, res) => {
+        if (err) return;
+
+        if (idea.status === 1) {
+            Ideas.update(idea._id, {
+                $set: {
+                    status: 6 //consider
+                }
+            }, null, idea, this.userId);
+        }
+    }, idea, this.userId);
+}
+
+function setSprint(sprintId, ideaId) {
+    Ideas.update(ideaId, {
+        $set: { sprint: sprintId }
+    }, null, null, this.userId);
+}
+
+function setStatus(statusId, ideaId, msg) {
+    switch (statusId) {
+        case 2://working
+            setWorking.call(this, ideaId);
+            break;
+        case 4://rejected
+            rejectIdea.call(this, ideaId, msg);
+            break;
+        case 5://deferred
+            setDeferred.call(this, ideaId);
+            break;
+        case 8://discussed
+            setDiscussed.call(this, ideaId);
+            break;
+        default:
+            setStatus.call(this, ideaId, statusId, msg);
+            break;
+    }
+}
+
+function createIdea(idea) {
+    idea.createdBy = this.userId;
+    //idea.creationDate = new Date();
+    idea.reviews = [];
+
+    if (idea.sprint === -1) {
+        idea.status = 5;
+    }
+
+    const relatedIdeaSpecified = typeof idea.ideaId === 'string';
+
+    if (relatedIdeaSpecified) {
+        var parentIdea = Ideas.findOne(idea.ideaId);
+
+        if (typeof parentIdea === 'undefined')
+            throw new Meteor.Error('wrong-parentId',
+                'There is no Idea with Id specified as parent Id');
+
+        let relationObj = {
+            entity: 'Idea',
+            id: idea.ideaId,
+            relation: 'Based On'
+        };
+        idea.related = [relationObj];
+
+        Ideas.insert(idea, (err, newIdeaId) => {
+            let relationObj = {
+                entity: 'Idea',
+                id: newIdeaId,
+                relation: 'Sub-Idea'
+            };
+            Ideas.update(parentIdea._id, {
+                $push: {
+                    related: relationObj
+                }
+            });
+        });
+    } else {
+        return Ideas.insert(idea);
+    }
+}
 
 function setDiscussed(ideaId) {
     var idea = Ideas.find(ideaId);
@@ -11,7 +103,7 @@ function setDiscussed(ideaId) {
             $set: {
                 status: 8
             }
-        });
+        }, null, idea, this.userId);
     }
 }
 
@@ -27,7 +119,7 @@ function rejectIdea(ideaId, msg) {
                 status: 4,
                 reason: msg
             }
-        });
+        }, null, idea, this.userId);
         return;
     }
 
@@ -73,7 +165,7 @@ function rejectIdea(ideaId, msg) {
             status: 4,
             reason: msg
         }
-    });
+    }, null, idea, this.userId);
 }
 
 function setWorking(ideaId) {
@@ -85,7 +177,7 @@ function setWorking(ideaId) {
             $set: {
                 status: 2
             }
-        });
+        }, null, idea, this.userId);
     }
 }
 
@@ -95,55 +187,5 @@ function setDeferred(ideaId) {
             status: 5,
             sprint: -1
         }
-    });
+    }, null, null, this.userId);
 }
-
-function createIdea(idea) {
-    idea.createdBy = this.userId;
-    idea.creationDate = new Date();
-    idea.reviews = [];
-
-    if (idea.sprint === -1) {
-        idea.status = 5;
-    }
-
-    const relatedIdeaSpecified = typeof idea.ideaId === 'string';
-
-    if (relatedIdeaSpecified) {
-        var parentIdea = Ideas.findOne(idea.ideaId);
-
-        if (typeof parentIdea === 'undefined')
-            throw new Meteor.Error('wrong-parentId',
-                'There is no Idea with Id specified as parent Id');
-
-        let relationObj = {
-            entity: 'Idea',
-            id: idea.ideaId,
-            relation: 'Based On'
-        };
-        idea.related = [relationObj];
-
-        Ideas.insert(idea, (err, newIdeaId) => {
-            let relationObj = {
-                entity: 'Idea',
-                id: newIdeaId,
-                relation: 'Sub-Idea'
-            };
-            Ideas.update(parentIdea._id, {
-                $push: {
-                    related: relationObj
-                }
-            });
-        });
-    } else {
-        return Ideas.insert(idea);
-    }
-}
-
-Meteor.methods({
-    'ideas.setDiscussed': setDiscussed,
-    'ideas.setWorking': setWorking,
-    'ideas.createIdea': createIdea,
-    'ideas.setDeferred': setDeferred,
-    'ideas.rejectIdea': rejectIdea
-});

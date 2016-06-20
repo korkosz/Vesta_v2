@@ -76,7 +76,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
                                     <button type="button" class="btn btn-danger"  
-                                            ng-click="$ctrl.rejectIdea($ctrl.reason)" 
+                                            ng-click="$ctrl.setStatus(4, $ctrl.reason)" 
                                             data-dismiss="modal">
                                         Reject
                                     </button>
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.deferIdea()" data-dismiss="modal">
+                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus(5, $ctrl.reason)" data-dismiss="modal">
                                         Defer
                                     </button>
                                 </div>
@@ -191,7 +191,7 @@
             <!--Sprint-->
             <fieldset id="sprint" class="field-wrapper">
                 <label class="label-modal">Sprint:</label>
-                <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint()">
+                <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint($ctrl.sprint)">
                 </select>
             </fieldset>
 

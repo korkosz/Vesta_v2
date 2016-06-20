@@ -4,40 +4,45 @@ import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 import Metadata from '/imports/api/metadata/metadata';
 
-import {Notify} from '/imports/api/notification/notification';
+import {oldNewNotification, simpleNotification,
+    msgNotification} from '/imports/api/notification/notification';
 
 export default class Entity extends Mongo.Collection {
     insert(doc, callback) {
-        while (1) {
-            var me = this;
-            var sort = { number: -1 };
-            var fields = {
-                number: 1
-            };
+        var me = this;
 
-            var cursor = this.findOne({}, { fields: fields, sort: sort });
-            var seq = cursor && cursor.number ? cursor.number + 1 : 1;
-            doc.number = seq;
+        //1) Generate Id and Number for new document
+        setNumberAndId.call(me, doc);
 
-            var project = Projects.findOne(doc.project);
-            var projectPrefix = project ? project.prefix : null;
-            var sprint = project ? project.currentSprint : null;
-            var entityLetter = this._name[0].toUpperCase();
+        //2) Set default watchers
+        setDefaultWatchers(me._name, doc);
 
-            if (projectPrefix && sprint) {
-                doc.id = projectPrefix.toUpperCase() + sprint +
-                    entityLetter + seq;
+        return super.insert(doc, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
             }
 
-            return super.insert(doc, function (err, res) {
-                if (doc.assigned !== doc.createdBy) {
-                    Notify(me._name, doc.id, 'New', doc.assigned,
-                        doc.createdBy, doc.creationDate);
-                }
+            handleCreateNotification(me._name, doc);
+        });
+    }
 
-                callback(err, res);
-            });
+    update(selector, updateDoc, callback, updatedObject, userId) {
+        var me = this;
+        if (!updatedObject) {
+            //here to save old value before update
+            updatedObject = me.findOne(selector);
         }
+        function innerCallback() {
+            //1) notifications
+            handleUpdateNotification.call(
+                me, updateDoc, updatedObject, userId);
+            //2) callback
+            if (typeof callback === 'function') callback();
+        }
+        super.update(selector, updateDoc, innerCallback);
     }
 
     remove(id) {
@@ -91,6 +96,10 @@ Entity.createSchema = function (schemaExtension) {
             type: String,
             defaultValue: this.userId,
             label: 'Created By'
+        },
+        watchers: {
+            type: [String],
+            optional: true
         },
         updatedAt: {
             type: Date,
@@ -150,7 +159,14 @@ Entity.createSchemaMetadata = function (meta) {
                     default:
                         return 'ERROR2';
                 }
-            }
+            },
+            notify: oldNewNotifyHelper('status')
+        },
+        priority: {
+            notify: oldNewNotifyHelper('priority')
+        },
+        sprint: {
+            notify: oldNewNotifyHelper('sprint')
         }
     }
 
@@ -221,3 +237,95 @@ var RelationSchema = new SimpleSchema({
         type: 'String'
     }
 });
+
+//inners 
+function setNumberAndId(doc) {
+    var sort = { number: -1 };
+    var fields = {
+        number: 1
+    };
+
+    var cursor = this.findOne({}, { fields: fields, sort: sort });
+    var seq = cursor && cursor.number ? cursor.number + 1 : 1;
+    doc.number = seq;
+
+    var project = Projects.findOne(doc.project);
+    var projectPrefix = project ? project.prefix : null;
+    var sprint = project ? project.currentSprint : null;
+    var entityLetter = this._name[0].toUpperCase();
+
+    if (projectPrefix && sprint) {
+        doc.id = projectPrefix.toUpperCase() + sprint +
+            entityLetter + seq;
+    }
+}
+
+function setDefaultWatchers(entityName, doc) {
+    var entityName = entityName.toUpperCase();
+    doc.watchers = [];
+    switch (entityName) {
+        case 'TASKS':
+            doc.watchers.push(doc.createdBy);
+            if (doc.createdBy !== doc.assigned) {
+                doc.watchers.push(doc.assigned);
+            }
+            break;
+        case 'IDEAS':
+            doc.watchers = doc.watchers.concat(doc.reviewers);
+            if (doc.watchers.indexOf(doc.createdBy) === -1)
+                doc.watchers.push(doc.createdBy);
+            break;
+        default:
+            break;
+    }
+}
+
+function handleCreateNotification(entityName, doc) {
+    var entityName = entityName.toUpperCase();
+
+    switch (entityName) {
+        case 'TASKS':
+            if (doc.createdBy !== doc.assigned) {
+                simpleNotification([doc.assigned], doc.id, null, 'created by',
+                    doc.createdBy);
+            }
+            break;
+        case 'IDEAS':
+            let usersToNotify = doc.watchers;
+            usersToNotify.splice(
+                usersToNotify.indexOf(doc.createdBy), 1);
+
+            simpleNotification(usersToNotify, doc.id, null, 'created by',
+                doc.createdBy);
+            break;
+        default:
+            break;
+    }
+
+}
+
+function handleUpdateNotification(modifier, oldObject, userId) {
+    var updateModifiers = Object.getOwnPropertyNames(modifier);
+    for (property of updateModifiers) { //$set, $pull etc
+        let fields = Object.getOwnPropertyNames(modifier[property]);
+        for (field of fields) {//status, description etc
+            let meta = this.schemaMetadata[field];
+            if (meta && typeof meta.notify === 'function') {
+                meta.notify(modifier, oldObject, property, userId);
+            }
+        }
+    }
+
+}
+
+function oldNewNotifyHelper(fieldName) {
+    return function (modifier, oldEntity, modifierMethod, userId) {
+        const upperedLabel = fieldName[0].toUpperCase() +
+            fieldName.substr(1, fieldName.length - 1);
+        const usersToNotify = oldEntity.watchers.filter(
+            (user) => user !== userId);
+        oldNewNotification(usersToNotify, oldEntity.id, upperedLabel,
+            oldEntity[fieldName], modifier[modifierMethod][fieldName],
+            'updated');
+    }
+}

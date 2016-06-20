@@ -1,7 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import Entity from '../entity';
 import './methods';
-import {Notify} from '/imports/api/notification/notification';
 
 class AsksClass extends Entity { }
 

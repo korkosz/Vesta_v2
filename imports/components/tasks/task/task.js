@@ -113,6 +113,12 @@ class TaskCtrl {
         });
     }
 
+    changePriority(priority) {
+        Meteor.call('tasks.changePriority', this.task._id, priority, (err, res) => {
+            if (err) window.alert(err);
+        });
+    }
+
     changeStatus(statusId) {
         Meteor.call('tasks.changeStatus', this.task._id, statusId, (err, res) => {
             if (err) window.alert(err);

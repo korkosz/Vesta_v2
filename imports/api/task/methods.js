@@ -5,13 +5,13 @@ import Tasks from '/imports/api/task/task';
 function changeStatus(taskId, statusId) {
     switch (statusId) {
         case 2://working
-            setWorking(taskId);
+            setWorking.call(this, taskId);
             break;
         case 3://closed
-            closeTask(taskId);
+            closeTask.call(this, taskId);
             break;
         default:
-            setStatus(taskId, statusId);
+            setStatus.call(this, taskId, statusId);
             break;
     }
 }
@@ -36,9 +36,15 @@ function createTask(task) {
     }
 }
 
+function changePriority(taskId, priority) {
+    Tasks.update(taskId, { $set: { priority: priority } },
+        null, null, this.userId)
+}
+
 Meteor.methods({
     'tasks.createTask': createTask,
-    'tasks.changeStatus': changeStatus
+    'tasks.changeStatus': changeStatus,
+    'tasks.changePriority': changePriority
 });
 
 ///inner
@@ -47,12 +53,13 @@ function setStatus(taskId, statusId) {
         $set: {
             status: statusId
         }
-    });
+    }, null, null, this.userId);
 }
 function setWorking(taskId) {
     //if subtask set working on main task
     //else just set working  
     var task = Tasks.findOne(taskId);
+    var me = this;
 
     // 0)
     if (!task.related || task.related.length === 0) {
@@ -60,7 +67,7 @@ function setWorking(taskId) {
             $set: {
                 status: 2
             }
-        });
+        }, null, task, me.userId);
         return;
     }
 
@@ -81,7 +88,7 @@ function setWorking(taskId) {
                 $set: {
                     status: 2
                 }
-            });
+            }, null, task, me.userId);
         });
         return;
     }
@@ -90,7 +97,7 @@ function setWorking(taskId) {
         $set: {
             status: 2
         }
-    });
+    }, null, task, me.userId);
 }
 
 function closeTask(taskId) {
@@ -99,14 +106,14 @@ function closeTask(taskId) {
     //2. Check if Task's Sub-Tasks are closed
     //3. If related Idea - check if set Implemented
     var task = Tasks.findOne(taskId);
-
+    var me = this;
     //0 
     if (!task.related || task.related.length === 0) {
         Tasks.update(taskId, {
             $set: {
                 status: 3
             }
-        });
+        }, null, task,  me.userId);
         return;
     }
 
@@ -117,7 +124,7 @@ function closeTask(taskId) {
             $set: {
                 status: 3
             }
-        });
+        }, null, task,  me.userId);
         return;
     }
 
@@ -169,9 +176,9 @@ function closeTask(taskId) {
                     $set: {
                         status: 7
                     }
-                });
+                }, null, idea, me.userId);
             }
-        });
+        }, task, me.userId);
         return;
     }
 
@@ -179,12 +186,13 @@ function closeTask(taskId) {
         $set: {
             status: 3
         }
-    });
+    }, null, task, me.userId);
 }
 
 function createTaskFromIdea(task) {
     var parentIdea = Ideas.findOne(task.ideaId);
-
+    var me = this;
+    
     if (typeof parentIdea === 'undefined')
         throw new Meteor.Error('wrong-parentId',
             'There is no Idea with Id specified as parent Id');
@@ -213,7 +221,8 @@ function createTaskFromIdea(task) {
                 status: 2
             };
         }
-        Ideas.update(parentIdea._id, updateObj);
+        Ideas.update(parentIdea._id, updateObj, null,
+            parentIdea, me.userId);
     });
 }
 

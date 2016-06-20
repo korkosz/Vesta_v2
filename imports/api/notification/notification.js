@@ -9,17 +9,54 @@ Notifications.schema = new SimpleSchema({
     entityId: {
         type: String
     },
+    field: {
+        type: String,
+        optional: true
+    },
+    message: {
+        type: String,
+        optional: true
+    },
+    oldValue: {
+        type: String,
+        optional: true
+    },
+    newValue: {
+        type: String,
+        optional: true
+    },
+    links: {
+        type: [linkSchema],
+        optional: true
+    },
     action: {
         type: String
     },
     actionProvider: {
-        type: String
+        type: String,
+        autoValue() {
+            if (this.isInsert) {
+                return this.userId;
+            }
+        }
     },
     creationDate: {
-        type: Date
+        type: Number,
+        autoValue() {
+            if (this.isInsert) {
+                return (new Date()).getTime();
+            } else {
+                this.unset();
+            }
+        }
     },
     seen: {
-        type: Boolean
+        type: Boolean,
+        autoValue() {
+            if (this.isInsert) {
+                return false;
+            }
+        }
     }
 });
 
@@ -41,35 +78,71 @@ Notifications.helpers({
 
 export default Notifications;
 
-export function Notify(_entity, _id, _action, usersIds, _provider, when) {
+//ex. V3I15: Status 3 -> 4 updated by M. Korkosz few seconds ago
+function oldNewNotification(
+    usersIds, entityId, field, oldVal, newVal,
+    action) {
+
     if (Array.isArray(usersIds)) {
         usersIds.forEach((_userId) => {
             Notifications.insert({
                 userId: _userId,
-                entity: _entity,
-                entityId: _id,
-                action: _action,
-                seen: false,
-                provider: _provider,
-                creationDate: when
+                entityId: entityId,
+                field: field,
+                oldValue: oldVal,
+                newValue: newVal,
+                action: action
             });
         });
     }
+}
 
-    if (typeof usersIds === 'string') {
-        Notifications.insert({
-            userId: usersIds,
-            entity: _entity,
-            entityId: _id,
-            action: _action,
-            seen: false,
-            provider: _provider,
-            creationDate: when
+//ex. V3I15: Description updated by M. Korkosz few seconds ago
+function simpleNotification(usersIds,
+    entityId, field, action) {
+
+    if (Array.isArray(usersIds)) {
+        usersIds.forEach((_userId) => {
+            Notifications.insert({
+                userId: _userId,
+                entityId: entityId,
+                field: field,
+                action: action
+            });
         });
     }
 }
 
-export function getNotificationMsg(notificationObj) {
-    //create
-        
+//ex. V3I15: Subtask V3T15 created by M. Korkosz few seconds ago
+function msgNotification(usersIds,
+    entityId, field, message, action,
+    links) {
+
+    if (Array.isArray(usersIds)) {
+        usersIds.forEach((_userId) => {
+            Notifications.insert({
+                userId: _userId,
+                entityId: entityId,
+                field: field,
+                message: message,
+                action: action,
+                links: links
+            });
+        });
+    }
 }
+
+const linkSchema = new SimpleSchema({
+    word: {
+        type: String
+    },
+    url: {
+        type: String
+    }
+});
+
+export {
+oldNewNotification as oldNewNotification,
+simpleNotification as simpleNotification,
+msgNotification as msgNotification
+};

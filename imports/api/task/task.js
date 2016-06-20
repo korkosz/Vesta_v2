@@ -1,39 +1,10 @@
 import {Mongo} from 'meteor/mongo';
 import Entity from '../entity';
-import './methods';
 import Comments from '/imports/api/task/comment'
 import Metadata from '/imports/api/metadata/metadata';
+import './methods';
 
-import {Notify} from '/imports/api/notification/notification';
-
-class TaskClass extends Entity {
-    update(selector, updateDoc, callback, notifyObject) {
-        function innerCallback() {
-            if (notifyObject) {
-                var usersToNotify = [];
-                if (typeof notifyObject.assignedUser === 'string' &&
-                    notifyObject.assignedUser !==
-                    notifyObject.provider) {
-                    usersToNotify.push(notifyObject.assignedUser);
-                }
-
-                if (typeof notifyObject.entityCreator === 'string' &&
-                    notifyObject.entityCreator !== notifyObject.provider &&
-                    notifyObject.entityCreator !== notifyObject.assignedUser) {
-                    usersToNotify.push(notifyObject.entityCreator);
-                }
-
-                if (usersToNotify.length > 0) {
-                    Notify('Task', notifyObject.id, 'Update', usersToNotify,
-                        notifyObject.provider, notifyObject.when);
-                }
-            }
-
-            if (typeof callback === 'function') callback();
-        }
-        super.update(selector, updateDoc, innerCallback);
-    }
-}
+class TaskClass extends Entity { }
 
 export default TaskCollection = new TaskClass('Tasks');
 
