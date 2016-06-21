@@ -207,10 +207,6 @@ class IdeaCtrl {
         this.reason = '';
     }
 
-    goDetails(entityName, number) {
-        this.$location.path('/' + entityName + '/' + number);
-    }
-
     setSprint(sprint) {
         Meteor.call('ideas.setSprint', sprint, this.idea._id, (err, res)=> {
             if(err) window.alert(err);

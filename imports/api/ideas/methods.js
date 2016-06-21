@@ -3,6 +3,7 @@ import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
 import Reviews from '/imports/api/ideas/review';
+import Projects from '/imports/api/project/project';
 
 Meteor.methods({
     'ideas.createIdea': createIdea,
@@ -89,7 +90,7 @@ function setStatus(statusId, ideaId, msg) {
             setDiscussed.call(this, ideaId);
             break;
         default:
-            setStatus.call(this, ideaId, statusId, msg);
+            computeProperStatus.call(this, ideaId);
             break;
     }
 }
@@ -235,4 +236,38 @@ function setDeferred(ideaId) {
             sprint: -1
         }
     }, null, null, this.userId);
+}
+
+function computeProperStatus(ideaId) {
+    var idea = Ideas.findOne(ideaId);
+
+    var modifier = {
+        $set: {}
+    };
+
+    var wasDeferred = idea.sprint === -1;
+    if (wasDeferred) {
+        let project = Projects.findOne(idea.project);
+        modifier.$set.sprint = project.currentSprint;
+    }
+
+    var tasksRel_Ids = idea.related
+        .filter((rel) => rel.entity === 'Task')
+        .map((rel) => rel.id);
+
+    var tasksDb = Tasks.find({
+        _id: {
+            $in: tasksRel_Ids
+        }
+    }).fetch();
+
+    var allTasksCompleted = tasksDb.every(
+        (task) => task.status === 3);
+
+    if (allTasksCompleted) {
+        modifier.$set.status = 7; //implemented
+        Ideas.update(ideaId, modifier, null,
+            idea, this.userId);
+        return;
+    }
 }
