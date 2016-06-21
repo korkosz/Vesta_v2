@@ -75,7 +75,7 @@
 
                 <!-- Create New Task -->
                 <new-task title="Sub-Task" parent-module="{{$ctrl.task.module}}" parent-project="{{$ctrl.task.project}}" parent-title="{{$ctrl.task.title}}"
-                    parent-sprint="$ctrl.task.sprint" task-id="{{$ctrl.task._id}}" alt-id="0" ng-if="$ctrl.task.status === 1 || 
+                    parent-sprint="$ctrl.task.sprint" task-id="{{$ctrl.task._id}}" alt-id="0" ng-if="$ctrl.task.status === 1 ||
                            $ctrl.task.status === 2">
                 </new-task>
                 <button class="btn btn-success" ng-click="$ctrl.changeStatus(3)" ng-if="$ctrl.task.status === 2 || $ctrl.task.status === 5">
@@ -84,7 +84,7 @@
                 <button class="btn btn-success" ng-click="$ctrl.changeStatus(2)" ng-if="$ctrl.task.status === 1">
                     Working
                 </button>
-                <button class="btn btn-success" ng-click="$ctrl.changeStatus(4)" ng-if="$ctrl.task.status !== 3 && 
+                <button class="btn btn-success" ng-click="$ctrl.changeStatus(4)" ng-if="$ctrl.task.status !== 3 &&
                            $ctrl.task.status !== 4">
                     Reject
                 </button>
@@ -115,10 +115,10 @@
                                 <button ng-click="$ctrl.cancelSearchResult()" class="glyphicon glyphicon-remove"></button>
                             </div>
                         </div>
-                        <div class="list-group" ng-if="$ctrl.searchResults.length > 0 && 
+                        <div class="list-group" ng-if="$ctrl.searchResults.length > 0 &&
                             !$ctrl.selectedResult">
                             <a class="list-group-item" ng-repeat="result in $ctrl.searchResults" style="cursor: pointer" ng-click="$ctrl.selectSearchResult(result)">
-                                {{result.id}} - {{result.title}}                               
+                                {{result.id}} - {{result.title}}
                             </a>
                         </div>
                         <br />

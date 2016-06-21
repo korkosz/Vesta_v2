@@ -30,7 +30,14 @@
 
             <header>
                 <p>Title:</p>
-                <h4>[{{$ctrl.idea.number}}] {{$ctrl.idea.title}}</h4>
+                <h4>
+                    <span style="background: rgba(161,134,190,0.2); padding: 2px 5px;
+                                    color: rgba(161,134,190,1); font-weight:700; font-weight: 700;
+                                    font-size: 0.5em; margin-right: 7px;">
+                        {{$ctrl.idea.number}}
+                    </span>
+                    {{$ctrl.idea.title}}
+                </h4>
             </header>
 
             <!-- Description wrapper -->
@@ -75,8 +82,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-danger"  
-                                            ng-click="$ctrl.setStatus(4, $ctrl.reason)" 
+                                    <button type="button" class="btn btn-danger"
+                                            ng-click="$ctrl.setStatus(4, $ctrl.reason)"
                                             data-dismiss="modal">
                                         Reject
                                     </button>
@@ -140,8 +147,8 @@
                 <div class="VST-btn-group VST-btn-group-create">
                     <span ng-if="$ctrl.idea.reason.length > 0">
                         REASON: {{$ctrl.idea.reason}}
-                    </span> 
-                    
+                    </span>
+
                     <!-- Create New Task -->
                     <new-task title="Create task"
                         parent-module="{{$ctrl.idea.module}}"
@@ -248,7 +255,7 @@
                     <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
                     <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
                     <td><a href="#/task/{{task.number}}">{{task.getStatusName()}}</a></td>
-                </tr>  
+                </tr>
                  <tr ng-repeat="ask in $ctrl.relatedAsks">
                     <td>
                         <a href="#/ask/{{ask.number}}">
