@@ -23,7 +23,7 @@ class controller {
     }
 
     save() {
-        Meteor.call('tasks.removeComment',
+        Meteor.call('tasks.updateComment',
             this.task._id, this.comment._id,
             this.comment.content, (err, res) => {
                 if (err) window.alert(err);
