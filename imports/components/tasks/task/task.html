@@ -141,16 +141,6 @@
                 <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
                 </select>
             </div>
-            <div class="wrapper">
-                <h4 class="label label-default">Type</h4>
-                <select ng-model="$ctrl.task.type" ng-options="type.id as type.value for type in $ctrl.taskTypes.value" ng-change="$ctrl.selectListChanged('type')">
-                </select>
-            </div>
-            <div class="wrapper">
-                <h4 class="label label-default">Status</h4>
-                <select ng-model="$ctrl.task.status" ng-change="$ctrl.selectListChanged('status')" ng-options="status.id as status.value for status in $ctrl.taskStatuses.value">
-                </select>
-            </div>
         </section>
     </section>
 

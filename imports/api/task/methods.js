@@ -5,8 +5,17 @@ import Tasks from '/imports/api/task/task';
 Meteor.methods({
     'tasks.createTask': createTask,
     'tasks.changeStatus': changeStatus,
-    'tasks.changePriority': changePriority
+    'tasks.changePriority': changePriority,
+    'tasks.updateDesciprion': updateDesciprion,
 });
+
+function updateDesciprion(taskId, desc) {
+    Tasks.update(taskId, {
+        $set: {
+            description: desc
+        }
+    }, null, null, this.userId);
+}
 
 function changeStatus(taskId, statusId) {
     switch (statusId) {
