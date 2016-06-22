@@ -4,6 +4,7 @@
         <tr>
             <th>Project</th>
             <th>Title</th>
+            <th>Number</th>
             <th>Created By</th>
             <th>Created</th>
         </tr>
@@ -24,7 +25,14 @@
             </td>
             <td>
                 <a href="#/ask/{{ask.number}}">
-                    [{{ask.number}}] <span ng-if="ask.isNew" style="color: red; font-size: .7em; font-weight: 700;">NEW</span> {{ask.title}}
+                    <span ng-if="ask.isNew" style="color: #2cd64a; font-size: .7em; font-weight: 700;">FRESH</span> {{ask.title}}
+                </a>
+            </td>
+            <td>
+                <a href="#/ask/{{ask.number}}" style="color: rgb(161,134,190); font-weight:700;">
+                    <span style="background: rgba(161,134,190,0.2); padding: 2px 7px;">
+                        {{ask.number}}
+                    </span>
                 </a>
             </td>
             <td data-toggle="tooltip" title="{{ask.creator()}}">

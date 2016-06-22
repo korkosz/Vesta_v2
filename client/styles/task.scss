@@ -18,9 +18,6 @@
         border-color: lighten($task, 10%);
         background: lighten($task, 37%);
     }
-    .#{$VESTA}-module-id{
-        color: $task;
-    }
     h1{
         color: $task !important;
     }

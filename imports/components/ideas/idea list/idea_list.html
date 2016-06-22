@@ -4,6 +4,7 @@
         <tr>
             <th>Project</th>
             <th>Title</th>
+            <th>Number</th>
             <th>Status</th>
             <th>Created By</th>
             <th>Created</th>
@@ -25,7 +26,14 @@
             </td>
             <td>
                 <a href="#/idea/{{idea.number}}">
-                    [{{idea.number}}] <span ng-if="idea.isNew" style="color: red; font-size: 0.7em; font-weight: 700;">NEW</span> {{idea.title}}
+                    <span ng-if="idea.isNew" style="color: rgb(255, 141, 0); font-size: 0.7em; font-weight: 700;">FRESH</span> {{idea.title}}
+                </a>
+            </td>
+            <td>
+                <a href="#/idea/{{idea.number}}" style="color: rgba(161,134,190,1); font-weight:700;">
+                    <span style="background: rgba(161,134,190,0.2); padding: 2px 7px;">
+                        {{idea.number}}
+                    </span>
                 </a>
             </td>
             <td>
