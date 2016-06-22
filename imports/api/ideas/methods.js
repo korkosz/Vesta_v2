@@ -251,23 +251,68 @@ function computeProperStatus(ideaId) {
         modifier.$set.sprint = project.currentSprint;
     }
 
-    var tasksRel_Ids = idea.related
-        .filter((rel) => rel.entity === 'Task')
-        .map((rel) => rel.id);
-
-    var tasksDb = Tasks.find({
-        _id: {
-            $in: tasksRel_Ids
+    if (!idea.related) {
+        let reviews = idea.reviews;
+        if (reviews && reviews.length > 0) {
+            modifier.$set.status = 6; //consider
+            Ideas.update(ideaId, modifier, null,
+                idea, this.userId);
+            return;
         }
-    }).fetch();
 
-    var allTasksCompleted = tasksDb.every(
-        (task) => task.status === 3);
-
-    if (allTasksCompleted) {
-        modifier.$set.status = 7; //implemented
+        modifier.$set.status = 1; //new
         Ideas.update(ideaId, modifier, null,
             idea, this.userId);
         return;
     }
+
+    var tasksRel_Ids = idea.related
+        .filter((rel) => rel.entity === 'Task')
+        .map((rel) => rel.id);
+
+    if (tasksRel_Ids.length > 0) {
+        let tasksDb = Tasks.find({
+            _id: {
+                $in: tasksRel_Ids
+            }
+        }).fetch();
+
+        let allTasksCompleted = tasksDb.every(
+            (task) => task.status === 3);
+
+        if (allTasksCompleted) {
+            modifier.$set.status = 7; //implemented
+            Ideas.update(ideaId, modifier, null,
+                idea, this.userId);
+            return;
+        } else {
+            modifier.$set.status = 2; //working
+            Ideas.update(ideaId, modifier, null,
+                idea, this.userId);
+            return;
+        }
+    }
+
+    var asksRel_Ids = idea.related
+        .filter((rel) => rel.entity === 'Ask')
+        .map((rel) => rel.id);
+
+    if (asksRel_Ids.length > 0) {
+        modifier.$set.status = 8; //discussed
+        Ideas.update(ideaId, modifier, null,
+            idea, this.userId);
+        return;
+    }
+
+    var reviews = idea.reviews;
+    if (reviews && reviews.length > 0) {
+        modifier.$set.status = 6; //consider
+        Ideas.update(ideaId, modifier, null,
+            idea, this.userId);
+        return;
+    }
+
+    modifier.$set.status = 1; //new
+    Ideas.update(ideaId, modifier, null,
+        idea, this.userId);
 }
