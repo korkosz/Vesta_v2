@@ -281,12 +281,7 @@ Entity.extendHelpers = function (collection, helpers) {
             //reverse to search from the end
             id = id.split("").reverse().join("");
             var idx = id.search(/[AIT]/);
-            var letter = id[idx];
-            var _id = id.substring(0, idx);
-            _id = _id.split("").reverse().join("");
-
-            if (!Number.isSafeInteger(Number.parseInt(_id)))
-                return 'ERROR';
+            var letter = id[idx];               
 
             switch (letter) {
                 case 'A':

@@ -35,6 +35,14 @@ function controller($scope) {
         }
     });
 
+    this.groupByEntity = function (entityLetter) {
+        if (this.notifications &&
+            this.notifications.length > 0) {
+            return this.notifications.filter(
+                (not) => not.entityLetter === entityLetter)
+        }
+    }
+
     this.seeMore = function () {
         this.limit = null;
     };
@@ -71,12 +79,12 @@ function controller($scope) {
             //ex. V3I15: Description updated by M. Korkosz few seconds ago
         } else {
             var msg = '';
-            if(notification.field) {
+            if (notification.field) {
                 msg += ': ' + notification.field + ' ';
             } else {
                 msg += ' ';
             }
-                        msg += notification.action;
+            msg += notification.action;
             return msg;
         }
     };

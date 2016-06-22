@@ -9,6 +9,20 @@ Notifications.schema = new SimpleSchema({
     entityId: {
         type: String
     },
+    entityLetter: {
+        type: String,
+        autoValue() {
+            if (this.isInsert && !this.isSet) {
+                var id = this.field('entityId').value;
+                //reverse to search from the end
+                id = id.split("").reverse().join("");
+                var idx = id.search(/[AIT]/);
+                var letter = id[idx];
+                return letter;
+            }
+        },
+        optional: true
+    },
     field: {
         type: String,
         optional: true
