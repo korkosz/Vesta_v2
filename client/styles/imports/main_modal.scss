@@ -90,6 +90,10 @@
             padding-left: 5px;
             transition: 0.5s;
         }
+        input{
+            margin-top: 25px;
+            border-radius: 0;
+        }
         .glyphicon-ok-sign{
             color: #3498DB;
             margin-left: 4px;
@@ -100,7 +104,6 @@
             display: -webkit-flex;
             display: flex;
             align-items: baseline;
-            margin-bottom: 10px;
             label.label-modal{
                 -webkit-flex-basis: 100px; /* Safari 6.1+ */
                 -ms-flex-basis: 100px; /* IE 10 */
