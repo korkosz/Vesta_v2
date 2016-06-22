@@ -1,6 +1,49 @@
 <section class="idea-reviews" ng-controller="ReviewCtrl as $ctrl">
     <div class="reviews-wrapper">
-        <h2  class="VST-view-subheader">Reviews</h2>
+
+
+        <!-- *** NEW REVIEW *** -->
+        <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
+            <h2  class="VST-view-subheader">Add review</h2>
+            <div class="new-review-content-box">
+                <div class="prons-cons-wrapper">
+                    <!-- PROS -->
+                    <div class="prons-box">
+                        <form ng-submit="$ctrl.addMerit()">
+                            <input placeholder="+&nbsp;prons"
+                                    ng-model="$ctrl.merit"/>
+                        </form>
+                        <pill state="plus" value="merit"
+                            ng-repeat="merit in $ctrl.review.merits
+                                       track by $index"
+                            remove="$ctrl.removeMerit(merit)">
+                        </pill>
+                    </div>
+                    <!-- CONS -->
+                    <div class="cons-box">
+                        <form ng-submit="$ctrl.addDrawback()">
+                            <input placeholder="-&nbsp;prons"
+                                    ng-model="$ctrl.drawback"/>
+                        </form>
+                        <pill state="minus" value="drawback"
+                                ng-repeat="drawback in $ctrl.review.drawbacks
+                                           track by $index"
+                                remove="$ctrl.removeDrawback(drawback)">
+                        </pill>
+                    </div>
+                </div>
+                <!-- DESCRIPTION -->
+                <div class="desc-wrapper">
+                    <textarea placeholder="Add review here..."
+                                ng-model="$ctrl.review.comment"
+                                class="editible-desc">
+                    </textarea>
+                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addReview()">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- *** LIST OF REVIEWS *** -->
         <div class="reviews-added-wrapper">
@@ -21,7 +64,7 @@
                 </div>
                 <div class="review-content-box">
                     <header>
-                        <h3 class="reviwer-name">{{review.creator()}}
+                        <h3 class="reviewer-name">{{review.creator()}}
                             <!-- REMOVE -->
                             <button class="VST-btn VST-btn-cancel"
                                     ng-click="$ctrl.removeReview(review._id)"
@@ -74,49 +117,6 @@
                                     class="editible-desc">
                         </textarea>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- *** NEW REVIEW *** -->
-        <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
-            <div class="new-review-content-box">
-                <h3 class="reviwer-name">{{$ctrl.currentUserName()}}</h3>
-                <div class="prons-cons-wrapper">
-                    <!-- PROS -->
-                    <div class="prons-box">
-                        <form ng-submit="$ctrl.addMerit()">
-                            <input placeholder="+&nbsp;prons"
-                                    ng-model="$ctrl.merit"/>
-                        </form>
-                        <pill state="plus" value="merit"
-                            ng-repeat="merit in $ctrl.review.merits
-                                       track by $index"
-                            remove="$ctrl.removeMerit(merit)">
-                        </pill>
-                    </div>
-                    <!-- CONS -->
-                    <div class="cons-box">
-                        <form ng-submit="$ctrl.addDrawback()">
-                            <input placeholder="-&nbsp;prons"
-                                    ng-model="$ctrl.drawback"/>
-                        </form>
-                        <pill state="minus" value="drawback"
-                                ng-repeat="drawback in $ctrl.review.drawbacks
-                                           track by $index"
-                                remove="$ctrl.removeDrawback(drawback)">
-                        </pill>
-                    </div>
-                </div>
-                <!-- DESCRIPTION -->
-                <div class="desc-wrapper">
-                    <textarea placeholder="Add description here..."
-                                ng-model="$ctrl.review.comment"
-                                class="editible-desc">
-                    </textarea>
-                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addReview()">
-                        Add
-                    </button>
                 </div>
             </div>
         </div>

@@ -263,13 +263,11 @@ section.#{$VESTA}-view-desc{
 // ADITIONAL SECTIONS
 
 .#{$VESTA}-view-subheader{
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: 21px;
-    color: #adadad;
-    padding: 20px 0 0 0;
+    text-align: left;
+    font-weight: 400;
+    font-size: 19px;
+    color: #ff8d00;
+    padding: 20px 0 0 100px;
 }
 
 .#{$VESTA}-view-input{

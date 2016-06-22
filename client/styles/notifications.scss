@@ -1,0 +1,12 @@
+@import "{}/client/styles/imports/variables.scss";
+
+.notif-wrapper{
+    display: inline-block;
+}
+.notif-box{
+    position: absolute;
+    top: 35px;
+    left: 0;
+    z-index: 100;
+    width: 300px;
+}
