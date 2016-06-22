@@ -1,15 +1,39 @@
 import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
+import Comments from '/imports/api/task/comment';
 
 Meteor.methods({
     'tasks.createTask': createTask,
     'tasks.changeStatus': changeStatus,
     'tasks.changePriority': changePriority,
-    'tasks.updateDesciprion': updateDesciprion,
+    'tasks.updateDescription': updateDescription,
+    'tasks.addComment': addComment,
+    'tasks.removeComment': removeComment
 });
 
-function updateDesciprion(taskId, desc) {
+// function addComment(taskId, comment) {
+//     var task = Tasks.findOne(taskId);
+
+//     Comments.insert(comment,
+//         null, task, this.userId);
+// }
+
+function removeComment(taskId, commentId) {
+    var task = Tasks.findOne(taskId);
+
+    Comments.remove(commentId,
+        null, task, this.userId);
+}
+
+function addComment(taskId, comment) {
+    var task = Tasks.findOne(taskId);
+
+    Comments.insert(comment,
+        null, task, this.userId);
+}
+
+function updateDescription(taskId, desc) {
     Tasks.update(taskId, {
         $set: {
             description: desc

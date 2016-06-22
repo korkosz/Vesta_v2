@@ -2,54 +2,67 @@ import { Mongo } from 'meteor/mongo';
 
 import Tasks from '/imports/api/task/task';
 
-import {Notify} from '/imports/api/notification/notification';
+import {simpleNotification} from '/imports/api/notification/notification';
 
 class CommentsCollection extends Mongo.Collection {
-    insert(comment, callback, notify) {
+    insert(comment, callback, relatedTask, notify) {
         comment.number = performance.now()
             .toString().slice(0, 4).replace('.', 1);
+
         super.insert(comment, function (err, res) {
-            Tasks.update(comment.taskId, {
-                $push: {
-                    comments: res
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
                 }
-            }, null, notify);
+                return;
+            }
+            const usersToNotify = relatedTask.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedTask.id,
+                'Comment', 'added');
+
+            if (typeof callback === 'function') callback(null, res);
+
+            return res;
         });
     }
 
-    update(selector, updateDoc, callback, notifyObject) {
-        function innerCallback() {
-            var usersToNotify = [];
-            if (typeof notifyObject.assignedUser === 'string' &&
-                notifyObject.assignedUser !==
-                notifyObject.provider) {
-                usersToNotify.push(notifyObject.assignedUser);
+    update(selector, updateDoc, callback, relatedTask, userId) {
+        super.update(selector, updateDoc, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
             }
+            const usersToNotify = relatedTask.watchers.filter(
+                (user) => user !== userId);
 
-            if (typeof notifyObject.entityCreator === 'string' &&
-                notifyObject.entityCreator !== notifyObject.provider &&
-                notifyObject.entityCreator !== notifyObject.assignedUser) {
-                usersToNotify.push(notifyObject.entityCreator);
-            }
+            simpleNotification(usersToNotify, relatedTask.id,
+                'Comment', 'updated');
 
-            if (usersToNotify.length > 0) {
-                Notify('Task', notifyObject.id, 'Update', usersToNotify,
-                    notifyObject.provider, notifyObject.when);
-            }
+            if (typeof callback === 'function') callback(null, res);
 
-            if (typeof callback === 'function') callback();
-        }
-        super.update(selector, updateDoc, innerCallback);
+            return res;
+        });
     }
 
-    remove(commentId, taskId, notify) {
-        if (typeof taskId === 'undefined') throw new Error('taskId is undefined !!!');
-        if (typeof commentId === 'undefined') throw new Error('commentId is undefined !!!');
+    remove(selector, callback, relatedTask, userId) {
+        super.remove(selector, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedTask.watchers.filter(
+                (user) => user !== userId);
 
-        super.remove(commentId, function (err, res) {
-            Tasks.update({ _id: taskId }, {
-                $pull: { comments: commentId }
-            }, null, notify);
+            simpleNotification(usersToNotify, relatedTask.id,
+                'Comment', 'removed');
+
+            if (typeof callback === 'function') callback(null, res);
         });
     }
 }
@@ -60,31 +73,42 @@ CommentsCollection.schema = new SimpleSchema({
     content: {
         type: String
     },
-    taskId: {
+    task: {
         type: String
     },
     number: {
         type: String
     },
+    creationDate: {
+        type: Date,
+        label: 'Created At',
+        autoValue() {
+            if (this.isInsert) {
+                return new Date();
+            } else {
+                this.unset();
+            }
+        }
+    },
     createdBy: {
         type: String,
-        defaultValue: this.userId,
-        optional: true
-    },
-    createdAt: {
-        type: Date,
-        optional: true
+        label: 'Created By',
+        autoValue() {
+            if (this.isInsert) {
+                return this.userId;
+            } else {
+                this.unset();
+            }
+        }
     },
     updatedAt: {
         type: Date,
         autoValue: function () {
-            if (this.isUpdate) {
-                return new Date();
-            }
+            return new Date();
         },
-        denyInsert: true,
-        optional: true
-    }
+        optional: true,
+        label: 'Updated At'
+    },
 });
 
 Comments.helpers({

@@ -1,7 +1,6 @@
 import Ideas from '/imports/api/ideas/idea';
 
-import {oldNewNotification, simpleNotification,
-    msgNotification} from '/imports/api/notification/notification';
+import {simpleNotification} from '/imports/api/notification/notification';
 
 class ReviewsCollection extends Mongo.Collection {
     insert(review, callback, relatedIdea, userId) {
@@ -24,9 +23,8 @@ class ReviewsCollection extends Mongo.Collection {
         });
     }
 
-    //TODO: ZMIENIC REVID NA SELECTOR
-    remove(revId, callback, relatedIdea, userId) {
-        super.remove(revId, function (err, res) {
+    remove(selector, callback, relatedIdea, userId) {
+        super.remove(selector, function (err, res) {
             if (err) {
                 if (typeof callback === 'function') {
                     callback(err);

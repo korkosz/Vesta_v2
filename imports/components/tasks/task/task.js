@@ -1,4 +1,3 @@
-import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
 import Ideas from '/imports/api/ideas/idea';
 import Comments from '/imports/api/task/comment';
@@ -135,25 +134,15 @@ class TaskCtrl {
     }
 
     addComment() {
-        var notify = {
-            assignedUser: this.task.assigned,
-            provider: Meteor.userId(),
-            id: this.task.id,
-            when: new Date(),
-            entityCreator: this.task.createdBy
-        };
-
-        Comments.insert({
-            content: this.comment,
-            taskId: this.task._id,
-            createdBy: Meteor.userId(),
-            createdAt: new Date()
-        }, null, notify);
+        Meteor.call('tasks.changeStatus',
+            this.task._id, this.comment, (err, res) => {
+                if (err) window.alert(err);
+            });
         this.comment = '';
     }
 
     saveDescription() {
-        Meteor.call('tasks.updateDesciprion',
+        Meteor.call('tasks.updateDescription',
             this.task._id, this.task.description, (err, res) => {
                 if (err) window.alert(err);
             });

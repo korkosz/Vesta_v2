@@ -8,18 +8,6 @@ class TaskClass extends Entity { }
 
 export default TaskCollection = new TaskClass('Tasks');
 
-var RelationSchema = new SimpleSchema({
-    entity: {
-        type: 'String'
-    },
-    id: {
-        type: 'String'
-    },
-    relation: {
-        type: 'String'
-    }
-});
-
 TaskCollection.schema = Entity.createSchema({
     priority: {
         type: String
@@ -33,14 +21,6 @@ TaskCollection.schema = Entity.createSchema({
     },
     assigned: {
         type: String,
-        optional: true
-    },
-    ideaId: {
-        type: String,
-        optional: true
-    },
-    comments: {
-        type: [String],
         optional: true
     }
 });
