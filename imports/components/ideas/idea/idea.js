@@ -183,34 +183,27 @@ class IdeaCtrl {
     }
 
     saveDescription() {
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
-
-        Ideas.update(this.idea._id, {
-            $set: {
-                description: this.idea.description
-            }
-        }, null, notify);
+        Meteor.call('ideas.updateDesciprion',
+            this.idea._id, this.idea.description, (err, res) => {
+                if (err) window.alert(err);
+            });
         this.stopEditDescription();
     }
 
     setStatus(_status, msg) {
-        Meteor.call('ideas.setStatus', _status, this.idea._id, msg, (err, res) => {
-            if (err) window.alert(err);
-        });
+        Meteor.call('ideas.setStatus', _status,
+            this.idea._id, msg, (err, res) => {
+                if (err) window.alert(err);
+            });
 
         this.reason = '';
     }
 
     setSprint(sprint) {
-        Meteor.call('ideas.setSprint', sprint, this.idea._id, (err, res)=> {
-            if(err) window.alert(err);
-        });
+        Meteor.call('ideas.setSprint', sprint,
+            this.idea._id, (err, res) => {
+                if (err) window.alert(err);
+            });
     }
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];

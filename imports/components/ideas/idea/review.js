@@ -100,39 +100,14 @@ class ReviewCtrl {
 
     updateReview(review) {
         review.edited = false;
-
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
-
-        Reviews.update(review._id, {
-            $set: {
-                merits: review.merits,
-                drawbacks: review.drawbacks,
-                comment: review.comment
-            }
-        }, null, notify);
+        Meteor.call('ideas.updateReview',
+            this.review._id, review.merits, review.drawbacks, review.comment,
+            this.idea._id);
     }
 
     addReview() {
-
         Meteor.call('ideas.addReview', this.review, this.idea._id);
         this.review = {}
-
-        // clearArray(this.review.merits);
-        // clearArray(this.review.drawbacks);
-        // this.review.comment = '';
-
-        // ///
-        // function clearArray(arr) {
-        //     for (var i = 0, len = arr.length; i < len; i++)
-        //         arr.pop();
-        //     return arr;
-        // }
     }
 }
 

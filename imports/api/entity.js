@@ -240,6 +240,15 @@ Entity.createSchemaMetadata = function (meta) {
                         break;
                 }
             }
+        },
+        description: {
+            notify: function (modifier, oldEntity, modifierMethod, userId) {
+                const usersToNotify = oldEntity.watchers.filter(
+                    (user) => user !== userId);
+
+                simpleNotification(usersToNotify,
+                    oldEntity.id, 'Description', 'updated')
+            }
         }
     }
 

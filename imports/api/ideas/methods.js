@@ -7,11 +7,33 @@ import Projects from '/imports/api/project/project';
 
 Meteor.methods({
     'ideas.createIdea': createIdea,
+    'ideas.updateDesciprion': updateDesciprion,
     'ideas.setStatus': setStatus,
     'ideas.setSprint': setSprint,
     'ideas.addReview': addReview,
-    'ideas.removeReview': removeReview
+    'ideas.removeReview': removeReview,
+    'ideas.updateReview': updateReview   
 });
+
+function updateReview(revId, merits, drawbacks,
+    comment, relatedIdeaId) {
+    var idea = Ideas.findOne(relatedIdeaId);
+    Reviews.update(revId, {
+        $set: {
+            merits: merits,
+            drawbacks: drawbacks,
+            comment: comment
+        }
+    }, null, idea, this.userId);
+}
+
+function updateDesciprion(ideaId, desc) {
+    Ideas.update(ideaId, {
+        $set: {
+            description: desc
+        }
+    }, null, null, this.userId);
+}
 
 function addReview(review, ideaId) {
     var idea = Ideas.findOne(ideaId);
