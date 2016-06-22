@@ -9,15 +9,19 @@ Meteor.methods({
     'tasks.changePriority': changePriority,
     'tasks.updateDescription': updateDescription,
     'tasks.addComment': addComment,
-    'tasks.removeComment': removeComment
+    'tasks.removeComment': removeComment,
+    'tasks.updateComment': updateComment
 });
 
-// function addComment(taskId, comment) {
-//     var task = Tasks.findOne(taskId);
+function updateComment(taskId, commentId, commentContent) {
+    var task = Tasks.findOne(taskId);
 
-//     Comments.insert(comment,
-//         null, task, this.userId);
-// }
+    Comments.update(commentId, {
+        $set: {
+            content: commentContent
+        }
+    }, null, task, this.userId);
+}
 
 function removeComment(taskId, commentId) {
     var task = Tasks.findOne(taskId);
@@ -28,7 +32,7 @@ function removeComment(taskId, commentId) {
 
 function addComment(taskId, comment) {
     var task = Tasks.findOne(taskId);
-
+       
     Comments.insert(comment,
         null, task, this.userId);
 }

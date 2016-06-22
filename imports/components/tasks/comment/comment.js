@@ -23,32 +23,19 @@ class controller {
     }
 
     save() {
-        var notify = {
-            assignedUser: this.task.assigned,
-            provider: Meteor.userId(),
-            id: this.task.id,
-            when: new Date(),
-            entityCreator: this.task.createdBy
-        };
-
-        Comments.update(this.comment._id, {
-            $set: {
-                content: this.comment.content
-            }
-        }, null, notify);
+        Meteor.call('tasks.removeComment',
+            this.task._id, this.comment._id,
+            this.comment.content, (err, res) => {
+                if (err) window.alert(err);
+            });
         this.edited = false;
     }
 
     remove() {
-        var notify = {
-            assignedUser: this.task.assigned,
-            provider: Meteor.userId(),
-            id: this.task.id,
-            when: new Date(),
-            entityCreator: this.task.createdBy
-        };
-
-        Comments.remove(this.comment._id, this.task._id, notify);
+        Meteor.call('tasks.removeComment',
+            this.task._id, this.comment._id, (err, res) => {
+                if (err) window.alert(err);
+            });
     }
 }
 controller.$inject = ['$routeParams', '$scope'];

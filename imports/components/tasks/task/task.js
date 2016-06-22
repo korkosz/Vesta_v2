@@ -105,7 +105,7 @@ class TaskCtrl {
             comments() {
                 this.getReactively('task');
                 if (this.task) {
-                    return this.task.getComments();
+                    return Comments.find({ task: this.task._id });
                 }
             }
         });
@@ -134,7 +134,7 @@ class TaskCtrl {
     }
 
     addComment() {
-        Meteor.call('tasks.changeStatus',
+        Meteor.call('tasks.addComment',
             this.task._id, this.comment, (err, res) => {
                 if (err) window.alert(err);
             });
@@ -155,6 +155,33 @@ class TaskCtrl {
         this.$timeout(() => {
             this.$location.url('/');
         }, 500);
+    }
+
+    createRelation() {
+        var relationObj = {
+            entity: 'Task',
+            id: this.selectedResult._id,
+            relation: this.relation.relationType
+        }
+
+        Tasks.update(this.task._id, {
+            $push: {
+                related: relationObj
+            }
+        });
+
+        relationObj.id = this.task._id;
+        if (relationObj.relation === "Solution In") {
+            relationObj.relation = "Solution For";
+        }
+
+        Tasks.update(this.selectedResult._id, {
+            $push: {
+                related: relationObj
+            }
+        });
+
+        this.cancelSearchResult();
     }
 };
 TaskCtrl.$inject = ['$scope', '$routeParams', '$sce', '$location', '$timeout'];

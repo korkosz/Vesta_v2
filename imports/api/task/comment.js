@@ -5,11 +5,16 @@ import Tasks from '/imports/api/task/task';
 import {simpleNotification} from '/imports/api/notification/notification';
 
 class CommentsCollection extends Mongo.Collection {
-    insert(comment, callback, relatedTask, notify) {
-        comment.number = performance.now()
-            .toString().slice(0, 4).replace('.', 1);
+    insert(comment, callback, relatedTask, userId) {
+        var comm = {
+            content: comment,
+            task: relatedTask._id
+        };
+        var nbString = (new Date).getTime()
+            .toString();
+        comm.number = nbString.slice(-4).replace('.', 1);
 
-        super.insert(comment, function (err, res) {
+        super.insert(comm, function (err, res) {
             if (err) {
                 if (typeof callback === 'function') {
                     callback(err);
