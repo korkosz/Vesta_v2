@@ -66,7 +66,6 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
 //Idea REWIEWS
 section.idea-reviews{
-    margin-bottom: 100px;
 
     // Added reviews
     .reviews-wrapper{
@@ -195,7 +194,7 @@ section.idea-reviews{
     }
 
     .desc-wrapper{
-        padding-right: 200px;
+        padding-right: 50px;
         margin-top: 10px;
         color: rgb(136, 136, 136);
         font-size: 14px;
@@ -230,8 +229,7 @@ section.idea-reviews{
     .new-review-content-box{
         margin-left: 100px;
         .desc-wrapper{
-            padding-right: 0;
-            width: 700px;
+            padding-right: 50px;
         }
         button.#{$VESTA}-btn{
             display: block;
