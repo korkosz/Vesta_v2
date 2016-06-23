@@ -93,7 +93,7 @@ class VestaListCtrl {
         if (!EntityCollection.schemaMetadata) return value;
 
         var metadata = EntityCollection.schemaMetadata[field];
-        if (metadata) {
+        if (metadata && metadata.transform) {
             return metadata.transform(value, entity);
         } else {
             return value;

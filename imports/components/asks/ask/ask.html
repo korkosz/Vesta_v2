@@ -16,7 +16,7 @@
             <!-- Number -->
             <div class="VST-view-number">
                 <span class="VST-module-id">#{{$ctrl.ask.id}}</span>
-                <span class="VST-module-date"><span>created at</span> {{$ctrl.ask.creationDate | date: 'dd.MM.yy'}}</span>
+                <span class="VST-module-date"><span>created at</span> {{$ctrl.moment($ctrl.ask.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
             </div>
 
             <!-- Breadcrumb -->
@@ -117,7 +117,7 @@
                 <div class="response-header">
                     <div class="response-number">#{{response.number}}</div>
                     <div class="response-name">{{response.creatorShort()}}</div>
-                    <div class="response-addTime">{{$ctrl.moment(response.creationDate).fromNow()}}</div>
+                    <div class="response-addTime">{{$ctrl.moment($ctrl.moment.utc(response.creationDate).toDate()).fromNow()}}</div>
                 </div>
 
                 <div class="response-desc">
@@ -194,7 +194,7 @@
                         <div class="response-header">
                             <div class="response-number">#{{subresponse.number}}</div>
                             <div class="response-name">{{subresponse.creatorShort()}}</div>
-                            <div class="response-addTime">{{$ctrl.moment(subresponse.creationDate).fromNow()}}</div>
+                            <div class="response-addTime">{{$ctrl.moment($ctrl.moment.utc(subresponse.creationDate).toDate()).fromNow()}}</div>
                         </div>
 
                         <div class="response-desc">

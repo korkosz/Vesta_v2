@@ -60,7 +60,7 @@
             </td>
             <td>
                 <a href="#/task/{{task.number}}">
-                {{$ctrl.moment(task.creationDate).fromNow()}}
+                	{{$ctrl.moment($ctrl.moment.utc(task.creationDate).toDate()).fromNow()}}
                 </a>
             </td>
         </tr>

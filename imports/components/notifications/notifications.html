@@ -8,7 +8,7 @@
             <h4 class="list-group-item-heading">
                 <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
-            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
+            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment($ctrl.moment.utc(notification.creationDate).toDate()).fromNow()}}</p>
             <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsIdeas.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <h4 class="list-group-item-heading">
                 <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
-            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
+            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment($ctrl.moment.utc(notification.creationDate).toDate()).fromNow()}}</p>
             <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsTasks.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <h4 class="list-group-item-heading">
                 <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
-            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
+            <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment($ctrl.moment.utc(notification.creationDate).toDate()).fromNow()}}</p>
             <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsAsks.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>

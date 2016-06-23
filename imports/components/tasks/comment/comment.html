@@ -19,7 +19,7 @@
                 {{$ctrl.comment.creator()}}
             </span>
             <span class="row">
-                {{$ctrl.moment($ctrl.comment.creationDate).fromNow()}}
+                {{$ctrl.moment($ctrl.moment.utc(comment.creationDate).toDate()).fromNow()}}
             </span>
         </span>
         <span class="col-md-8" style="padding-top:5px;">

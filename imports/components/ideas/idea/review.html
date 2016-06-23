@@ -73,7 +73,7 @@
                             </button>
                         </h3>
                         <p class="review-addTime">
-                            {{$ctrl.moment(review.createdAt).fromNow()}}
+                            {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
                         </p>
                     </header>
                     <div class="prons-cons-wrapper">

@@ -19,7 +19,7 @@
             <!-- Number -->
             <div class="VST-view-number">
                 <span class="VST-module-id">#{{$ctrl.idea.id}}</span>
-                <span class="VST-module-date"><span>creted at</span> {{$ctrl.idea.creationDate | date: 'dd.MM.yy'}}</span>
+                <span class="VST-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
             </div>
 
             <!-- Project path -->

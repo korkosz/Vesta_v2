@@ -42,7 +42,7 @@
             </td>
             <td>
                 <a href="#/ask/{{ask.number}}">
-                    {{$ctrl.moment(ask.creationDate).fromNow()}}
+                    {{$ctrl.moment($ctrl.moment.utc(ask.creationDate).toDate()).fromNow()}}
                 </a>
             </td>
         </tr>

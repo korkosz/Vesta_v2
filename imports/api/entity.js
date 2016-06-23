@@ -99,13 +99,11 @@ Entity.createSchema = function (schemaExtension) {
             optional: true
         },
         creationDate: {
-            type: Date,
+            type: Number,
             label: 'Created At',
             autoValue() {
                 if (this.isInsert) {
-                    return new Date();
-                } else {
-                    this.unset();
+                    return (new Date()).getTime();
                 }
             }
         },

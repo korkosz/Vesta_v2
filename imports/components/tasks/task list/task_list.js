@@ -22,7 +22,7 @@ class TaskListCtrl {
                         { isDeleted: false });
                 }
                 return Tasks.find(this.filter).map((task)=> {
-                    task.isNew = moment().diff(task.creationDate, 'days') === 0;
+                    task.isNew = moment.utc().diff(task.creationDate, 'days') === 0;
                     return task;   
                 });
             },

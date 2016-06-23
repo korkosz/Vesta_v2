@@ -104,15 +104,14 @@ ReponsesCollection.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
-    createdAt: {
-        type: Date,
+    creationDate: {
+        type: Number,
         autoValue() {
             if (this.isInsert) {
-                return new Date();
-            } else {
-                this.unset();
+                return (new Date()).getTime();
             }
-        }
+        },
+        optional: true
     },
     updatedAt: {
         type: Date,

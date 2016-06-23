@@ -50,7 +50,7 @@
             </td>
             <td>
                 <a href="#/idea/{{idea.number}}">
-                    {{$ctrl.moment(idea.creationDate).fromNow()}}
+                    {{$ctrl.moment($ctrl.moment.utc(idea.creationDate).toDate()).fromNow()}}
                 </a>
             </td>
         </tr>
