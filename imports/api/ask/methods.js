@@ -10,8 +10,17 @@ Meteor.methods({
     'asks.updatePost': updatePost,
     'asks.removePost': removePost,
     'asks.addGoodPoint': addGoodPoint,
-    'asks.removeGoodPoint': removeGoodPoint
+    'asks.removeGoodPoint': removeGoodPoint,
+    'asks.closeAsk': closeAsk
 });
+
+function closeAsk(askId) {
+    Asks.update(askId, {
+        $set: {
+            status: 3
+        }
+    }, null, null, this.userId);
+}
 
 function removeGoodPoint(askId, goodPoint) {
     Asks.update(askId, {

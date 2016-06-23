@@ -76,9 +76,10 @@ class AskCtrl {
     }
 
     closeAsk() {
-        Asks.update(this.ask._id, {
-            $set: { status: 3 }
-        });
+        Meteor.call('asks.closeAsk', this.ask._id,
+            (err, res) => {
+                if (err) window.alert(err);
+            });
     }
 
     removeAsk() {
