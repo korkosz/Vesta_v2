@@ -12,7 +12,7 @@ Meteor.methods({
     'ideas.setSprint': setSprint,
     'ideas.addReview': addReview,
     'ideas.removeReview': removeReview,
-    'ideas.updateReview': updateReview   
+    'ideas.updateReview': updateReview
 });
 
 function updateReview(revId, merits, drawbacks,
@@ -102,6 +102,9 @@ function setStatus(statusId, ideaId, msg) {
         case 2://working
             setWorking.call(this, ideaId);
             break;
+        case 3://closed
+            closeIdea.call(this, ideaId);
+            break;
         case 4://rejected
             rejectIdea.call(this, ideaId, msg);
             break;
@@ -166,12 +169,23 @@ function createIdea(idea) {
 }
 
 function setDiscussed(ideaId) {
-    var idea = Ideas.find(ideaId);
+    var idea = Ideas.findOne(ideaId);
 
     if (idea.status === 6) {
         Ideas.update(ideaId, {
             $set: {
                 status: 8
+            }
+        }, null, idea, this.userId);
+    }
+}
+function closeIdea(ideaId) {
+    var idea = Ideas.findOne(ideaId);
+
+    if (idea.status === 7) { //implemented
+        Ideas.update(ideaId, {
+            $set: {
+                status: 3
             }
         }, null, idea, this.userId);
     }
