@@ -5,11 +5,26 @@ import Responses from '/imports/api/ask/response';
 
 Meteor.methods({
     'asks.createAsk': createAsk,
+    'asks.updateDesciprion': updateDesciprion,
     'asks.addPost': addPost,
-    'asks.updatePost': updatePost
+    'asks.updatePost': updatePost,
+    'asks.removePost': removePost
 });
 
-function updatePost(askId, postId, desc, title) {
+function updateDesciprion(askId, desc) {
+    Asks.update(askId, {
+        $set: {
+            description: desc
+        }
+    }, null, null, this.userId);
+}
+
+function removePost(askId, postId, postNb) {
+    var ask = Asks.findOne(askId);
+    Responses.remove(postId, null, ask, this.userId, postNb);
+}
+
+function updatePost(askId, postId, postNb, desc, title) {
     var ask = Asks.findOne(askId);
     var post = Responses.findOne(postId);
 
@@ -18,7 +33,7 @@ function updatePost(askId, postId, desc, title) {
             description: desc,
             title: title
         }
-    }, null, ask, this.userId, post.number);
+    }, null, ask, this.userId, postNb);
 }
 
 function addPost(askId, post) {

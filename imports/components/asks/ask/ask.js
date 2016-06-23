@@ -90,12 +90,13 @@ class AskCtrl {
     }
 
     saveDescription() {
-        Asks.update(this.ask._id, {
-            $set: {
-                description: this.ask.description
-            }
-        });
-        this.stopEditDescription();
+        var me = this;
+        Meteor.call('asks.updateDesciprion', me.ask._id,
+            me.ask.description, (err, res) => {
+                if (err) window.alert(err);
+
+                me.stopEditDescription();
+            });
     }
 
     addGoodPoint() {
@@ -180,11 +181,12 @@ class AskCtrl {
     }
 
     addResponse() {
+        var me = this;
         Meteor.call('asks.addPost', this.ask._id, this.response, (err, res) => {
             if (err) window.alert(err);
 
-            this.response.title = '';
-            this.response.description = '';
+            me.response.title = '';
+            me.response.description = '';
         });
     }
 
@@ -221,12 +223,16 @@ class AskCtrl {
     }
 
     removeResponse(resp) {
-        Responses.remove(resp._id);
+        Meteor.call('asks.removePost', this.ask._id, resp._id,
+            resp.number,
+            (err, res) => {
+                if (err) window.alert(err);
+            });
     }
 
     saveResponse(resp) {
         Meteor.call('asks.updatePost', this.ask._id, resp._id,
-            resp.description, resp.title,
+            resp.number, resp.description, resp.title,
             (err, res) => {
                 if (err) window.alert(err);
 

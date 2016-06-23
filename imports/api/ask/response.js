@@ -35,7 +35,7 @@ class ResponsesClass extends Mongo.Collection {
         });
     }
 
-    remove(selector, callback, relatedAsk, userId) {
+    remove(selector, callback, relatedAsk, userId, postNb) {
         super.remove(selector, function (err, res) {
             if (err) {
                 if (typeof callback === 'function') {
@@ -47,7 +47,7 @@ class ResponsesClass extends Mongo.Collection {
                 (user) => user !== userId);
 
             simpleNotification(usersToNotify, relatedAsk.id,
-                'Post', 'removed');
+                'Post \"' + postNb + '\"', 'removed');
 
             if (typeof callback === 'function') callback(null, res);
         });
