@@ -4,12 +4,12 @@
         <tr>
             <th>Project</th>
             <th>Title</th>
-            <th>Number</th>
             <th>Priority</th>
             <th>Type</th>
             <th ng-if="$ctrl.hasFilter()">Created By</th>
             <th ng-if="!$ctrl.hasFilter()">Assigned</th>
             <th>Created</th>
+            <th>Number</th>
         </tr>
     </thead>
     <tbody>
@@ -29,13 +29,6 @@
             <td>
                 <a href="#/task/{{task.number}}">
                     <span ng-if="task.isNew" style="color: #00C4FF; font-size: .7em; font-weight: 700;">FRESH</span> {{task.title}}
-                </a>
-            </td>
-            <td>
-                <a href="#/task/{{task.number}}" style="color:rgba(161,134,190,1); font-weight: 700;">
-                    <span style="background: rgba(161,134,190,0.2); padding: 2px 7px;">
-                        {{task.number}}
-                    </span>
                 </a>
             </td>
             <td class="middle">
@@ -61,6 +54,13 @@
             <td>
                 <a href="#/task/{{task.number}}">
                 	{{$ctrl.moment($ctrl.moment.utc(task.creationDate).toDate()).fromNow()}}
+                </a>
+            </td>
+            <td>
+                <a href="#/task/{{task.number}}" style="color:rgba(161,134,190,1); font-weight: 700;">
+                    <span style="background: rgba(161,134,190,0.2); padding: 2px 7px;">
+                        {{task.number}}
+                    </span>
                 </a>
             </td>
         </tr>
