@@ -35,14 +35,15 @@ ReponsesCollection.schema = new SimpleSchema({
     },
     parentResponse: {
         type: String,
-        optional: true    
+        optional: true
     },
     number: {
         type: Number
     },
     title: {
         type: String,
-        max: 100
+        max: 100,
+        optional: true
     },
     description: {
         type: String,

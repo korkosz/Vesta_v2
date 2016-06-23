@@ -1,60 +1,48 @@
-<div style="cursor: pointer; position:relative;"
-     ng-click="$ctrl.toggleList()"
-     class="list-group notif-wrapper">
-    <div class="list-group-item">
-        Ideas: <span class="badge">{{$ctrl.unseenCounter}}</span>
+<div style="cursor: pointer; position:relative;" class="list-group notif-wrapper">
+    <div class="list-group-item" ng-click="$ctrl.toggleList('I')">
+        Ideas: <span class="badge">{{$ctrl.ideasUnseenCounter}}</span>
     </div>
-    <div ng-if="$ctrl.listVisible === true" class="list-group notif-box">
-        <div class="list-group-item" ng-repeat="notification in $ctrl.notifications | limitTo:
+    <div ng-if="$ctrl.ideasListVisible === true" class="list-group notif-box">
+        <div class="list-group-item" ng-repeat="notification in $ctrl.notsIdeas | limitTo:
             $ctrl.limit" style="background-color: {{$ctrl.seenColor(notification.seen)}}">
             <h4 class="list-group-item-heading">
-                <a href="#/{{notification.entityId}}"
-                   style="color: {{$ctrl.getColor(notification)}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
+                <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
             <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
-            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notifications.length > 5" ng-click="$ctrl.seeMore()"
-               style="cursor: pointer">See more</a>
+            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsIdeas.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>
 </div>
 
-<div style="cursor: pointer; position: relative;"
-     ng-click="$ctrl.toggleList()"
-     class="list-group notif-wrapper">
-    <div class="list-group-item">
-        Tasks: <span class="badge">{{$ctrl.unseenCounter}}</span>
+<div style="cursor: pointer; position: relative;" class="list-group notif-wrapper">
+    <div class="list-group-item" ng-click="$ctrl.toggleList('T')">
+        Tasks: <span class="badge">{{$ctrl.tasksUnseenCounter}}</span>
     </div>
-    <div ng-if="$ctrl.listVisible === true" class="list-group notif-box">
-        <div class="list-group-item" ng-repeat="notification in $ctrl.notifications | limitTo:
+    <div ng-if="$ctrl.tasksListVisible === true" class="list-group notif-box">
+        <div class="list-group-item" ng-repeat="notification in $ctrl.notsTasks | limitTo:
             $ctrl.limit" style="background-color: {{$ctrl.seenColor(notification.seen)}}">
             <h4 class="list-group-item-heading">
-                <a href="#/{{notification.entityId}}"
-                   style="color: {{$ctrl.getColor(notification)}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
+                <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
             <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
-            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notifications.length > 5" ng-click="$ctrl.seeMore()"
-               style="cursor: pointer">See more</a>
+            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsTasks.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>
 </div>
 
 
-<div style="cursor: pointer;  position: relative;"
-     ng-click="$ctrl.toggleList()"
-     class="list-group notif-wrapper">
-    <div class="list-group-item">
-        Asks: <span class="badge">{{$ctrl.unseenCounter}}</span>
+<div style="cursor: pointer;  position: relative;" class="list-group notif-wrapper">
+    <div class="list-group-item" ng-click="$ctrl.toggleList('A')">
+        Asks: <span class="badge">{{$ctrl.asksUnseenCounter}}</span>
     </div>
-    <div ng-if="$ctrl.listVisible === true" class="list-group notif-box">
-        <div class="list-group-item" ng-repeat="notification in $ctrl.notifications | limitTo:
+    <div ng-if="$ctrl.asksListVisible === true" class="list-group notif-box">
+        <div class="list-group-item" ng-repeat="notification in $ctrl.notsAsks | limitTo:
             $ctrl.limit" style="background-color: {{$ctrl.seenColor(notification.seen)}}">
             <h4 class="list-group-item-heading">
-                <a href="#/{{notification.entityId}}"
-                   style="color: {{$ctrl.getColor(notification)}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
+                <a href="#/{{notification.entityId}}">{{notification.entityId}}</a>{{$ctrl.getMessage(notification)}}
             </h4>
             <p class="list-group-item-text">by {{notification.creatorShort()}} {{$ctrl.moment(notification.creationDate).fromNow()}}</p>
-            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notifications.length > 5" ng-click="$ctrl.seeMore()"
-               style="cursor: pointer">See more</a>
+            <a ng-if="$last && $ctrl.limit === 5 && $ctrl.notsAsks.length > 5" ng-click="$ctrl.seeMore()" style="cursor: pointer">See more</a>
         </div>
     </div>
-</div> 
+</div>

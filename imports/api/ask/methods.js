@@ -20,6 +20,9 @@ function createAsk(ask) {
 ///
 function createAskWithRelation(ask) {
     var me = this;
+    
+    ask.createdBy = me.userId;
+
     var parentIdea = Ideas.findOne(ask.ideaId);
 
     if (typeof parentIdea === 'undefined')

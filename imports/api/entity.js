@@ -281,7 +281,7 @@ Entity.extendHelpers = function (collection, helpers) {
             //reverse to search from the end
             id = id.split("").reverse().join("");
             var idx = id.search(/[AIT]/);
-            var letter = id[idx];               
+            var letter = id[idx];
 
             switch (letter) {
                 case 'A':
@@ -370,6 +370,11 @@ function setDefaultWatchers(entityName, doc) {
             if (doc.watchers.indexOf(doc.createdBy) === -1)
                 doc.watchers.push(doc.createdBy);
             break;
+        case 'ASKS':
+            doc.watchers = Meteor.users.find().map((user) => user._id);
+            if (doc.watchers.indexOf(doc.createdBy) === -1)
+                doc.watchers.push(doc.createdBy);
+            break;
         default:
             break;
     }
@@ -391,6 +396,13 @@ function handleCreateNotification(entityName, doc) {
                 usersToNotify.indexOf(doc.createdBy), 1);
 
             simpleNotification(usersToNotify, doc.id, null, 'created by',
+                doc.createdBy);
+            break;
+        case 'ASKS':
+            let users = doc.watchers;
+            users.splice(
+                users.indexOf(doc.createdBy), 1);
+            simpleNotification(users, doc.id, null, 'created by',
                 doc.createdBy);
             break;
         default:

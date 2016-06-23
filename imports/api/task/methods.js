@@ -267,7 +267,7 @@ function createTaskFromIdea(task) {
 
         Ideas.update(parentIdea._id, updateObj, null,
             parentIdea, me.userId, additionalParams);
-    });
+    }, task, me.userId);
 }
 
 function createTaskFromTask(task) {

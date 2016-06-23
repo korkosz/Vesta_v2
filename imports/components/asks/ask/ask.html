@@ -171,14 +171,6 @@
                     <!-- New Sub-Response -->
                     <section class="new-response" ng-if="response.replyVisible">
                         <form novalidate name="subresponse">
-                            <!--Title-->
-                            <fieldset class="fsStyle field-wrapper last">
-                                <div class="title-wrapper">
-                                    <label class="label-modal">Title:</label>
-                                    <input class="VST-view-input" type="text" ng-model="response.sub.title" placeholder="Add title here..." required/>
-                                </div>
-                            </fieldset>
-
                             <!--Description-->
                             <fieldset id="ask_description" class="fsStyle">
                                 <div class="desc-wrapper">
@@ -224,15 +216,6 @@
                                         Remove
                                     </button>
                                 </div>
-                            </div>
-                            <!-- Added Response Title -->
-                            <!-- View -->
-                            <div class="response-desc-title" ng-if="!subresponse.edited">
-                                {{subresponse.title}}
-                            </div>
-                            <!-- Edit -->
-                            <div>
-                                <input type="text" ng-model="subresponse.title" ng-if="subresponse.edited">
                             </div>
                             <!-- Added Response Description -->
                             <!-- View -->

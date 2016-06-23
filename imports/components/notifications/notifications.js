@@ -13,11 +13,17 @@ function controller($scope) {
 
     this.moment = moment;
     this.limit = 5;
-    this.listVisible = false;
-    this.unseenCounter = 0;
+
+    this.ideasListVisible = false;
+    this.tasksListVisible = false;
+    this.asksListVisible = false;
+
+    this.ideasUnseenCounter = 0;
+    this.tasksUnseenCounter = 0;
+    this.asksUnseenCounter = 0;
 
     this.helpers({
-        notifications() {
+        notsIdeas() {
             var me = this;
             var options = {
                 limit: 10,
@@ -25,39 +31,50 @@ function controller($scope) {
                     creationDate: -1
                 }
             };
-            this.unseenCounter = 0;
-            return Notifications.find({ userId: Meteor.userId() }, options).map((not) => {
+            this.ideasUnseenCounter = 0;
+            return Notifications.find({ userId: Meteor.userId(), entityLetter: 'I' }, options).map((not) => {
                 if (!not.seen) {
-                    me.unseenCounter++;
+                    me.ideasUnseenCounter++;
                 }
                 return not;
             });
-        }
+        },
+        notsTasks() {
+            var me = this;
+            var options = {
+                limit: 10,
+                sort: {
+                    creationDate: -1
+                }
+            };
+            this.tasksUnseenCounter = 0;
+            return Notifications.find({ userId: Meteor.userId(), entityLetter: 'T' }, options).map((not) => {
+                if (!not.seen) {
+                    me.tasksUnseenCounter++;
+                }
+                return not;
+            });
+        },
+        notsAsks() {
+            var me = this;
+            var options = {
+                limit: 10,
+                sort: {
+                    creationDate: -1
+                }
+            };
+            this.asksUnseenCounter = 0;
+            return Notifications.find({ userId: Meteor.userId(), entityLetter: 'A' }, options).map((not) => {
+                if (!not.seen) {
+                    me.asksUnseenCounter++;
+                }
+                return not;
+            });
+        },
     });
-
-    this.groupByEntity = function (entityLetter) {
-        if (this.notifications &&
-            this.notifications.length > 0) {
-            return this.notifications.filter(
-                (not) => not.entityLetter === entityLetter)
-        }
-    }
 
     this.seeMore = function () {
         this.limit = null;
-    };
-
-    this.calculateTop = function (index) {
-        return index * 5 + 5;
-    };
-
-    this.getColor = function (notification) {
-        switch (notification.entity) {
-            case 'Idea':
-                return '#FFAA16';
-            case 'Task':
-                return '#3AC53A';
-        }
     };
 
     this.getMessage = function (notification) {
@@ -89,16 +106,41 @@ function controller($scope) {
         }
     };
 
-    this.toggleList = function () {
-        this.listVisible = !this.listVisible;
-        if (!this.listVisible) {
-            this.limit = 5;
-            this.notifications.forEach((notf) => {
-                if (!notf.seen) {
-                    Notifications.update(notf._id, { $set: { seen: true } });
-
+    this.toggleList = function (entityLetter) {
+        switch (entityLetter) {
+            case 'I':
+                this.ideasListVisible = !this.ideasListVisible;
+                if (!this.ideasListVisible) {
+                    this.limit = 5;
+                    this.notsIdeas.forEach((notf) => {
+                        if (!notf.seen) {
+                            Notifications.update(notf._id, { $set: { seen: true } });
+                        }
+                    });
                 }
-            });
+                break;
+            case 'T':
+                this.tasksListVisible = !this.tasksListVisible;
+                if (!this.tasksListVisible) {
+                    this.limit = 5;
+                    this.notsTasks.forEach((notf) => {
+                        if (!notf.seen) {
+                            Notifications.update(notf._id, { $set: { seen: true } });
+                        }
+                    });
+                }
+                break;
+            case 'A':
+                this.asksListVisible = !this.asksListVisible;
+                if (!this.asksListVisible) {
+                    this.limit = 5;
+                    this.notsAsks.forEach((notf) => {
+                        if (!notf.seen) {
+                            Notifications.update(notf._id, { $set: { seen: true } });
+                        }
+                    });
+                }
+                break;
         }
     };
 
