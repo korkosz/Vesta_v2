@@ -180,32 +180,29 @@ class AskCtrl {
     }
 
     addResponse() {
-        var vm = this;
-        this.response.createdBy = Meteor.userId();
-        this.response.creationDate = new Date();
-        this.response.ask = this.ask._id;
-        Responses.insert(this.response);
+        Meteor.call('asks.addPost', this.ask._id, this.response, (err, res) => {
+            if (err) window.alert(err);
 
-        this.response.title = '';
-        this.response.description = '';
+            this.response.title = '';
+            this.response.description = '';
+        });
     }
 
     addSubResponse(resp, valid) {
         if (!valid) return;
 
-        var response = {};
+        var response = {
+            parentResponse: resp._id,
+            title: resp.sub.title,
+            description: resp.sub.description
+        };
 
-        response.createdBy = Meteor.userId();
-        response.creationDate = new Date();
-        response.ask = this.ask._id;
-        response.parentResponse = resp._id;
+        Meteor.call('asks.addPost', this.ask._id, response, (err, res) => {
+            if (err) window.alert(err);
 
-        response.title = resp.sub.title;
-        response.description = resp.sub.description;
-        Responses.insert(response);
-
-        resp.sub = {};
-        resp.replyVisible = false;
+            resp.sub = {};
+            resp.replyVisible = false;
+        });
     }
 
     getSubResponses(respId) {
@@ -228,13 +225,13 @@ class AskCtrl {
     }
 
     saveResponse(resp) {
-        Responses.update(resp._id, {
-            $set: {
-                title: resp.title,
-                description: resp.description
-            }
-        });
-        resp.edited = false;
+        Meteor.call('asks.updatePost', this.ask._id, resp._id,
+            resp.description, resp.title,
+            (err, res) => {
+                if (err) window.alert(err);
+
+                resp.edited = false;
+            });
     }
 
     currentUserIsPostOwner(post) {

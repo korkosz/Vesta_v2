@@ -1,29 +1,76 @@
 import { Mongo } from 'meteor/mongo';
 
 import Asks from '/imports/api/ask/ask';
-import Modules from '/imports/api/module/module';
-import Projects from '/imports/api/project/project';
+
+import {simpleNotification} from '/imports/api/notification/notification';
 
 class ResponsesClass extends Mongo.Collection {
-    insert(doc) {
-        while (1) {
-            var sort = { number: -1 };
-            var fields = {
-                number: 1
-            };
+    insert(doc, callback, relatedAsk, userId) {
 
-            var cursor = this.findOne({}, { fields: fields, sort: sort });
-            var seq = cursor && cursor.number ? cursor.number + 1 : 1;
-            doc.number = seq;
+        var sort = { number: -1 };
+        var fields = {
+            number: 1
+        };
 
-            const askId = doc.askId;
-            super.insert(doc, function (err, res) {
-                Asks.update({ _id: askId }, {
-                    $push: { responses: res }
-                });
-            });
-            break;
-        }
+        var cursor = this.findOne({}, { fields: fields, sort: sort });
+        var seq = cursor && cursor.number ? cursor.number + 1 : 1;
+        doc.number = seq;
+
+        super.insert(doc, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedAsk.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedAsk.id,
+                'Post \"' + doc.number + '\"', 'added');
+
+            if (typeof callback === 'function') callback(null, res);
+
+            return res;
+        });
+    }
+
+    remove(selector, callback, relatedAsk, userId) {
+        super.remove(selector, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedAsk.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedAsk.id,
+                'Post', 'removed');
+
+            if (typeof callback === 'function') callback(null, res);
+        });
+    }
+
+    update(selector, updateDoc, callback, relatedAsk, userId, postNb) {
+        super.update(selector, updateDoc, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            const usersToNotify = relatedAsk.watchers.filter(
+                (user) => user !== userId);
+
+            simpleNotification(usersToNotify, relatedAsk.id,
+                'Post \"' + postNb + '\"', 'updated');
+
+            if (typeof callback === 'function') callback(null, res);
+
+            return res;
+        });
     }
 }
 
@@ -57,8 +104,15 @@ ReponsesCollection.schema = new SimpleSchema({
         type: [String],
         optional: true
     },
-    creationDate: {
-        type: Date
+    createdAt: {
+        type: Date,
+        autoValue() {
+            if (this.isInsert) {
+                return new Date();
+            } else {
+                this.unset();
+            }
+        }
     },
     updatedAt: {
         type: Date,
@@ -72,7 +126,11 @@ ReponsesCollection.schema = new SimpleSchema({
     },
     createdBy: {
         type: String,
-        defaultValue: this.userId
+        autoValue() {
+            if (this.isInsert) {
+                return this.userId;
+            }
+        }
     }
 });
 
