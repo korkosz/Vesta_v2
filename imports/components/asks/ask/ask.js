@@ -57,21 +57,7 @@ class AskCtrl {
                         return idea;
                     });
                 }
-             }//,
-            // setDiscussed() {
-            //     this.getReactively('responses.length');
-
-            //     if (!this.responses ||
-            //         this.responses.length < 1) return;
-
-            //     if (this.ask.status === 1) {
-            //         Asks.update(this.ask._id, {
-            //             $set: {
-            //                 status: 2
-            //             }
-            //         });
-            //     }
-            // },
+             }
         });
     }
 

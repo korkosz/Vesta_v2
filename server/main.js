@@ -212,4 +212,22 @@ Meteor.startup(() => {
         title: 'Next Sprint',
         lists: [list1, list2]
     });
+
+    var list3 = ListsSchemas.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        entities: ['Idea'],
+        columns: ['title', 'number',
+            'status', 'creationDate',
+            'createdBy', 'updatedAt',],
+        filters: {
+            sprint: -1,
+            isDeleted: false
+        }
+    });
+
+    Bookmarks.insert({
+        user: 'cGQZ526BT6BTefZ7a',
+        title: 'Deferred Ideas',
+        lists: [list3]
+    });
 });
