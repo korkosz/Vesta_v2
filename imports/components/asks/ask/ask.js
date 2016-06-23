@@ -100,16 +100,21 @@ class AskCtrl {
     }
 
     addGoodPoint() {
-        Asks.update(this.ask._id, {
-            $push: { goodPoints: this.goodPoint }
-        });
-        this.goodPoint = '';
+        var me = this;
+
+        Meteor.call('asks.addGoodPoint', me.ask._id,
+            me.goodPoint, (err, res) => {
+                if (err) window.alert(err);
+
+                me.goodPoint = '';
+            });
     }
 
     removeGoodPoint(_goodPoint) {
-        Asks.update(this.ask._id, {
-            $pull: { goodPoints: _goodPoint }
-        });
+        Meteor.call('asks.removeGoodPoint', this.ask._id,
+            _goodPoint, (err, res) => {
+                if (err) window.alert(err);
+            });
     }
 
     alreadyLiked(resp) {

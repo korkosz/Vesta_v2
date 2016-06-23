@@ -8,8 +8,22 @@ Meteor.methods({
     'asks.updateDesciprion': updateDesciprion,
     'asks.addPost': addPost,
     'asks.updatePost': updatePost,
-    'asks.removePost': removePost
+    'asks.removePost': removePost,
+    'asks.addGoodPoint': addGoodPoint,
+    'asks.removeGoodPoint': removeGoodPoint
 });
+
+function removeGoodPoint(askId, goodPoint) {
+    Asks.update(askId, {
+        $pull: { goodPoints: goodPoint }
+    }, null, null, this.userId);
+}
+
+function addGoodPoint(askId, goodPoint) {
+    Asks.update(askId, {
+        $push: { goodPoints: goodPoint }
+    }, null, null, this.userId);
+}
 
 function updateDesciprion(askId, desc) {
     Asks.update(askId, {

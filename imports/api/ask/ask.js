@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import Entity from '../entity';
 import './methods';
+import {simpleNotification} from '/imports/api/notification/notification';
 
 class AsksClass extends Entity { }
 
@@ -15,4 +16,25 @@ AsksCollection.schema = Entity.createSchema({
 AsksCollection.attachSchema(AsksCollection.schema);
 
 AsksCollection.schemaMetadata = Entity.createSchemaMetadata({});
+
+AsksCollection.schemaMetadata = Entity.createSchemaMetadata({
+    goodPoints: {
+        notify: function (modifier, oldEntity, modifierMethod, userId) {
+            const usersToNotify = oldEntity.watchers.filter(
+                (user) => user !== userId);
+
+            switch (modifierMethod) {
+                case '$push':
+                    simpleNotification(usersToNotify, oldEntity.id,
+                        'Good Point', 'added');
+                    break;
+                case '$pull':
+                    simpleNotification(usersToNotify, oldEntity.id,
+                        'Good Point', 'removed');
+                    break;
+            }
+        }
+    }
+});
+
 Entity.extendHelpers(AsksCollection, {});
