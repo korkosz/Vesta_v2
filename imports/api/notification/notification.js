@@ -99,7 +99,6 @@ export default Notifications;
 function oldNewNotification(
     usersIds, entityId, field, oldVal, newVal,
     action) {
-
     if (Array.isArray(usersIds)) {
         usersIds.forEach((_userId) => {
             Notifications.insert({
@@ -133,7 +132,6 @@ function simpleNotification(usersIds,
 function msgNotification(usersIds,
     entityId, field, message, action,
     links) {
-
     if (Array.isArray(usersIds)) {
         usersIds.forEach((_userId) => {
             Notifications.insert({

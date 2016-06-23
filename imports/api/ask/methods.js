@@ -65,12 +65,22 @@ function addPost(askId, post) {
     post.createdBy = this.userId;
     post.ask = askId;
 
-    Responses.insert(post, null, ask, this.userId);
+    Responses.insert(post, (err, res) => {
+        if (ask.status === 1) {
+            Asks.update(ask._id, {
+                $set: {
+                    status: 2
+                }
+            }, null, ask, this.userId);
+        }
+    }, ask, this.userId);
 }
 
 function createAsk(ask) {
     const relatedIdeaSpecified =
         typeof ask.ideaId === 'string';
+
+    ask.createdBy = this.userId;
 
     if (relatedIdeaSpecified) {
         createAskWithRelation.call(this, ask);
@@ -82,8 +92,6 @@ function createAsk(ask) {
 ///
 function createAskWithRelation(ask) {
     var me = this;
-
-    ask.createdBy = me.userId;
 
     var parentIdea = Ideas.findOne(ask.ideaId);
 

@@ -33,6 +33,7 @@ export default class Entity extends Mongo.Collection {
 
     update(selector, modifier, callback, updatedObject, userId,
         additionalParams) {
+
         var me = this;
 
         //0) here to save old value before update

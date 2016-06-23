@@ -57,21 +57,21 @@ class AskCtrl {
                         return idea;
                     });
                 }
-            },
-            setDiscussed() {
-                this.getReactively('responses.length');
+             }//,
+            // setDiscussed() {
+            //     this.getReactively('responses.length');
 
-                if (!this.responses ||
-                    this.responses.length < 1) return;
+            //     if (!this.responses ||
+            //         this.responses.length < 1) return;
 
-                if (this.ask.status === 1) {
-                    Asks.update(this.ask._id, {
-                        $set: {
-                            status: 2
-                        }
-                    });
-                }
-            },
+            //     if (this.ask.status === 1) {
+            //         Asks.update(this.ask._id, {
+            //             $set: {
+            //                 status: 2
+            //             }
+            //         });
+            //     }
+            // },
         });
     }
 
@@ -190,10 +190,9 @@ class AskCtrl {
         var me = this;
         Meteor.call('asks.addPost', this.ask._id, this.response, (err, res) => {
             if (err) window.alert(err);
-
-            me.response.title = '';
-            me.response.description = '';
         });
+        me.response.title = '';
+        me.response.description = '';
     }
 
     addSubResponse(resp, valid) {
@@ -208,9 +207,9 @@ class AskCtrl {
         Meteor.call('asks.addPost', this.ask._id, response, (err, res) => {
             if (err) window.alert(err);
 
-            resp.sub = {};
-            resp.replyVisible = false;
         });
+        resp.sub = {};
+        resp.replyVisible = false;
     }
 
     getSubResponses(respId) {
