@@ -19,7 +19,9 @@
             <!-- Number -->
             <div class="VST-view-number">
                 <span class="VST-module-id">#{{$ctrl.idea.id}}</span>
-                <span class="VST-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
+                <span class="VST-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date:
+                'dd.MM.yy'}}
+                </span>
             </div>
 
             <!-- Project path -->
@@ -35,8 +37,7 @@
                                     color: rgba(161,134,190,1); font-weight:700; font-weight: 700;
                                     font-size: 0.5em; margin-right: 7px;">
                         {{$ctrl.idea.number}}
-                    </span>
-                    {{$ctrl.idea.title}}
+                    </span> {{$ctrl.idea.title}}
                 </h4>
             </header>
 
@@ -82,9 +83,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-danger"
-                                            ng-click="$ctrl.setStatus(4, $ctrl.reason)"
-                                            data-dismiss="modal">
+                                    <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus(4, $ctrl.reason)" data-dismiss="modal">
                                         Reject
                                     </button>
                                 </div>
@@ -106,11 +105,17 @@
                                     <h4 class="modal-title" id="myModalLabel">Are you sure you want to defer the Idea ?</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
+                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason" class="form-control"></textarea>
                                 </div>
                                 <div class="modal-footer">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="$ctrl.deferVoting"/>
+                                            Start Voting for this decission
+                                        </label>
+                                    </div>
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus(5, $ctrl.reason)" data-dismiss="modal">
+                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus(5, $ctrl.reason, $ctrl.deferVoting)" data-dismiss="modal">
                                         Defer
                                     </button>
                                 </div>
@@ -150,13 +155,8 @@
                     </span>
 
                     <!-- Create New Task -->
-                    <new-task title="Create task"
-                        parent-module="{{$ctrl.idea.module}}"
-                        parent-project="{{$ctrl.idea.project}}"
-                        parent-title="{{$ctrl.idea.title}}"
-                        parent-sprint="$ctrl.idea.sprint"
-                        idea-id="{{$ctrl.idea._id}}" alt-id="0"
-                        ng-if="$ctrl.idea.status === 2 ||
+                    <new-task title="Create task" parent-module="{{$ctrl.idea.module}}" parent-project="{{$ctrl.idea.project}}" parent-title="{{$ctrl.idea.title}}"
+                        parent-sprint="$ctrl.idea.sprint" idea-id="{{$ctrl.idea._id}}" alt-id="0" ng-if="$ctrl.idea.status === 2 ||
                             $ctrl.idea.status === 6 ||
                             $ctrl.idea.status === 7 ||
                             $ctrl.idea.status === 8">
@@ -256,7 +256,7 @@
                     <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
                     <td><a href="#/task/{{task.number}}">{{task.getStatusName()}}</a></td>
                 </tr>
-                 <tr ng-repeat="ask in $ctrl.relatedAsks">
+                <tr ng-repeat="ask in $ctrl.relatedAsks">
                     <td>
                         <a href="#/ask/{{ask.number}}">
                             <span class="module-badge module-badge-ask">

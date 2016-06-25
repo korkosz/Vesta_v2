@@ -12,8 +12,19 @@ Meteor.methods({
     'ideas.setSprint': setSprint,
     'ideas.addReview': addReview,
     'ideas.removeReview': removeReview,
-    'ideas.updateReview': updateReview
+    'ideas.updateReview': updateReview,
+    'ideas.startVoting': startVoting
 });
+
+function startVoting(ideaId, votingType) {
+    var idea = Ideas.findOne(ideaId);
+
+    Ideas.update(ideaId, {
+        $push: {
+            votings: votingType
+        }
+    });
+}
 
 function updateReview(revId, merits, drawbacks,
     comment, relatedIdeaId) {

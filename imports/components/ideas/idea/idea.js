@@ -190,7 +190,7 @@ class IdeaCtrl {
         this.stopEditDescription();
     }
 
-    setStatus(_status, msg) {
+    setStatus(_status, msg, votingType) {
         Meteor.call('ideas.setStatus', _status,
             this.idea._id, msg, (err, res) => {
                 if (err) window.alert(err);
