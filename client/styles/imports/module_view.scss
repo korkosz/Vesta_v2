@@ -266,8 +266,8 @@ section.#{$VESTA}-view-desc{
     text-align: left;
     font-weight: 400;
     font-size: 19px;
-    color: #ff8d00;
-    padding: 20px 0 0 100px;
+    color: #999;
+    padding: 20px 0 5px 100px;
 }
 
 .#{$VESTA}-view-input{
@@ -281,4 +281,19 @@ section.#{$VESTA}-view-desc{
     padding-left: 8px;
     margin-bottom: 8px;
     margin-left: -8px;
+}
+
+.#{$VESTA}-view-additional{
+    display: flex;
+    margin-bottom: 100px;
+}
+
+.#{$VESTA}-view-discussion{
+    flex:1;
+}
+
+.#{$VESTA}-view-branches{
+    flex-basis: 400px;
+    background: #fff;
+    border-left: 5px solid #F4F4F4;
 }

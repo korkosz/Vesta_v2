@@ -66,7 +66,6 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
 //Idea REWIEWS
 section.idea-reviews{
-    margin-bottom: 100px;
 
     // Added reviews
     .reviews-wrapper{
@@ -95,9 +94,10 @@ section.idea-reviews{
             float: right;
             border: none;
             border-radius: 4px;
-            width: 25px;
-            height: 25px;
-            background: #eee;
+            width: 20px;
+            height: 20px;
+            background: lighten($idea, 37%);
+            font-size: 10px;
         }
     }
 
@@ -130,7 +130,7 @@ section.idea-reviews{
     }
 
     .prons-cons-wrapper{
-        margin-top: 20px;
+        margin-top: 10px;
         .pill{
             display: block;
             background: transparent;
@@ -138,7 +138,7 @@ section.idea-reviews{
             font-size: 13px;
             padding: 0;
             padding-right: 30px;
-            margin: 0 0 5px 0;
+            margin: 6px 0 0 0;
             button{
                 position: relative;
                 padding-left: 10px;
@@ -174,28 +174,27 @@ section.idea-reviews{
             }
         }
         input{
-            height: 25px;
+            height: 30px;
             min-width: 200px;
-            border: 1px solid #ddd;
-            background: #fff;
+            border: none;
+            background: #f4f4f4;
             outline: none;
             font-size: 13px;
             padding-left: 8px;
-            margin-bottom: 8px;
             &::-webkit-input-placeholder{
-                color:#ddd;
+                color:#ccc;
             }
             &::-moz-placeholder{
-                color:#ddd;
+                color:#ccc;
             }
             &::-ms-input-placeholder{
-                color:#ddd;
+                color:#ccc;
             }
         }
     }
 
     .desc-wrapper{
-        padding-right: 200px;
+        padding-right: 50px;
         margin-top: 10px;
         color: rgb(136, 136, 136);
         font-size: 14px;
@@ -205,20 +204,20 @@ section.idea-reviews{
     textarea.editible-desc{
         height: 100px;
         width: 100%;
-        border: 1px solid #ddd;
-        background: #fff;
+        border: none;
+        background: #f4f4f4;
         outline: none;
         font-size: 15px;
         padding: 8px;
         resize: none;
         &::-webkit-input-placeholder{
-            color:#ddd;
+            color:#ccc;
         }
         &::-moz-placeholder{
-            color:#ddd;
+            color:#ccc;
         }
         &::-ms-input-placeholder{
-            color:#ddd;
+            color:#ccc;
         }
     }
 
@@ -230,8 +229,7 @@ section.idea-reviews{
     .new-review-content-box{
         margin-left: 100px;
         .desc-wrapper{
-            padding-right: 0;
-            width: 700px;
+            padding-right: 50px;
         }
         button.#{$VESTA}-btn{
             display: block;

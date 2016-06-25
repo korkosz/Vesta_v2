@@ -13,10 +13,6 @@
 			max-width: 300px;
 			background: #fff;
 			border-bottom: 1px solid #eee;
-			&:last-child{
-				color: #7B7B7B;
-				font-weight: 700;
-			}
 			&:first-child {
 				width: 110px;
 				a{
@@ -28,6 +24,18 @@
 			&:nth-child(2){
 				max-width: 350px;
 			}
+			&:nth-last-child(3){
+				width: 130px;
+				a{
+					width: 130px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					color: #7B7B7B;
+					font-weight: 700;
+					font-size: 12px;
+				}
+			}
 			&:nth-last-child(2){
 				width: 130px;
 				a{
@@ -35,18 +43,11 @@
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
-					text-align: right;
+					font-size: 11px;
 				}
 			}
 			&:last-child{
-				width: 130px;
-				a{
-					width: 130px;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-					font-size: 12px;
-				}
+				text-align: center;
 			}
 		}
 		th{
