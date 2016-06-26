@@ -110,8 +110,9 @@
                                 <div class="modal-footer">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" ng-model="$ctrl.deferVoting"/>
-                                            Start Voting for this decission
+                                            <input type="checkbox" ng-model="$ctrl.deferVoting"
+                                            ng-true-value="3"/>
+                                            Start voting for this decission
                                         </label>
                                     </div>
                                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>

@@ -18,11 +18,14 @@ Meteor.methods({
 
 function startVoting(ideaId, votingType) {
     var idea = Ideas.findOne(ideaId);
-
     Ideas.update(ideaId, {
         $push: {
-            votings: votingType
+            votings: {
+                type: parseInt(votingType)
+            }
         }
+    },(err, res) => {
+        if(err) throw new Meteor.Error('startVoting', err.message);
     });
 }
 

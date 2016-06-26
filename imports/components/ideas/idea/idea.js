@@ -191,11 +191,17 @@ class IdeaCtrl {
     }
 
     setStatus(_status, msg, votingType) {
-        Meteor.call('ideas.setStatus', _status,
-            this.idea._id, msg, (err, res) => {
-                if (err) window.alert(err);
-            });
-
+        if (votingType) {
+            Meteor.call('ideas.startVoting',
+                this.idea._id, votingType, (err, res) => {
+                    if (err) window.alert(err);
+                });
+        } else {
+            Meteor.call('ideas.setStatus', _status,
+                this.idea._id, msg, (err, res) => {
+                    if (err) window.alert(err);
+                });
+        }
         this.reason = '';
     }
 

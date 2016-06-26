@@ -6,40 +6,14 @@ class IdeasCollection extends Entity { }
 
 export default Ideas = new IdeasCollection('ideas');
 
-Ideas.schema = Entity.createSchema({
-    reason: {
-        type: String,
-        optional: true
-    },
-    reviewers: {
-        type: [String],
-        optional: true
-    },
-    reviews: {
-        type: [String],
-        optional: true
-    },
-    votings: {
-        type: [votingsSchema],
-        optional: true
-    },
-    votes: {
-        type: [votesSchema],
-        optional: true
-    }
-});
-Ideas.attachSchema(Ideas.schema);
-
 var votingsSchema = new SimpleSchema({
     _id: {
         type: String,
         autoValue() {
-            if (this.isInsert) {
-                return (new Date()).getTime().toString();
-            } else {
-                this.unset();
-            }
-        }
+            return (new Date()).getTime().toString();
+
+        },
+        optional: true
     },
     type: {
         type: Number
@@ -58,12 +32,45 @@ var votesSchema = new SimpleSchema({
     }
 });
 
+Ideas.schema = Entity.createSchema({
+    reason: {
+        type: String,
+        optional: true
+    },
+    reviewers: {
+        type: [String],
+        optional: true
+    },
+    reviews: {
+        type: [String],
+        optional: true
+    },
+    votings: {
+        type: [votingsSchema],
+        autoValue() {
+            if (this.isInsert) {
+                return [];
+            }
+        },
+        optional: true
+    },
+    votes: {
+        type: [votesSchema],
+        optional: true
+    }
+});
+Ideas.attachSchema(Ideas.schema);
+
 Ideas.schemaMetadata = Entity.createSchemaMetadata({});
-Entity.extendHelpers(Ideas, {});
+Entity.extendHelpers(Ideas, {
+    getVotingDescription(votingType) {
+        return votingTypes[votingType];
+    }
+});
 
 const votingTypes = {
-    0: 'First Task',
-    1: 'Start Discussion',
+    0: 'Create First Task - reviews will be off',
+    1: 'Start Discussion - reviews will be off',
     2: 'Reject Idea',
     3: 'Defer Idea',
     4: 'Close Idea'
