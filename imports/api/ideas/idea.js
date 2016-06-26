@@ -10,8 +10,7 @@ var votingsSchema = new SimpleSchema({
     _id: {
         type: String,
         autoValue() {
-            return (new Date()).getTime().toString();
-
+            //return (new Date()).getTime().toString();
         },
         optional: true
     },
@@ -45,13 +44,8 @@ Ideas.schema = Entity.createSchema({
         type: [String],
         optional: true
     },
-    votings: {
-        type: [votingsSchema],
-        autoValue() {
-            if (this.isInsert) {
-                return [];
-            }
-        },
+    voting: {
+        type: votingsSchema,
         optional: true
     },
     votes: {
@@ -63,8 +57,9 @@ Ideas.attachSchema(Ideas.schema);
 
 Ideas.schemaMetadata = Entity.createSchemaMetadata({});
 Entity.extendHelpers(Ideas, {
-    getVotingDescription(votingType) {
-        return votingTypes[votingType];
+    getVotingDescription() {
+        if (this.voting)
+            return votingTypes[this.voting.type];
     }
 });
 
@@ -74,4 +69,4 @@ const votingTypes = {
     2: 'Reject Idea',
     3: 'Defer Idea',
     4: 'Close Idea'
-}
+};

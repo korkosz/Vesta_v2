@@ -1,7 +1,6 @@
 <div class="VST-view-container VST-idea-container">
 
     <!-- Idea header -->
-
     <section class="VST-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Idea main icon" />
@@ -231,6 +230,53 @@
         </section>
     </section>
 
+    <!-- Active Voting -->
+    <section>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>
+                    Active Voting
+                </h3>
+            </div>
+            <div class="col-md-offset-2">
+
+            </div>
+        </div>
+
+        <table class="table">
+            <caption>
+                {{$ctrl.idea.getVotingDescription()}}
+            </caption>
+            <thead>
+                <tr>
+                    <th>
+                        YES
+                        <input type="radio" name="optradio">
+                    </th>
+                    <th>
+                        NO
+                        <input type="radio" name="optradio">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        M. Korkosz
+                    </td>
+                    <td>
+                        M. Chmiel
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        M. Trybulec
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
     <!-- Related -->
     <div class="VST-table-wrapper">
         <table class="table">
@@ -288,7 +334,7 @@
     </div>
 
     <section class="VST-view-additional">
-    <!-- Idea Reviews -->
+        <!-- Idea Reviews -->
         <ng-include src="'imports/components/ideas/idea/review.html'" class="VST-view-discussion"></ng-include>
         <!-- Idea Branches -->
         <section class="VST-view-branches">

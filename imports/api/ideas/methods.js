@@ -19,13 +19,13 @@ Meteor.methods({
 function startVoting(ideaId, votingType) {
     var idea = Ideas.findOne(ideaId);
     Ideas.update(ideaId, {
-        $push: {
-            votings: {
+        $set: {
+            voting: {
                 type: parseInt(votingType)
             }
         }
-    },(err, res) => {
-        if(err) throw new Meteor.Error('startVoting', err.message);
+    }, (err, res) => {
+        if (err) throw new Meteor.Error('startVoting', err.message);
     });
 }
 
