@@ -11,6 +11,12 @@
     </section>
 
     <section class="VST-view-content">
+        <!-- Info box -->
+        <section class="VST-view-info-box">
+            <!--STATUS !!!-->
+            STATUS: {{$ctrl.ask.getStatusName()}}
+        </section>
+        
         <!-- Ask description -->
         <section class="VST-view-desc">
             <!-- Number -->
@@ -101,11 +107,7 @@
             </div>
         </section>
 
-        <!-- Info box -->
-        <section class="VST-view-info-box">
-            <!--STATUS !!!-->
-            STATUS: {{$ctrl.ask.getStatusName()}}
-        </section>
+
     </section>
 
     <section class="VST-view-aditional">

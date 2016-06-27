@@ -12,6 +12,15 @@
     </section>
 
     <section class="VST-view-content">
+        <!-- Info box -->
+        <section class="VST-view-info-box">
+            <div class="wrapper">
+                <h4 class="label label-default">Priority</h4>
+                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
+                </select>
+            </div>
+        </section>
+        
         <!-- Task description -->
         <section class="VST-view-desc">
             <!-- Number -->
@@ -29,7 +38,6 @@
             </div>
 
             <header>
-                <p>Title:</p>
                 <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
             </header>
             <!-- Description wrapper -->
@@ -91,11 +99,12 @@
                 <button class="btn btn-success" ng-click="$ctrl.changeStatus(5)" ng-if="$ctrl.task.status === 2">
                     Ready For Testing
                 </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relationModal">
+                    Set Relation
+                </button>
             </div>
         </section>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#relationModal">
-            Set Relation
-        </button>
+
 
         <!-- Relation Modal -->
         <div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -134,14 +143,6 @@
                 </div>
             </div>
         </div>
-        <!-- Info box -->
-        <section class="VST-view-info-box">
-            <div class="wrapper">
-                <h4 class="label label-default">Priority</h4>
-                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
-                </select>
-            </div>
-        </section>
     </section>
 
     <section>
