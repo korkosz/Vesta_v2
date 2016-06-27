@@ -13,16 +13,77 @@ Meteor.methods({
     'ideas.addReview': addReview,
     'ideas.removeReview': removeReview,
     'ideas.updateReview': updateReview,
-    'ideas.startVoting': startVoting
+    'ideas.startVoting': startVoting,
+    'ideas.vote': vote
 });
+
+function vote(ideaId, value) {
+    var idea = Ideas.findOne(ideaId);
+    var user = Meteor.users.findOne(this.userId);
+    var shortName = user.profile.firstname[0];
+    shortName += '. ' + user.profile.lastname;
+
+    /*********************************
+     ** Check if user already voted **
+     *********************************/
+    if (!Array.isArray(idea.votes)) {//0) nobody voted yet
+        Ideas.update(ideaId, {
+            $push: {
+                votes: {
+                    value: value,
+                    userId: this.userId,
+                    userName: shortName
+                }
+            }
+        }, (err, res) => {
+            if (err) throw new Meteor.Error('vote', err.message);
+        });
+        return;
+    }
+
+    var userVote = idea.votes.find(
+        (vote) => vote.userId === this.userId);
+
+    if (userVote) { //1) user already voted 
+        Ideas.update(ideaId, {
+            $pull: {
+                votes: userVote
+            }
+        }, (err, res) => {
+            if (err) throw new Meteor.Error('vote', err.message);
+
+            Ideas.update(ideaId, {
+                $push: {
+                    votes: {
+                        value: value,
+                        userId: this.userId,
+                        userName: shortName
+                    }
+                }
+            }, (err, res) => {
+                if (err) throw new Meteor.Error('vote', err.message);
+            });
+        });
+    } else { //2) user didn't vote yet
+        Ideas.update(ideaId, {
+            $push: {
+                votes: {
+                    value: value,
+                    userId: this.userId,
+                    userName: shortName
+                }
+            }
+        }, (err, res) => {
+            if (err) throw new Meteor.Error('vote', err.message);
+        });
+    }
+}
 
 function startVoting(ideaId, votingType) {
     var idea = Ideas.findOne(ideaId);
     Ideas.update(ideaId, {
         $set: {
-            voting: {
-                type: parseInt(votingType)
-            }
+            voting: parseInt(votingType)
         }
     }, (err, res) => {
         if (err) throw new Meteor.Error('startVoting', err.message);
@@ -283,7 +344,9 @@ function setDeferred(ideaId) {
     Ideas.update(ideaId, {
         $set: {
             status: 5,
-            sprint: -1
+            sprint: -1,
+            voting: null,
+            votes: []
         }
     }, null, null, this.userId);
 }

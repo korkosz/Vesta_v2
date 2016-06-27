@@ -6,25 +6,12 @@ class IdeasCollection extends Entity { }
 
 export default Ideas = new IdeasCollection('ideas');
 
-var votingsSchema = new SimpleSchema({
-    _id: {
-        type: String,
-        autoValue() {
-            //return (new Date()).getTime().toString();
-        },
-        optional: true
-    },
-    type: {
-        type: Number
-    }
-});
-
 var votesSchema = new SimpleSchema({
-    voting: {
+    userId: {
         type: String
     },
-    user: {
-        type: Number
+    userName: {
+        type: String
     },
     value: {
         type: Boolean
@@ -45,7 +32,7 @@ Ideas.schema = Entity.createSchema({
         optional: true
     },
     voting: {
-        type: votingsSchema,
+        type: Number,
         optional: true
     },
     votes: {
@@ -59,7 +46,7 @@ Ideas.schemaMetadata = Entity.createSchemaMetadata({});
 Entity.extendHelpers(Ideas, {
     getVotingDescription() {
         if (this.voting)
-            return votingTypes[this.voting.type];
+            return votingTypes[this.voting];
     }
 });
 

@@ -110,7 +110,7 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" ng-model="$ctrl.deferVoting"
-                                            ng-true-value="3"/>
+                                            ng-true-value="3" ng-disabled="!!$ctrl.idea.voting"/>
                                             Start voting for this decission
                                         </label>
                                     </div>
@@ -231,7 +231,7 @@
     </section>
 
     <!-- Active Voting -->
-    <section>
+    <section ng-if="$ctrl.pendingVoting">
         <div class="row">
             <div class="col-md-4">
                 <h3>
@@ -251,26 +251,25 @@
                 <tr>
                     <th>
                         YES
-                        <input type="radio" name="optradio">
+                        <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="true" ng-change="$ctrl.vote($ctrl.voteVal)">
                     </th>
                     <th>
                         NO
-                        <input type="radio" name="optradio">
+                        <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="false" ng-change="$ctrl.vote($ctrl.voteVal)">
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        M. Korkosz
+                        <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: true">
+                            {{voter.userName}}{{!$last ? ', ': ''}}
+                        </p>
                     </td>
                     <td>
-                        M. Chmiel
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        M. Trybulec
+                        <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: false">
+                            {{voter.userName}}{{!$last ? ', ': ''}}
+                        </p>
                     </td>
                 </tr>
             </tbody>

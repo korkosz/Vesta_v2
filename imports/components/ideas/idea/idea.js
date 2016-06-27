@@ -18,6 +18,8 @@ class IdeaCtrl {
         this.$timeout = $timeout;
         this.moment = moment;
         this.reviewers = [];
+        this.pendingVoting = false;
+        this.deferVoting = false;
 
         function clearArray(arr) {
             for (var i = 0, len = arr.length; i < len; i++)
@@ -25,11 +27,21 @@ class IdeaCtrl {
             return arr;
         }
 
+        function setVotingFromModel(nb) {
+            switch (nb) {
+                case 3:
+                    this.deferVoting = 3;
+                    break;
+                default:
+                    this.deferVoting = null;
+            }
+        }
+
         this.helpers({
             idea() {
+                var vm = this;
                 var idea = Ideas.findOne({ number: parseInt(this.$routeParams.number) });
                 if (idea) {
-                    var vm = this;
                     let reviewers = Meteor.users.find({
                         _id: {
                             $in: idea.reviewers
@@ -40,9 +52,28 @@ class IdeaCtrl {
 
                     clearArray(vm.reviewers);
 
-                    reviewers.forEach((rev) => {
-                        vm.reviewers.push(rev);
-                    });
+                    if (idea.voting) {
+                        vm.pendingVoting = true;
+                        setVotingFromModel.call(this, idea.voting);
+
+                        if (Array.isArray(idea.votes)) {
+                            let voteVal = idea.votes.find((vote) => {
+                                return vote.userId === Meteor.userId();
+                            });
+
+                            if (voteVal) {
+                                vm.voteVal = voteVal.value;
+                            }
+                        }
+
+                        reviewers.forEach((rev) => {
+                            vm.reviewers.push(rev);
+                        });
+                    } else {
+                        vm.pendingVoting = false;
+                        vm.voteVal = null;
+                        setVotingFromModel.call(this, null);
+                    }
                 }
                 return idea;
             },
@@ -182,6 +213,13 @@ class IdeaCtrl {
         }
     }
 
+    vote(_vote) {
+        Meteor.call('ideas.vote',
+            this.idea._id, _vote, (err, res) => {
+                if (err) window.alert(err);
+            });
+    }
+
     saveDescription() {
         Meteor.call('ideas.updateDesciprion',
             this.idea._id, this.idea.description, (err, res) => {
@@ -191,7 +229,7 @@ class IdeaCtrl {
     }
 
     setStatus(_status, msg, votingType) {
-        if (votingType) {
+        if (votingType && !this.idea.voting) {
             Meteor.call('ideas.startVoting',
                 this.idea._id, votingType, (err, res) => {
                     if (err) window.alert(err);
@@ -221,7 +259,7 @@ export default angular.module('idea')
             controllerAs: '$ctrl',
             link
         }
-    });
+    }).filter('VoteFilter', VoteFilter);
 
 function link(scope, el, attr, ctrl) {
     // hide toolbar
@@ -236,4 +274,13 @@ function link(scope, el, attr, ctrl) {
         el.find('[text-angular-toolbar]').css('display', 'none');
         ctrl.descriptionEdited = false;
     };
+}
+
+function VoteFilter() {
+    return function (arr, voteValue) {
+        if (!Array.isArray(arr)) return;
+        return arr.filter((vote) => {
+            return vote.value === voteValue;
+        })
+    }
 }
