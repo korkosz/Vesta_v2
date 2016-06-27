@@ -1,26 +1,5 @@
 <div class="VST-view-container VST-task-container">
-
-    <!-- Task header -->
-    <section class="VST-view-header">
-        <div class="logo-wrapper">
-            <img src="/images/icon-Task.png" alt="Task main icon" />
-            <h1>task</h1>
-        </div>
-        <header>
-
-        </header>
-    </section>
-
     <section class="VST-view-content">
-        <!-- Info box -->
-        <section class="VST-view-info-box">
-            <div class="wrapper">
-                <h4 class="label label-default">Priority</h4>
-                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
-                </select>
-            </div>
-        </section>
-        
         <!-- Task description -->
         <section class="VST-view-desc">
             <!-- Number -->
@@ -104,7 +83,18 @@
                 </button>
             </div>
         </section>
-
+        <!-- Info box -->
+        <section class="VST-view-info-box">
+            <div class="logo-wrapper">
+                <img src="/images/icon-Task.png" alt="Task main icon" />
+                <h1>task</h1>
+            </div>
+            <div class="wrapper">
+                <h4 class="label label-default">Priority</h4>
+                <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
+                </select>
+            </div>
+        </section>
 
         <!-- Relation Modal -->
         <div class="modal fade" id="relationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -18,9 +18,9 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     }
 
     .#{$VESTA}-btn-group-menu .#{$VESTA}-btn{
-        border-color: $idea;
-        background: transparent;
+        background: lighten($idea, 43%);
         color: $idea;
+        font-weight: 700;
     }
     .#{$VESTA}-view-info-box{
         background: lighten($idea, 43%);

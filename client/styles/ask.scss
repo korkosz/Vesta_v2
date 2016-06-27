@@ -5,7 +5,7 @@
     .pill{
         background: lighten($ask, 15%);
     }
-    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
+    .btn-toolbar .btn, .btn-group-desc .btn-save{
         border-color: lighten($ask, 10%);
         background: lighten($ask, 37%);
     }
