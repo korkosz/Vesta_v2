@@ -9,7 +9,7 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     .pill{
         background: lighten($idea, 15%);
     }
-    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
+    .btn-toolbar .btn, .btn-group-desc .btn-save{
         border-color: lighten($idea, 10%);
         background: lighten($idea, 37%);
     }
@@ -18,8 +18,9 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     }
 
     .#{$VESTA}-btn-group-menu .#{$VESTA}-btn{
-        border-color: lighten($idea, 10%);
-        background: lighten($idea, 37%);
+        border-color: $idea;
+        background: transparent;
+        color: $idea;
     }
 }
 
@@ -96,7 +97,7 @@ section.idea-reviews{
             border-radius: 4px;
             width: 20px;
             height: 20px;
-            background: lighten($idea, 37%);
+            background: #eee;
             font-size: 10px;
         }
     }
