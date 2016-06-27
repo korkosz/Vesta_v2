@@ -11,6 +11,7 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 
 .#{$VESTA}-view-content{
     display: flex;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.11);
 }
 
 //DESCRIPTION
@@ -211,6 +212,8 @@ section.#{$VESTA}-view-desc{
     text-align: right;
     background: #fff;
     padding: 30px;
+    border: 10px solid #fff;
+    border-left: none;
     .reviewers-box{
         display: -moz-box;
         display: -ms-flexbox;
@@ -263,6 +266,7 @@ section.#{$VESTA}-view-desc{
 .#{$VESTA}-view-additional{
     display: flex;
     margin-bottom: 100px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.11);
 }
 
 .#{$VESTA}-view-discussion{
