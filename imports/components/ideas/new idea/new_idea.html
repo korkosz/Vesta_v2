@@ -1,17 +1,17 @@
-<button type="button" class="VST-btn VST-btn-menu new-idea" data-toggle="modal"
+<button type="button" class="vst-btn vst-btn-menu new-idea" data-toggle="modal"
             data-target="#{{newIdeaVm.altId}}newIdeaModal" data-backdrop="false" ng-click="newIdeaVm.openModal()">
     {{newIdeaVm.title}}
 </button>
 
 <!-- Modal idea-->
-<div class="modal fade VST-main-modal" id="{{newIdeaVm.altId}}newIdeaModal" role="dialog">
+<div class="modal fade vst-main-modal" id="{{newIdeaVm.altId}}newIdeaModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
                 <!-- Button cancel -->
-                <button id="cancelBtn" class="VST-btn VST-btn-cancel"
+                <button id="cancelBtn" class="vst-btn vst-btn-cancel"
                         ng-click="newIdeaVm.cancel()">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -19,7 +19,7 @@
                 <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
                 <h4>
                     Idea
-                    <span class="VST-label">new</span>
+                    <span class="vst-label">new</span>
                 </h4>
             </div>
 
@@ -30,7 +30,7 @@
                     <fieldset id="project" class="field-wrapper">
                         <label class="label-modal">Project:</label>
                         <select ng-model="newIdeaVm.idea._project" name="project" required
-                                ng-options="project as project.name for project in newIdeaVm.projects track by project._id" 
+                                ng-options="project as project.name for project in newIdeaVm.projects track by project._id"
                                 ng-change="newIdeaVm.projectSelected()">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea._project"></div>
@@ -44,7 +44,7 @@
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.module"></div>
                     </fieldset>
-                    
+
                     <!--Sprint-->
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
@@ -54,7 +54,7 @@
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.sprint"></div>
                     </fieldset>
-                    
+
                     <!--Assign-->
                     <fieldset id="assign" class="field-wrapper">
                         <label class="label-modal">
@@ -95,7 +95,7 @@
 
                     <!--Footer buttons-->
                     <div class="btn-wrapper">
-                        <button id="acceptBtn" class="VST-btn VST-btn-primary"
+                        <button id="acceptBtn" class="vst-btn vst-btn-primary"
                                 ng-click="newIdeaVm.accept(newIdeaForm.$valid)">
                             Create
                         </button>

@@ -1,15 +1,15 @@
-<div class="VST-view-container VST-task-container">
-    <section class="VST-view-content">
+<div class="vst-view-container vst-task-container">
+    <section class="vst-view-content">
         <!-- Task description -->
-        <section class="VST-view-desc">
+        <section class="vst-view-desc">
             <!-- Number -->
-            <div class="VST-view-number">
-                <span class="VST-module-id">#{{$ctrl.task.id}}</span>
-                <span class="VST-module-date"><span>created at</span> {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
+            <div class="vst-view-number">
+                <span class="vst-module-id">#{{$ctrl.task.id}}</span>
+                <span class="vst-module-date"><span>created at</span> {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
             </div>
 
             <!-- Project path -->
-            <div class="VST-view-project-path">
+            <div class="vst-view-project-path">
                 <h3 id="project">
                     <span class="project-badge">v</span>{{$ctrl.task.projectName()}}
                 </h3>
@@ -20,7 +20,7 @@
                 <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
             </header>
             <!-- Description wrapper -->
-            <div class="VST-view-desc-wrapper">
+            <div class="vst-view-desc-wrapper">
                 <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
                     <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
                         <span class="glyphicon glyphicon-pencil"></span>
@@ -35,7 +35,7 @@
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteTaskModal">
+                <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#deleteTaskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -84,7 +84,7 @@
             </div>
         </section>
         <!-- Info box -->
-        <section class="VST-view-info-box">
+        <section class="vst-view-info-box">
             <div class="logo-wrapper">
                 <img src="/images/icon-Task.png" alt="Task main icon" />
                 <h1>task</h1>
@@ -137,7 +137,7 @@
 
     <section>
         <!-- Related -->
-        <div class="VST-table-wrapper">
+        <div class="vst-table-wrapper">
             <table class="table">
                 <thead>
                     <tr ng-if="$ctrl.relatedTasks.length + $ctrl.relatedIdeas.length > 0">
