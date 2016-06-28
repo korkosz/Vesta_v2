@@ -22,6 +22,11 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     .#{$VESTA}-view-info-box{
         background: lighten($idea, 43%);
     }
+
+    .table{
+        margin: 25px auto 25px auto !important;
+        box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
+    }
 }
 
 // Status idea
@@ -125,7 +130,7 @@ section.idea-reviews{
         margin-left: 4px;
     }
 
-    .VST-btn-cancel{
+    .#{$VESTA}-btn-cancel{
         position: absolute;
         right: 0;
         top: 0;
@@ -138,11 +143,11 @@ section.idea-reviews{
             display: block;
             background: transparent;
             color: #888;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             padding: 0;
             padding-right: 30px;
-            margin: 6px 0 0 0;
+            margin: 8px 0 0 0;
             button{
                 position: relative;
                 padding-left: 10px;
