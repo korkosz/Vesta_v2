@@ -5,12 +5,12 @@
     .pill{
         background: lighten($ask, 15%);
     }
-    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
-        border-color: lighten($ask, 10%);
-        background: lighten($ask, 37%);
-    }
+
     h1{
         color: $ask !important;
+    }
+    .#{$VESTA}-view-info-box{
+        background: lighten($ask, 43%);
     }
 }
 

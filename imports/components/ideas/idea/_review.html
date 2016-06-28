@@ -4,7 +4,7 @@
 
         <!-- *** NEW REVIEW *** -->
         <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
-            <h2  class="VST-view-subheader">Add review</h2>
+            <h2  class="vst-view-subheader">Add review</h2>
             <div class="new-review-content-box">
                 <div class="prons-cons-wrapper">
                     <!-- PROS -->
@@ -38,7 +38,7 @@
                                 ng-model="$ctrl.review.comment"
                                 class="editible-desc">
                     </textarea>
-                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addReview()">
+                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addReview()">
                         Add
                     </button>
                 </div>
@@ -66,7 +66,7 @@
                     <header>
                         <h3 class="reviewer-name">{{review.creator()}}
                             <!-- REMOVE -->
-                            <button class="VST-btn VST-btn-cancel"
+                            <button class="vst-btn vst-btn-cancel"
                                     ng-click="$ctrl.removeReview(review._id)"
                                     ng-if="$ctrl.currentUserIsReviewOwner(review) && $ctrl.idea.status === 6">
                                 <span class="glyphicon glyphicon-remove"></span>

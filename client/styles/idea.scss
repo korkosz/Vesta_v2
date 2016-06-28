@@ -9,17 +9,18 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
     .pill{
         background: lighten($idea, 15%);
     }
-    .btn-group-desc .btn-edit, .btn-toolbar .btn, .btn-group-desc .btn-save{
-        border-color: lighten($idea, 10%);
-        background: lighten($idea, 37%);
-    }
+
     h1{
         color: $idea !important;
     }
 
     .#{$VESTA}-btn-group-menu .#{$VESTA}-btn{
-        border-color: lighten($idea, 10%);
-        background: lighten($idea, 37%);
+        background: lighten($idea, 43%);
+        color: $idea;
+        font-weight: 700;
+    }
+    .#{$VESTA}-view-info-box{
+        background: lighten($idea, 43%);
     }
 }
 
@@ -96,7 +97,7 @@ section.idea-reviews{
             border-radius: 4px;
             width: 20px;
             height: 20px;
-            background: lighten($idea, 37%);
+            background: #eee;
             font-size: 10px;
         }
     }
@@ -112,14 +113,16 @@ section.idea-reviews{
 
     .reviewer-name{
         display: inline-block;
-        font-size: 15px;
+        font-size: 17px;
         font-weight: bold;
+        font-weight: 700;
+        color: #333;
     }
 
     p.review-addTime{
         display: inline-block;
         font-size: 12px;
-        margin-left: 7px;
+        margin-left: 4px;
     }
 
     .VST-btn-cancel{
@@ -135,7 +138,8 @@ section.idea-reviews{
             display: block;
             background: transparent;
             color: #888;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 700;
             padding: 0;
             padding-right: 30px;
             margin: 6px 0 0 0;
@@ -196,8 +200,8 @@ section.idea-reviews{
     .desc-wrapper{
         padding-right: 50px;
         margin-top: 10px;
-        color: rgb(136, 136, 136);
-        font-size: 14px;
+        color: #555;
+        font-size: 16px;
         line-height: 1.6em;
     }
 
@@ -235,7 +239,9 @@ section.idea-reviews{
             display: block;
             float: right;
             margin-top: 10px;
-            background: $idea;
+            background: lighten($idea, 43%);
+            color: $idea;
+            font-weight: 700;
         }
     }
 }

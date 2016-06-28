@@ -1,26 +1,15 @@
-<div class="VST-view-container VST-ask-container">
-    <!-- Ask header -->
-    <section class="VST-view-header row">
-        <div class="logo-wrapper">
-            <img src="/images/icon-Ask.png" alt="Ask main icon" />
-            <h1>ask</h1>
-        </div>
-        <header>
-
-        </header>
-    </section>
-
-    <section class="VST-view-content">
+<div class="vst-view-container vst-ask-container">
+    <section class="vst-view-content">
         <!-- Ask description -->
-        <section class="VST-view-desc">
+        <section class="vst-view-desc">
             <!-- Number -->
-            <div class="VST-view-number">
-                <span class="VST-module-id">#{{$ctrl.ask.id}}</span>
-                <span class="VST-module-date"><span>created at</span> {{$ctrl.moment($ctrl.ask.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
+            <div class="vst-view-number">
+                <span class="vst-module-id">#{{$ctrl.ask.id}}</span>
+                <span class="vst-module-date"><span>created at</span> {{$ctrl.moment($ctrl.ask.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
             </div>
 
             <!-- Breadcrumb -->
-            <div class="VST-view-project-path">
+            <div class="vst-view-project-path">
                 <h3 id="project">
                     <span class="project-badge">v</span>{{$ctrl.ask.projectName()}}
                 </h3>
@@ -28,12 +17,11 @@
             </div>
 
             <header>
-                <p>Title:</p>
                 <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
             </header>
 
             <!-- Description wrapper -->
-            <div class="VST-view-desc-wrapper">
+            <div class="vst-view-desc-wrapper">
                 <!-- Buttons -->
                 <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
                     <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
@@ -50,7 +38,7 @@
             <!-- Buttons -->
             <div class="buttons">
                 <!-- Button trigger modal -->
-                <button type="button" class="VST-btn VST-btn-default" data-toggle="modal" data-target="#deleteAskModal">
+                <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#deleteAskModal">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
 
@@ -100,15 +88,19 @@
                 </div>
             </div>
         </section>
-
         <!-- Info box -->
-        <section class="VST-view-info-box">
+        <section class="vst-view-info-box">
+            <div class="logo-wrapper">
+                <img src="/images/icon-Ask.png" alt="Ask main icon" />
+                <h1>ask</h1>
+            </div>
             <!--STATUS !!!-->
             STATUS: {{$ctrl.ask.getStatusName()}}
         </section>
+
     </section>
 
-    <section class="VST-view-aditional">
+    <section class="vst-view-aditional">
         <!-- Responses -->
         <section class="responses-wrapper col-md-8">
 
@@ -165,7 +157,7 @@
                     </div>
 
 
-                    <button class="VST-btn VST-btn-primary" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
+                    <button class="vst-btn vst-btn-primary" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
                         Reply
                     </button>
                     <!-- New Sub-Response -->
@@ -175,13 +167,13 @@
                             <fieldset id="ask_description" class="fsStyle">
                                 <div class="desc-wrapper">
                                     <label class="label-modal">Description:</label>
-                                    <textarea class="VST-view-input" cols="30" rows="10" ng-model="response.sub.description" required>
+                                    <textarea class="vst-view-input" cols="30" rows="10" ng-model="response.sub.description" required>
                                 </textarea>
-                                    <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addSubResponse(
+                                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addSubResponse(
                                                 response, subresponse.$valid)">
                                         ADD
                                 </button>
-                                    <button class="VST-btn VST-btn-warning" ng-click="$ctrl.cancelSubResponse(response)">
+                                    <button class="vst-btn vst-btn-warning" ng-click="$ctrl.cancelSubResponse(response)">
                                         CANCEL
                                 </button>
                                 </div>
@@ -233,7 +225,7 @@
             </section>
 
             <!-- Related -->
-            <div class="VST-table-wrapper">
+            <div class="vst-table-wrapper">
                 <table class="table">
                     <thead>
                         <tr ng-if="$ctrl.relatedTasks.length + $ctrl.asks.length + $ctrl.relatedIdeas.length > 0">
@@ -281,7 +273,7 @@
                 <fieldset id="ask_title" class="fsStyle field-wrapper last">
                     <div class="title-wrapper">
                         <label class="label-modal">Title:</label>
-                        <input class="VST-view-input" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..."
+                        <input class="vst-view-input" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..."
                             required/>
                     </div>
                 </fieldset>
@@ -290,8 +282,8 @@
                 <fieldset id="ask_description" class="fsStyle">
                     <div class="desc-wrapper">
                         <label class="label-modal">Description:</label>
-                        <textarea class="VST-view-input" cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
-                        <button class="VST-btn VST-btn-primary" ng-click="$ctrl.addResponse()">ADD</button>
+                        <textarea class="vst-view-input" cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
+                        <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addResponse()">ADD</button>
                     </div>
                 </fieldset>
             </section>
@@ -299,10 +291,10 @@
 
         <!-- Good Points -->
         <section class="goodPoints col-md-4">
-            <h2 class="VST-view-subheader">Good points</h2>
+            <h2 class="vst-view-subheader">Good points</h2>
             <div class="goodPoints-wrapper">
-                <input type="text" ng-model="$ctrl.goodPoint" class="VST-view-input" placeholder="Type good point..." ng-if="$ctrl.ask.status !== 3">
-                <button ng-click="$ctrl.addGoodPoint()" class="VST-btn VST-btn-primary glyphicon glyphicon-plus" ng-if="$ctrl.ask.status !== 3"></button>
+                <input type="text" ng-model="$ctrl.goodPoint" class="vst-view-input" placeholder="Type good point..." ng-if="$ctrl.ask.status !== 3">
+                <button ng-click="$ctrl.addGoodPoint()" class="vst-btn vst-btn-primary glyphicon glyphicon-plus" ng-if="$ctrl.ask.status !== 3"></button>
                 <div class="goodPoints-box">
                     <div class="pill" ng-repeat="goodPoint in $ctrl.ask.goodPoints">
                         <span class="glyphicon glyphicon-ok"></span> {{goodPoint}}

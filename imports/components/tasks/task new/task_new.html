@@ -1,23 +1,23 @@
-<button type="button" class="VST-btn VST-btn-menu"
+<button type="button" class="vst-btn vst-btn-menu"
         data-toggle="modal" data-target="#{{newTaskVm.altId}}newTaskModal"
         data-backdrop="false" ng-click="newTaskVm.openModal()">
     {{newTaskVm.title}}
 </button>
 <!-- Modal -->
-<div class="modal fade VST-main-modal" id="{{newTaskVm.altId}}newTaskModal" role="dialog">
+<div class="modal fade vst-main-modal" id="{{newTaskVm.altId}}newTaskModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <!-- Modal header -->
             <div class="modal-header" style="padding:35px 50px;">
                 <!-- Button cancel -->
-                <button type="button" class="VST-btn VST-btn-cancel"
+                <button type="button" class="vst-btn vst-btn-cancel"
                         data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 <!-- Logo -->
                 <img src="/images/icon-Task-small.png" alt="Idea main icon" />
-                <h4>Task<span class="VST-label">new</span></h4>
+                <h4>Task<span class="vst-label">new</span></h4>
             </div>
 
             <div class="modal-body">
@@ -41,7 +41,7 @@
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.module"></div>
                     </fieldset>
-                    
+
                     <!--Sprint-->
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
@@ -51,7 +51,7 @@
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.sprint"></div>
                     </fieldset>
-                    
+
                     <!-- Type -->
                     <fieldset id="type" class="field-wrapper">
                         <label class="label-modal">Type:</label>
@@ -96,7 +96,7 @@
 
                     <!-- Footer buttons -->
                     <div class="btn-wrapper">
-                        <button id="acceptBtn" class="VST-btn VST-btn-primary"
+                        <button id="acceptBtn" class="vst-btn vst-btn-primary"
                                 ng-click="newTaskVm.accept(newTaskForm.$valid)">
                             Create
                         </button>

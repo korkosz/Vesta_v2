@@ -107,9 +107,9 @@ bookmarks{
 // BUTTONS
 .#{$VESTA}-btn{
 	display: inline-block;
-	padding: 6px 12px;
+	padding: 5px 12px;
 	margin-bottom: 0;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
 	line-height: 1.42857143;
 	text-align: center;
@@ -123,8 +123,11 @@ bookmarks{
 	-ms-user-select: none;
 	user-select: none;
 	background-image: none;
-	border: 1px solid transparent;
+	border: none;
 	border-radius: 4px;
+	box-shadow: 3px 3px;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 .#{$VESTA}-btn-default{
 	color: #bbb !important;
