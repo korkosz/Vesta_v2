@@ -1,17 +1,5 @@
 <div class="vst-view-container vst-idea-container">
 
-    <!-- Idea header -->
-    <section class="vst-view-header">
-        <div class="logo-wrapper">
-            <img src="/images/icon-Idea.png" alt="Idea main icon" />
-            <h1 class="idea-color">idea</h1>
-        </div>
-        <header>
-
-
-        </header>
-    </section>
-
     <!-- Idea description -->
     <section class="vst-view-content">
         <section class="vst-view-desc">
@@ -30,11 +18,11 @@
             </div>
 
             <header>
-                <p>Title:</p>
                 <h4>
                     <span style="background: rgba(161,134,190,0.2); padding: 2px 5px;
                                     color: rgba(161,134,190,1); font-weight:700; font-weight: 700;
-                                    font-size: 0.5em; margin-right: 7px;">
+                                    font-size: .6em; margin-right: 7px; position: absolute;
+                                    right: 100%; top: 7px;">
                         {{$ctrl.idea.number}}
                     </span> {{$ctrl.idea.title}}
                 </h4>
@@ -52,7 +40,7 @@
                     </button>
                 </div>
                 <!-- Description -->
-                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description" 
+                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description"
                     ta-toolbar="{{$ctrl.descriptionToolbar}}"></div>
             </div>
             <!-- Buttons -->
@@ -62,27 +50,27 @@
                     <!-- Reopen Idea -->
                     <reason-modal status="6" icon="repeat"
                         ng-if="$ctrl.idea.status === 5"
-                        idea-id="{{$ctrl.idea._id}}"                        
+                        idea-id="{{$ctrl.idea._id}}"
                         idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
 
                     <!-- Reject Idea -->
-                    <reason-modal status="4" 
-                        icon="remove" idea-id="{{$ctrl.idea._id}}"                        
+                    <reason-modal status="4"
+                        icon="remove" idea-id="{{$ctrl.idea._id}}"
                         idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
 
                     <!-- Defer Idea -->
-                    <reason-modal status="5" 
-                        icon="hourglass" idea-id="{{$ctrl.idea._id}}"                       
+                    <reason-modal status="5"
+                        icon="hourglass" idea-id="{{$ctrl.idea._id}}"
                         idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
 
                     <!-- Close Idea -->
                     <reason-modal status="3" hide-reason="true"
-                        idea-id="{{$ctrl.idea._id}}"                        
+                        idea-id="{{$ctrl.idea._id}}"
                         idea-voting="{{$ctrl.idea.voting}}">
-                    </reason-modal>                  
+                    </reason-modal>
                 </div>
 
                 <div class="vst-btn-group vst-btn-group-create">
@@ -113,6 +101,10 @@
 
         <!-- Info box -->
         <section class="vst-view-info-box">
+            <div class="logo-wrapper">
+                <img src="/images/icon-Idea.png" alt="Idea main icon" />
+                <h1 class="idea-color">idea</h1>
+            </div>
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.getStatusName()}}" type="button">
                 {{$ctrl.idea.getStatusName()}}
@@ -142,12 +134,12 @@
 
     <!-- Active Voting -->
     <section ng-if="$ctrl.pendingVoting">
-        <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>  
+        <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>
     </section>
 
     <!-- Related List -->
     <div class="vst-table-wrapper">
-        <ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>  
+        <ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>
     </div>
 
     <section class="vst-view-additional">
