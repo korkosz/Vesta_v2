@@ -1,12 +1,16 @@
 import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
-import Metadata from '/imports/api/metadata/metadata';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
 import pill from '/imports/components/lib/pill/pill';
-import './review';
-import './review.html';
+import './_review';
+import './_review.html';
+import './_reasonModal.html';
+import './_reasonModal';
+import './_activeVoting.html';
+import './_relatedList.html';
 import './idea.html';
+
 
 class IdeaCtrl {
     constructor($scope, $routeParams, $location, $timeout) {
@@ -20,21 +24,16 @@ class IdeaCtrl {
         this.reviewers = [];
         this.pendingVoting = false;
         this.deferVoting = false;
+        this.votingCb = -1;
+        this.descriptionToolbar = `[['h1','h2','h3','pre'],
+            ['bold','italics', 'underline', 'strikeThrough', 
+            'ul', 'ol', 'clear'],['html', 'insertImage', 
+            'insertLink']]`;
 
         function clearArray(arr) {
             for (var i = 0, len = arr.length; i < len; i++)
                 arr.pop();
             return arr;
-        }
-
-        function setVotingFromModel(nb) {
-            switch (nb) {
-                case 3:
-                    this.deferVoting = 3;
-                    break;
-                default:
-                    this.deferVoting = null;
-            }
         }
 
         this.helpers({
@@ -54,7 +53,7 @@ class IdeaCtrl {
 
                     if (idea.voting) {
                         vm.pendingVoting = true;
-                        setVotingFromModel.call(this, idea.voting);
+                        vm.votingCb = idea.voting;
 
                         if (Array.isArray(idea.votes)) {
                             let voteVal = idea.votes.find((vote) => {
@@ -72,7 +71,7 @@ class IdeaCtrl {
                     } else {
                         vm.pendingVoting = false;
                         vm.voteVal = null;
-                        setVotingFromModel.call(this, null);
+                        vm.votingCb = -1;
                     }
                 }
                 return idea;
@@ -173,23 +172,7 @@ class IdeaCtrl {
         });
     }
 
-    removeIdea() {
-        $('#deleteIdeaModal').modal('hide');
-        Ideas.remove(this.idea._id, true);
-        this.$timeout(() => {
-            this.$location.url('/');
-        }, 500);
-    }
-
     reviewerSelected() {
-        var notify = {
-            reviewers: this.idea.reviewers,
-            provider: Meteor.userId(),
-            id: this.idea.id,
-            when: new Date(),
-            entityCreator: this.idea.createdBy
-        };
-
         Ideas.update(this.idea._id, {
             $push: {
                 reviewers: this.reviewer._id
@@ -197,21 +180,7 @@ class IdeaCtrl {
         }, null, notify);
     }
 
-    changeStatusBtnsVisibility(btn) {
-        if (!this.idea) return;
-        var status = this.idea.status;
 
-        switch (btn) {
-            case 'Defer':
-            case 'Reject':
-                return status === 1 ||
-                    status === 2 ||
-                    status === 6 ||
-                    status === 8;
-            case 'Close':
-                return status === 7;
-        }
-    }
 
     vote(_vote) {
         Meteor.call('ideas.vote',
@@ -228,26 +197,29 @@ class IdeaCtrl {
         this.stopEditDescription();
     }
 
-    setStatus(_status, msg, votingType) {
-        if (votingType && !this.idea.voting) {
-            Meteor.call('ideas.startVoting',
-                this.idea._id, votingType, (err, res) => {
-                    if (err) window.alert(err);
-                });
-        } else {
-            Meteor.call('ideas.setStatus', _status,
-                this.idea._id, msg, (err, res) => {
-                    if (err) window.alert(err);
-                });
-        }
-        this.reason = '';
-    }
+
 
     setSprint(sprint) {
         Meteor.call('ideas.setSprint', sprint,
             this.idea._id, (err, res) => {
                 if (err) window.alert(err);
             });
+    }
+
+    changeStatusBtnsVisibility(btn) {
+        if (!this.idea) return;
+        var status = this.idea.status;
+
+        switch (btn) {
+            case 'Defer':
+            case 'Reject':
+                return status === 1 ||
+                    status === 2 ||
+                    status === 6 ||
+                    status === 8;
+            case 'Close':
+                return status === 7;
+        }
     }
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];

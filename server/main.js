@@ -67,17 +67,18 @@ Meteor.startup(() => {
             {
                 "_id": "CBJNeBr7WrnA8FmqH",
                 "metadataName": "IdeaStatuses",
-                "value": [
-                    { id: 1, value: "New" },
-                    { id: 2, value: "Working" },
-                    { id: 3, value: "Closed" },
-                    { id: 4, value: "Rejected" },
-                    { id: 5, value: "Deferred" },
-                    { id: 6, value: "Consider" },
-                    { id: 7, value: "Implemented" },
-                    { id: 8, value: "Discussed" }
-                ]
+                "value": {
+                    1: "New",
+                    2: "Working",
+                    3: "Closed",
+                    4: "Rejected",
+                    5: "Deferred",
+                    6: "Consider",
+                    7: "Implemented",
+                    8: "Discussed"
+                }
             }
+
         );
 
         Metadata.insert(

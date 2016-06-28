@@ -1,0 +1,52 @@
+<table class="table">
+    <thead>
+        <tr ng-if="$ctrl.relatedTasks.length + $ctrl.asks.length + $ctrl.relatedIdeas.length > 0">
+            <th></th>
+            <th>Relation</th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="task in $ctrl.relatedTasks">
+            <td>
+                <a href="#/task/{{task.number}}">
+                    <span class="module-badge module-badge-task">
+                                <img src="/images/icon-Task-small.png" alt="Task main icon" />
+                            </span>
+                </a>
+            </td>
+            <td><a href="#/task/{{task.number}}">{{task.relation}}</a></td>
+            <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
+            <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
+            <td><a href="#/task/{{task.number}}">{{task.getStatusName()}}</a></td>
+        </tr>
+        <tr ng-repeat="ask in $ctrl.relatedAsks">
+            <td>
+                <a href="#/ask/{{ask.number}}">
+                    <span class="module-badge module-badge-ask">
+                                <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
+                            </span>
+                </a>
+            </td>
+            <td><a href="#/ask/{{ask.number}}">{{ask.relation}}</a></td>
+            <td><a href="#/ask/{{ask.number}}">{{ask.number}}</a></td>
+            <td><a href="#/ask/{{ask.number}}">{{ask.title}}</a></td>
+            <td><a href="#/ask/{{ask.number}}">{{ask.getStatusName()}}</a></td>
+        </tr>
+        <tr ng-repeat="idea in $ctrl.relatedIdeas">
+            <td>
+                <a href="#/idea/{{idea.number}}">
+                    <span class="module-badge module-badge-idea">
+                                <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                            </span>
+                </a>
+            </td>
+            <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
+            <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
+            <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
+            <td><a href="#/idea/{{idea.number}}">{{idea.getStatusName()}}</a></td>
+        </tr>
+    </tbody>
+</table>

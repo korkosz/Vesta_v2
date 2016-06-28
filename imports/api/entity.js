@@ -169,14 +169,11 @@ Entity.createSchemaMetadata = function (meta) {
             transform(value, additionalValue) {
                 switch (additionalValue) {
                     case 'Ask':
-                        const askStatuses = Metadata.findOne('orb7v9a457r3T2snk').value;
-                        return askStatuses.find((stat) => stat.id === value).value;
+                        return Metadata.findOne('orb7v9a457r3T2snk').value[value];
                     case 'Idea':
-                        const ideaStatuses = Metadata.findOne('CBJNeBr7WrnA8FmqH').value;
-                        return ideaStatuses.find((stat) => stat.id === value).value;
+                        return Metadata.findOne('CBJNeBr7WrnA8FmqH').value[value];
                     case 'Task':
-                        const taskStatuses = Metadata.findOne('orb7v9aZq7r3T2snk').value;
-                        return taskStatuses.find((stat) => stat.id === value).value;
+                        return Metadata.findOne('orb7v9aZq7r3T2snk').value[value];
                     default:
                         return 'ERROR2';
                 }
@@ -284,14 +281,14 @@ Entity.extendHelpers = function (collection, helpers) {
 
             switch (letter) {
                 case 'A':
-                    const askStatuses = Metadata.findOne('orb7v9a457r3T2snk').value;
-                    return askStatuses.find((stat) => stat.id === this.status).value;
+                    return Metadata.findOne('orb7v9a457r3T2snk')
+                        .value[this.status];
                 case 'I':
-                    const ideaStatuses = Metadata.findOne('CBJNeBr7WrnA8FmqH').value;
-                    return ideaStatuses.find((stat) => stat.id === this.status).value;
+                    return Metadata.findOne('CBJNeBr7WrnA8FmqH')
+                        .value[this.status];
                 case 'T':
-                    const taskStatuses = Metadata.findOne('orb7v9aZq7r3T2snk').value;
-                    return taskStatuses.find((stat) => stat.id === this.status).value;
+                    return Metadata.findOne('orb7v9aZq7r3T2snk')
+                        .value[this.status];
                 default:
                     return 'ERROR2';
             }
