@@ -1,6 +1,16 @@
 <div class="vst-view-container vst-idea-container">
 
+    <!-- Idea header -->
+    <section class="vst-view-header">
+        <div class="logo-wrapper">
+            <img src="/images/icon-Idea.png" alt="Idea main icon" />
+            <h1 class="idea-color">idea</h1>
+        </div>
+        <header>
 
+
+        </header>
+    </section>
 
     <!-- Idea description -->
     <section class="vst-view-content">
@@ -20,10 +30,11 @@
             </div>
 
             <header>
+                <p>Title:</p>
                 <h4>
-                    <span style="background: rgba(161,134,190,0.2); padding: 2px 9px;
+                    <span style="background: rgba(161,134,190,0.2); padding: 2px 5px;
                                     color: rgba(161,134,190,1); font-weight:700; font-weight: 700;
-                                    font-size: 0.7em; margin-right: 10px; position: absolute; right: 100%; top: 6px;">
+                                    font-size: 0.5em; margin-right: 7px;">
                         {{$ctrl.idea.number}}
                     </span> {{$ctrl.idea.title}}
                 </h4>
@@ -41,101 +52,37 @@
                     </button>
                 </div>
                 <!-- Description -->
-                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="[['h1','h2','h3','pre'],['bold','italics', 'underline', 'strikeThrough', 'ul', 'ol', 'clear'],['html', 'insertImage', 'insertLink']]"></div>
+                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description" 
+                    ta-toolbar="{{$ctrl.descriptionToolbar}}"></div>
             </div>
             <!-- Buttons -->
             <div class="buttons">
                 <div class="vst-btn-group vst-btn-group-menu">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="vst-btn" ng-if="$ctrl.idea.status === 5" ng-click="$ctrl.setStatus(6)">
-                            <span class="glyphicon glyphicon-repeat"></span>
-                            Reopen
-                    </button>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="vst-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Reject')" data-toggle="modal" data-target="#rejectIdeaModal">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            Reject
-                    </button>
+                    <!-- Reopen Idea -->
+                    <reason-modal status="6" icon="repeat"
+                        ng-if="$ctrl.idea.status === 5"
+                        idea-id="{{$ctrl.idea._id}}"                        
+                        idea-voting="{{$ctrl.idea.voting}}">
+                    </reason-modal>
 
-                    <!-- Reject Modal -->
-                    <div class="modal fade" id="rejectIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to reject the Idea ?</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-danger" ng-click="$ctrl.setStatus(4, $ctrl.reason)" data-dismiss="modal">
-                                        Reject
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Reject Idea -->
+                    <reason-modal status="4" 
+                        icon="remove" idea-id="{{$ctrl.idea._id}}"                        
+                        idea-voting="{{$ctrl.idea.voting}}">
+                    </reason-modal>
 
-                    <button class="vst-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Defer')" data-toggle="modal" data-target="#deferIdeaModal"
-                        type="button">
-                        <span class="glyphicon glyphicon-hourglass"></span>
-                        Defer
-                    </button>
-                    <!-- Defer Modal -->
-                    <div class="modal fade" id="deferIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Are you sure you want to defer the Idea ?</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason" class="form-control"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" ng-model="$ctrl.deferVoting"
-                                            ng-true-value="3" ng-disabled="!!$ctrl.idea.voting"/>
-                                            Start voting for this decission
-                                        </label>
-                                    </div>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">Cancel</button>
-                                    <button type="button" class="btn btn-warning" ng-click="$ctrl.setStatus(5, $ctrl.reason, $ctrl.deferVoting)" data-dismiss="modal">
-                                        Defer
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Defer Idea -->
+                    <reason-modal status="5" 
+                        icon="hourglass" idea-id="{{$ctrl.idea._id}}"                       
+                        idea-voting="{{$ctrl.idea.voting}}">
+                    </reason-modal>
 
-                    <button class="vst-btn" ng-if="$ctrl.changeStatusBtnsVisibility('Close')" data-toggle="modal" data-target="#closeIdeaModal"
-                        type="button">
-                        Close
-                    </button>
-                    <!-- Close Modal -->
-                    <div class="modal fade" id="closeIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Close Idea</h4>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to close this idea ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-success" ng-click="$ctrl.setStatus(3)" data-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Close Idea -->
+                    <reason-modal status="3" hide-reason="true"
+                        idea-id="{{$ctrl.idea._id}}"                        
+                        idea-voting="{{$ctrl.idea.voting}}">
+                    </reason-modal>                  
                 </div>
 
                 <div class="vst-btn-group vst-btn-group-create">
@@ -166,10 +113,6 @@
 
         <!-- Info box -->
         <section class="vst-view-info-box">
-            <div class="logo-wrapper">
-                <img src="/images/icon-Idea.png" alt="Idea main icon" />
-                <h1 class="idea-color">idea</h1>
-            </div>
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.getStatusName()}}" type="button">
                 {{$ctrl.idea.getStatusName()}}
@@ -194,144 +137,25 @@
                 <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint($ctrl.sprint)">
                 </select>
             </fieldset>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#deleteIdeaModal">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
-
-            <!-- DELETE Modal -->
-            <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Remove Idea</h4>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to remove this idea ?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" ng-click="$ctrl.removeIdea()">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
     </section>
 
     <!-- Active Voting -->
     <section ng-if="$ctrl.pendingVoting">
-        <div class="row">
-            <div class="col-md-4">
-                <h3>
-                    Active Voting
-                </h3>
-            </div>
-            <div class="col-md-offset-2">
-
-            </div>
-        </div>
-
-        <table class="table">
-            <caption>
-                {{$ctrl.idea.getVotingDescription()}}
-            </caption>
-            <thead>
-                <tr>
-                    <th>
-                        YES
-                        <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="true" ng-change="$ctrl.vote($ctrl.voteVal)">
-                    </th>
-                    <th>
-                        NO
-                        <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="false" ng-change="$ctrl.vote($ctrl.voteVal)">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: true">
-                            {{voter.userName}}{{!$last ? ', ': ''}}
-                        </p>
-                    </td>
-                    <td>
-                        <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: false">
-                            {{voter.userName}}{{!$last ? ', ': ''}}
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>  
     </section>
 
-    <!-- Related -->
+    <!-- Related List -->
     <div class="vst-table-wrapper">
-        <table class="table">
-            <thead>
-                <tr ng-if="$ctrl.relatedTasks.length + $ctrl.asks.length + $ctrl.relatedIdeas.length > 0">
-                    <th></th>
-                    <th>Relation</th>
-                    <th>Number</th>
-                    <th>Title</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="task in $ctrl.relatedTasks">
-                    <td>
-                        <a href="#/task/{{task.number}}">
-                            <span class="module-badge module-badge-task">
-                                <img src="/images/icon-Task-small.png" alt="Task main icon" />
-                            </span>
-                        </a>
-                    </td>
-                    <td><a href="#/task/{{task.number}}">{{task.relation}}</a></td>
-                    <td><a href="#/task/{{task.number}}">{{task.number}}</a></td>
-                    <td><a href="#/task/{{task.number}}">{{task.title}}</a></td>
-                    <td><a href="#/task/{{task.number}}">{{task.getStatusName()}}</a></td>
-                </tr>
-                <tr ng-repeat="ask in $ctrl.relatedAsks">
-                    <td>
-                        <a href="#/ask/{{ask.number}}">
-                            <span class="module-badge module-badge-ask">
-                                <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
-                            </span>
-                        </a>
-                    </td>
-                    <td><a href="#/ask/{{ask.number}}">{{ask.relation}}</a></td>
-                    <td><a href="#/ask/{{ask.number}}">{{ask.number}}</a></td>
-                    <td><a href="#/ask/{{ask.number}}">{{ask.title}}</a></td>
-                    <td><a href="#/ask/{{ask.number}}">{{ask.getStatusName()}}</a></td>
-                </tr>
-                <tr ng-repeat="idea in $ctrl.relatedIdeas">
-                    <td>
-                        <a href="#/idea/{{idea.number}}">
-                            <span class="module-badge module-badge-idea">
-                                <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
-                            </span>
-                        </a>
-                    </td>
-                    <td><a href="#/idea/{{idea.number}}">{{idea.relation}}</a></td>
-                    <td><a href="#/idea/{{idea.number}}">{{idea.number}}</a></td>
-                    <td><a href="#/idea/{{idea.number}}">{{idea.title}}</a></td>
-                    <td><a href="#/idea/{{idea.number}}">{{idea.getStatusName()}}</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>  
     </div>
 
     <section class="vst-view-additional">
         <!-- Idea Reviews -->
-        <ng-include src="'imports/components/ideas/idea/review.html'" class="vst-view-discussion"></ng-include>
+        <ng-include src="'imports/components/ideas/idea/_review.html'" class="vst-view-discussion"></ng-include>
         <!-- Idea Branches -->
         <section class="vst-view-branches">
 
         </section>
     </section>
-
 </div>

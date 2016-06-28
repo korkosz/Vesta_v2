@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>
+            Active Voting
+        </h3>
+    </div>
+    <div class="col-md-offset-2">
+
+    </div>
+</div>
+
+<table class="table">
+    <caption>
+        {{$ctrl.idea.getVotingDescription()}}
+    </caption>
+    <thead>
+        <tr>
+            <th>
+                YES
+                <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="true" ng-change="$ctrl.vote($ctrl.voteVal)">
+            </th>
+            <th>
+                NO
+                <input type="radio" name="optradio" ng-model="$ctrl.voteVal" ng-value="false" ng-change="$ctrl.vote($ctrl.voteVal)">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: true">
+                    {{voter.userName}}{{!$last ? ', ': ''}}
+                </p>
+            </td>
+            <td>
+                <p ng-repeat="voter in $ctrl.idea.votes | VoteFilter: false">
+                    {{voter.userName}}{{!$last ? ', ': ''}}
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>

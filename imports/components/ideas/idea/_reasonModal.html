@@ -1,0 +1,42 @@
+<button type="button" class="VST-btn" data-toggle="modal" 
+    data-target="#{{$ctrl.status}}-reasonModal">
+        <span class="glyphicon glyphicon-{{$ctrl.icon}}"></span>
+        {{$ctrl.statusName($ctrl.status)}}
+</button>
+
+<div class="modal fade" id="{{$ctrl.status}}-reasonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Are you sure you want to {{$ctrl.statusName($ctrl.status).toLowerCase()}} the Idea ?</h4>
+            </div>
+
+            <div class="modal-body" ng-if="!$ctrl.hideReason">
+                <textarea cols="30" rows="10" placeholder="Add Reason here..." ng-model="$ctrl.reason" class="form-control"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" 
+                        ng-model="$ctrl.votingCb"
+                        ng-true-value="{{$ctrl.status}}" 
+                        ng-disabled="!!$ctrl.ideaVoting"/>
+                        Start voting for this decission
+                    </label>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">
+                    Cancel
+                 </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    ng-click="$ctrl.setStatus($ctrl.status, 
+                        $ctrl.reason, $ctrl.votingCb)">
+                    {{$ctrl.statusName($ctrl.status)}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
