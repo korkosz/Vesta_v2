@@ -1,7 +1,7 @@
-<div class="VST-view-container VST-idea-container">
+<div class="vst-view-container vst-idea-container">
 
     <!-- Idea header -->
-    <section class="VST-view-header">
+    <section class="vst-view-header">
         <div class="logo-wrapper">
             <img src="/images/icon-Idea.png" alt="Idea main icon" />
             <h1 class="idea-color">idea</h1>
@@ -13,18 +13,18 @@
     </section>
 
     <!-- Idea description -->
-    <section class="VST-view-content">
-        <section class="VST-view-desc">
+    <section class="vst-view-content">
+        <section class="vst-view-desc">
             <!-- Number -->
-            <div class="VST-view-number">
-                <span class="VST-module-id">#{{$ctrl.idea.id}}</span>
-                <span class="VST-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date:
+            <div class="vst-view-number">
+                <span class="vst-module-id">#{{$ctrl.idea.id}}</span>
+                <span class="vst-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date:
                 'dd.MM.yy'}}
                 </span>
             </div>
 
             <!-- Project path -->
-            <div class="VST-view-project-path">
+            <div class="vst-view-project-path">
                 <h3 id="project"><span class="project-badge">v</span>{{$ctrl.idea.projectName()}}</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
             </div>
@@ -41,7 +41,7 @@
             </header>
 
             <!-- Description wrapper -->
-            <div class="VST-view-desc-wrapper">
+            <div class="vst-view-desc-wrapper">
                 <!-- Buttons -->
                 <div class="btn-group-desc" ng-switch="$ctrl.descriptionEdited">
                     <button type="button" name="button" class="btn-edit" ng-switch-when="false" ng-click="$ctrl.editDescription()">
@@ -57,7 +57,7 @@
             </div>
             <!-- Buttons -->
             <div class="buttons">
-                <div class="VST-btn-group VST-btn-group-menu">
+                <div class="vst-btn-group vst-btn-group-menu">
 
                     <!-- Reopen Idea -->
                     <reason-modal status="6" icon="repeat"
@@ -85,7 +85,7 @@
                     </reason-modal>                  
                 </div>
 
-                <div class="VST-btn-group VST-btn-group-create">
+                <div class="vst-btn-group vst-btn-group-create">
                     <span ng-if="$ctrl.idea.reason.length > 0">
                         REASON: {{$ctrl.idea.reason}}
                     </span>
@@ -112,7 +112,7 @@
         </section>
 
         <!-- Info box -->
-        <section class="VST-view-info-box">
+        <section class="vst-view-info-box">
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.getStatusName()}}" type="button">
                 {{$ctrl.idea.getStatusName()}}
@@ -146,15 +146,15 @@
     </section>
 
     <!-- Related List -->
-    <div class="VST-table-wrapper">
+    <div class="vst-table-wrapper">
         <ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>  
     </div>
 
-    <section class="VST-view-additional">
+    <section class="vst-view-additional">
         <!-- Idea Reviews -->
-        <ng-include src="'imports/components/ideas/idea/_review.html'" class="VST-view-discussion"></ng-include>
+        <ng-include src="'imports/components/ideas/idea/_review.html'" class="vst-view-discussion"></ng-include>
         <!-- Idea Branches -->
-        <section class="VST-view-branches">
+        <section class="vst-view-branches">
 
         </section>
     </section>
