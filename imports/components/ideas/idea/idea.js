@@ -168,11 +168,7 @@ class IdeaCtrl {
                         }
                     });
                 }
-            },
-            statuses() {
-                var meta = Metadata.findOne('CBJNeBr7WrnA8FmqH');
-                if (meta) return meta.value;
-            }
+            }          
         });
     }
 
@@ -222,11 +218,11 @@ class IdeaCtrl {
         }
     }
 
-    statusName(sId) {
-        if (this.statuses) return this.statuses[sId].verb;
-    }
+ 
+    setStatus(_status, msg, votingType) {        
+        //For statuses _status and votingType are the same
+        if(!votingType) votingType = _status;
 
-    setStatus(_status, msg, votingType) {
         if (votingType && !this.ideaVoting) {
             Meteor.call('ideas.startVoting',
                 this.ideaId, votingType, (err, res) => {
