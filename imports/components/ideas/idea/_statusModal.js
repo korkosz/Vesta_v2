@@ -7,12 +7,18 @@ angular.module('idea').component('reasonModal', {
         icon: '@',
         hideReason: '<',
         action: '&',
-        ideaVoting: '@',
+        ideaVoting: '<',
         status: '@'
     },
     controller($scope) {
         $scope.viewModel(this);
+        var vm = this;
 
+        $scope.$watch(() => this.ideaVoting, (newVal) => {
+            if(newVal && this.status == newVal) {
+                vm.votingCb = newVal;
+            }
+        })
         this.helpers({
             statuses() {
                 var meta = Metadata.findOne('CBJNeBr7WrnA8FmqH');

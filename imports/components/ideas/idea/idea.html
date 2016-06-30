@@ -50,25 +50,25 @@
                     <reason-modal status="6" icon="repeat" 
                         ng-if="$ctrl.idea.status === 5" 
                         action="$ctrl.setStatus(6)" hide-reason="true"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                        idea-voting="$ctrl.idea.voting">
                     </reason-modal>
 
                     <!-- Reject Idea -->
                     <reason-modal status="4" icon="remove" 
                         action="$ctrl.setStatus(4, {mgs: $ctrl.reason})"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                        idea-voting="$ctrl.idea.voting">
                     </reason-modal>
 
                     <!-- Defer Idea -->
                     <reason-modal status="5" icon="hourglass"
                         action="$ctrl.setStatus(5, {mgs: $ctrl.reason})"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                        idea-voting="$ctrl.idea.voting">
                     </reason-modal>
 
                     <!-- Close Idea -->
                     <reason-modal status="3" hide-reason="true"
                         action="$ctrl.setStatus(3)" 
-                        idea-voting="{{$ctrl.idea.voting}}">
+                        idea-voting="$ctrl.idea.voting">
                     </reason-modal>
                 </div>
 
@@ -76,6 +76,11 @@
                     <span ng-if="$ctrl.idea.reason.length > 0">
                         REASON: {{$ctrl.idea.reason}}
                     </span>
+
+                    <!-- Reopen Idea -->
+                    <first-related-modal entity="{{'Task'}}"
+                        idea-voting="{{$ctrl.idea.voting}}">
+                    </first-related-modal>
 
                     <!-- Create New Task -->
                     <new-task title="Create task" parent-module="{{$ctrl.idea.module}}" parent-project="{{$ctrl.idea.project}}" parent-title="{{$ctrl.idea.title}}"
