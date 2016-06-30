@@ -40,36 +40,29 @@
                     </button>
                 </div>
                 <!-- Description -->
-                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description"
-                    ta-toolbar="{{$ctrl.descriptionToolbar}}"></div>
+                <div text-angular ng-model="$ctrl.idea.description" ta-disabled="!$ctrl.descriptionEdited" class="description" ta-toolbar="{{$ctrl.descriptionToolbar}}"></div>
             </div>
             <!-- Buttons -->
             <div class="buttons">
                 <div class="vst-btn-group vst-btn-group-menu">
 
                     <!-- Reopen Idea -->
-                    <reason-modal status="6" icon="repeat"
-                        ng-if="$ctrl.idea.status === 5"
-                        idea-id="{{$ctrl.idea._id}}"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                    <reason-modal status="6" icon="repeat" ng-if="$ctrl.idea.status === 5" idea-id="{{$ctrl.idea._id}}" idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
 
                     <!-- Reject Idea -->
-                    <reason-modal status="4"
-                        icon="remove" idea-id="{{$ctrl.idea._id}}"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                    <reason-modal icon="remove" 
+                        action="$ctrl.setStatus(4, {mgs: $ctrl.reason}, 4)"
+                        idea-voting="{{$ctrl.idea.voting}}"
+                        vote-id="4">
                     </reason-modal>
 
                     <!-- Defer Idea -->
-                    <reason-modal status="5"
-                        icon="hourglass" idea-id="{{$ctrl.idea._id}}"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                    <reason-modal status="5" icon="hourglass" idea-id="{{$ctrl.idea._id}}" idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
 
                     <!-- Close Idea -->
-                    <reason-modal status="3" hide-reason="true"
-                        idea-id="{{$ctrl.idea._id}}"
-                        idea-voting="{{$ctrl.idea.voting}}">
+                    <reason-modal status="3" hide-reason="true" idea-id="{{$ctrl.idea._id}}" idea-voting="{{$ctrl.idea.voting}}">
                     </reason-modal>
                 </div>
 

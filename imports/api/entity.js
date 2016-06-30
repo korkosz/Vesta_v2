@@ -169,11 +169,11 @@ Entity.createSchemaMetadata = function (meta) {
             transform(value, additionalValue) {
                 switch (additionalValue) {
                     case 'Ask':
-                        return Metadata.findOne('orb7v9a457r3T2snk').value[value];
+                        return Metadata.findOne('orb7v9a457r3T2snk').value[value].name;
                     case 'Idea':
-                        return Metadata.findOne('CBJNeBr7WrnA8FmqH').value[value];
+                        return Metadata.findOne('CBJNeBr7WrnA8FmqH').value[value].name;
                     case 'Task':
-                        return Metadata.findOne('orb7v9aZq7r3T2snk').value[value];
+                        return Metadata.findOne('orb7v9aZq7r3T2snk').value[value].name;
                     default:
                         return 'ERROR2';
                 }
@@ -282,13 +282,13 @@ Entity.extendHelpers = function (collection, helpers) {
             switch (letter) {
                 case 'A':
                     return Metadata.findOne('orb7v9a457r3T2snk')
-                        .value[this.status];
+                        .value[this.status].name;
                 case 'I':
                     return Metadata.findOne('CBJNeBr7WrnA8FmqH')
-                        .value[this.status];
+                        .value[this.status].name;
                 case 'T':
                     return Metadata.findOne('orb7v9aZq7r3T2snk')
-                        .value[this.status];
+                        .value[this.status].name;
                 default:
                     return 'ERROR2';
             }

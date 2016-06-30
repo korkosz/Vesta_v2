@@ -5,8 +5,8 @@ import Asks from '/imports/api/ask/ask';
 import pill from '/imports/components/lib/pill/pill';
 import './_review';
 import './_review.html';
-import './_reasonModal.html';
-import './_reasonModal';
+import './_statusModal.html';
+import './_statusModal';
 import './_activeVoting.html';
 import './_relatedList.html';
 import './idea.html';
@@ -168,6 +168,10 @@ class IdeaCtrl {
                         }
                     });
                 }
+            },
+            statuses() {
+                var meta = Metadata.findOne('CBJNeBr7WrnA8FmqH');
+                if (meta) return meta.value;
             }
         });
     }
@@ -179,8 +183,6 @@ class IdeaCtrl {
             }
         }, null, notify);
     }
-
-
 
     vote(_vote) {
         Meteor.call('ideas.vote',
@@ -196,8 +198,6 @@ class IdeaCtrl {
             });
         this.stopEditDescription();
     }
-
-
 
     setSprint(sprint) {
         Meteor.call('ideas.setSprint', sprint,
@@ -220,6 +220,25 @@ class IdeaCtrl {
             case 'Close':
                 return status === 7;
         }
+    }
+
+    statusName(sId) {
+        if (this.statuses) return this.statuses[sId].verb;
+    }
+
+    setStatus(_status, msg, votingType) {
+        if (votingType && !this.ideaVoting) {
+            Meteor.call('ideas.startVoting',
+                this.ideaId, votingType, (err, res) => {
+                    if (err) window.alert(err);
+                });
+        } else {
+            Meteor.call('ideas.setStatus', _status,
+                this.ideaId, msg, (err, res) => {
+                    if (err) window.alert(err);
+                });
+        }
+        this.reason = '';
     }
 };
 IdeaCtrl.$inject = ['$scope', '$routeParams', '$location', '$timeout'];
