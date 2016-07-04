@@ -192,7 +192,8 @@
         </section>
     </section>
 
-    <section ng-if="$ctrl.userIsOwner()">
+    <!-- Requests List -->
+    <section ng-if="$ctrl.userIsOwner() && $ctrl.idea.requests.length > 0">
         <h3>Requests</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="request in $ctrl.idea.requests">
