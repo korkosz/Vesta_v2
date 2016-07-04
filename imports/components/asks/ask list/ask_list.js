@@ -15,11 +15,7 @@ class AskListCtrl {
                 ///Musi byc tutaj bo helper refreshuje sie
                 ///po zmianie kolekcji
                 if (angular.isUndefined(this.filter)) {
-                    this.filter = { isDeleted: false };
-                }
-                else {
-                    angular.extend(this.filter,
-                        { isDeleted: false });
+                    this.filter = {};
                 }
                 return Asks.find(this.filter).map((ask)=> {
                     ask.isNew = moment().diff(ask.creationAt, 'days') === 0;

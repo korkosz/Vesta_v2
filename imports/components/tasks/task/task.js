@@ -48,8 +48,7 @@ class TaskCtrl {
 
                 if (me.idea) {
                     return Tasks.find({
-                        ideaId: me.idea._id,
-                        isDeleted: false
+                        ideaId: me.idea._id
                     });
                 }
             },

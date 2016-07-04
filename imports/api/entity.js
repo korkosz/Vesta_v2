@@ -55,14 +55,6 @@ export default class Entity extends Mongo.Collection {
                 callback(null, res);
         });
     }
-
-    remove(id) {
-        this.update(id, {
-            $set: {
-                isDeleted: true
-            }
-        });
-    }
 }
 
 Entity.createSchema = function (schemaExtension) {
@@ -129,10 +121,6 @@ Entity.createSchema = function (schemaExtension) {
             },
             optional: true,
             label: 'Updated At'
-        },
-        isDeleted: {
-            type: Boolean,
-            defaultValue: false
         }
     };
 

@@ -15,11 +15,7 @@ class TaskListCtrl {
                 ///Musi byc tutaj bo helper refreshuje sie
                 ///po zmianie kolekcji
                 if (angular.isUndefined(this.filter)) {
-                    this.filter = { isDeleted: false };
-                }
-                else {
-                    angular.extend(this.filter,
-                        { isDeleted: false });
+                    this.filter = {};
                 }
                 return Tasks.find(this.filter).map((task)=> {
                     task.isNew = moment.utc().diff(task.creationDate, 'days') === 0;

@@ -16,11 +16,7 @@ class IdeaListCtrl {
                 ///Musi byc tutaj bo helper refreshuje sie
                 ///po zmianie kolekcji
                 if (angular.isUndefined(this.filter)) {
-                    this.filter = { isDeleted: false };
-                }
-                else {
-                    angular.extend(this.filter,
-                        { isDeleted: false });
+                    this.filter = {};
                 }
                 return Ideas.find(this.filter).map((idea) => {
                     idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
