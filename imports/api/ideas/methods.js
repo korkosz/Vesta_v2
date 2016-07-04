@@ -144,7 +144,8 @@ function addReview(review, ideaId) {
         if (idea.status === 1) {
             updateObj = Object.assign(updateObj, {
                 $set: {
-                    status: 6 //consider
+                    status: 6, //consider
+                    voting: null
                 }
             });
         }
@@ -196,13 +197,13 @@ function setStatus(statusId, ideaId, msg) {
             setWorking.call(this, ideaId);
             break;
         case 3://closed
-            closeIdea.call(this, ideaId);
+            closeIdea.call(this, ideaId, msg);
             break;
         case 4://rejected
             rejectIdea.call(this, ideaId, msg);
             break;
         case 5://deferred
-            setDeferred.call(this, ideaId);
+            setDeferred.call(this, ideaId, msg);
             break;
         case 8://discussed
             setDiscussed.call(this, ideaId);
@@ -267,7 +268,8 @@ function setDiscussed(ideaId) {
     if (idea.status === 6) {
         Ideas.update(ideaId, {
             $set: {
-                status: 8
+                status: 8,
+                voting: null
             }
         }, null, idea, this.userId);
     }
@@ -278,7 +280,8 @@ function closeIdea(ideaId) {
     if (idea.status === 7) { //implemented
         Ideas.update(ideaId, {
             $set: {
-                status: 3
+                status: 3,
+                voting: null
             }
         }, null, idea, this.userId);
     }
@@ -294,7 +297,8 @@ function rejectIdea(ideaId, msg) {
         Ideas.update(ideaId, {
             $set: {
                 status: 4,
-                reason: msg
+                reason: msg,
+                voting: null
             }
         }, null, idea, this.userId);
         return;
@@ -340,7 +344,8 @@ function rejectIdea(ideaId, msg) {
     Ideas.update(ideaId, {
         $set: {
             status: 4,
-            reason: msg
+            reason: msg,
+            voting: null
         }
     }, null, idea, this.userId);
 }
@@ -352,19 +357,21 @@ function setWorking(ideaId) {
         idea.status === 8) {
         Ideas.update(ideaId, {
             $set: {
-                status: 2
+                status: 2,
+                voting: null
             }
         }, null, idea, this.userId);
     }
 }
 
-function setDeferred(ideaId) {
+function setDeferred(ideaId, msg) {
     Ideas.update(ideaId, {
         $set: {
             status: 5,
             sprint: -1,
             voting: null,
-            votes: []
+            votes: [],
+            reason: msg
         }
     }, null, null, this.userId);
 }
