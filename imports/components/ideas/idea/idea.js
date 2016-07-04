@@ -168,7 +168,7 @@ class IdeaCtrl {
                         }
                     });
                 }
-            }          
+            }
         });
     }
 
@@ -202,35 +202,64 @@ class IdeaCtrl {
             });
     }
 
-    changeStatusBtnsVisibility(btn) {
+    controlVisibility(btn) {
         if (!this.idea) return;
         var status = this.idea.status;
 
         switch (btn) {
             case 'Defer':
             case 'Reject':
-                return status === 1 ||
-                    status === 2 ||
-                    status === 6 ||
-                    status === 8;
+                return status === 1 || //New
+                    status === 2 || //Working
+                    status === 6 || //Consider
+                    status === 8; //Discussed
             case 'Close':
-                return status === 7;
+                return status === 7;//Implemented
+            case 'Reopen':
+                return status === 5;//Deferred
+            case 'Task First':
+                return (status === 2 || //Working
+                    status === 6 || //Consider
+                    status === 7 || //Implemented
+                    status === 8) && //Discussed
+                    ((!this.relatedTasks ||
+                        this.relatedTasks.length === 0) &&
+                        !this.idea.voting);
+            case 'Task':
+                return (status === 2 || //Working
+                    status === 6 || //Consider
+                    status === 7 || //Implemented
+                    status === 8) && //Discussed
+                    ((this.relatedTasks &&
+                        this.relatedTasks.length > 0) ||
+                        !!this.idea.voting);
+            case 'Ask First':
+                return status === 6 && ((!this.relatedAsks ||
+                    this.relatedAsks.length === 0) &&
+                    !this.idea.voting);
+            case 'Ask':
+                return status === 6 && (this.relatedAsks &&
+                    this.relatedAsks.length > 0 ||
+                    !!this.idea.voting);
         }
     }
 
- 
-    setStatus(_status, msg, votingType) {        
+    startVoting(votingType) {
+        Meteor.call('ideas.startVoting',
+            this.idea._id, votingType, (err, res) => {
+                if (err) window.alert(err);
+            });
+    }
+
+    setStatus(_status, msg, votingType) {
         //For statuses _status and votingType are the same
-        if(!votingType) votingType = _status;
+        if (!votingType) votingType = _status;
 
         if (votingType && !this.ideaVoting) {
-            Meteor.call('ideas.startVoting',
-                this.ideaId, votingType, (err, res) => {
-                    if (err) window.alert(err);
-                });
+            this.startVoting(votingType);
         } else {
             Meteor.call('ideas.setStatus', _status,
-                this.ideaId, msg, (err, res) => {
+                this.idea._id, msg, (err, res) => {
                     if (err) window.alert(err);
                 });
         }

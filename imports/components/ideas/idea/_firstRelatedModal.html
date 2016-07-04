@@ -26,8 +26,7 @@
                     <label>
                         <input type="checkbox"
                         ng-model="$ctrl.votingCb"
-                        ng-true-value="{{$ctrl.entityVoteId()}}"
-                        ng-disabled="!!$ctrl.ideaVoting"/>
+                        ng-true-value="{{$ctrl.entityVoteId()}}"/>
                         Start voting for this decission
                     </label>
                 </div>
@@ -36,7 +35,7 @@
                  </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"
                     ng-click="$ctrl.action()">
-                    Create Task
+                    Create {{$ctrl.entity}}
                 </button>
             </div>
         </div>

@@ -4,8 +4,8 @@ import Metadata from '/imports/api/metadata/metadata';
 angular.module('idea').component('firstRelatedModal', {
     templateUrl: 'imports/components/ideas/idea/_firstRelatedModal.html',
     bindings: {
-        ideaVoting: '@',
-        entity: '@'
+        entity: '@',
+        vote: '&'
     },
     controller($scope) {
         $scope.viewModel(this);
@@ -33,6 +33,12 @@ angular.module('idea').component('firstRelatedModal', {
                     return 1;
                 case 'Ask':
                     return 2;
+            }
+        }
+
+        this.action = function () {
+            if (this.votingCb === this.entityVoteId()) {
+                this.vote({ votingType: this.votingCb });
             }
         }
     }

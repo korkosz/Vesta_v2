@@ -51,8 +51,8 @@ Entity.extendHelpers(Ideas, {
 });
 
 const votingTypes = {
-    1: 'Create First Task - reviews will be off',
-    2: 'Start Discussion - reviews will be off',
+    1: 'Create First Task (Reviews will be off)',
+    2: 'Start Discussion (Reviews will be off)',
     3: 'Close Idea',
     4: 'Reject Idea',
     5: 'Defer Idea'    
