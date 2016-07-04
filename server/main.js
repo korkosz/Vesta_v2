@@ -183,7 +183,10 @@ Meteor.startup(() => {
         entities: ['Idea'],
         columns: ['title', 'number',
             'status', 'creationDate',
-            'createdBy', 'updatedAt',]
+            'createdBy', 'updatedAt'],
+        filters: {
+            sprint: vesta.currentSprint + 1
+        }
     });
 
     var list2 = ListsSchemas.insert({

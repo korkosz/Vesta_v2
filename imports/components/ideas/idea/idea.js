@@ -287,12 +287,10 @@ class IdeaCtrl {
         this.requestExplanation = null;
     }
 
-    setStatus(_status, msg, votingType) {
-        //For statuses _status and votingType are the same
-        if (!votingType) votingType = _status;
-
-        if (votingType && !this.ideaVoting) {
-            this.startVoting(votingType);
+    setStatus(_status, msg) {
+        //For statuses status and votingType are the same
+        if (_status && !this.idea.voting) {
+            this.startVoting(_status);
         } else {
             Meteor.call('ideas.setStatus', _status,
                 this.idea._id, msg, (err, res) => {

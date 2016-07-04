@@ -1,6 +1,6 @@
 <button type="button" class="vst-btn vst-btn-menu"
-        data-toggle="modal" data-target="#{{newTaskVm.altId}}newTaskModal"
-        data-backdrop="false" ng-click="newTaskVm.openModal()">
+        data-toggle="modal" ng-click="newTaskVm.openModal()" 
+        id="{{newTaskVm.altId}}TaskBtn" ng-show="newTaskVm.visible">
     {{newTaskVm.title}}
 </button>
 <!-- Modal -->

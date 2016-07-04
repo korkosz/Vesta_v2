@@ -59,11 +59,11 @@ class NewTaskCtrl {
             taskTypes() {
                 var taskTypes = Metadata.findOne({ metadataName: 'TaskType' });
                 if (taskTypes) {
-                    if(!this.taskId) {
-                        return taskTypes.value.filter((type) => type.id !== 3);    
+                    if (!this.taskId) {
+                        return taskTypes.value.filter((type) => type.id !== 3);
                     } else {
                         return taskTypes.value.filter((type) => type.id === 3);
-                    }                    
+                    }
                 }
             },
             taskPriority() {
@@ -120,6 +120,7 @@ class NewTaskCtrl {
     openModal() {
         this.init();
         this.setPristine();
+        $('#' + this.altId + 'newTaskModal').modal('show');
     }
 }
 NewTaskCtrl.$inject = ['$scope', '$q'];
@@ -140,7 +141,8 @@ export default angular.module("task")
                 parentSprint: '=',
                 ideaId: '@',
                 taskId: '@',
-                altId: '@'
+                altId: '@',
+                visible: '='
             },
             bindToController: true
         }
