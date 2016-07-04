@@ -6,7 +6,7 @@ class IdeasCollection extends Entity { }
 
 export default Ideas = new IdeasCollection('ideas');
 
-var votesSchema = new SimpleSchema({
+var voteSchema = new SimpleSchema({
     userId: {
         type: String
     },
@@ -15,6 +15,15 @@ var votesSchema = new SimpleSchema({
     },
     value: {
         type: Boolean
+    }
+});
+
+var requestSchema = new SimpleSchema({
+    userName: {
+        type: String
+    },
+    requestId: {
+        type: Number
     }
 });
 
@@ -36,24 +45,29 @@ Ideas.schema = Entity.createSchema({
         optional: true
     },
     votes: {
-        type: [votesSchema],
+        type: [voteSchema],
+        optional: true
+    },
+    requests: {
+        type: [requestSchema],
         optional: true
     }
 });
 Ideas.attachSchema(Ideas.schema);
 
 Ideas.schemaMetadata = Entity.createSchemaMetadata({});
+
 Entity.extendHelpers(Ideas, {
     getVotingDescription() {
         if (this.voting)
-            return votingTypes[this.voting];
+            return Ideas.votingTypes[this.voting];
     }
 });
 
-const votingTypes = {
+Ideas.votingTypes = {
     1: 'Create First Task (Reviews will be off)',
     2: 'Start Discussion (Reviews will be off)',
     3: 'Close Idea',
     4: 'Reject Idea',
-    5: 'Defer Idea'    
+    5: 'Defer Idea'
 };

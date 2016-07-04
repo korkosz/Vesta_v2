@@ -110,6 +110,51 @@
                         sprint="$ctrl.idea.sprint" alt-id="0" 
                         ng-if="$ctrl.controlVisibility('Ask')">
                     </new-ask>
+
+                    <!-- Request Button -->
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#requestModal" ng-if="!$ctrl.userIsOwner()">
+                        Request
+                    </button>
+
+                    <!-- Request Modal -->
+                    <div class="modal fade" id="requestModal" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Request</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="radio" name="request" 
+                                        ng-model="$ctrl.request" value="1"> Create First Task <br>
+                                    <input type="radio" name="request" 
+                                        ng-model="$ctrl.request" value="2"> Start Discussion <br>
+                                    <input type="radio" name="request" 
+                                        ng-model="$ctrl.request" value="3"> Close Idea <br>
+                                    <input type="radio" name="request" 
+                                        ng-model="$ctrl.request" value="4"> Reject Idea <br>
+                                    <input type="radio" name="request" 
+                                        ng-model="$ctrl.request" value="5"> Defer Idea <br>                                 
+                                    <div ng-if="$ctrl.request">
+                                        <label>Reason</label>
+                                        <textarea cols="30" rows="10"></textarea>
+                                    </div>                                                 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" 
+                                            data-dismiss="modal" 
+                                            ng-click="$ctrl.request = null">
+                                        Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary"
+                                            ng-click="$ctrl.makeRequest($ctrl.request)"
+                                            data-dismiss="modal">
+                                        Request
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -145,6 +190,18 @@
                 </select>
             </fieldset>
         </section>
+    </section>
+
+    <section ng-if="$ctrl.userIsOwner()">
+        <h3>Requests</h3>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="request in $ctrl.idea.requests">
+                <span class="label label-default label-pill pull-xs-right">
+                    {{request.userName}}
+                </span>
+                {{$ctrl.requestDesc(request.requestId)}}
+            </li>
+        </ul>
     </section>
 
     <!-- Active Voting -->

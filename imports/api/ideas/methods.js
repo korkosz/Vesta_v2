@@ -14,8 +14,24 @@ Meteor.methods({
     'ideas.removeReview': removeReview,
     'ideas.updateReview': updateReview,
     'ideas.startVoting': startVoting,
-    'ideas.vote': vote
+    'ideas.vote': vote,
+    'ideas.makeRequest': makeRequest
 });
+
+function makeRequest(ideaId, requestType) {
+    //var idea = Ideas.findOne(ideaId);
+    var user = Meteor.user().profile.fullname;
+    Ideas.update(ideaId, {
+        $push: {
+            requests: {
+                userName: user,
+                requestId: requestType
+            }
+        }
+    }, (err, res) => {
+        if (err) throw new Meteor.Error('makeRequest', err.message);
+    });
+}
 
 function vote(ideaId, value) {
     var idea = Ideas.findOne(ideaId);

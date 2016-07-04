@@ -202,9 +202,21 @@ class IdeaCtrl {
             });
     }
 
+    userIsOwner() {
+        if(this.idea)
+            return this.idea.createdBy === Meteor.userId();
+    }
+
+    requestDesc(requestId) {
+        return Ideas.votingTypes[requestId];
+    }
+
     controlVisibility(btn) {
         if (!this.idea) return;
         var status = this.idea.status;
+
+        if (!this.userIsOwner())
+            return false;
 
         switch (btn) {
             case 'Defer':
@@ -249,6 +261,14 @@ class IdeaCtrl {
             this.idea._id, votingType, (err, res) => {
                 if (err) window.alert(err);
             });
+    }
+
+    makeRequest(requestType) {
+        Meteor.call('ideas.makeRequest',
+            this.idea._id, requestType, (err, res) => {
+                if (err) window.alert(err);
+            });
+        this.request = null;
     }
 
     setStatus(_status, msg, votingType) {
