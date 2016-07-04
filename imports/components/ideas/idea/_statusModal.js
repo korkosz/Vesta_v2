@@ -8,7 +8,8 @@ angular.module('idea').component('reasonModal', {
         hideReason: '<',
         action: '&',
         ideaVoting: '<',
-        status: '@'
+        status: '@',
+        hide: '<'
     },
     controller
 });
@@ -22,7 +23,8 @@ function controller($scope) {
         if (newVal && this.status == newVal) {
             vm.votingCb = newVal;
         }
-    })
+    });
+
     this.helpers({
         statuses() {
             var meta = Metadata.findOne('CBJNeBr7WrnA8FmqH');
@@ -33,6 +35,11 @@ function controller($scope) {
     this.statusVerb = function () {
         if (this.statuses && this.status)
             return this.statuses[this.status].verb;
-    }
+    };
+
+    this.changeStatus = function () {
+        this.action({ msg: this.reason });
+        this.reason = null;
+    };
 }
 controller.$inject = ['$scope'];

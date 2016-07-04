@@ -1,5 +1,5 @@
 <button type="button" class="vst-btn" data-toggle="modal" 
-    data-target="#{{$ctrl.status}}-reasonModal">
+    data-target="#{{$ctrl.status}}-reasonModal" ng-hide="$ctrl.hide">
         <span class="glyphicon glyphicon-{{$ctrl.icon}}"></span>
         {{$ctrl.statusVerb()}}
 </button>
@@ -30,11 +30,11 @@
                         Start voting for this decission
                     </label>
                 </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = ''">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = null">
                     Cancel
                  </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"
-                    ng-click="$ctrl.action()">
+                    ng-click="$ctrl.changeStatus()">
                     {{$ctrl.statusVerb()}}
                 </button>
             </div>

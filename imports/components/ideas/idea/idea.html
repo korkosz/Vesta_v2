@@ -47,31 +47,31 @@
                 <div class="vst-btn-group vst-btn-group-menu">
 
                     <!-- Reopen Idea -->
-                    <reason-modal status="6" icon="repeat" 
-                        ng-if="$ctrl.controlVisibility(6)" 
+                    <reason-modal status="6" icon="repeat"                         
                         action="$ctrl.setStatus(6)" hide-reason="true"
-                        idea-voting="$ctrl.idea.voting">
+                        idea-voting="$ctrl.idea.voting"
+                        hide="!$ctrl.controlVisibility(6)">
                     </reason-modal>
 
                     <!-- Reject Idea -->
                     <reason-modal status="4" icon="remove" 
-                        action="$ctrl.setStatus(4, {mgs: $ctrl.reason})"
+                        action="$ctrl.setStatus(4, msg)"
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility(4)">
+                        hide="!$ctrl.controlVisibility(4)">
                     </reason-modal>
-
+                    
                     <!-- Defer Idea -->
                     <reason-modal status="5" icon="hourglass"
-                        action="$ctrl.setStatus(5, {mgs: $ctrl.reason})"
+                        action="$ctrl.setStatus(5, msg)"
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility(5)">
+                        hide="!$ctrl.controlVisibility(5)">
                     </reason-modal>
 
                     <!-- Close Idea -->
                     <reason-modal status="3" hide-reason="true"
                         action="$ctrl.setStatus(3)" 
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility(3)">
+                        hide="!$ctrl.controlVisibility(3)">
                     </reason-modal>
                 </div>
 
@@ -83,7 +83,7 @@
                     <!-- Create New Task - First Related -->
                     <first-related-modal entity="{{'Task'}}"
                         vote="$ctrl.startVoting(votingType)"
-                        ng-if="$ctrl.controlVisibility(1)">
+                        hide="!$ctrl.controlVisibility(1)">
                     </first-related-modal>
 
                     <!-- Create New Task -->
@@ -91,24 +91,27 @@
                         parent-title="{{$ctrl.idea.title}}"
                         parent-sprint="$ctrl.idea.sprint" 
                         idea-id="{{$ctrl.idea._id}}" 
-                        alt-id="0" visible="$ctrl.controlVisibility(11)">
+                        alt-id="0" hide="!$ctrl.controlVisibility(11)">
                     </new-task>
 
                     <!-- Create New Idea -->
-                    <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
-                        alt-id="0" sprint="$ctrl.idea.sprint" reviewers="$ctrl.idea.reviewers">
+                    <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" 
+                        project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" 
+                        idea-title="{{$ctrl.idea.title}}"
+                        alt-id="0" sprint="$ctrl.idea.sprint" 
+                        reviewers="$ctrl.idea.reviewers">
                     </new-idea>
 
                     <!-- Create New Ask - First Related -->
                     <first-related-modal entity="{{'Ask'}}"
                         vote="$ctrl.startVoting(votingType)"
-                        ng-if="$ctrl.controlVisibility(2)">
+                        hide="!$ctrl.controlVisibility(2)">
                     </first-related-modal>
 
                     <!-- Create New Ask -->
                     <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
-                        sprint="$ctrl.idea.sprint" alt-id="0" 
-                        ng-if="$ctrl.controlVisibility(22)">
+                        sprint="$ctrl.idea.sprint" alt-id="0"
+                        hide="!$ctrl.controlVisibility(22)">
                     </new-ask>
 
                     <!-- Request Button -->

@@ -142,7 +142,7 @@ export default angular.module("task")
                 ideaId: '@',
                 taskId: '@',
                 altId: '@',
-                visible: '='
+                hide: '='
             },
             bindToController: true
         }

@@ -5,7 +5,8 @@ angular.module('idea').component('firstRelatedModal', {
     templateUrl: 'imports/components/ideas/idea/_firstRelatedModal.html',
     bindings: {
         entity: '@',
-        vote: '&'
+        vote: '&',
+        hide: '<'
     },
     controller
 });

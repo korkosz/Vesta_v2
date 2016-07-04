@@ -112,7 +112,8 @@ export default angular.module("ask")
                 ideaId: '@',
                 ideaTitle: '@',
                 altId: '@',
-                sprint: '='
+                sprint: '=',
+                hide: '='
             },
             bindToController: true
         }
