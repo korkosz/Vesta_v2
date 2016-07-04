@@ -19,6 +19,9 @@ var voteSchema = new SimpleSchema({
 });
 
 var requestSchema = new SimpleSchema({
+    userId: {
+        type: String
+    },
     userName: {
         type: String
     },

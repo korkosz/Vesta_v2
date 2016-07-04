@@ -20,11 +20,12 @@ Meteor.methods({
 
 function makeRequest(ideaId, requestType, explanation) {
     //var idea = Ideas.findOne(ideaId);
-    var user = Meteor.user().profile.fullname;
+    var user = Meteor.user();
     Ideas.update(ideaId, {
         $push: {
             requests: {
-                userName: user,
+                userId: user._id,
+                userName: user.profile.fullname,
                 requestId: requestType,
                 explanation: explanation
             }

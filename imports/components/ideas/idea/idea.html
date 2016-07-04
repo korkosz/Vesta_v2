@@ -127,27 +127,32 @@
                                 <div class="modal-body">
                                     <span ng-if="$ctrl.controlVisibility(1, true)">
                                         <input type="radio" name="request" 
-                                               ng-model="$ctrl.request" value="1"> 
+                                               ng-model="$ctrl.request" value="1"
+                                               ng-disabled="$ctrl.alreadyRequestedThis(1)"> 
                                             Create First Task <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(2, true)">
                                         <input type="radio" name="request" 
-                                               ng-model="$ctrl.request" value="2"> 
+                                               ng-model="$ctrl.request" value="2"
+                                               ng-disabled="$ctrl.alreadyRequestedThis(2)"> 
                                             Start Discussion <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(3, true)">
                                         <input type="radio" name="request" 
-                                               ng-model="$ctrl.request" value="3"> 
+                                               ng-model="$ctrl.request" value="3"
+                                               ng-disabled="$ctrl.alreadyRequestedThis(3)"> 
                                             Close Idea <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(4, true)">
                                         <input type="radio" name="request" 
-                                               ng-model="$ctrl.request" value="4"> 
+                                               ng-model="$ctrl.request" value="4"
+                                               ng-disabled="$ctrl.alreadyRequestedThis(4)"> 
                                             Reject Idea <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(5, true)">
                                         <input type="radio" name="request" 
-                                               ng-model="$ctrl.request" value="5"> 
+                                               ng-model="$ctrl.request" value="5"
+                                               ng-disabled="$ctrl.alreadyRequestedThis(5)"> 
                                             Defer Idea <br>  
                                     </span>
                                
@@ -212,14 +217,24 @@
         </section>
     </section>
 
-    <!-- Requests List -->
+    <!-- Active Requests List -->
     <section ng-if="$ctrl.userIsOwner() && $ctrl.idea.requests.length > 0">
-        <h3>Requests</h3>
+        <h3>Active Requests</h3>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="request in $ctrl.idea.requests">
                 <span class="label label-default label-pill pull-xs-right">
                     {{request.userName}}
                 </span>
+                {{$ctrl.requestDesc(request.requestId)}} {{request.explanation}}
+            </li>
+        </ul>
+    </section>
+
+    <!-- My Active Requests List -->
+    <section ng-if="$ctrl.idea.myRequests.length > 0">
+        <h3>My Active Requests</h3>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="request in $ctrl.idea.myRequests">
                 {{$ctrl.requestDesc(request.requestId)}} {{request.explanation}}
             </li>
         </ul>

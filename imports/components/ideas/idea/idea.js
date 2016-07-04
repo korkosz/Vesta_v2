@@ -73,6 +73,14 @@ class IdeaCtrl {
                         vm.voteVal = null;
                         vm.votingCb = -1;
                     }
+
+
+                    //*** My Requests ***
+                    if (idea.requests && idea.requests.length > 0) {
+                        idea.myRequests = idea.requests.filter(
+                            (req) => req.userId === Meteor.userId());
+                    }
+
                 }
                 return idea;
             },
@@ -170,6 +178,13 @@ class IdeaCtrl {
                 }
             }
         });
+    }
+
+
+    alreadyRequestedThis(requestId) {
+        if (this.idea && this.idea.myRequests)
+            return this.idea.myRequests.some(
+                (req) => req.requestId === requestId);
     }
 
     reviewerSelected() {
