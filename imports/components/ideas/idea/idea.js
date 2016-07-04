@@ -203,7 +203,7 @@ class IdeaCtrl {
     }
 
     userIsOwner() {
-        if(this.idea)
+        if (this.idea)
             return this.idea.createdBy === Meteor.userId();
     }
 
@@ -211,25 +211,25 @@ class IdeaCtrl {
         return Ideas.votingTypes[requestId];
     }
 
-    controlVisibility(btn) {
+    controlVisibility(btn, request) {
         if (!this.idea) return;
         var status = this.idea.status;
 
-        if (!this.userIsOwner())
+        if (!this.userIsOwner() && !request)
             return false;
 
         switch (btn) {
-            case 'Defer':
-            case 'Reject':
+            case 5: //***Defer***
+            case 4: //***Reject***
                 return status === 1 || //New
                     status === 2 || //Working
                     status === 6 || //Consider
                     status === 8; //Discussed
-            case 'Close':
+            case 3: //***Close***
                 return status === 7;//Implemented
-            case 'Reopen':
+            case 6: //***Reopen*** 
                 return status === 5;//Deferred
-            case 'Task First':
+            case 1: //***Task First***
                 return (status === 2 || //Working
                     status === 6 || //Consider
                     status === 7 || //Implemented
@@ -237,7 +237,7 @@ class IdeaCtrl {
                     ((!this.relatedTasks ||
                         this.relatedTasks.length === 0) &&
                         !this.idea.voting);
-            case 'Task':
+            case 11: //***Task***
                 return (status === 2 || //Working
                     status === 6 || //Consider
                     status === 7 || //Implemented
@@ -245,11 +245,11 @@ class IdeaCtrl {
                     ((this.relatedTasks &&
                         this.relatedTasks.length > 0) ||
                         !!this.idea.voting);
-            case 'Ask First':
+            case 2: //***Ask First***
                 return status === 6 && ((!this.relatedAsks ||
                     this.relatedAsks.length === 0) &&
                     !this.idea.voting);
-            case 'Ask':
+            case 22: //***Ask***
                 return status === 6 && (this.relatedAsks &&
                     this.relatedAsks.length > 0 ||
                     !!this.idea.voting);
@@ -263,12 +263,13 @@ class IdeaCtrl {
             });
     }
 
-    makeRequest(requestType) {
+    makeRequest(requestType, explanation) {
         Meteor.call('ideas.makeRequest',
-            this.idea._id, requestType, (err, res) => {
+            this.idea._id, requestType, explanation, (err, res) => {
                 if (err) window.alert(err);
             });
         this.request = null;
+        this.requestExplanation = null;
     }
 
     setStatus(_status, msg, votingType) {

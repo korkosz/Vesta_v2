@@ -48,7 +48,7 @@
 
                     <!-- Reopen Idea -->
                     <reason-modal status="6" icon="repeat" 
-                        ng-if="$ctrl.controlVisibility('Reopen')" 
+                        ng-if="$ctrl.controlVisibility(6)" 
                         action="$ctrl.setStatus(6)" hide-reason="true"
                         idea-voting="$ctrl.idea.voting">
                     </reason-modal>
@@ -57,21 +57,21 @@
                     <reason-modal status="4" icon="remove" 
                         action="$ctrl.setStatus(4, {mgs: $ctrl.reason})"
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility('Reject')">
+                        ng-if="$ctrl.controlVisibility(4)">
                     </reason-modal>
 
                     <!-- Defer Idea -->
                     <reason-modal status="5" icon="hourglass"
                         action="$ctrl.setStatus(5, {mgs: $ctrl.reason})"
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility('Defer')">
+                        ng-if="$ctrl.controlVisibility(5)">
                     </reason-modal>
 
                     <!-- Close Idea -->
                     <reason-modal status="3" hide-reason="true"
                         action="$ctrl.setStatus(3)" 
                         idea-voting="$ctrl.idea.voting"
-                        ng-if="$ctrl.controlVisibility('Close')">
+                        ng-if="$ctrl.controlVisibility(3)">
                     </reason-modal>
                 </div>
 
@@ -83,7 +83,7 @@
                     <!-- Create New Task - First Related -->
                     <first-related-modal entity="{{'Task'}}"
                         vote="$ctrl.startVoting(votingType)"
-                        ng-if="$ctrl.controlVisibility('Task First')">
+                        ng-if="$ctrl.controlVisibility(1)">
                     </first-related-modal>
 
                     <!-- Create New Task -->
@@ -91,7 +91,7 @@
                         parent-title="{{$ctrl.idea.title}}"
                         parent-sprint="$ctrl.idea.sprint" 
                         idea-id="{{$ctrl.idea._id}}" 
-                        alt-id="0" ng-if="$ctrl.controlVisibility('Task')">
+                        alt-id="0" ng-if="$ctrl.controlVisibility(11)">
                     </new-task>
 
                     <!-- Create New Idea -->
@@ -102,13 +102,13 @@
                     <!-- Create New Ask - First Related -->
                     <first-related-modal entity="{{'Ask'}}"
                         vote="$ctrl.startVoting(votingType)"
-                        ng-if="$ctrl.controlVisibility('Ask First')">
+                        ng-if="$ctrl.controlVisibility(2)">
                     </first-related-modal>
 
                     <!-- Create New Ask -->
                     <new-ask module="{{$ctrl.idea.module}}" project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" idea-title="{{$ctrl.idea.title}}"
                         sprint="$ctrl.idea.sprint" alt-id="0" 
-                        ng-if="$ctrl.controlVisibility('Ask')">
+                        ng-if="$ctrl.controlVisibility(22)">
                     </new-ask>
 
                     <!-- Request Button -->
@@ -125,29 +125,49 @@
                                     <h4 class="modal-title" id="myModalLabel">Request</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="radio" name="request" 
-                                        ng-model="$ctrl.request" value="1"> Create First Task <br>
-                                    <input type="radio" name="request" 
-                                        ng-model="$ctrl.request" value="2"> Start Discussion <br>
-                                    <input type="radio" name="request" 
-                                        ng-model="$ctrl.request" value="3"> Close Idea <br>
-                                    <input type="radio" name="request" 
-                                        ng-model="$ctrl.request" value="4"> Reject Idea <br>
-                                    <input type="radio" name="request" 
-                                        ng-model="$ctrl.request" value="5"> Defer Idea <br>                                 
+                                    <span ng-if="$ctrl.controlVisibility(1, true)">
+                                        <input type="radio" name="request" 
+                                               ng-model="$ctrl.request" value="1"> 
+                                            Create First Task <br>
+                                    </span>
+                                    <span ng-if="$ctrl.controlVisibility(2, true)">
+                                        <input type="radio" name="request" 
+                                               ng-model="$ctrl.request" value="2"> 
+                                            Start Discussion <br>
+                                    </span>
+                                    <span ng-if="$ctrl.controlVisibility(3, true)">
+                                        <input type="radio" name="request" 
+                                               ng-model="$ctrl.request" value="3"> 
+                                            Close Idea <br>
+                                    </span>
+                                    <span ng-if="$ctrl.controlVisibility(4, true)">
+                                        <input type="radio" name="request" 
+                                               ng-model="$ctrl.request" value="4"> 
+                                            Reject Idea <br>
+                                    </span>
+                                    <span ng-if="$ctrl.controlVisibility(5, true)">
+                                        <input type="radio" name="request" 
+                                               ng-model="$ctrl.request" value="5"> 
+                                            Defer Idea <br>  
+                                    </span>
+                               
                                     <div ng-if="$ctrl.request">
-                                        <label>Reason</label>
-                                        <textarea cols="30" rows="10"></textarea>
+                                        <label>Explanation</label>
+                                        <textarea cols="30" rows="10" 
+                                                  ng-model="$ctrl.requestExplanation">
+                                        </textarea>
                                     </div>                                                 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" 
                                             data-dismiss="modal" 
-                                            ng-click="$ctrl.request = null">
+                                            ng-click="$ctrl.request = null;
+                                                $ctrl.requestExplanation = null;">
                                         Close
                                     </button>
                                     <button type="button" class="btn btn-primary"
-                                            ng-click="$ctrl.makeRequest($ctrl.request)"
+                                            ng-click="$ctrl.makeRequest($ctrl.request,
+                                                $ctrl.requestExplanation)"
                                             data-dismiss="modal">
                                         Request
                                     </button>
@@ -200,7 +220,7 @@
                 <span class="label label-default label-pill pull-xs-right">
                     {{request.userName}}
                 </span>
-                {{$ctrl.requestDesc(request.requestId)}}
+                {{$ctrl.requestDesc(request.requestId)}} {{request.explanation}}
             </li>
         </ul>
     </section>

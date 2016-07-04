@@ -24,6 +24,20 @@ var requestSchema = new SimpleSchema({
     },
     requestId: {
         type: Number
+    },
+    explanation: {
+        type: String,
+        optional: true
+    },
+    creationDate: {
+        type: Number,
+        label: 'Created At',
+        autoValue() {
+            if (this.isInsert) {
+                return (new Date()).getTime();
+            }
+        },
+        optional: true
     }
 });
 
