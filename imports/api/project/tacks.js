@@ -6,6 +6,9 @@ Tacks.schema = new SimpleSchema({
     project: {
         type: String
     },
+    projectPrefix: {
+        type: String
+    },
     content: {
         type: String
     },

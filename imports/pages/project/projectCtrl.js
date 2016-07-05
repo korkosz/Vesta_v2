@@ -37,7 +37,7 @@ function projectCtrl($scope, $routeParams) {
     this.addModule = function () {
         Modules.insert({
             name: this.moduleName,
-            project: this.project._id
+            project: this.project._id            
         });
         this.moduleName = '';
     };
@@ -45,6 +45,7 @@ function projectCtrl($scope, $routeParams) {
     this.addTackToProject = function () {
         Tacks.insert({
             project: this.project._id,
+            projectPrefix: this.project.prefix,
             content: this.newTack.content,
             important: this.newTack.important
         });
