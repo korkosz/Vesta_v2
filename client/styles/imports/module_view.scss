@@ -236,6 +236,9 @@ section.#{$VESTA}-view-desc{
     padding: 30px;
     border: 10px solid #fff;
     border-left: none;
+    @media (max-width: 1400px){
+        flex-basis: 200px;
+    }
     .reviewers-box{
         display: -moz-box;
         display: -ms-flexbox;

@@ -96,6 +96,9 @@ section.idea-reviews{
     .btn-group-desc{
         flex-basis: 100px;
         padding-right: 11px;
+        @media (max-width: 1400px){
+            flex-basis: 50px;
+        }
         button{
             float: right;
             border: none;
