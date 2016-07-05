@@ -17,10 +17,6 @@ Projects.schema = new SimpleSchema({
     prefix: {
         type: String
     },
-    modules: {
-        type: [String],
-        optional: true
-    },
     currentSprint: {
         type: Number
     },

@@ -1,0 +1,60 @@
+<div class="vst-view-container vst-idea-container" ng-controller="projectCtrl as $ctrl">
+    <div>Project: {{$ctrl.project.name}}</div>
+    <div>Current Sprint: {{$ctrl.project.currentSprint}} </div>
+    <div>Prefix: {{$ctrl.project.prefix}}</div>
+    <br>
+    <div>Modules:</div>
+    <ul>
+        <li ng-repeat="module in $ctrl.modules">
+            {{module.name}}
+        </li>
+    </ul>
+
+    <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#addModuleModal" data-backdrop="false">
+        Add Module
+    </button>
+
+    <form novalidate name="tackForm">
+        Tack Content: <input type="text" ng-model="$ctrl.newTack.content">
+        Important ?? <input type="checkbox" ng-model="$ctrl.newTack.important">
+        <button ng-click="$ctrl.addTackToProject()">Add Tack</button>
+    </form>
+</div>
+
+
+
+
+<!-- *************************** -->
+<!-- MODALE I INNE GOWNA PONIZEJ -->
+<!-- *************************** -->
+
+<!-- Modal Modules-->
+<div class="modal fade" id="addModuleModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Add Module</h4>
+            </div>
+            <div class="modal-body">
+                <form novalidate>
+                    <br />
+                    <!--Name-->
+                    <fieldset id="moduleName" class="field-wrapper">
+                        <label class="label label-default">Name</label>
+                        <input name="name" type="text" ng-model="$ctrl.moduleName" required/>
+                    </fieldset>
+                    <br />
+                    <!--Footer buttons-->
+                    <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.addModule()" data-dismiss="modal">
+                                Save
+                            </button>
+                    <button id="cancelBtn" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.moduleName = null;">
+                                Cancel
+                        </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,12 +32,5 @@ function globalCtrl() {
         })
     };
     
-    this.addModule = function() {
-        var vesta = ProjectsCollection.findOne({});
-        ModulesCollection.insert({
-            name: this.module.name,
-            project: vesta._id  
-        });
-        this.module.name = '';  
-    }
+
 }

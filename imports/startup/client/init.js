@@ -13,6 +13,7 @@ angular.module('simple-todos', [
     'lib.textAngularPickFile',
     'task',
     'global',
+    'project',
     'textAngular',
     'ask'
 ]);
