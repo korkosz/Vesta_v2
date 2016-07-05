@@ -53,6 +53,6 @@ function projectCtrl($scope, $routeParams) {
 
     this.removeTack = function(tackId) {
         Tacks.remove(tackId);
-    }
+    };
 }
 projectCtrl.$inject = ['$scope', '$routeParams'];

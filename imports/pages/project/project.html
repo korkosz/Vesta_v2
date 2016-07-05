@@ -19,51 +19,49 @@
         <br>
         <button ng-click="$ctrl.addTackToProject()">Add Tack</button>
     </form>
-    <br>
+    <br> PINNED
     <ul class="list-group" style="background-color: white;
                border: 1px solid black;
-               margin: 16px;
+               margin: 4px;
                padding: 10px;" ng-if="$ctrl.tacks.length > 0">
         <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
             {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
             <button ng-click="$ctrl.removeTack(tack._id)">X</button>
         </li>
     </ul>
-</div>
 
 
+    <!-- *************************** -->
+    <!-- MODALE I INNE GOWNA PONIZEJ -->
+    <!-- *************************** -->
 
-
-<!-- *************************** -->
-<!-- MODALE I INNE GOWNA PONIZEJ -->
-<!-- *************************** -->
-
-<!-- Modal Modules-->
-<div class="modal fade" id="addModuleModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="padding:35px 50px;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4>Add Module</h4>
-            </div>
-            <div class="modal-body">
-                <form novalidate>
-                    <br />
-                    <!--Name-->
-                    <fieldset id="moduleName" class="field-wrapper">
-                        <label class="label label-default">Name</label>
-                        <input name="name" type="text" ng-model="$ctrl.moduleName" required/>
-                    </fieldset>
-                    <br />
-                    <!--Footer buttons-->
-                    <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.addModule()" data-dismiss="modal">
+    <!-- Modal Modules-->
+    <div class="modal fade" id="addModuleModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Add Module</h4>
+                </div>
+                <div class="modal-body">
+                    <form novalidate>
+                        <br />
+                        <!--Name-->
+                        <fieldset id="moduleName" class="field-wrapper">
+                            <label class="label label-default">Name</label>
+                            <input name="name" type="text" ng-model="$ctrl.moduleName" required/>
+                        </fieldset>
+                        <br />
+                        <!--Footer buttons-->
+                        <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.addModule()" data-dismiss="modal">
                                 Save
                             </button>
-                    <button id="cancelBtn" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.moduleName = null;">
+                        <button id="cancelBtn" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.moduleName = null;">
                                 Cancel
                         </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
