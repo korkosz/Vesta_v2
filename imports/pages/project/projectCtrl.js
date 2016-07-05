@@ -23,6 +23,14 @@ function projectCtrl($scope, $routeParams) {
                     project: this.project._id
                 });
             }
+        },
+        tacks() {
+            this.getReactively('project');
+            if (this.project) {
+                return Tacks.find({
+                    project: this.project._id
+                });
+            }
         }
     });
 
@@ -42,5 +50,9 @@ function projectCtrl($scope, $routeParams) {
         });
         this.newTack = null;
     };
+
+    this.removeTack = function(tackId) {
+        Tacks.remove(tackId);
+    }
 }
 projectCtrl.$inject = ['$scope', '$routeParams'];

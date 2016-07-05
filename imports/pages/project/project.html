@@ -9,16 +9,26 @@
             {{module.name}}
         </li>
     </ul>
-
+    <br><br>
     <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#addModuleModal" data-backdrop="false">
         Add Module
     </button>
-
+    <br><br>
     <form novalidate name="tackForm">
-        Tack Content: <input type="text" ng-model="$ctrl.newTack.content">
-        Important ?? <input type="checkbox" ng-model="$ctrl.newTack.important">
+        Tack Content: <input type="text" ng-model="$ctrl.newTack.content"> Important ?? <input type="checkbox" ng-model="$ctrl.newTack.important">
+        <br>
         <button ng-click="$ctrl.addTackToProject()">Add Tack</button>
     </form>
+    <br>
+    <ul class="list-group" style="background-color: white;
+               border: 1px solid black;
+               margin: 16px;
+               padding: 10px;" ng-if="$ctrl.tacks.length > 0">
+        <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
+            {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
+            <button ng-click="$ctrl.removeTack(tack._id)">X</button>
+        </li>
+    </ul>
 </div>
 
 
