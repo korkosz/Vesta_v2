@@ -1,5 +1,9 @@
 <div class="vst-view-container vst-idea-container">
 
+    <!-- Active Voting -->
+    <section ng-if="$ctrl.pendingVoting">
+        <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>
+    </section>
     <!-- Idea description -->
     <section class="vst-view-content">
         <section class="vst-view-desc">
@@ -47,19 +51,19 @@
                 <div class="vst-btn-group vst-btn-group-menu">
 
                     <!-- Reopen Idea -->
-                    <status-modal icon="repeat"                         
-                        action="$ctrl.setStatus(-1, msg, vote)" 
+                    <status-modal icon="repeat"
+                        action="$ctrl.setStatus(-1, msg, vote)"
                         hide-reason="true" hide-voting="true"
                         hide="!$ctrl.controlVisibility(-1)">
                     </status-modal>
 
                     <!-- Reject Idea -->
-                    <status-modal status="4" icon="remove" 
+                    <status-modal status="4" icon="remove"
                         action="$ctrl.setStatus(4, msg, vote)"
                         idea-voting="$ctrl.idea.voting"
                         hide="!$ctrl.controlVisibility(4)">
                     </status-modal>
-                    
+
                     <!-- Defer Idea -->
                     <status-modal status="5" icon="hourglass"
                         action="$ctrl.setStatus(5, msg, vote)"
@@ -69,7 +73,7 @@
 
                     <!-- Close Idea -->
                     <status-modal status="3" hide-reason="true"
-                        action="$ctrl.setStatus(3, msg, vote)" 
+                        action="$ctrl.setStatus(3, msg, vote)"
                         idea-voting="$ctrl.idea.voting"
                         hide="!$ctrl.controlVisibility(3)">
                     </status-modal>
@@ -87,18 +91,18 @@
                     </first-related-modal>
 
                     <!-- Create New Task -->
-                    <new-task title="Create task" parent-module="{{$ctrl.idea.module}}" parent-project="{{$ctrl.idea.project}}" 
+                    <new-task title="Create task" parent-module="{{$ctrl.idea.module}}" parent-project="{{$ctrl.idea.project}}"
                         parent-title="{{$ctrl.idea.title}}"
-                        parent-sprint="$ctrl.idea.sprint" 
-                        idea-id="{{$ctrl.idea._id}}" 
+                        parent-sprint="$ctrl.idea.sprint"
+                        idea-id="{{$ctrl.idea._id}}"
                         alt-id="0" hide="!$ctrl.controlVisibility(11)">
                     </new-task>
 
                     <!-- Create New Idea -->
-                    <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}" 
-                        project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}" 
+                    <new-idea title="Sub-Idea" module="{{$ctrl.idea.module}}"
+                        project="{{$ctrl.idea.project}}" idea-id="{{$ctrl.idea._id}}"
                         idea-title="{{$ctrl.idea.title}}"
-                        alt-id="0" sprint="$ctrl.idea.sprint" 
+                        alt-id="0" sprint="$ctrl.idea.sprint"
                         reviewers="$ctrl.idea.reviewers">
                     </new-idea>
 
@@ -129,46 +133,46 @@
                                 </div>
                                 <div class="modal-body">
                                     <span ng-if="$ctrl.controlVisibility(1, true)">
-                                        <input type="radio" name="request" 
+                                        <input type="radio" name="request"
                                                ng-model="$ctrl.request" value="1"
-                                               ng-disabled="$ctrl.alreadyRequestedThis(1)"> 
+                                               ng-disabled="$ctrl.alreadyRequestedThis(1)">
                                             Create First Task <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(2, true)">
-                                        <input type="radio" name="request" 
+                                        <input type="radio" name="request"
                                                ng-model="$ctrl.request" value="2"
-                                               ng-disabled="$ctrl.alreadyRequestedThis(2)"> 
+                                               ng-disabled="$ctrl.alreadyRequestedThis(2)">
                                             Start Discussion <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(3, true)">
-                                        <input type="radio" name="request" 
+                                        <input type="radio" name="request"
                                                ng-model="$ctrl.request" value="3"
-                                               ng-disabled="$ctrl.alreadyRequestedThis(3)"> 
+                                               ng-disabled="$ctrl.alreadyRequestedThis(3)">
                                             Close Idea <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(4, true)">
-                                        <input type="radio" name="request" 
+                                        <input type="radio" name="request"
                                                ng-model="$ctrl.request" value="4"
-                                               ng-disabled="$ctrl.alreadyRequestedThis(4)"> 
+                                               ng-disabled="$ctrl.alreadyRequestedThis(4)">
                                             Reject Idea <br>
                                     </span>
                                     <span ng-if="$ctrl.controlVisibility(5, true)">
-                                        <input type="radio" name="request" 
+                                        <input type="radio" name="request"
                                                ng-model="$ctrl.request" value="5"
-                                               ng-disabled="$ctrl.alreadyRequestedThis(5)"> 
-                                            Defer Idea <br>  
+                                               ng-disabled="$ctrl.alreadyRequestedThis(5)">
+                                            Defer Idea <br>
                                     </span>
-                               
+
                                     <div ng-if="$ctrl.request">
                                         <label>Explanation</label>
-                                        <textarea cols="30" rows="10" 
+                                        <textarea cols="30" rows="10"
                                                   ng-model="$ctrl.requestExplanation">
                                         </textarea>
-                                    </div>                                                 
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" 
-                                            data-dismiss="modal" 
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal"
                                             ng-click="$ctrl.request = null;
                                                 $ctrl.requestExplanation = null;">
                                         Close
@@ -243,10 +247,6 @@
         </ul>
     </section>
 
-    <!-- Active Voting -->
-    <section ng-if="$ctrl.pendingVoting">
-        <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>
-    </section>
 
     <!-- Related List -->
     <div class="vst-table-wrapper">
