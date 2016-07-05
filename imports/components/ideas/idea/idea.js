@@ -242,8 +242,9 @@ class IdeaCtrl {
                     status === 8; //Discussed
             case 3: //***Close***
                 return status === 7;//Implemented
-            case 6: //***Reopen*** 
-                return status === 5;//Deferred
+            case -1: //***Reopen*** 
+                return status === 5
+                    || status === 4;//Deferred || Rejected
             case 1: //***Task First***
                 return (status === 2 || //Working
                     status === 6 || //Consider
@@ -287,10 +288,10 @@ class IdeaCtrl {
         this.requestExplanation = null;
     }
 
-    setStatus(_status, msg) {
+    setStatus(_status, msg, vote) {
         //For statuses status and votingType are the same
-        if (_status && !this.idea.voting) {
-            this.startVoting(_status);
+        if (vote && !this.idea.voting) {
+            this.startVoting(vote);
         } else {
             Meteor.call('ideas.setStatus', _status,
                 this.idea._id, msg, (err, res) => {

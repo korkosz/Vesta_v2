@@ -47,32 +47,32 @@
                 <div class="vst-btn-group vst-btn-group-menu">
 
                     <!-- Reopen Idea -->
-                    <reason-modal status="6" icon="repeat"                         
-                        action="$ctrl.setStatus(6)" hide-reason="true"
-                        idea-voting="$ctrl.idea.voting"
-                        hide="!$ctrl.controlVisibility(6)">
-                    </reason-modal>
+                    <status-modal icon="repeat"                         
+                        action="$ctrl.setStatus(-1, msg, vote)" 
+                        hide-reason="true" hide-voting="true"
+                        hide="!$ctrl.controlVisibility(-1)">
+                    </status-modal>
 
                     <!-- Reject Idea -->
-                    <reason-modal status="4" icon="remove" 
-                        action="$ctrl.setStatus(4, msg)"
+                    <status-modal status="4" icon="remove" 
+                        action="$ctrl.setStatus(4, msg, vote)"
                         idea-voting="$ctrl.idea.voting"
                         hide="!$ctrl.controlVisibility(4)">
-                    </reason-modal>
+                    </status-modal>
                     
                     <!-- Defer Idea -->
-                    <reason-modal status="5" icon="hourglass"
-                        action="$ctrl.setStatus(5, msg)"
+                    <status-modal status="5" icon="hourglass"
+                        action="$ctrl.setStatus(5, msg, vote)"
                         idea-voting="$ctrl.idea.voting"
                         hide="!$ctrl.controlVisibility(5)">
-                    </reason-modal>
+                    </status-modal>
 
                     <!-- Close Idea -->
-                    <reason-modal status="3" hide-reason="true"
-                        action="$ctrl.setStatus(3)" 
+                    <status-modal status="3" hide-reason="true"
+                        action="$ctrl.setStatus(3, msg, vote)" 
                         idea-voting="$ctrl.idea.voting"
                         hide="!$ctrl.controlVisibility(3)">
-                    </reason-modal>
+                    </status-modal>
                 </div>
 
                 <div class="vst-btn-group vst-btn-group-create">

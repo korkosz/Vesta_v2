@@ -21,7 +21,7 @@
             </div>
 
             <div class="modal-footer">
-                <div class="checkbox">
+                <div class="checkbox" ng-hide="$ctrl.hideVoting">
                     <label>
                         <input type="checkbox"
                         ng-model="$ctrl.votingCb"
@@ -30,7 +30,7 @@
                         Start voting for this decission
                     </label>
                 </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason = null">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reason=null; $ctrl.votingCb=null">
                     Cancel
                  </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"

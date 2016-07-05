@@ -41,14 +41,16 @@ function controller($scope, $timeout) {
     }
 
     this.action = function () {
-        $('#' + this.entity + '-reasonModal').modal('hide');
-        if (this.votingCb === this.entityVoteId()) {
-            this.vote({ votingType: this.votingCb });
+        var me = this;
+
+        $('#' + me.entity + '-reasonModal').modal('hide');
+        if (me.votingCb === me.entityVoteId()) {
+            me.vote({ votingType: me.votingCb });
         } else {
             $timeout(() => {
-                var btn = $('#0' + this.entity + 'Btn');
+                var btn = $('#0' + me.entity + 'Btn');
                 angular.element(btn).triggerHandler('click');
-            }, 0);
+            }, 1000);
         }
     }
 }

@@ -89,6 +89,7 @@ class NewAskCtrl {
     openModal() {
         this.init();
         this.setPristine();
+        $('#' + this.altId + 'newAskModal').modal('show');
     }
 }
 
