@@ -1,6 +1,7 @@
 <div style="cursor: pointer; position:relative;" class="list-group notif-wrapper">
     <div class="list-group-item" ng-click="$ctrl.toggleList('I')">
-        Ideas: <span class="badge">{{$ctrl.ideasUnseenCounter}}</span>
+        Ideas: <span class="badge" ng-if="$ctrl.ideasUnseenCounter > 0">
+            {{$ctrl.ideasUnseenCounter}}</span>
     </div>
     <div ng-if="$ctrl.ideasListVisible === true" class="list-group notif-box">
         <div class="list-group-item" ng-repeat="notification in $ctrl.notsIdeas | limitTo:
@@ -16,7 +17,8 @@
 
 <div style="cursor: pointer; position: relative;" class="list-group notif-wrapper">
     <div class="list-group-item" ng-click="$ctrl.toggleList('T')">
-        Tasks: <span class="badge">{{$ctrl.tasksUnseenCounter}}</span>
+        Tasks: <span class="badge" ng-if="$ctrl.tasksUnseenCounter > 0">
+            {{$ctrl.tasksUnseenCounter}}</span>
     </div>
     <div ng-if="$ctrl.tasksListVisible === true" class="list-group notif-box">
         <div class="list-group-item" ng-repeat="notification in $ctrl.notsTasks | limitTo:
@@ -33,7 +35,8 @@
 
 <div style="cursor: pointer;  position: relative;" class="list-group notif-wrapper">
     <div class="list-group-item" ng-click="$ctrl.toggleList('A')">
-        Asks: <span class="badge">{{$ctrl.asksUnseenCounter}}</span>
+        Asks: <span class="badge" ng-if="$ctrl.asksUnseenCounter > 0">
+            {{$ctrl.asksUnseenCounter}}</span>
     </div>
     <div ng-if="$ctrl.asksListVisible === true" class="list-group notif-box">
         <div class="list-group-item" ng-repeat="notification in $ctrl.notsAsks | limitTo:
