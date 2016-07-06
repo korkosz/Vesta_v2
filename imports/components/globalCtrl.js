@@ -12,7 +12,7 @@ function globalCtrl($scope) {
     $scope.viewModel(this);
 
     this.moment = moment;
-    
+
     this.currentUser = Meteor.user();
     this.userLogIn = function () {
         return !!Meteor.userId();
@@ -57,6 +57,7 @@ function globalCtrl($scope) {
             project: this.post.projectId,
             content: this.post.content
         });
+        this.post = null;
     };
 
     this.assignedToMeFilter = { assigned: Meteor.userId(), status: { $in: [1, 2] } };
