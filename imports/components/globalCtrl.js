@@ -35,6 +35,13 @@ function globalCtrl($scope) {
         }
     });
 
+
+    this.addPost = function (valid) {
+        if(!valid) return;
+
+        
+    };
+
     this.assignedToMeFilter = { assigned: Meteor.userId(), status: { $in: [1, 2] } };
     this.activeTasksFilter = { status: { $in: [1, 2] } };
     this.ideasFilter = { status: { $in: [1, 6, 2, 7, 8] } };

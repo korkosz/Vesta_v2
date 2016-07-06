@@ -17,12 +17,20 @@
         </ul>  
 
         <!-- 2) ADD POST -->
-        <textarea cols="30" rows="10" placeholder="Type post here..." class="form-control" style="resize: none"></textarea>
-        <label for="">Project</label>
-        <select ng-options="project._id as project.name for project in globalVm.projects track by project._id" ng-model="globalVm.post.projectId" class="form-control">
-            <option value="">Pick Project...</option>
-        </select>
-        <button class="btn btn-default">Add Post</button>
+        <form novalidate name="newPost">
+            <textarea cols="30" rows="10" placeholder="Type post here..." 
+                      class="form-control" style="resize: none" required 
+                      ng-model="globalVm.post.content">
+            </textarea>
+            <label for="">Project</label>
+            <select ng-options="project._id as project.name for project in globalVm.projects track by project._id" ng-model="globalVm.post.projectId" class="form-control" required>
+                <option value="">Pick Project...</option>
+            </select>
+            <button class="btn btn-default" ng-click="globalVm.addPost(newPost.$valid)">
+                Add Post
+            </button>
+        </form>
+
     </span><!-- end dashboard -->
 
 
