@@ -34,23 +34,28 @@
         <!-- 3) POSTS LIST -->
         <div style="width: 60%;
                     margin: auto;
-                    border: 1px dotted blue;
-                    padding: 16px;">
-            <div ng-repeat="post in globalVm.posts" style="position: relative;">
+                    border: 1px dotted blue;">
+            <div ng-repeat="post in globalVm.posts" style="position: relative;border-bottom: 1px solid; padding: 16px;">
                 <span class="project-badge ng-binding" data-toggle="tooltip" 
                       title="Vesta">
                     {{post.projectPrefix()}}
                 </span>
                 {{post.content}} 
+                <button class="btn btn-default" 
+                        style="position: absolute; 
+                               right: 0px; 
+                               bottom: 0px;">
+                    REPLY
+                </button>
                 <span style="position: absolute;
-                             right: 190px;
-                             bottom: 1px;
+                             right: 180px;
+                             top: 1px;
                              color: grey;">
                     {{post.creator()}}
                 </span>
                 <span style="position: absolute;
-                             right: 50px;
-                             bottom: 1px;
+                             right: 40px;
+                             top: 1px;
                              color: grey;">
                     {{globalVm.moment(globalVm.moment.utc(post.creationDate).toDate()).fromNow()}}
                 </span>
