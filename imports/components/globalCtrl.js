@@ -1,5 +1,4 @@
-import ModulesCollection from '/imports/api/module/module';
-import ProjectsCollection from '/imports/api/project/project';
+import Projects from '/imports/api/project/project';
 import Bookmarks from '/imports/api/metadata/bookmark';
 
 import './bookmarks/bookmark';
@@ -16,11 +15,21 @@ function globalCtrl($scope) {
     };
 
     this.helpers({
+        projects() { //projects to which user is assigned
+            var user = Meteor.user();
+            if (user && user.profile.projects) {
+                return Projects.find({
+                    _id: { $in: user.profile.projects }
+                });
+            }
+        },
         tacks() {
-            //this.getReactively('project');
-            if (this.project) {
+            this.getReactively('projects');
+            if (this.projects && this.projects.length) {
                 return Tacks.find({
-                    project: this.project._id
+                    project: {
+                        $in: this.projects.map((p) => p._id)
+                    }
                 });
             }
         }

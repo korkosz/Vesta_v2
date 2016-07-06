@@ -5,8 +5,11 @@
         <ul class="list-group" style="background-color: white;
                 border: 1px solid black;
                 margin: 4px;
-                padding: 10px;" ng-if="$ctrl.tacks.length > 0">
-            <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
+                padding: 10px;" ng-if="globalVm.tacks.length > 0">
+            <li class="list-group-item" ng-repeat="tack in globalVm.tacks" style="border-bottom: 1px dashed grey;">
+                <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
+                    {{tack.projectPrefix}}
+                </span>
                 {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
             </li>
         </ul>  
