@@ -1,7 +1,5 @@
-import '/imports/pages/home.html';
-import '/imports/pages/idea/idea_view.html';
-import '/imports/pages/task/task_view.html';
-import '/imports/pages/ask/ask.html';
+import '/imports/pages/dashboard.html';
+import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
 import '/imports/pages/bookmark/bookmark.html'
 
@@ -9,7 +7,10 @@ angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
 			when('/', {
-				templateUrl: 'imports/pages/home.html'
+				templateUrl: 'imports/pages/dashboard.html'
+			}).
+			when('/temp', {
+				templateUrl: 'imports/pages/temp.html'
 			}).
 			when('/:id', {
 				redirectTo: function (params) {
@@ -20,10 +21,10 @@ angular.module('simple-todos')
 					var letter = id[idx];
 					var _id = id.substring(0, idx);
 					_id = _id.split("").reverse().join("");
-					
-					if(!Number.isSafeInteger(Number.parseInt(_id)))
-						return '/';	
-						
+
+					if (!Number.isSafeInteger(Number.parseInt(_id)))
+						return '/';
+
 					switch (letter) {
 						case 'A':
 							return '/ask/' + _id;
@@ -37,13 +38,13 @@ angular.module('simple-todos')
 				}
 			}).
             when('/idea/:number', {
-				templateUrl: 'imports/pages/idea/idea_view.html'
+				template: '<idea></idea>'
 			}).
             when('/task/:number', {
-				templateUrl: 'imports/pages/task/task_view.html'
+				template: '<task></task>'
 			}).
 			when('/ask/:number', {
-				templateUrl: 'imports/pages/ask/ask.html'
+				template: '<ask></ask>'
 			}).
 			when('/project/:name', {
 				templateUrl: 'imports/pages/project/project.html'

@@ -1,10 +1,25 @@
 <div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
+    <!--*** DASHBOARD *** -->
     <span ng-switch-when="true">
-        <task-list title="Tasks Assigned To Me" filter="globalVm.assignedToMeFilter"></task-list>
-        <idea-list filter="globalVm.ideasFilter"></idea-list>
-        <ask-list filter="globalVm.activeAsksFilter"></ask-list>
-        <task-list filter="globalVm.activeTasksFilter"></task-list>
-    </span>
+        
+    </span><!-- end dashboard -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- WSZYSTKO PONIZEJ TO STRONE LOGOWANIA 
+         DOCELOWO BEDZIE WYPIERDOLONA Z TEGO HTML'A
+         DLATEGO IGNORUJ -->
     <span ng-switch-when="false">
         Maciek wiesniaku zaloguj sie
             <br />
