@@ -1,4 +1,6 @@
 import Projects from '/imports/api/project/project';
+import Posts from '/imports/api/project/posts';
+import Tacks from '/imports/api/project/tacks';
 import Bookmarks from '/imports/api/metadata/bookmark';
 
 import './bookmarks/bookmark';
@@ -32,14 +34,27 @@ function globalCtrl($scope) {
                     }
                 });
             }
+        },
+        posts() {
+            this.getReactively('projects');
+            if (this.projects && this.projects.length) {
+                return Posts.find({
+                    project: {
+                        $in: this.projects.map((p) => p._id)
+                    }
+                });
+            }
         }
     });
 
 
     this.addPost = function (valid) {
-        if(!valid) return;
+        if (!valid) return;
 
-        
+        Posts.insert({
+            project: this.post.projectId,
+            content: this.post.content
+        });
     };
 
     this.assignedToMeFilter = { assigned: Meteor.userId(), status: { $in: [1, 2] } };
