@@ -46,9 +46,15 @@ function globalCtrl($scope) {
                     }
                 });
             }
+        },
+        mainPosts() {
+            this.getReactively('posts');
+            if (this.posts && this.posts.length > 0) {
+                return this.posts.filter(
+                    (post) => !post.parentId)
+            }
         }
     });
-
 
     this.addPost = function (valid) {
         if (!valid) return;
@@ -58,6 +64,25 @@ function globalCtrl($scope) {
             content: this.post.content
         });
         this.post = null;
+    };
+
+    this.addSubPost = function (post, valid) {
+        if (!valid) return;
+
+        Posts.insert({
+            project: post.project,
+            parentId: post._id,
+            content: post.subPost
+        });
+        post.reply = false;
+        post.subPost = null;
+    };
+
+    this.getSubPosts = function (postId) {
+        if (this.posts && this.posts.length > 0) {
+            return this.posts.filter(
+                (post) => post.parentId === postId);
+        }
     };
 
     this.assignedToMeFilter = { assigned: Meteor.userId(), status: { $in: [1, 2] } };
