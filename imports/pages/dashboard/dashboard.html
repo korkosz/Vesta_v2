@@ -1,5 +1,7 @@
 <div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
     <!--*** DASHBOARD *** -->
+
+    <!-- 1) PINNED -->
     <span ng-switch-when="true">
         PINNED
         <ul class="list-group" style="background-color: white;
@@ -13,6 +15,14 @@
                 {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
             </li>
         </ul>  
+
+        <!-- 2) ADD POST -->
+        <textarea cols="30" rows="10" placeholder="Type post here..." class="form-control" style="resize: none"></textarea>
+        <label for="">Project</label>
+        <select ng-options="project._id as project.name for project in globalVm.projects track by project._id" ng-model="globalVm.post.projectId" class="form-control">
+            <option value="">Pick Project...</option>
+        </select>
+        <button class="btn btn-default">Add Post</button>
     </span><!-- end dashboard -->
 
 
