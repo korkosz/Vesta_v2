@@ -37,7 +37,7 @@ function projectCtrl($scope, $routeParams) {
     this.addModule = function () {
         Modules.insert({
             name: this.moduleName,
-            project: this.project._id            
+            project: this.project._id
         });
         this.moduleName = '';
     };
@@ -52,8 +52,26 @@ function projectCtrl($scope, $routeParams) {
         this.newTack = null;
     };
 
-    this.removeTack = function(tackId) {
+    this.removeTack = function (tackId) {
         Tacks.remove(tackId);
     };
+
+    this.userNotYetInProject = function () {
+        if (this.project && Meteor.user()) {
+            if (!Meteor.user().profile.projects) return true;
+
+            return !Meteor.user().profile
+                .projects.some(
+                (p) => p === this.project._id);
+        }
+    };
+
+    this.assignUserToProject = function () {
+        Meteor.users.update(Meteor.userId(), {
+            $push: {
+                'profile.projects': this.project._id
+            }
+        });
+    }
 }
 projectCtrl.$inject = ['$scope', '$routeParams'];

@@ -1,4 +1,9 @@
 <div class="vst-view-container vst-idea-container" ng-controller="projectCtrl as $ctrl">
+    <button class="btn btn-warning" ng-click="$ctrl.assignUserToProject()" 
+        ng-if="$ctrl.userNotYetInProject()">
+        ASSIGN ME TO THIS PROJECT !!!
+    </button>
+    <br>
     <div>Project: {{$ctrl.project.name}}</div>
     <div>Current Sprint: {{$ctrl.project.currentSprint}} </div>
     <div>Prefix: {{$ctrl.project.prefix}}</div>

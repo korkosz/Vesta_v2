@@ -13,9 +13,11 @@ import Notify from '/imports/api/notification/notification';
 import ListsSchemas from '/imports/api/metadata/listMetadata';
 import Bookmarks from '/imports/api/metadata/bookmark';
 
-Meteor.publish(null, function () {
-    return Meteor.users.find();
-});
+// nie pamietam po co to dalem ....
+//
+// Meteor.publish(null, function () {
+//     return Meteor.users.find();
+// });
 
 Meteor.startup(() => {
     //	ProjectsCollection.remove({});
@@ -28,6 +30,15 @@ Meteor.startup(() => {
             sprints: [1, 2, 3, 4, 5, 6]
         });
     }
+
+
+    Meteor.users.allow({
+        update() {
+            return true;
+        }
+    });
+
+
     ProjectsCollection.update({ "name": "Vesta" }, {
         $set: {
             currentSprint: 4,
@@ -69,14 +80,14 @@ Meteor.startup(() => {
                 "_id": "CBJNeBr7WrnA8FmqH",
                 "metadataName": "IdeaStatuses",
                 "value": {
-                    1: {name: "New"},
-                    2: {name: "Working", verb: 'Working'},
-                    3: {name: "Closed", verb: 'Close'},
-                    4: {name: "Rejected", verb: 'Reject'},
-                    5: {name: "Deferred", verb: 'Defer'},
-                    6: {name: "Consider", verb: 'Consider'},
-                    7: {name: "Implemented"},
-                    8: {name: "Discussed"}
+                    1: { name: "New" },
+                    2: { name: "Working", verb: 'Working' },
+                    3: { name: "Closed", verb: 'Close' },
+                    4: { name: "Rejected", verb: 'Reject' },
+                    5: { name: "Deferred", verb: 'Defer' },
+                    6: { name: "Consider", verb: 'Consider' },
+                    7: { name: "Implemented" },
+                    8: { name: "Discussed" }
                 }
             }
 

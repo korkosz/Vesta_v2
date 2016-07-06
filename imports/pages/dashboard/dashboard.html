@@ -1,7 +1,15 @@
 <div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
     <!--*** DASHBOARD *** -->
     <span ng-switch-when="true">
-        
+        PINNED
+        <ul class="list-group" style="background-color: white;
+                border: 1px solid black;
+                margin: 4px;
+                padding: 10px;" ng-if="$ctrl.tacks.length > 0">
+            <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
+                {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
+            </li>
+        </ul>  
     </span><!-- end dashboard -->
 
 
