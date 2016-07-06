@@ -85,11 +85,6 @@ function globalCtrl($scope) {
         }
     };
 
-    this.assignedToMeFilter = { assigned: Meteor.userId(), status: { $in: [1, 2] } };
-    this.activeTasksFilter = { status: { $in: [1, 2] } };
-    this.ideasFilter = { status: { $in: [1, 6, 2, 7, 8] } };
-    this.activeAsksFilter = { status: { $in: [1, 2] } };
-
     this.createAccount = function () {
         Accounts.createUser({
             email: this.email,

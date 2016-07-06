@@ -1,4 +1,5 @@
-<task-list title="Tasks Assigned To Me" filter="globalVm.assignedToMeFilter"></task-list>
-<idea-list filter="globalVm.ideasFilter"></idea-list>
-<ask-list filter="globalVm.activeAsksFilter"></ask-list>
-<task-list filter="globalVm.activeTasksFilter"></task-list>
+<task-list title="Tasks Assigned To Me" 
+    filter="{ assigned: Meteor.userId(), status: { $in: [1, 2] } }"></task-list>
+<idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>
+<ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>
+<task-list filter="{ status: { $in: [1, 2] } }"></task-list>
