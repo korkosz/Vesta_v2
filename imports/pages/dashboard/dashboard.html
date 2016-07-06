@@ -35,9 +35,8 @@
         <div style="width: 60%;
                     margin: auto;
                     border: 1px dotted blue;
-                    padding: 16px;
-                    position: relative;">
-            <div ng-repeat="post in globalVm.posts">
+                    padding: 16px;">
+            <div ng-repeat="post in globalVm.posts" style="position: relative;">
                 <span class="project-badge ng-binding" data-toggle="tooltip" 
                       title="Vesta">
                     {{post.projectPrefix()}}
