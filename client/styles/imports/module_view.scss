@@ -7,6 +7,9 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
     width: 1170px;
     margin: auto;
     margin-top: 100px;
+    @media (max-width: 1400px){
+        width: 1000px;
+    }
 }
 
 .#{$VESTA}-view-content{
@@ -45,6 +48,9 @@ section.#{$VESTA}-view-desc{
             flex: 1;
             color: #333;
             margin-left: 100px;
+            @media (max-width: 1400px){
+                margin-left: 50px;
+            }
         }
     }
     .buttons{
@@ -62,6 +68,9 @@ section.#{$VESTA}-view-desc{
     }
     .#{$VESTA}-btn-group-menu{
         margin-left: 135px;
+        @media (max-width: 1400px){
+            margin-left: 85px;
+        }
     }
     .#{$VESTA}-btn-group-create{
         margin-right: 80px;
@@ -75,6 +84,9 @@ section.#{$VESTA}-view-desc{
     position: absolute;
     left: 113px;
     top: 53px;
+    @media (max-width: 1400px){
+        left: 63px;
+    }
     h3{
         display: inline-block;
         position: relative;
@@ -107,10 +119,17 @@ section.#{$VESTA}-view-desc{
 }
 
 // Number
-.#{$VESTA}-view-number{
+.#{$VESTA}-item-number{
+    background: lighten($vesta-color, 27%);
+    padding: 4px 9px;
+    color: $vesta-color;
+    font-weight: 700;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 7px;
     position: absolute;
-    top: 28px;
-    right: 35px;
+    right: 30px;
+    top: 48px;
 }
 
 .#{$VESTA}-module-id{
@@ -146,6 +165,9 @@ section.#{$VESTA}-view-desc{
     .btn-group-desc{
         flex-basis: 100px;
         padding-right: 11px;
+        @media (max-width: 1400px){
+            flex-basis: 50px;
+        }
         button{
             float: right;
             border: none;
@@ -214,6 +236,9 @@ section.#{$VESTA}-view-desc{
     padding: 30px;
     border: 10px solid #fff;
     border-left: none;
+    @media (max-width: 1400px){
+        flex-basis: 200px;
+    }
     .reviewers-box{
         display: -moz-box;
         display: -ms-flexbox;
