@@ -240,8 +240,14 @@ section.idea-reviews{
 
     .new-review-content-box{
         margin-left: 100px;
+        @media (max-width: 1400px){
+            margin-left: 50px;
+        }
         .desc-wrapper{
             padding-right: 50px;
+            @media (max-width: 1400px){
+                padding-right: 0;
+            }
         }
         button.#{$VESTA}-btn{
             display: block;
