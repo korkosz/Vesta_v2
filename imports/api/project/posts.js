@@ -1,5 +1,7 @@
 import {Mongo} from 'meteor/mongo';
 
+import Projects from '/imports/api/project/project';
+
 export default Posts = new Mongo.Collection('Projects.Posts');
 
 Posts.schema = new SimpleSchema({
@@ -8,6 +10,10 @@ Posts.schema = new SimpleSchema({
     },
     content: {
         type: String
+    },
+    parentId: {
+        type: String,
+        optional: true
     },
     creationDate: {
         type: Number,
@@ -32,9 +38,33 @@ Posts.schema = new SimpleSchema({
     updatedAt: {
         type: Date,
         autoValue: function () {
-            return new Date();
+            if (this.isUpdate) {
+                return (new Date()).getTime();
+            } else {
+                this.unset();
+            }
         },
         optional: true,
         label: 'Updated At'
     }
 });
+
+Posts.helpers({
+    creator() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) return user.profile.fullname;
+    },
+    creatorShort() {
+        var user = Meteor.users.findOne(this.createdBy);
+        if (user) {
+            return user.profile.firstname[0] + '.' + ' ' +
+                user.profile.lastname;
+        }
+    },
+    projectPrefix() {
+        var project = Projects.findOne(this.project);
+        if (project) return project.prefix;
+    }
+});
+
+Posts.attachSchema(Posts.schema);

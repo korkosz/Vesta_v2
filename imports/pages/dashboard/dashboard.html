@@ -1,5 +1,5 @@
 <div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
-    <!--*** DASHBOARD *** -->
+    
 
     <!-- 1) PINNED -->
     <span ng-switch-when="true">
@@ -31,8 +31,34 @@
             </button>
         </form>
 
-    </span><!-- end dashboard -->
-
+        <!-- 3) POSTS LIST -->
+        <div style="width: 60%;
+                    margin: auto;
+                    border: 1px dotted blue;
+                    padding: 16px;
+                    position: relative;">
+            <div ng-repeat="post in globalVm.posts">
+                <span class="project-badge ng-binding" data-toggle="tooltip" 
+                      title="Vesta">
+                    {{post.projectPrefix()}}
+                </span>
+                {{post.content}} 
+                <span style="position: absolute;
+                             right: 150px;
+                             bottom: 1px;
+                             color: grey;">
+                    {{post.creator()}}
+                </span>
+                <span style="position: absolute;
+                             right: 50px;
+                             bottom: 1px;
+                             color: grey;">
+                    {{globalVm.moment(globalVm.moment.utc(post.creationDate).toDate()).fromNow()}}
+                </span>
+            </div>
+        </div>
+    </span>
+    <!--*** DASHBOARD END *** -->
 
 
 

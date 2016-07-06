@@ -11,6 +11,8 @@ export default angular.module('global', [])
 function globalCtrl($scope) {
     $scope.viewModel(this);
 
+    this.moment = moment;
+    
     this.currentUser = Meteor.user();
     this.userLogIn = function () {
         return !!Meteor.userId();

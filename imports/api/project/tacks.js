@@ -37,3 +37,5 @@ Tacks.schema = new SimpleSchema({
         }
     },
 });
+
+Tacks.attachSchema(Tacks.schema);
