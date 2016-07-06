@@ -1,4 +1,4 @@
-import '/imports/pages/dashboard.html';
+import '/imports/pages/dashboard/dashboard.html';
 import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
 import '/imports/pages/bookmark/bookmark.html'
@@ -7,7 +7,7 @@ angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
 			when('/', {
-				templateUrl: 'imports/pages/dashboard.html'
+				templateUrl: 'imports/pages/dashboard/dashboard.html'
 			}).
 			when('/temp', {
 				templateUrl: 'imports/pages/temp.html'
