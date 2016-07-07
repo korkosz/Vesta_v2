@@ -1,5 +1,7 @@
 <task-list title="Tasks Assigned To Me" 
-    filter="{ assigned: Meteor.userId(), status: { $in: [1, 2] } }"></task-list>
+    filter="assignedToMeFilter"></task-list>
 <idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>
 <ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>
 <task-list filter="{ status: { $in: [1, 2] } }"></task-list>
+
+{{$ctrl.aaa}}

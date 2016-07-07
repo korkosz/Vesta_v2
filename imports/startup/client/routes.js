@@ -10,7 +10,8 @@ angular.module('simple-todos')
 				templateUrl: 'imports/pages/dashboard/dashboard.html'
 			}).
 			when('/temp', {
-				templateUrl: 'imports/pages/temp.html'
+				templateUrl: 'imports/pages/temp.html',
+				controller: 'globalCtrl'
 			}).
 			when('/:id', {
 				redirectTo: function (params) {

@@ -18,6 +18,11 @@ function globalCtrl($scope) {
         return !!Meteor.userId();
     };
 
+    //TEMP
+    $scope.assignedToMeFilter = {
+        assigned: Meteor.userId(), status: { $in: [1, 2] }
+    };
+
     this.helpers({
         projects() { //projects to which user is assigned
             var user = Meteor.user();
