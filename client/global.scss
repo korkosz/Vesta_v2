@@ -129,6 +129,7 @@ bookmarks{
 	margin-left: 2px;
 	margin-right: 2px;
 }
+
 .#{$VESTA}-btn-default{
 	color: #bbb !important;
 	border: 1px solid;
@@ -155,13 +156,24 @@ bookmarks{
 		background: transparent;
 	}
 }
+
 .#{$VESTA}-btn-primary{
 	color: #fff;
 	background: #4aa3df;
 }
+
+.#{$VESTA}-btn-secondary{
+	border: none;
+    border-radius: 4px;
+    width: 25px;
+    height: 25px;
+    background: #eee;
+}
+
 .#{$VESTA}-btn-danger{
 	background: $red;
 }
+
 .#{$VESTA}-btn-cancel{
 	padding: 3px 20px;
 	background: transparent;

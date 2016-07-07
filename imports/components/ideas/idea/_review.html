@@ -49,33 +49,37 @@
         <div class="reviews-added-wrapper">
             <div class="review-box"
                  ng-repeat="review in $ctrl.reviews track by $index">
-                <div class="btn-group-desc">
-                    <!-- EDIT -->
-                    <button  ng-if="$ctrl.currentUserIsReviewOwner(review) &&
-                                    !review.edited && $ctrl.idea.status === 6"
-                                ng-click="review.edited = true">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <!-- SAVE -->
-                    <button ng-if="$ctrl.ownerAndEdit(review) && $ctrl.idea.status === 6"
-                            ng-click="$ctrl.updateReview(review)">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                    </button>
-                </div>
+
                 <div class="review-content-box">
                     <header>
                         <h3 class="reviewer-name">{{review.creator()}}
-                            <!-- REMOVE -->
-                            <button class="vst-btn vst-btn-cancel"
-                                    ng-click="$ctrl.removeReview(review._id)"
-                                    ng-if="$ctrl.currentUserIsReviewOwner(review) && $ctrl.idea.status === 6">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                            <img src="/images/avatar.jpg" alt="Avatar" class="vst-user-avatar"/>
                         </h3>
                         <p class="review-addTime">
                             {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
                         </p>
                     </header>
+                    <div class="btn-group-review">
+                        <!-- EDIT -->
+                        <button  ng-if="$ctrl.currentUserIsReviewOwner(review) &&
+                                        !review.edited && $ctrl.idea.status === 6"
+                                    ng-click="review.edited = true"
+                                    class="vst-btn-secondary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <!-- SAVE -->
+                        <button ng-if="$ctrl.ownerAndEdit(review) && $ctrl.idea.status === 6"
+                                ng-click="$ctrl.updateReview(review)"
+                                class="vst-btn-secondary">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                        </button>
+                        <!-- REMOVE -->
+                        <button class="vst-btn-secondary"
+                                ng-click="$ctrl.removeReview(review._id)"
+                                ng-if="$ctrl.currentUserIsReviewOwner(review) && $ctrl.idea.status === 6">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
                     <div class="prons-cons-wrapper">
                         <!-- PROS -->
                         <div class="prons-box">

@@ -170,11 +170,6 @@ section.#{$VESTA}-view-desc{
         }
         button{
             float: right;
-            border: none;
-            border-radius: 4px;
-            width: 25px;
-            height: 25px;
-            background: #eee;
             margin-top: 10px;
         }
     }
@@ -272,10 +267,7 @@ section.#{$VESTA}-view-desc{
     font-weight: 400;
     font-size: 19px;
     color: #999;
-    padding: 20px 0 5px 100px;
-    @media (max-width: 1400px){
-        padding-left: 50px;
-    }
+    padding: 20px 0 5px 0;
 }
 
 .#{$VESTA}-view-input{

@@ -77,6 +77,10 @@ section.idea-reviews{
     .reviews-wrapper{
         background: #fff;
         padding: 30px;
+        padding-left: 130px;
+        @media (max-width: 1400px){
+            padding-left: 80px;
+        }
     }
 
     .reviews-added-wrapper{
@@ -112,6 +116,7 @@ section.idea-reviews{
 
     // Review content box
     .review-content-box{
+        position: relative;
         flex: 1;
     }
 
@@ -133,13 +138,6 @@ section.idea-reviews{
         margin-left: 4px;
     }
 
-    .#{$VESTA}-btn-cancel{
-        position: absolute;
-        right: 0;
-        top: 0;
-        color: #D2D2D2;
-    }
-
     .prons-cons-wrapper{
         margin-top: 10px;
         .pill{
@@ -150,7 +148,7 @@ section.idea-reviews{
             font-weight: 700;
             padding: 0;
             padding-right: 30px;
-            margin: 8px 0 0 0;
+            margin: 8px 0 0 20px;
             button{
                 position: relative;
                 padding-left: 10px;
@@ -171,7 +169,7 @@ section.idea-reviews{
         }
         .prons-box{
             display: inline-block;
-            width: 280px;
+            width: 220px;
             vertical-align: top;
             .pill{
                 color: $green;
@@ -233,16 +231,25 @@ section.idea-reviews{
         }
     }
 
+    .#{$VESTA}-user-avatar{
+        position: absolute;
+        right: 100%;
+        margin-right: 15px;
+        top: 0;
+    }
+
+    .btn-group-review{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
     // New review content box
     .new-review-box{
         padding-bottom: 60px;
     }
 
     .new-review-content-box{
-        margin-left: 100px;
-        @media (max-width: 1400px){
-            margin-left: 50px;
-        }
         .desc-wrapper{
             padding-right: 50px;
             @media (max-width: 1400px){
