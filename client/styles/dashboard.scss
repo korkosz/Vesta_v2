@@ -1,0 +1,70 @@
+@import "{}/client/styles/imports/variables.scss";
+
+// Dashboard container
+.#{$VESTA}-dashboard-container{
+    width: 1070px;
+    margin: auto;
+    display: flex;
+    margin-top: 100px;
+}
+
+// Dashboard main section
+.#{$VESTA}-dashboard-main{
+    flex-: 0 1 auto;
+    margin-bottom: 150px;
+}
+
+##{$VESTA}-dashboard-addpost{
+    textarea{
+        height: 80px;
+    }
+    select{
+        width: 200px;
+        margin-bottom: 5px;
+    }
+    button{
+        float: right;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    &::after, &::before{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+.#{$VESTA}-dashboard-post-container{
+    margin-top: 50px;
+}
+
+.#{$VESTA}-dashboard-post{
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    padding-left: 100px;
+    margin-bottom: 30px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.05);
+    .project-badge{
+        position: absolute;
+        right: 100%;
+        margin-right: -13px;
+        top: -4px;
+        margin-top: -10px;
+        font-size: 16px;
+    }
+    .#{$VESTA}-btn{
+        margin-top: 10px;
+        float: right;
+    }
+    &::after, &::before{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+// Dashboard aside
+.#{$VESTA}-dashboard-aside{
+    flex: 0 0 350px;
+}

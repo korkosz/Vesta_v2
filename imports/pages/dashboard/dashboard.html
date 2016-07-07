@@ -1,9 +1,95 @@
-<div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()">
-    
+<div ng-controller="globalCtrl as globalVm" ng-switch="globalVm.userLogIn()"
+        class="vst-dashboard-container">
 
-    <!-- 1) PINNED -->
-    <span ng-switch-when="true">
-        PINNED
+    <!-- Dashboard main section -->
+    <section class="vst-dashboard-main">
+        <!-- 1) PINNED -->
+        <span ng-switch-when="true">
+            <!-- 2) ADD POST -->
+            <form novalidate name="newPost" id="vst-dashboard-addpost">
+                <select ng-options="project._id as project.name for project in globalVm.projects track by project._id" ng-model="globalVm.post.projectId" class="form-control" required>
+                    <option value="">Pick Project...</option>
+                </select>
+                <textarea cols="30" rows="10" placeholder="Type post here..."
+                          class="form-control" style="resize: none" required
+                          ng-model="globalVm.post.content">
+                </textarea>
+                <button class="vst-btn" ng-click="globalVm.addPost(newPost.$valid)">
+                    Add Post
+                </button>
+            </form>
+
+            <!-- 3) POSTS LIST -->
+            <div class="vst-dashboard-post-container">
+                <div ng-repeat="post in globalVm.mainPosts"
+                     class="vst-dashboard-post">
+                    <header>
+                        <h3 class="vst-comment-name">
+                            <img src="/images/avatar.jpg" alt="Avatar" class="vst-user-avatar"/>
+                            {{post.creator()}}
+                        </h3>
+                        <p class="vst-comment-addtime">
+                            {{globalVm.moment(globalVm.moment.utc(post.creationDate).toDate()).fromNow()}}
+                        </p>
+                    </header>
+
+                    <span class="project-badge ng-binding" data-toggle="tooltip"
+                          title="Vesta">
+                        {{post.projectPrefix()}}
+                    </span>
+                    <div class="vst-dashboard-post-desc">
+                        {{post.content}}
+                    </div>
+
+                    <button class="vst-btn" ng-click="post.reply = !post.reply">
+                        Comment
+                    </button>
+
+
+                    <!-- SUB POST NEW -->
+                    <div ng-if="post.reply">
+                         <form novalidate name="subpost">
+                            <fieldset class="fsStyle">
+                                <div class="desc-wrapper">
+                                    <textarea class="vst-view-input" cols="30" rows="10"
+                                              ng-model="post.subPost" required>
+                                    </textarea>
+                                    <button class="vst-btn vst-btn-primary"
+                                            ng-click="globalVm.addSubPost(
+                                                post, subpost.$valid)">
+                                        ADD
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <!-- SUB POST LIST -->
+                    <div style="padding-left: 40px;">
+                        <div ng-repeat="subpost in globalVm.getSubPosts(post._id)"
+                            style="position: relative; padding: 24px;">
+                            {{subpost.content}}
+                            <span style="position: absolute;
+                                        right: 180px;
+                                        top: 1px;
+                                        color: grey;">
+                                {{subpost.creator()}}
+                            </span>
+                            <span style="position: absolute;
+                                        right: 40px;
+                                        top: 1px;
+                                        color: grey;">
+                                {{globalVm.moment(globalVm.moment.utc(subpost.creationDate).toDate()).fromNow()}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </span>
+    </section>
+
+    <!-- Dashboard aside -->
+    <aside class="vst-dashboard-aside">
         <ul class="list-group" style="background-color: white;
                 border: 1px solid black;
                 margin: 4px;
@@ -14,93 +100,9 @@
                 </span>
                 {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
             </li>
-        </ul>  
+        </ul>
+    </aside>
 
-        <!-- 2) ADD POST -->
-        <form novalidate name="newPost">
-            <textarea cols="30" rows="10" placeholder="Type post here..." 
-                      class="form-control" style="resize: none" required 
-                      ng-model="globalVm.post.content">
-            </textarea>
-            <label for="">Project</label>
-            <select ng-options="project._id as project.name for project in globalVm.projects track by project._id" ng-model="globalVm.post.projectId" class="form-control" required>
-                <option value="">Pick Project...</option>
-            </select>
-            <button class="btn btn-default" ng-click="globalVm.addPost(newPost.$valid)">
-                Add Post
-            </button>
-        </form>
-
-        <!-- 3) POSTS LIST -->
-        <div style="width: 60%;
-                    margin: auto;
-                    border: 1px dotted blue;">
-            <div ng-repeat="post in globalVm.mainPosts" style="position: relative;border-bottom: 1px solid; padding: 16px;">
-                <span class="project-badge ng-binding" data-toggle="tooltip" 
-                      title="Vesta">
-                    {{post.projectPrefix()}}
-                </span>
-                {{post.content}} 
-                <button class="btn btn-default" 
-                        ng-click="post.reply = !post.reply"
-                        style="position: absolute; 
-                               right: 0px; 
-                               bottom: 0px;">
-                    REPLY
-                </button>
-                <span style="position: absolute;
-                             right: 180px;
-                             top: 1px;
-                             color: grey;">
-                    {{post.creator()}}
-                </span>
-                <span style="position: absolute;
-                             right: 40px;
-                             top: 1px;
-                             color: grey;">
-                    {{globalVm.moment(globalVm.moment.utc(post.creationDate).toDate()).fromNow()}}
-                </span>
-
-                <!-- SUB POST NEW -->
-                <div ng-if="post.reply">
-                     <form novalidate name="subpost">           
-                        <fieldset class="fsStyle">
-                            <div class="desc-wrapper">
-                                <textarea class="vst-view-input" cols="30" rows="10"
-                                          ng-model="post.subPost" required>
-                                </textarea>
-                                <button class="vst-btn vst-btn-primary" 
-                                        ng-click="globalVm.addSubPost(
-                                            post, subpost.$valid)">
-                                    ADD
-                                </button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>        
-
-                <!-- SUB POST LIST -->
-                <div style="padding-left: 40px;">
-                    <div ng-repeat="subpost in globalVm.getSubPosts(post._id)" 
-                        style="position: relative; padding: 24px;">
-                        {{subpost.content}} 
-                        <span style="position: absolute;
-                                    right: 180px;
-                                    top: 1px;
-                                    color: grey;">
-                            {{subpost.creator()}}
-                        </span>
-                        <span style="position: absolute;
-                                    right: 40px;
-                                    top: 1px;
-                                    color: grey;">
-                            {{globalVm.moment(globalVm.moment.utc(subpost.creationDate).toDate()).fromNow()}}
-                        </span>
-                    </div>
-                </div>       
-            </div>
-        </div>
-    </span>
     <!--*** DASHBOARD END *** -->
 
 
@@ -115,7 +117,7 @@
 
 
 
-    <!-- WSZYSTKO PONIZEJ TO STRONE LOGOWANIA 
+    <!-- WSZYSTKO PONIZEJ TO STRONE LOGOWANIA
          DOCELOWO BEDZIE WYPIERDOLONA Z TEGO HTML'A
          DLATEGO IGNORUJ -->
     <span ng-switch-when="false">

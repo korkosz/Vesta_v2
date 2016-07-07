@@ -1,0 +1,23 @@
+@import "{}/client/styles/imports/variables.scss";
+
+.#{$VESTA}-comment-name{
+    position: relative;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+    font-weight: 700;
+    color: #333;
+}
+
+.#{$VESTA}-comment-addtime{
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.#{$VESTA}-user-avatar{
+    position: absolute;
+    right: 100%;
+    margin-right: 15px;
+    top: 0;
+}

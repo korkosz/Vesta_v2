@@ -124,20 +124,6 @@ section.idea-reviews{
         position: relative;
     }
 
-    .reviewer-name{
-        display: inline-block;
-        font-size: 17px;
-        font-weight: bold;
-        font-weight: 700;
-        color: #333;
-    }
-
-    p.review-addTime{
-        display: inline-block;
-        font-size: 12px;
-        margin-left: 4px;
-    }
-
     .prons-cons-wrapper{
         margin-top: 10px;
         .pill{
@@ -229,13 +215,6 @@ section.idea-reviews{
         &::-ms-input-placeholder{
             color:#ccc;
         }
-    }
-
-    .#{$VESTA}-user-avatar{
-        position: absolute;
-        right: 100%;
-        margin-right: 15px;
-        top: 0;
     }
 
     .btn-group-review{

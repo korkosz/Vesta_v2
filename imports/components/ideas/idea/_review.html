@@ -52,10 +52,10 @@
 
                 <div class="review-content-box">
                     <header>
-                        <h3 class="reviewer-name">{{review.creator()}}
+                        <h3 class="vst-comment-name">{{review.creator()}}
                             <img src="/images/avatar.jpg" alt="Avatar" class="vst-user-avatar"/>
                         </h3>
-                        <p class="review-addTime">
+                        <p class="vst-comment-addtime">
                             {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
                         </p>
                     </header>
