@@ -235,10 +235,15 @@ class IdeaCtrl {
 
         switch (btn) {
             case 5: //***Defer***
+                return status === 1 || //New
+                    status === 2 || //Working
+                    status === 6 || //Consider
+                    status === 8; //Discussed
             case 4: //***Reject***
                 return status === 1 || //New
                     status === 2 || //Working
                     status === 6 || //Consider
+                    status === 5 || //Deferred
                     status === 8; //Discussed
             case 3: //***Close***
                 return status === 7;//Implemented
