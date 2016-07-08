@@ -35,6 +35,11 @@
                 <button class="btn btn-success" data-toggle="modal" data-target="#closeAskModal" type="button" ng-if="$ctrl.ask.status === 2">
                     Close
                 </button>
+                <!-- Create New Idea -->
+                <new-idea title="Idea" module="{{$ctrl.ask.module}}"
+                    project="{{$ctrl.ask.project}}" ask-id="{{$ctrl.ask._id}}"
+                    alt-id="0" sprint="$ctrl.ask.sprint">
+                </new-idea>
                 <!-- Close Modal -->
                 <div class="modal fade" id="closeAskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">

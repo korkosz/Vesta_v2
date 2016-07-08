@@ -118,7 +118,8 @@ class NewIdeaCtrl {
             vm.idea.reviewers = vm.selectedReviewers.map(
                 (rev) => rev._id);
             vm.idea.ideaId = vm.ideaId;
-
+            vm.idea.askId = vm.askId;
+            
             if (vm.idea.sprint === 'Defer') {
                 vm.idea.sprint = -1;
             }
@@ -163,6 +164,7 @@ export default angular.module("idea")
                 project: '@',
                 module: '@',
                 ideaId: '@',
+                askId: '@',
                 ideaTitle: '@',
                 altId: '@',
                 sprint: '=',

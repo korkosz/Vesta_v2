@@ -226,6 +226,7 @@ function createIdea(idea) {
     }
 
     const relatedIdeaSpecified = typeof idea.ideaId === 'string';
+    const relatedAskSpecified = typeof idea.askId === 'string';
 
     if (relatedIdeaSpecified) {
         var parentIdea = Ideas.findOne(idea.ideaId);
@@ -256,6 +257,36 @@ function createIdea(idea) {
                     related: relationObj
                 }
             }, null, parentIdea, me.userId, additionalParams);
+        });
+    } else if (relatedAskSpecified) {
+        var parentAsk = Asks.findOne(idea.askId);
+
+        if (typeof parentAsk === 'undefined')
+            throw new Meteor.Error('wrong-parentId',
+                'There is no Ask with Id specified as parent Id');
+
+        let relationObj = {
+            entity: 'Ask',
+            id: idea.askId,
+            relation: 'Based On'
+        };
+        idea.related = [relationObj];
+
+        Ideas.insert(idea, (err, newIdeaId) => {
+            let relationObj = {
+                entity: 'Idea',
+                id: newIdeaId,
+                relation: 'Sub-Idea'
+            };
+            const additionalParams = {
+                relatedId: idea.id
+            };
+
+            Asks.update(parentAsk._id, {
+                $push: {
+                    related: relationObj
+                }
+            }, null, parentAsk, me.userId, additionalParams);
         });
     } else {
         return Ideas.insert(idea);
