@@ -246,106 +246,102 @@
         </ul>
     </section>
 
-
-    <!-- Related List -->
-    <div class="vst-table-wrapper">
-        <!--<ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>-->
-
-        <!-- Grandparent -->
-        <div ng-if="$ctrl.grandparentEntity">
-            <div style="height: 10px; width: 10px; float:left; clear: left; 
-                        background-color: 
-                            {{$ctrl.getEntityColor($ctrl.grandparentEntity)}}">
-
-            </div> 
-            <a href="#/{{$ctrl.grandparentEntity.id}}">
-                #{{$ctrl.grandparentEntity.number}}  {{$ctrl.grandparentEntity.title}}
-            </a>
-            <div style="height: 50px;
-                        border-left: 1px solid black;
-                        float: left;
-                        clear: left;">
-            </div>
-            <div>
-                {{$ctrl.getDescriptionForChild($ctrl.parentEntity)}}
-            </div>
-        </div>
-         <!-- Parent -->
-        <div ng-if="$ctrl.parentEntity" style="clear: left;">
-            <div style="height: 10px; width: 10px; float:left; clear: left;
-                        background-color: 
-                            {{$ctrl.getEntityColor($ctrl.parentEntity)}}">
-
-            </div> 
-            <a href="#/{{$ctrl.parentEntity.id}}">
-                #{{$ctrl.parentEntity.number}}  {{$ctrl.parentEntity.title}}
-            </a>
-            <div style="height: 50px;
-                        border-left: 1px solid black;
-                        float: left;
-                        clear: left;">
-            </div>
-            <div>
-                {{$ctrl.getDescriptionForChild($ctrl.idea)}}
-            </div>
-        </div>
-        <!-- Current -->
-        <div style="clear: left;">
-            <div style="height: 15px; width: 15px; float:left; 
-                        background-color: orange">
-            </div> #{{$ctrl.idea.number}}  {{$ctrl.idea.title}}
-        </div>        
-        <!-- Childer - ideas -->
-        <div ng-repeat="idea in $ctrl.relatedIdeas" style="margin-left: 10px;">
-            <div style="height: 10px; width: 10px; float:left; 
-                        background-color: orange">
-            </div> 
-            <a href="#/idea/{{idea.number}}">
-                #{{idea.number}}  {{idea.title}}   
-            </a>
-        </div>
-        <!-- Childer - asks *** ALWAYS ONE --> 
-        <div ng-repeat="ask in $ctrl.relatedAsks">
-            <div style="height: 50px;
-                        border-left: 1px solid black;
-                        float: left;
-                        clear: left;">
-            </div>
-            <div>
-                {{$ctrl.getDescriptionForChild(ask)}}
-            </div>
-            <div style="clear: left;">
-                <div style="height: 10px; width: 10px; float:left; clear: left;
-                        background-color: green">
-                </div> <a href="#/ask/{{ask.number}}">#{{ask.number}}  {{ask.title}}</a>
-            </div>            
-        </div>
-        <!-- Childer - tasks -->
-        <div ng-repeat="task in $ctrl.relatedTasks" 
-             style="margin-left: {{$first ? '0px' : '10px'}}; clear: left;">
-            <div style="height: 50px;
-                        border-left: 1px solid black;
-                        float: left;
-                        clear: left;"
-                        ng-if="$first">
-            </div>
-            <div ng-if="$first">
-                {{$ctrl.getDescriptionForChild(task)}}
-            </div>
-            <div style="clear: left;">
-                <div style="height: 10px; width: 10px; float:left; clear: left;
-                        background-color: blue">
-                </div> <a href="#/task/{{task.number}}">#{{task.number}}  {{task.title}}</a>
-            </div>            
-        </div>        
-    </div>
-
     <section class="vst-view-additional">
         <!-- Idea Reviews -->
         <ng-include src="'imports/components/ideas/idea/_review.html'" class="vst-view-discussion"></ng-include>
+        
         <!-- Idea Branches -->
         <section class="vst-view-branches">
+            <div class="vst-table-wrapper">     
 
+                <!-- Grandparent -->
+                <div ng-if="$ctrl.grandparentEntity">
+                    <div style="height: 10px; width: 10px; float:left; clear: left; 
+                                background-color: 
+                                    {{$ctrl.getEntityColor($ctrl.grandparentEntity)}}">
+
+                    </div> 
+                    <a href="#/{{$ctrl.grandparentEntity.id}}">
+                        #{{$ctrl.grandparentEntity.number}}  {{$ctrl.grandparentEntity.title}}
+                    </a>
+                    <div style="height: 50px;
+                                border-left: 1px solid black;
+                                float: left;
+                                clear: left;">
+                    </div>
+                    <div>
+                        {{$ctrl.getDescriptionForChild($ctrl.parentEntity)}}
+                    </div>
+                </div>
+                <!-- Parent -->
+                <div ng-if="$ctrl.parentEntity" style="clear: left;">
+                    <div style="height: 10px; width: 10px; float:left; clear: left;
+                                background-color: 
+                                    {{$ctrl.getEntityColor($ctrl.parentEntity)}}">
+
+                    </div> 
+                    <a href="#/{{$ctrl.parentEntity.id}}">
+                        #{{$ctrl.parentEntity.number}}  {{$ctrl.parentEntity.title}}
+                    </a>
+                    <div style="height: 50px;
+                                border-left: 1px solid black;
+                                float: left;
+                                clear: left;">
+                    </div>
+                    <div>
+                        {{$ctrl.getDescriptionForChild($ctrl.idea)}}
+                    </div>
+                </div>
+                <!-- Current -->
+                <div style="clear: left;">
+                    <div style="height: 15px; width: 15px; float:left; 
+                                background-color: orange">
+                    </div> #{{$ctrl.idea.number}}  {{$ctrl.idea.title}}
+                </div>        
+                <!-- Childer - ideas -->
+                <div ng-repeat="idea in $ctrl.relatedIdeas" style="margin-left: 10px;">
+                    <div style="height: 10px; width: 10px; float:left; 
+                                background-color: orange">
+                    </div> 
+                    <a href="#/idea/{{idea.number}}">
+                        #{{idea.number}}  {{idea.title}}   
+                    </a>
+                </div>
+                <!-- Childer - asks *** ALWAYS ONE --> 
+                <div ng-repeat="ask in $ctrl.relatedAsks">
+                    <div style="height: 50px;
+                                border-left: 1px solid black;
+                                float: left;
+                                clear: left;">
+                    </div>
+                    <div>
+                        {{$ctrl.getDescriptionForChild(ask)}}
+                    </div>
+                    <div style="clear: left;">
+                        <div style="height: 10px; width: 10px; float:left; clear: left;
+                                background-color: green">
+                        </div> <a href="#/ask/{{ask.number}}">#{{ask.number}}  {{ask.title}}</a>
+                    </div>            
+                </div>
+                <!-- Childer - tasks -->
+                <div ng-repeat="task in $ctrl.relatedTasks" 
+                    style="margin-left: {{$first ? '0px' : '10px'}}; clear: left;">
+                    <div style="height: 50px;
+                                border-left: 1px solid black;
+                                float: left;
+                                clear: left;"
+                                ng-if="$first">
+                    </div>
+                    <div ng-if="$first">
+                        {{$ctrl.getDescriptionForChild(task)}}
+                    </div>
+                    <div style="clear: left;">
+                        <div style="height: 10px; width: 10px; float:left; clear: left;
+                                background-color: blue">
+                        </div> <a href="#/task/{{task.number}}">#{{task.number}}  {{task.title}}</a>
+                    </div>            
+                </div>        
+            </div>
         </section>
     </section>
 </div>
