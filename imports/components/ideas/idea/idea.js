@@ -229,6 +229,21 @@ class IdeaCtrl {
         });
     }
 
+    getDescriptionForChild(child) {
+          if (!child) return;
+
+        const name = child.getEntityName();
+
+        switch (name) {
+            case 'Idea':
+                return 'Sub-Idea';
+            case 'Ask':
+                return 'Discussion In'
+            case 'Task':
+                return 'Working In'
+        }    
+    }
+
     getEntityColor(entity) {
         if (!entity) return;
 
