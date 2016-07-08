@@ -139,7 +139,8 @@ class IdeaCtrl {
                     me.idea.related.length > 0) {
 
                     var ideasIds = me.idea.related.filter((rel) => {
-                        return rel.entity === 'Idea';
+                        return rel.entity === 'Idea' &&
+                            rel.relation !== 'Based On';
                     }).map((relObj) => {
                         return relObj.id;
                     });
@@ -163,7 +164,8 @@ class IdeaCtrl {
                     me.idea.related.length > 0) {
 
                     var tasksIds = me.idea.related.filter((rel) => {
-                        return rel.entity === 'Task';
+                        return rel.entity === 'Task' &&
+                            rel.relation !== 'Based On';
                     }).map((relObj) => {
                         return relObj.id;
                     });
@@ -187,7 +189,8 @@ class IdeaCtrl {
                     me.idea.related.length > 0) {
 
                     var asksIds = me.idea.related.filter((rel) => {
-                        return rel.entity === 'Ask';
+                        return rel.entity === 'Ask' &&
+                            rel.relation !== 'Based On';
                     }).map((relObj) => {
                         return relObj.id;
                     });
@@ -226,6 +229,20 @@ class IdeaCtrl {
         });
     }
 
+    getEntityColor(entity) {
+        if (!entity) return;
+
+        const name = entity.getEntityName();
+
+        switch (name) {
+            case 'Idea':
+                return 'orange';
+            case 'Ask':
+                return 'green'
+            case 'Task':
+                return 'blue'
+        }
+    }
 
     alreadyRequestedThis(requestId) {
         if (this.idea && this.idea.myRequests)

@@ -250,6 +250,47 @@
     <!-- Related List -->
     <div class="vst-table-wrapper">
         <ng-include src="'imports/components/ideas/idea/_relatedList.html'"></ng-include>
+
+        <!-- Grandparent -->
+        <div ng-if="$ctrl.grandparentEntity">
+            <div style="height: 10px; width: 10px; float:left; 
+                        background-color: 
+                            {{$ctrl.getEntityColor($ctrl.grandparentEntity)}}">
+
+            </div>{{$ctrl.grandparentEntity.number}}  {{$ctrl.grandparentEntity.title}}
+        </div>
+         <!-- Parent -->
+        <div ng-if="$ctrl.parentEntity">
+            <div style="height: 10px; width: 10px; float:left; 
+                        background-color: 
+                            {{$ctrl.getEntityColor($ctrl.parentEntity)}}">
+
+            </div>{{$ctrl.parentEntity.number}}  {{$ctrl.parentEntity.title}}
+        </div>
+        <!-- Current -->
+        <div>
+            <div style="height: 15px; width: 15px; float:left; 
+                        background-color: orange">
+            </div>{{$ctrl.idea.number}}  {{$ctrl.idea.title}}
+        </div>
+        <!-- Childer - tasks -->
+        <div ng-repeat="task in $ctrl.relatedTasks" style="margin-left: 10px;">
+            <div style="height: 10px; width: 10px; float:left; 
+                        background-color: blue">
+            </div>{{task.number}}  {{task.title}}
+        </div>
+        <!-- Childer - asks -->
+        <div ng-repeat="ask in $ctrl.relatedAsks" style="margin-left: 10px;">
+            <div style="height: 10px; width: 10px; float:left; 
+                        background-color: green">
+            </div>{{ask.number}}  {{ask.title}}
+        </div>
+        <!-- Childer - ideas -->
+        <div ng-repeat="idea in $ctrl.relatedIdeas" style="margin-left: 10px;">
+            <div style="height: 10px; width: 10px; float:left; 
+                        background-color: orange">
+            </div>{{idea.number}}  {{idea.title}}
+        </div>
     </div>
 
     <section class="vst-view-additional">
