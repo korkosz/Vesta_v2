@@ -84,6 +84,52 @@ class IdeaCtrl {
                 }
                 return idea;
             },
+            parentEntity() {
+                this.getReactively('idea');
+                var me = this;
+
+                if (me.idea &&
+                    me.idea.related &&
+                    me.idea.related.length > 0) {
+                    var parentRelationEntity = me.idea.related.find((rel) => {
+                        return rel.relation === 'Based On';
+                    });
+
+                    if (!parentRelationEntity) return;
+
+                    switch (parentRelationEntity.entity) {
+                        case 'Idea':
+                            return Ideas.findOne(parentRelationEntity.id);
+                        case 'Ask':
+                            return Asks.findOne(parentRelationEntity.id);
+                        case 'Task':
+                            return Tasks.findOne(parentRelationEntity.id);
+                    }
+                }
+            },
+            grandparentEntity() {
+                this.getReactively('parentEntity');
+                var me = this;
+
+                if (me.parentEntity &&
+                    me.parentEntity.related &&
+                    me.parentEntity.related.length > 0) {
+                    var parentRelationEntity = me.parentEntity.related.find((rel) => {
+                        return rel.relation === 'Based On';
+                    });
+
+                    if (!parentRelationEntity) return;
+
+                    switch (parentRelationEntity.entity) {
+                        case 'Idea':
+                            return Ideas.findOne(parentRelationEntity.id);
+                        case 'Ask':
+                            return Asks.findOne(parentRelationEntity.id);
+                        case 'Task':
+                            return Tasks.findOne(parentRelationEntity.id);
+                    }
+                }
+            },
             relatedIdeas() {
                 this.getReactively('idea');
                 var me = this;
