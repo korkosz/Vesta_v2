@@ -172,8 +172,9 @@ function addReview(review, ideaId) {
             });
         }
 
-        Ideas.update(idea._id, updateObj,
-            null, idea, me.userId);
+        Ideas.update(idea._id, updateObj, () => {
+            handlePendingRequests(ideaId, updateObj.$set.status);
+        }, idea, me.userId);
     }, idea, me.userId);
 }
 
@@ -202,8 +203,9 @@ function removeReview(reviewId, ideaId) {
             });
         }
 
-        Ideas.update(ideaId, updateObj,
-            null, idea, me.userId);
+        Ideas.update(ideaId, updateObj, () => {
+            handlePendingRequests(ideaId, updateObj.$set.status);
+        }, idea, me.userId);
     }, idea, me.userId);
 }
 
@@ -324,7 +326,9 @@ function setDiscussed(ideaId) {
                 status: 8,
                 voting: null
             }
-        }, null, idea, this.userId);
+        }, () => {
+            handlePendingRequests(ideaId, 8);
+        }, idea, this.userId);
     }
 }
 
@@ -337,7 +341,9 @@ function closeIdea(ideaId) {
                 status: 3,
                 voting: null
             }
-        }, null, idea, this.userId);
+        }, () => {
+            handlePendingRequests(ideaId, 2);
+        }, idea, this.userId);
     }
 }
 
@@ -414,7 +420,9 @@ function setWorking(ideaId) {
                 status: 2,
                 voting: null
             }
-        }, null, idea, this.userId);
+        }, () => {
+            handlePendingRequests(ideaId, 2);
+        }, idea, this.userId);
     }
 }
 
@@ -427,7 +435,9 @@ function setDeferred(ideaId, msg) {
             votes: [],
             reason: msg
         }
-    }, null, null, this.userId);
+    }, () => {
+        handlePendingRequests(ideaId, 5);
+    }, null, this.userId);
 }
 
 function computeProperStatus(ideaId) {
@@ -507,4 +517,94 @@ function computeProperStatus(ideaId) {
     modifier.$set.status = 1; //new
     Ideas.update(ideaId, modifier, null,
         idea, this.userId);
+}
+
+/* 1) Check if all pending requests still make sense.
+ * 2) Set "Accepted" for fulfilled requests 
+ * 
+ * Use after status of an Idea changed 
+ * 
+ * @example 
+ *  If status changed to Working requests to 
+ *  start discussion are now obsolete 
+ */
+function handlePendingRequests(ideaId, currentStatus) {
+
+    ///1) Check if all pending requests still make sense.
+    var notFullfiled = {
+        idea: ideaId
+    };
+
+    switch (currentStatus) {
+        case 1: //New
+            notFullfiled.requestTypeId = {
+                $nin: [4, 5] //can request to Defer or Reject
+            };
+            break;
+        case 2: //Working
+            notFullfiled.requestTypeId = {
+                $nin: [1, 4, 5] //can request to Defer or Reject
+            };
+            break;
+        case 3: //Closed
+            notFullfiled.requestTypeId = 3;
+            break;
+        case 4: //Rejected 
+            notFullfiled.requestTypeId = 4;
+            break;
+        case 5: //Defer - deferred Idea can be reject
+            notFullfiled.requestTypeId = {
+                $nin: [4, 5]
+            };
+            break;
+        case 6: //Consider
+            notFullfiled.requestTypeId = 3; // can't request to close
+            break;
+        case 7: //Implemented
+            notFullfiled.requestTypeId = {
+                $ne: 3 // can only request to close
+            };
+            break;
+        case 8: //Discussed
+            notFullfiled.requestTypeId = {
+                $nin: [1, 2, 4, 5] //Can Reject, Defer i create First Task
+            };
+            break;
+    }
+
+    Requests.update(notFullfiled, {
+        $set: {
+            resultId: 4 //Not Fulfilled
+        }
+    }, { multi: true });
+
+    ///2) Set "Accepted" for fulfilled requests
+    var accepted = {
+        idea: ideaId
+    };
+    switch (currentStatus) {
+        case 2: //Working
+            accepted.requestTypeId = 1;
+            break;
+        case 3: //Closed
+            accepted.requestTypeId = 3;
+            break;
+        case 4: //Rejected 
+            accepted.requestTypeId = 4;
+            break;
+        case 5: //Defer
+            accepted.requestTypeId = 5;
+            break;
+        case 8: //Discussed
+            accepted.requestTypeId = 2;
+            break;
+    }
+    if (accepted.requestTypeId) {
+        Requests.update(accepted, {
+            $set: {
+                resultId: 2 //Accepted
+            }
+        }, { multi: true });
+    }
+
 }

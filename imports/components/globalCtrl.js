@@ -64,7 +64,8 @@ function globalCtrl($scope) {
             return Requests.find({
                 creator: {
                     $ne: Meteor.userId()
-                }
+                },
+                resultId: 1
             })
         }
     });
