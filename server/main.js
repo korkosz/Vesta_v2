@@ -6,6 +6,7 @@ import TacksCollection from '/imports/api/project/tacks';
 import PostsCollection from '/imports/api/project/posts';
 
 import IdeasCollection from '/imports/api/ideas/idea';
+import RequestsCollection from '/imports/api/ideas/requests';
 import ReviewsCollection from '/imports/api/ideas/review';
 
 import TaskCollection from '/imports/api/task/task';

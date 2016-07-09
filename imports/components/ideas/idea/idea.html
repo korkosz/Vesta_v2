@@ -224,27 +224,115 @@
     </section>
 
     <!-- Active Requests List -->
-    <section ng-if="$ctrl.userIsOwner() && $ctrl.idea.requests.length > 0">
-        <h3>Active Requests</h3>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="request in $ctrl.idea.requests">
-                <span class="label label-default label-pill pull-xs-right">
-                    {{request.userName}}
-                </span>
-                {{$ctrl.requestDesc(request.requestId)}} {{request.explanation}}
-            </li>
-        </ul>
+    <section ng-if="$ctrl.userIsOwner() && $ctrl.requests.length > 0">
+         <table class="table">
+            <caption>Requests waiting for my decision !</caption>
+            <thead>
+                <tr>
+                    <th>Who</th>
+                    <th>What</th>
+                    <th>Description</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="request in $ctrl.requests">                
+                    <td>
+                        <a href="#/{{request.ideaId}}">
+                            {{request.getUserName()}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/{{request.ideaId}}">
+                            {{$ctrl.requestDesc(request.requestTypeId)}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/{{request.ideaId}}">
+                            {{request.explanation}}
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-toggle="modal"  
+                                data-target="#rejectReqModal" 
+                                ng-click="$ctrl.triggerRejectReqModal(request._id)">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+         </table>
     </section>
 
     <!-- My Active Requests List -->
-    <section ng-if="$ctrl.idea.myRequests.length > 0">
-        <h3>My Active Requests</h3>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="request in $ctrl.idea.myRequests">
-                {{$ctrl.requestDesc(request.requestId)}} {{request.explanation}}
-            </li>
-        </ul>
+    <section ng-if="($ctrl.requests 
+        | filter:{ creator: $ctrl.currentUserId }).length > 0">
+        <table class="table">
+            <caption>My Active Requests List</caption>
+            <thead>
+                <tr>
+                    <th>What</th>
+                    <th>Description</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="request in $ctrl.requests
+                    | filter:{ creator: $ctrl.currentUserId }">
+                    <td>
+                        <a href="#/{{request.ideaId}}">
+                            {{$ctrl.requestDesc(request.requestTypeId)}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/{{request.ideaId}}">
+                            {{request.explanation}}
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"
+                                ng-click="$ctrl.cancelRequest(request._id)">
+                            Cancel
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+         </table>
     </section>
+
+    <!--Reject Request Modal -->
+    <div class="modal fade" id="rejectReqModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Reject Request
+                    </h4>
+                </div>
+                <div class="modal-body">                 
+                    <label>Explanation</label>
+                    <textarea cols="30" rows="10"
+                                ng-model="$ctrl.rejectReqExplanation">
+                    </textarea>                       
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal"
+                            ng-click="$ctrl.rejectingReqId = null;
+                                      $ctrl.rejectingReqCancel = null;
+                                      $ctrl.rejectReqExplanation = null;">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                            ng-click="$ctrl.directlyRejectRequest(
+                                $ctrl.rejectReqExplanation)"
+                            data-dismiss="modal">
+                        Reject
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="vst-view-additional">
         <!-- Idea Reviews -->

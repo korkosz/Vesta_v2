@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
+import Requests from '/imports/api/ideas/requests';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
 import Reviews from '/imports/api/ideas/review';
@@ -15,21 +16,42 @@ Meteor.methods({
     'ideas.updateReview': updateReview,
     'ideas.startVoting': startVoting,
     'ideas.vote': vote,
-    'ideas.makeRequest': makeRequest
+    'ideas.makeRequest': makeRequest,
+    'ideas.directlyRejectRequest': directlyRejectRequest,
+    'ideas.cancelRequest': cancelRequest
 });
 
-function makeRequest(ideaId, requestType, explanation) {
-    //var idea = Ideas.findOne(ideaId);
-    var user = Meteor.user();
-    Ideas.update(ideaId, {
-        $push: {
-            requests: {
-                userId: user._id,
-                userName: user.profile.fullname,
-                requestId: requestType,
-                explanation: explanation
-            }
+function cancelRequest(reqId) {
+    Requests.update(reqId, {
+        $set: {
+            resultId: 5 //Canceled
         }
+    }, (err, res) => {
+        if (err) throw new Meteor.Error('cancelRequest',
+            err.message);
+    });
+}
+
+function directlyRejectRequest(reqId, reason) {
+    Requests.update(reqId, {
+        $set: {
+            resultId: 3, //Rejected
+            rejectReason: reason  //optional
+        }
+    }, (err, res) => {
+        if (err) throw new Meteor.Error('directlyRejectRequest',
+            err.message);
+    });
+}
+
+function makeRequest(ideaId, requestType, explanation) {
+    var idea = Ideas.findOne(ideaId, { id: 1 });
+    Requests.insert({
+        creator: this.userId,
+        idea: ideaId,
+        ideaId: idea.id,
+        requestTypeId: requestType,
+        explanation: explanation
     }, (err, res) => {
         if (err) throw new Meteor.Error('makeRequest', err.message);
     });
@@ -305,6 +327,7 @@ function setDiscussed(ideaId) {
         }, null, idea, this.userId);
     }
 }
+
 function closeIdea(ideaId) {
     var idea = Ideas.findOne(ideaId);
 

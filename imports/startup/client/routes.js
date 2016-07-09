@@ -11,7 +11,8 @@ angular.module('simple-todos')
 			}).
 			when('/temp', {
 				templateUrl: 'imports/pages/temp.html',
-				controller: 'globalCtrl'
+				controller: 'globalCtrl',
+				controllerAs: 'vm'
 			}).
 			when('/:id', {
 				redirectTo: function (params) {

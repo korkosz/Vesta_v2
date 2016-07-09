@@ -18,32 +18,6 @@ var voteSchema = new SimpleSchema({
     }
 });
 
-var requestSchema = new SimpleSchema({
-    userId: {
-        type: String
-    },
-    userName: {
-        type: String
-    },
-    requestId: {
-        type: Number
-    },
-    explanation: {
-        type: String,
-        optional: true
-    },
-    creationDate: {
-        type: Number,
-        label: 'Created At',
-        autoValue() {
-            if (this.isInsert) {
-                return (new Date()).getTime();
-            }
-        },
-        optional: true
-    }
-});
-
 Ideas.schema = Entity.createSchema({
     reason: {
         type: String,
@@ -63,10 +37,6 @@ Ideas.schema = Entity.createSchema({
     },
     votes: {
         type: [voteSchema],
-        optional: true
-    },
-    requests: {
-        type: [requestSchema],
         optional: true
     }
 });

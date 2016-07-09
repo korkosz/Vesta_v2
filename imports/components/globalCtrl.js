@@ -1,4 +1,5 @@
 import Projects from '/imports/api/project/project';
+import Requests from '/imports/api/ideas/requests';
 import Posts from '/imports/api/project/posts';
 import Tacks from '/imports/api/project/tacks';
 import Bookmarks from '/imports/api/metadata/bookmark';
@@ -19,7 +20,7 @@ function globalCtrl($scope) {
     };
 
     //TEMP
-    $scope.assignedToMeFilter = {
+    this.assignedToMeFilter = {
         assigned: Meteor.userId(), status: { $in: [1, 2] }
     };
 
@@ -58,8 +59,19 @@ function globalCtrl($scope) {
                 return this.posts.filter(
                     (post) => !post.parentId)
             }
+        },
+        requests() {
+            return Requests.find({
+                creator: {
+                    $ne: Meteor.userId()
+                }
+            })
         }
     });
+
+    this.requestDesc = function (requestTypeId) {
+        return Requests.requestTypes[requestTypeId];
+    }
 
     this.addPost = function (valid) {
         if (!valid) return;

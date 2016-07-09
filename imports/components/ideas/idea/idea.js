@@ -1,5 +1,6 @@
 import Projects from '/imports/api/project/project';
 import Ideas from '/imports/api/ideas/idea';
+import Requests from '/imports/api/ideas/requests';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
 import pill from '/imports/components/lib/pill/pill';
@@ -25,6 +26,7 @@ class IdeaCtrl {
         this.pendingVoting = false;
         this.deferVoting = false;
         this.votingCb = -1;
+        this.currentUserId = Meteor.userId();
         this.descriptionToolbar = `[['h1','h2','h3','pre'],
             ['bold','italics', 'underline', 'strikeThrough', 
             'ul', 'ol', 'clear'],['html', 'insertImage', 
@@ -72,13 +74,6 @@ class IdeaCtrl {
                         vm.pendingVoting = false;
                         vm.voteVal = null;
                         vm.votingCb = -1;
-                    }
-
-
-                    //*** My Requests ***
-                    if (idea.requests && idea.requests.length > 0) {
-                        idea.myRequests = idea.requests.filter(
-                            (req) => req.userId === Meteor.userId());
                     }
 
                 }
@@ -225,12 +220,21 @@ class IdeaCtrl {
                         }
                     });
                 }
+            },
+            requests() {
+                this.getReactively('idea');
+                if (!this.idea) return;
+
+                return Requests.find({
+                    idea: this.idea._id,
+                    resultId: 1 // Waiting
+                });
             }
         });
     }
 
     getDescriptionForChild(child) {
-          if (!child) return;
+        if (!child) return;
 
         const name = child.getEntityName();
 
@@ -241,7 +245,7 @@ class IdeaCtrl {
                 return 'Discussion In'
             case 'Task':
                 return 'Working In'
-        }    
+        }
     }
 
     getEntityColor(entity) {
@@ -259,10 +263,10 @@ class IdeaCtrl {
         }
     }
 
-    alreadyRequestedThis(requestId) {
-        if (this.idea && this.idea.myRequests)
-            return this.idea.myRequests.some(
-                (req) => req.requestId === requestId);
+    alreadyRequestedThis(requestTypeId) {
+        if (this.requests)
+            return this.requests.some(
+                (req) => req.requestTypeId === requestTypeId);
     }
 
     reviewerSelected() {
@@ -300,8 +304,8 @@ class IdeaCtrl {
             return this.idea.createdBy === Meteor.userId();
     }
 
-    requestDesc(requestId) {
-        return Ideas.votingTypes[requestId];
+    requestDesc(requestTypeId) {
+        return Requests.requestTypes[requestTypeId];
     }
 
     controlVisibility(btn, request) {
@@ -360,6 +364,27 @@ class IdeaCtrl {
             this.idea._id, votingType, (err, res) => {
                 if (err) window.alert(err);
             });
+    }
+
+    // need to pass value to modal 
+    triggerRejectReqModal(reqId) {
+        this.rejectingReqId = reqId;
+    }
+
+    cancelRequest(reqId) {
+        Meteor.call('ideas.cancelRequest',
+            reqId, (err, res) => {
+                if (err) window.alert(err);
+            });
+    }
+
+    directlyRejectRequest(explanation) {
+        Meteor.call('ideas.directlyRejectRequest',
+            this.rejectingReqId, explanation, (err, res) => {
+                if (err) window.alert(err);
+            });
+        this.rejectReqExplanation = null;
+        this.rejectingReqId = null;
     }
 
     makeRequest(requestType, explanation) {
