@@ -71,7 +71,7 @@
                     </a>
                 </td>
                 <td ng-if="request.resultId !== 1">
-                    <button>
+                    <button ng-click="vm.removeRequest(request._id)">
                         SEEN
                     </button>
                 </td>

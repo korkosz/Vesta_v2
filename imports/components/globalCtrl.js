@@ -75,6 +75,13 @@ function globalCtrl($scope) {
         }
     });
 
+    this.removeRequest = function (reqId) {
+        Meteor.call('ideas.removeRequest',
+            reqId, (err, res) => {
+                if (err) window.alert(err);
+            });
+    };
+
     this.requestDesc = function (requestTypeId) {
         return Requests.requestTypes[requestTypeId];
     }

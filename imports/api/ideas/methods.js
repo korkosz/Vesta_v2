@@ -19,8 +19,13 @@ Meteor.methods({
     'ideas.vote': vote,
     'ideas.makeRequest': makeRequest,
     'ideas.directlyRejectRequest': directlyRejectRequest,
-    'ideas.cancelRequest': cancelRequest
+    'ideas.cancelRequest': cancelRequest,
+    'ideas.removeRequest': removeRequest
 });
+
+function removeRequest(reqId) {
+    Requests.remove(reqId);
+}
 
 function cancelRequest(reqId) {
     Requests.update(reqId, {
