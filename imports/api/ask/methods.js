@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
 import Asks from '/imports/api/ask/ask';
 import Responses from '/imports/api/ask/response';
+import {handlePendingRequests} from '/imports/api/ideas/requests';
 
 Meteor.methods({
     'asks.createAsk': createAsk,
@@ -120,7 +121,7 @@ function createAskWithRelation(ask) {
         };
 
         if (canBecameDiscussed(parentIdea)) {
-            updateObj['$set'] = {
+            updateObj.$set = {
                 status: 8
             };
         }
@@ -129,8 +130,9 @@ function createAskWithRelation(ask) {
             relatedId: ask.id
         };
 
-        Ideas.update(parentIdea._id, updateObj,
-            null, parentIdea, me.userId, additionalParams);
+        Ideas.update(parentIdea._id, updateObj, () => {
+            handlePendingRequests(parentIdea._id, updateObj.$set.status);
+        }, parentIdea, me.userId, additionalParams);
     });
 }
 

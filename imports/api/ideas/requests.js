@@ -38,12 +38,6 @@ Requests.schema = new SimpleSchema({
     explanation: {
         type: String,
         optional: true
-    },
-    // This field is important if result is 
-    // different than Waiting
-    seen: {
-        type: String,
-        optional: true
     }
 });
 
@@ -51,6 +45,10 @@ Requests.helpers({
     getRequestDescription() {
         if (this.requestTypeId)
             return Requests.requestTypes[this.requestTypeId];
+    },
+     getResultDescription() {
+        if (this.resultId)
+            return Requests.resultTypes[this.resultId];
     },
     getUserName() {
         var user = Meteor.users.findOne(this.creator);
@@ -75,3 +73,95 @@ Requests.resultTypes = {
 };
 
 Requests.attachSchema(Requests.schema);
+
+/* 1) Check if all pending requests still make sense.
+ * 2) Set "Accepted" for fulfilled requests 
+ * 
+ * Use after status of an Idea changed 
+ * 
+ * @example 
+ *  If status changed to Working requests to 
+ *  start discussion are now obsolete 
+ */
+export function handlePendingRequests(ideaId, currentStatus) {
+
+    ///1) Check if all pending requests still make sense.
+    var notFullfiled = {
+        idea: ideaId,
+        resultId: 1
+    };
+
+    switch (currentStatus) {
+        case 1: //New
+            notFullfiled.requestTypeId = {
+                $nin: [4, 5] //can request to Defer or Reject
+            };
+            break;
+        case 2: //Working
+            notFullfiled.requestTypeId = {
+                $nin: [1, 4, 5] //can request to Defer or Reject
+            };
+            break;
+        case 3: //Closed
+            notFullfiled.requestTypeId = 3;
+            break;
+        case 4: //Rejected 
+            notFullfiled.requestTypeId = 4;
+            break;
+        case 5: //Defer - deferred Idea can be reject
+            notFullfiled.requestTypeId = {
+                $nin: [4, 5]
+            };
+            break;
+        case 6: //Consider
+            notFullfiled.requestTypeId = 3; // can't request to close
+            break;
+        case 7: //Implemented
+            notFullfiled.requestTypeId = {
+                $ne: 3 // can only request to close
+            };
+            break;
+        case 8: //Discussed
+            notFullfiled.requestTypeId = {
+                $nin: [1, 2, 4, 5] //Can Reject, Defer i create First Task
+            };
+            break;
+    }
+
+    Requests.update(notFullfiled, {
+        $set: {
+            resultId: 4 //Not Fulfilled
+        }
+    }, { multi: true });
+
+    ///2) Set "Accepted" for fulfilled requests
+    var accepted = {
+        idea: ideaId,
+        resultId: 1
+    };
+    switch (currentStatus) {
+        case 2: //Working
+            accepted.requestTypeId = 1;
+            break;
+        case 3: //Closed
+            accepted.requestTypeId = 3;
+            break;
+        case 4: //Rejected 
+            accepted.requestTypeId = 4;
+            break;
+        case 5: //Defer
+            accepted.requestTypeId = 5;
+            break;
+        case 8: //Discussed
+            accepted.requestTypeId = 2;
+            break;
+    }
+    if (accepted.requestTypeId) {
+        Requests.update(accepted, {
+            $set: {
+                resultId: 2 //Accepted
+            }
+        }, { multi: true });
+    }
+
+}

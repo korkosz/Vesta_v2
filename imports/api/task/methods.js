@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 import Comments from '/imports/api/task/comment';
+import {handlePendingRequests} from '/imports/api/ideas/requests';
 
 Meteor.methods({
     'tasks.createTask': createTask,
@@ -32,7 +33,7 @@ function removeComment(taskId, commentId) {
 
 function addComment(taskId, comment) {
     var task = Tasks.findOne(taskId);
-       
+
     Comments.insert(comment,
         null, task, this.userId);
 }
@@ -212,7 +213,9 @@ function closeTask(taskId) {
                     $set: {
                         status: 7
                     }
-                }, null, idea, me.userId);
+                }, () => {
+                    handlePendingRequests(idea._id, 7);
+                }, idea, me.userId);
             }
         }, task, me.userId);
         return;
@@ -265,7 +268,9 @@ function createTaskFromIdea(task) {
             relatedId: task.id
         };
 
-        Ideas.update(parentIdea._id, updateObj, null,
+        Ideas.update(parentIdea._id, updateObj, () => {
+            handlePendingRequests(parentIdea._id, updateObj.$set.status);
+        },
             parentIdea, me.userId, additionalParams);
     }, task, me.userId);
 }

@@ -67,6 +67,11 @@ function globalCtrl($scope) {
                 },
                 resultId: 1
             })
+        },
+        myRequests() {
+            return Requests.find({
+                creator: Meteor.userId()
+            });
         }
     });
 

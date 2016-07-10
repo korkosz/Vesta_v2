@@ -1,5 +1,4 @@
 <section ng-if="vm.requests.length > 0">
-    <!-- Active Requests List -->
     <table class="table">
         <caption>Requests waiting for my decision !</caption>
         <thead>
@@ -17,6 +16,40 @@
                         {{request.getUserName()}}
                     </a>
                 </td>
+                <td>
+                     <a href="#/{{request.ideaId}}">
+                        {{vm.requestDesc(request.requestTypeId)}}
+                    </a>
+                </td>
+                <td>
+                     <a href="#/{{request.ideaId}}">
+                        {{request.ideaId}}
+                    </a>
+                </td>
+                <td>
+                     <a href="#/{{request.ideaId}}">
+                        {{request.explanation}}
+                    </a>
+                </td>                
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section ng-if="vm.myRequests.length > 0">
+    <table class="table">
+        <caption>My Requests</caption>
+        <thead>
+            <tr>
+                <th>What</th>
+                <th>Where</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="request in vm.myRequests | orderBy: 'resultId'">
                  <td>
                      <a href="#/{{request.ideaId}}">
                         {{vm.requestDesc(request.requestTypeId)}}
@@ -31,6 +64,16 @@
                      <a href="#/{{request.ideaId}}">
                         {{request.explanation}}
                     </a>
+                </td>
+                <td>
+                    <a href="#/{{request.ideaId}}">
+                        {{request.getResultDescription()}}
+                    </a>
+                </td>
+                <td ng-if="request.resultId !== 1">
+                    <button>
+                        SEEN
+                    </button>
                 </td>
             </tr>
         </tbody>
