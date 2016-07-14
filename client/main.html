@@ -10,15 +10,42 @@
         <div class="menu-btn-wrapper">
             <notifications>
             </notifications>
-            
+
         </div>
     </div>
     <div class="vst-container">
-        <bookmarks></bookmarks>
+        <nav class="vst-side-nav">
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li>
+                    <h3 class="vst-dropdown-btn">Tasks</h3>
+                    <ul class="vst-dropdown" style="display:none">
+                        <li><a href="#">Assigned to me</a></li>
+                        <li><a href="#"></a>Search task</li>
+                        <li><new-task></new-task></li>
+                    </ul>
+                </li>
+                <li><a href="#">Ideas</a></li>
+                <li><a href="#">Asks</a></li>
+            </ul>
+        </nav>
         <main id="main-container">
+            <section class="bookmarks-panel">
+                <bookmarks></bookmarks>
+            </section>
+            <new-idea></new-idea>
+
+            <new-ask></new-ask>
             <div ng-view></div>
         </main>
     </div>
     <footer>
     </footer>
+    <script type="text/javascript">
+        var dropdownBtn = document.querySelector('.vst-dropdown-btn');
+
+        dropdownBtn.addEventListener("click", function(){
+            $(".vst-dropdown").slideToggle("slow");
+        })
+    </script>
 </body>

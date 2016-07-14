@@ -1,0 +1,24 @@
+@import "{}/client/styles/imports/variables.scss";
+
+.bookmarks-panel{
+    display: flex;
+    align-items: flex-end;
+    height: 150px;
+    background: #424242;
+}
+
+.bookmarks-nav{
+    display: flex;
+    margin-left: 200px;
+}
+
+.bookmark-item{
+    position: relative;
+    margin-right: 5px;
+    list-style: none;
+    a{
+        display: block;
+        padding: 10px;
+        background: #fff;
+    }
+}

@@ -1,16 +1,18 @@
-<nav class="vst-side-nav">
-    <new-idea></new-idea>
-    <new-task></new-task>
-    <new-ask></new-ask>
-    <a href="#/temp" 
-       style="margin-left: 30px;
-              color: red;">
+
+<ul class="bookmarks-nav">
+    <li class="bookmark-item">
+        <a href="#/temp">
         Stary dashboard
-    </a>
-    <ul>
-        <li style="cursor:pointer"><a href="#/bookmark/{{bookmark.title}}">Dashboard</a></li>
-        <li ng-repeat="bookmark in $ctrl.bookmarks" style="cursor:pointer" ng-click="">
-            <a href="#/bookmark/{{bookmark.title}}">{{bookmark.title}}</a>
-        </li>
-    </ul>
-</nav>
+        </a>
+    </li>
+    <li class="bookmark-item">
+        <a href="#/bookmark/{{bookmark.title}}">
+        Dashboard
+        </a>
+    </li>
+    <li ng-repeat="bookmark in $ctrl.bookmarks" class="bookmark-item" ng-click="">
+        <a href="#/bookmark/{{bookmark.title}}">
+        {{bookmark.title}}
+        </a>
+    </li>
+</ul>
