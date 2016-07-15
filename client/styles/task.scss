@@ -18,7 +18,4 @@
     h1{
         color: $task !important;
     }
-    .#{$VESTA}-view-info-box{
-        background: lighten($task, 43%);
-    }
 }

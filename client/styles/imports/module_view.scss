@@ -15,6 +15,7 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 .#{$VESTA}-view-content{
     display: flex;
     box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
 }
 
 //DESCRIPTION
@@ -61,6 +62,7 @@ section.#{$VESTA}-view-desc{
         display: flex;
         .glyphicon{
             font-size: 0.8em;
+            color: inherit;
         }
     }
     .#{$VESTA}-btn-group{
@@ -227,7 +229,7 @@ section.#{$VESTA}-view-desc{
     position: relative;
     flex-basis: 250px;
     text-align: right;
-    background: #fff;
+    background: #eee;
     padding: 30px;
     border: 10px solid #fff;
     border-left: none;

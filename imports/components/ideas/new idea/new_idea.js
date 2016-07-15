@@ -119,7 +119,7 @@ class NewIdeaCtrl {
                 (rev) => rev._id);
             vm.idea.ideaId = vm.ideaId;
             vm.idea.askId = vm.askId;
-            
+
             if (vm.idea.sprint === 'Defer') {
                 vm.idea.sprint = -1;
             }
@@ -203,7 +203,7 @@ export default angular.module("idea")
             });
 
             //Set default Title
-            if (!ctrl.title) ctrl.title = 'Idea';
+            if (!ctrl.title) ctrl.title = 'create new idea';
 
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);

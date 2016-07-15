@@ -172,7 +172,7 @@ export default angular.module("task")
             });
 
             //Set default Title
-            if (!ctrl.title) ctrl.title = 'Task';
+            if (!ctrl.title) ctrl.title = 'create new task';
 
             function uploadToServer(file, def) {
                 file.upload = Upload.upload({

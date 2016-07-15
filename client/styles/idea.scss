@@ -14,15 +14,6 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
         color: $idea !important;
     }
 
-    .#{$VESTA}-btn-group-menu .#{$VESTA}-btn{
-        background: lighten($idea, 43%);
-        color: $idea;
-        font-weight: 700;
-    }
-    .#{$VESTA}-view-info-box{
-        background: lighten($idea, 43%);
-    }
-
     .table{
         margin: 25px auto 25px auto !important;
         box-shadow: 3px 3px 8px rgba(0,0,0,0.08);

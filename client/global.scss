@@ -62,20 +62,16 @@ main#main-container{
 // Side-navbar
 nav.#{$VESTA}-side-nav{
 	flex-basis: 250px;
-	background: #fff;
-	> ul > li{
-		padding: 10px 50px;
-	    border-bottom: 1px solid #eee;
-	    color: #999;
-		font-size: 14px;
+	background: #222;
+	border-top: 1px solid #424242;
+
+	> ul > .#{$VESTA}-nav-item:first-child > a{
+		padding: 0 50px;
+		height: 150px;
+		vertical-align: middle;
+		line-height: 150px;
 	}
-	.#{$VESTA}-btn-menu{
-		display: block;
-		margin-top: 5px; margin-left: 10px;
-		width: 150px;
-		background: #999;
-		color: #fff;
-	}
+
 	new-idea{
 		.#{$VESTA}-btn-menu{
 		margin-top: 15px !important;
@@ -88,6 +84,60 @@ nav.#{$VESTA}-side-nav{
 	}
 }
 
+.#{$VESTA}-dropdown-btn{
+	position: relative;
+	&:after{
+		content: "";
+		width: 7px;
+		height: 7px;
+		border: 3.5px solid transparent;
+		border-top: 3.5px solid;
+		position: absolute;
+		right: 30px;
+		top: 50%;
+		margin-top: -2.5px;
+	}
+}
+
+.#{$VESTA}-dropdown{
+	overflow: hidden;
+	background: #292929;
+}
+
+.#{$VESTA}-nav-item{
+	display: block;
+}
+
+.#{$VESTA}-nav-item > a,
+.#{$VESTA}-nav-item > h3{
+	display: block;
+	padding: 18px 50px;
+	color: #999;
+	font-size: 14px;
+	line-height: 1em;
+	cursor: pointer;
+}
+.#{$VESTA}-nav-item.sub-item{
+	> a{
+	border: none;
+    font-size: 12px;
+    padding-top: 15px;
+    padding-bottom: 0;
+	}
+	.#{$VESTA}-btn{
+		margin-left: 50px;
+		margin-top: 20px;
+		background: #333;
+		font-size: 11px;
+		box-shadow: 1px 1px;
+	}
+	&:last-of-type{
+		margin-bottom: 30px;
+	}
+}
+
+
+
 // Notifications
 .list-group-item{
 	background: transparent;
@@ -97,6 +147,7 @@ nav.#{$VESTA}-side-nav{
 	.badge{
 		position: absolute;
 		background: $red;
+		color: #222;
 		top: 0;
 		left: -1px;
 	}

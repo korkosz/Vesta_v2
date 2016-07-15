@@ -14,38 +14,59 @@
         </div>
     </div>
     <div class="vst-container">
+
+        <!-- Side navigation -->
         <nav class="vst-side-nav">
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li>
+                <li class="vst-nav-item"><a href="#">Dashboard</a></li>
+                <li class="vst-nav-item">
                     <h3 class="vst-dropdown-btn">Tasks</h3>
                     <ul class="vst-dropdown" style="display:none">
-                        <li><a href="#">Assigned to me</a></li>
-                        <li><a href="#"></a>Search task</li>
-                        <li><new-task></new-task></li>
+                        <li class="vst-nav-item sub-item"><a href="#">Assigned to me</a></li>
+                        <li class="vst-nav-item sub-item"><a href="#">Search task</a></li>
+                        <li class="vst-nav-item sub-item"><new-task></new-task></li>
                     </ul>
                 </li>
-                <li><a href="#">Ideas</a></li>
-                <li><a href="#">Asks</a></li>
+                <li class="vst-nav-item">
+                    <h3 class="vst-dropdown-btn">Ideas</h3>
+                    <ul class="vst-dropdown" style="display:none">
+                        <li class="vst-nav-item sub-item"><a href="#">Assigned to me</a></li>
+                        <li class="vst-nav-item sub-item"><a href="#">Search idea</a></li>
+                        <li class="vst-nav-item sub-item"><new-idea></new-idea></li>
+                    </ul>
+                </li>
+                <li class="vst-nav-item" style="margin-bottom: 50px;">
+                    <h3 class="vst-dropdown-btn">Ask</h3>
+                    <ul class="vst-dropdown" style="display:none">
+                        <li class="vst-nav-item sub-item"><a href="#">Assigned to me</a></li>
+                        <li class="vst-nav-item sub-item"><a href="#">Search ask</a></li>
+                        <li class="vst-nav-item sub-item"><new-ask></new-ask></li>
+                    </ul>
+                </li>
+                <li class="vst-nav-item"><a href="#">Projects</a></li>
+                <li class="vst-nav-item"><a href="#">Bookmarks</a></li>
             </ul>
         </nav>
+
+        <!-- Main container -->
         <main id="main-container">
             <section class="bookmarks-panel">
                 <bookmarks></bookmarks>
             </section>
-            <new-idea></new-idea>
-
-            <new-ask></new-ask>
             <div ng-view></div>
         </main>
     </div>
     <footer>
     </footer>
     <script type="text/javascript">
-        var dropdownBtn = document.querySelector('.vst-dropdown-btn');
+        var dropdownBtn = document.querySelectorAll('.vst-dropdown-btn');
 
-        dropdownBtn.addEventListener("click", function(){
-            $(".vst-dropdown").slideToggle("slow");
-        })
+        for (var i = 0; i < dropdownBtn.length; i++) {
+            dropdownBtn[i].addEventListener("click", dropdown, false);
+        }
+
+        function dropdown(e){
+            $(this).siblings('.vst-dropdown').slideToggle();
+        }
     </script>
 </body>
