@@ -1,3 +1,142 @@
+<div class="vst-dashboard-container">
+    <!-- Task, Idea, Ask wrapper -->
+    <section class="vst-moduleAll-wrapper-dash">
+        <!-- News wrapper - request, vote etc -->
+        <section class="vst-news-wrapper-dash">
+
+        </section>
+
+        <div class="vst-row">
+            <!-- Task -->
+            <div class="vst-module-dash task">
+                <h2 class="vst-module-title task">Tasks</h2>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="type">
+                        <a href="#">feature</a>
+                    </div>
+                    <div class="creator">
+                        <a href="#">M. Chmiel</a>
+                    </div>
+                    <div class="time">
+                        <a href="#">8 min ago</a>
+                    </div>
+                    <div class="vst-priority">
+                        <a href="#">
+                            <div class="priority priority-Normal"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="type">
+                        <a href="#">feature</a>
+                    </div>
+                    <div class="creator">
+                        <a href="#">M. Chmiel</a>
+                    </div>
+                    <div class="time">
+                        <a href="#">8 min ago</a>
+                    </div>
+                    <div class="vst-priority">
+                        <a href="#">
+                            <div class="priority priority-High"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="type">
+                        <a href="#">feature</a>
+                    </div>
+                    <div class="creator">
+                        <a href="#">M. Chmiel</a>
+                    </div>
+                    <div class="time">
+                        <a href="#">8 min ago</a>
+                    </div>
+                    <div class="vst-priority">
+                        <a href="#">
+                            <div class="priority priority-Low"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vst-row">
+            <!-- Idea -->
+            <div class="vst-module-dash idea">
+                <h2 class="vst-module-title idea">Ideas</h2>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="vst-priority">
+                        <a href="#">
+                            <span class="idea-status idea-status-Working"> Working </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Ask -->
+            <div class="vst-module-dash ask">
+                <h2 class="vst-module-title ask">Asks</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pinned wrapper -->
+    <aside class="vst-pinned-wrapper-dash">
+
+    </aside>
+</div>
+
+
 <section ng-if="vm.requests.length > 0">
     <table class="table">
         <caption>Requests waiting for my decision !</caption>
@@ -10,7 +149,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="request in vm.requests">                
+            <tr ng-repeat="request in vm.requests">
                 <td>
                      <a href="#/{{request.ideaId}}">
                         {{request.getUserName()}}
@@ -30,7 +169,7 @@
                      <a href="#/{{request.ideaId}}">
                         {{request.explanation}}
                     </a>
-                </td>                
+                </td>
             </tr>
         </tbody>
     </table>
@@ -80,7 +219,7 @@
     </table>
 </section>
 
-<task-list title="Tasks Assigned To Me" 
+<task-list title="Tasks Assigned To Me"
     filter="vm.assignedToMeFilter"></task-list>
 <idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>
 <ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>

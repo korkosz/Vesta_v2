@@ -6,20 +6,24 @@
         height: 5px;
         border-radius: 10px;
         &-Low{
-        width: 50%;
+        width: 30%;
         background: #d8ff00;
+        max-width: 30px;
         }
         &-Normal{
-        width: 1%*(50/3 + 50);
+        width: 45%;
         background: #17ff17;
+        max-width: 45px;
         }
         &-High{
-        width: 1%*(100/3 + 50);
+        width: 60%;
         background: #ffa210;
+        max-width: 60px;
         }
         &-Critical{
-        width: 100%;
+        width: 75%;
         background: #ff4a26;
+        max-width: 75px;
         }
     }
     caption.task-caption{
