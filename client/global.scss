@@ -30,7 +30,7 @@ button, textarea, input{
 }
 a:link, a:visited{
 	color: inherit;
-	text-decoration: none; 
+	text-decoration: none;
 }
 
 
@@ -63,14 +63,23 @@ main#main-container{
 	}
 }
 
+// LAYOUT
+.#{$VESTA}-row{
+	display: flex;
+}
+
 // Side-navbar
 nav.#{$VESTA}-side-nav{
-	flex-basis: 250px;
+	flex:0 0 250px;
 	background: #222;
 	border-top: 1px solid #424242;
+	@media(max-width:1600px){
+		flex:0 0 200px;
+	}
 
 	> ul > .#{$VESTA}-nav-item:first-child > a{
-		padding: 0 50px;
+		padding-top: 0;
+		padding-bottom: 0;
 		height: 150px;
 		vertical-align: middle;
 		line-height: 150px;
@@ -120,6 +129,9 @@ nav.#{$VESTA}-side-nav{
 	font-size: 14px;
 	line-height: 1em;
 	cursor: pointer;
+	@media(max-width:1600px){
+		padding: 18px 30px;
+	}
 }
 .#{$VESTA}-nav-item.sub-item{
 	> a{

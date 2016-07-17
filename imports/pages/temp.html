@@ -1,6 +1,5 @@
 <div class="vst-dashboard-container">
-    <!-- Task, Idea, Ask wrapper -->
-    <section class="vst-moduleAll-wrapper-dash">
+    <div class="vst-row">
         <!-- News wrapper - request, vote etc -->
         <section class="vst-news-wrapper-dash" ng-if="vm.requests.length > 0">
             <h3>- Requests waiting for my decision -</h3>
@@ -16,235 +15,234 @@
                 </p>
             </div>
         </section>
+    </div>
+    <div class="vst-row">
+        <!-- Task, Idea, Ask wrapper -->
+        <section class="vst-moduleAll-wrapper-dash">
+            <div class="vst-row">
+                <!-- Task -->
+                <div class="vst-module-dash task">
+                    <h2 class="vst-module-title task">Tasks</h2>
 
-        <div class="vst-row">
-            <!-- Task -->
-            <div class="vst-module-dash task">
-                <h2 class="vst-module-title task">Tasks</h2>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                    Jedną z mocnych stron używania Lorem
+                                </p>
+                            </a>
+                        </div>
+                        <div class="type">
+                            <a href="#">feature</a>
+                        </div>
+                        <div class="creator">
+                            <a href="#">M. Chmiel</a>
+                        </div>
+                        <div class="time">
+                            <a href="#">8 min ago</a>
+                        </div>
+                        <div class="vst-priority">
+                            <a href="#">
+                                <div class="priority priority-Normal"></div>
+                            </a>
+                        </div>
+                    </div>
 
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                    Jedną z mocnych stron używania Lorem
+                                </p>
+                            </a>
+                        </div>
+                        <div class="type">
+                            <a href="#">feature</a>
+                        </div>
+                        <div class="creator">
+                            <a href="#">M. Chmiel</a>
+                        </div>
+                        <div class="time">
+                            <a href="#">8 min ago</a>
+                        </div>
+                        <div class="vst-priority">
+                            <a href="#">
+                                <div class="priority priority-High"></div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="type">
-                        <a href="#">feature</a>
-                    </div>
-                    <div class="creator">
-                        <a href="#">M. Chmiel</a>
-                    </div>
-                    <div class="time">
-                        <a href="#">8 min ago</a>
-                    </div>
-                    <div class="vst-priority">
-                        <a href="#">
-                            <div class="priority priority-Normal"></div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="type">
-                        <a href="#">feature</a>
-                    </div>
-                    <div class="creator">
-                        <a href="#">M. Chmiel</a>
-                    </div>
-                    <div class="time">
-                        <a href="#">8 min ago</a>
-                    </div>
-                    <div class="vst-priority">
-                        <a href="#">
-                            <div class="priority priority-High"></div>
-                        </a>
-                    </div>
-                </div>
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="type">
-                        <a href="#">feature</a>
-                    </div>
-                    <div class="creator">
-                        <a href="#">M. Chmiel</a>
-                    </div>
-                    <div class="time">
-                        <a href="#">8 min ago</a>
-                    </div>
-                    <div class="vst-priority">
-                        <a href="#">
-                            <div class="priority priority-Low"></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="vst-row">
-            <!-- Idea -->
-            <div class="vst-module-dash idea">
-                <h2 class="vst-module-title idea">Ideas</h2>
-
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="vst-status">
-                        <a href="#">
-                            <span class="idea-status idea-status-New"> New </span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="vst-status">
-                        <a href="#">
-                            <span class="idea-status idea-status-Working"> Working </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="vst-status">
-                        <a href="#">
-                            <span class="idea-status idea-status-Implemented"> Implemented </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
-                    </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
-                    </div>
-                    <div class="vst-status">
-                        <a href="#">
-                            <span class="idea-status idea-status-Consider"> Consider </span>
-                        </a>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                    Jedną z mocnych stron używania Lorem
+                                </p>
+                            </a>
+                        </div>
+                        <div class="type">
+                            <a href="#">feature</a>
+                        </div>
+                        <div class="creator">
+                            <a href="#">M. Chmiel</a>
+                        </div>
+                        <div class="time">
+                            <a href="#">8 min ago</a>
+                        </div>
+                        <div class="vst-priority">
+                            <a href="#">
+                                <div class="priority priority-Low"></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Ask -->
-            <div class="vst-module-dash ask">
-                <h2 class="vst-module-title ask">Asks</h2>
+            <div class="vst-row">
+                <!-- Idea -->
+                <div class="vst-module-dash idea">
+                    <h2 class="vst-module-title idea">Ideas</h2>
 
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                    Jedną z mocnych stron używania Lorem
+                                </p>
+                            </a>
+                        </div>
+                        <div class="vst-status">
+                            <a href="#">
+                                <span class="idea-status idea-status-New"> New </span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
+
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony,
+                                </p>
+                            </a>
+                        </div>
+                        <div class="vst-status">
+                            <a href="#">
+                                <span class="idea-status idea-status-Working"> Working </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony,
+                                </p>
+                            </a>
+                        </div>
+                        <div class="vst-status">
+                            <a href="#">
+                                <span class="idea-status idea-status-Implemented"> Implemented </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony,
+                                </p>
+                            </a>
+                        </div>
+                        <div class="vst-status">
+                            <a href="#">
+                                <span class="idea-status idea-status-Consider"> Consider </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <!-- Ask -->
+                <div class="vst-module-dash ask">
+                    <h2 class="vst-module-title ask">Asks</h2>
 
-                <div class="vst-list-item">
-                    <div class="vst-badge">
-                        <span class="project-badge">V</span>
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony,
+                                </p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="title">
-                        <a href="#">
-                            <p>
-                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                Jedną z mocnych stron używania Lorem
-                            </p>
-                        </a>
+
+                    <div class="vst-list-item">
+                        <div class="vst-badge">
+                            <span class="project-badge">V</span>
+                        </div>
+                        <div class="title">
+                            <a href="#">
+                                <p>
+                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                    zrozumiała zawartość strony, kiedy
+                                </p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Pinned wrapper -->
-    <aside class="vst-pinned-wrapper-dash">
+        <!-- Pinned wrapper -->
+        <aside class="vst-pinned-wrapper-dash">
 
-        <!-- Wpierdollem tu pinned z dashboardu z postami ale cos nie chce gowno dzialac:D -->
-        <ul class="list-group" style="background-color: white;
-                border: 1px solid black;
-                margin: 4px;
-                padding: 10px;" ng-if="globalVm.tacks.length > 0">
-            <li class="list-group-item" ng-repeat="tack in globalVm.tacks" style="border-bottom: 1px dashed grey;">
-                <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
-                    {{tack.projectPrefix}}
-                </span>
-                {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
-            </li>
-        </ul>
-    </aside>
+            <!-- Wpierdollem tu pinned z dashboardu z postami ale cos nie chce gowno dzialac:D -->
+            <ul class="list-group" style="background-color: white;
+                    border: 1px solid black;
+                    margin: 4px;
+                    padding: 10px;" ng-if="globalVm.tacks.length > 0">
+                <li class="list-group-item" ng-repeat="tack in globalVm.tacks" style="border-bottom: 1px dashed grey;">
+                    <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
+                        {{tack.projectPrefix}}
+                    </span>
+                    {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
+                </li>
+            </ul>
+        </aside>
+    </div>
 </div>
 
 

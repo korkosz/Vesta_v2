@@ -2,10 +2,12 @@
 
 // Dashboard container
 .#{$VESTA}-dashboard-container{
-    width: 90%;
     margin: auto;
-    display: flex;
+    display: block;
     margin-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1500px;
 }
 
 //News wrapper - request, vote etc
@@ -22,18 +24,18 @@
     h3{
         color: #fff;
         text-transform: uppercase;
-        font-size: 16px;
+        font-size: 18px;
         letter-spacing: 1px;
         font-weight: 700;
         text-align: center;
-        height: 40px;
-        line-height: 40px;
+        height: 50px;
+        line-height: 50px;
     }
 }
 
 .#{$VESTA}-request-mine-dash{
     text-align: center;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.93);
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     .id{
@@ -56,7 +58,9 @@
     flex: 1 1 auto;
     min-width: 0;
     .#{$VESTA}-row{
-        display: flex;
+        @media(max-width: 1350px){
+            flex-direction: column;
+        }
     }
 }
 
@@ -67,13 +71,19 @@
     border-left: 35px solid #fff;
     min-width: 0;
     padding-bottom: 50px;
+    margin-bottom: 10px;
+    @media(max-width: 1350px){
+        flex-basis: auto;
+    }
     &.task{
-        margin-bottom: 10px;
         border-color: lighten($task, 30%);
     }
     &.idea{
         margin-right: 10px;
         border-color: lighten($idea, 30%);
+        @media(max-width: 1350px){
+            margin-right: 0;
+        }
     }
     &.ask{
         border-color: lighten($ask, 30%);
@@ -133,17 +143,22 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            max-width: 500px;
+            max-width: 400px;
         }
     }
-    .type,
     .type,
     .time{
         flex: 0 1 100px;
         text-align: left;
+        @media(max-width: 1350px){
+            display: none;
+        }
     }
     .creator{
         flex-basis: 150px;
+        @media(max-width: 1350px){
+            display: none;
+        }
     }
     .#{$VESTA}-priority{
         flex: 1 1 100px;
@@ -152,6 +167,9 @@
     .#{$VESTA}-status{
         flex: 1 1 80px;
         text-align: left;
+        @media(max-width: 1350px){
+            flex-basis: 100px;
+        }
     }
 }
 
@@ -160,6 +178,10 @@
     flex: 0 0 350px;
     background: #fff;
     margin-left: 10px;
+    margin-bottom: 10px;
+    @media(max-width:1600px){
+        flex: 0 0 300px;
+    }
 }
 
 
