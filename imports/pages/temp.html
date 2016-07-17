@@ -2,8 +2,19 @@
     <!-- Task, Idea, Ask wrapper -->
     <section class="vst-moduleAll-wrapper-dash">
         <!-- News wrapper - request, vote etc -->
-        <section class="vst-news-wrapper-dash">
-
+        <section class="vst-news-wrapper-dash" ng-if="vm.requests.length > 0">
+            <h3>- Requests waiting for my decision -</h3>
+            <div class="vst-requests-wrapper" ng-repeat="request in vm.requests">
+                <p class="vst-request-mine-dash">
+                    <span class="id">[ {{request.ideaId}} ]</span>
+                    <span class="user">{{request.getUserName()}}</span>
+                    want to
+                    <span class="request-desc">{{vm.requestDesc(request.requestTypeId)}}</span>
+                    because:
+                    <span class="explenation">{{request.explanation}}</span>
+                    <a href="#/{{request.ideaId}}" class="vst-btn-request">check it</a>
+                </p>
+            </div>
         </section>
 
         <div class="vst-row">
@@ -116,9 +127,67 @@
                             </p>
                         </a>
                     </div>
-                    <div class="vst-priority">
+                    <div class="vst-status">
+                        <a href="#">
+                            <span class="idea-status idea-status-New"> New </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="vst-status">
                         <a href="#">
                             <span class="idea-status idea-status-Working"> Working </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="vst-status">
+                        <a href="#">
+                            <span class="idea-status idea-status-Implemented"> Implemented </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                    <div class="vst-status">
+                        <a href="#">
+                            <span class="idea-status idea-status-Consider"> Consider </span>
                         </a>
                     </div>
                 </div>
@@ -126,6 +195,36 @@
             <!-- Ask -->
             <div class="vst-module-dash ask">
                 <h2 class="vst-module-title ask">Asks</h2>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="vst-list-item">
+                    <div class="vst-badge">
+                        <span class="project-badge">V</span>
+                    </div>
+                    <div class="title">
+                        <a href="#">
+                            <p>
+                                Ogólnie znana teza głosi, iż użytkownika może rozpraszać
+                                zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
+                                Jedną z mocnych stron używania Lorem
+                            </p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -133,47 +232,21 @@
     <!-- Pinned wrapper -->
     <aside class="vst-pinned-wrapper-dash">
 
+        <!-- Wpierdollem tu pinned z dashboardu z postami ale cos nie chce gowno dzialac:D -->
+        <ul class="list-group" style="background-color: white;
+                border: 1px solid black;
+                margin: 4px;
+                padding: 10px;" ng-if="globalVm.tacks.length > 0">
+            <li class="list-group-item" ng-repeat="tack in globalVm.tacks" style="border-bottom: 1px dashed grey;">
+                <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
+                    {{tack.projectPrefix}}
+                </span>
+                {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
+            </li>
+        </ul>
     </aside>
 </div>
 
-
-<section ng-if="vm.requests.length > 0">
-    <table class="table">
-        <caption>Requests waiting for my decision !</caption>
-        <thead>
-            <tr>
-                <th>Who</th>
-                <th>What</th>
-                <th>Where</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="request in vm.requests">
-                <td>
-                     <a href="#/{{request.ideaId}}">
-                        {{request.getUserName()}}
-                    </a>
-                </td>
-                <td>
-                     <a href="#/{{request.ideaId}}">
-                        {{vm.requestDesc(request.requestTypeId)}}
-                    </a>
-                </td>
-                <td>
-                     <a href="#/{{request.ideaId}}">
-                        {{request.ideaId}}
-                    </a>
-                </td>
-                <td>
-                     <a href="#/{{request.ideaId}}">
-                        {{request.explanation}}
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 <section ng-if="vm.myRequests.length > 0">
     <table class="table">

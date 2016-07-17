@@ -9,6 +9,9 @@
     h1{
         color: $ask !important;
     }
+    .#{$VESTA}-view-desc{
+        border-left-color: lighten($ask, 30%);
+    }
 }
 
 // Wrapper

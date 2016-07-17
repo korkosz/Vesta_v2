@@ -18,6 +18,9 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
         margin: 25px auto 25px auto !important;
         box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
     }
+    .#{$VESTA}-view-desc{
+        border-left-color: lighten($idea, 30%);
+    }
 }
 
 // Status idea

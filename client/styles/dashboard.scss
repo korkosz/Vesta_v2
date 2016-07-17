@@ -8,13 +8,49 @@
     margin-top: 30px;
 }
 
+//News wrapper - request, vote etc
 .#{$VESTA}-news-wrapper-dash{
     flex: 1 1 auto;
     min-width: 0;
-    height: 100px;
-    background: linear-gradient(135deg, rgba(204,0,0,1) 0%,rgba(160,0,0,1) 100%);
+    background: linear-gradient(135deg, #00ccb9 0%,#02bbbb 100%);
     margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
+
+.#{$VESTA}-news-wrapper-dash{
+    h3{
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 1px;
+        font-weight: 700;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.#{$VESTA}-request-mine-dash{
+    text-align: center;
+    color: #fff;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    .id{
+        margin-right: 0.5em;
+    }
+    .request-desc{
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-left: 0.3em;
+        margin-right: 0.3em;
+    }
+    .explenation{
+        font-style: italic;
+    }
+}
+
+
 // Module wrapper
 .#{$VESTA}-moduleAll-wrapper-dash{
     flex: 1 1 auto;
@@ -23,23 +59,24 @@
         display: flex;
     }
 }
+
 .#{$VESTA}-module-dash{
     flex: 1 1 0;
     min-height: 250px;
     background: #fff;
-    border-left: 50px solid #fff;
+    border-left: 35px solid #fff;
     min-width: 0;
     padding-bottom: 50px;
     &.task{
         margin-bottom: 10px;
-        border-color: lighten($task, 29%);
+        border-color: lighten($task, 30%);
     }
     &.idea{
         margin-right: 10px;
-        border-color: lighten($idea, 29%);
+        border-color: lighten($idea, 30%);
     }
     &.ask{
-        border-color: lighten($ask, 29%);
+        border-color: lighten($ask, 30%);
     }
 }
 
@@ -67,7 +104,7 @@
     align-items: center;
     min-width: 0;
     border-bottom: 1px solid #f4f4f4;
-    padding-left: 20px;
+    padding-left: 10px;
     font-size: 13px;
     &:last-of-type{
         border: none;
@@ -87,10 +124,10 @@
         }
     }
     .title{
-        flex: 8 10 0;
+        flex: 15 10 0;
         min-width: 0;
         a{
-            padding-right: 10px;
+            padding-right: 20px;
         }
         a > p{
             text-overflow: ellipsis;
@@ -100,16 +137,20 @@
         }
     }
     .type,
-    .creator,
+    .type,
     .time{
         flex: 0 1 100px;
         text-align: left;
     }
-    .type{
-        flex-basis: 70px;
+    .creator{
+        flex-basis: 150px;
     }
     .#{$VESTA}-priority{
         flex: 1 1 100px;
+        text-align: left;
+    }
+    .#{$VESTA}-status{
+        flex: 1 1 80px;
         text-align: left;
     }
 }
@@ -117,7 +158,7 @@
 // Pinned wrapper
 .#{$VESTA}-pinned-wrapper-dash{
     flex: 0 0 350px;
-    background: #3A3A3A;
+    background: #fff;
     margin-left: 10px;
 }
 
