@@ -69,7 +69,7 @@
     flex: 1 1 0;
     min-height: 250px;
     background: #fff;
-    border-left: 35px solid #fff;
+    //border-left: 10px solid #fff;
     min-width: 0;
     padding-bottom: 50px;
     margin-bottom: 10px;
@@ -97,17 +97,24 @@
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
-    height: 60px;
-    line-height: 60px;
-    padding-left: 23px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 16px;
+    img{
+        width: 25px;
+        transform: translateY(6px);
+    }
     &.task{
         color: $task;
+        background: lighten($task, 38%);
     }
     &.idea{
         color: $idea;
+        background: lighten($idea, 38%);
     }
     &.ask{
         color: $ask;
+        background: lighten($ask, 38%);
     }
 }
 
@@ -120,6 +127,9 @@
     font-size: 12px;
     margin-right: 10px;
     margin-left: 10px;
+    &:first-of-type{
+        padding-top: 1em;
+    }
     &:last-of-type{
         border-bottom: none !important;
     }
