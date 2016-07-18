@@ -16,8 +16,9 @@
     min-width: 0;
     background: linear-gradient(135deg, #00ccb9 0%,#02bbbb 100%);
     margin-bottom: 10px;
-    padding-top: 20px;
-    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
 }
 
 .#{$VESTA}-news-wrapper-dash{
@@ -28,8 +29,8 @@
         letter-spacing: 1px;
         font-weight: 700;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
+        height: 70px;
+        line-height: 70px;
     }
 }
 
@@ -72,6 +73,7 @@
     min-width: 0;
     padding-bottom: 50px;
     margin-bottom: 10px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
     @media(max-width: 1350px){
         flex-basis: auto;
     }
@@ -115,16 +117,18 @@
     min-width: 0;
     border-bottom: 1px solid #f4f4f4;
     padding-left: 10px;
-    font-size: 13px;
+    font-size: 12px;
+    margin-right: 10px;
+    margin-left: 10px;
     &:last-of-type{
-        border: none;
+        border-bottom: none !important;
     }
     > div > a{
         display: block;
         text-decoration: none;
         color: inherit;
-        padding-top: 1.2em;
-        padding-bottom: 1.2em;
+        padding-top: 1em;
+        padding-bottom: 1em;
     }
     .#{$VESTA}-badge{
         flex: 0 1 50px;
@@ -176,9 +180,11 @@
 // Pinned wrapper
 .#{$VESTA}-pinned-wrapper-dash{
     flex: 0 0 350px;
-    background: #fff;
+    background: #f4f4f4;
+    border: 10px solid #fff;
     margin-left: 10px;
     margin-bottom: 10px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
     @media(max-width:1600px){
         flex: 0 0 300px;
     }

@@ -3,16 +3,16 @@
         vertical-align: middle;
     }
     .priority{
-        height: 5px;
-        border-radius: 10px;
+        height: 7px;
+        border-radius: 0;
         &-Low{
         width: 30%;
-        background: #d8ff00;
+        background: #00e200;
         max-width: 30px;
         }
         &-Normal{
         width: 45%;
-        background: #17ff17;
+        background: #f3e000;
         max-width: 45px;
         }
         &-High{

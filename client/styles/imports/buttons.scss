@@ -21,18 +21,21 @@
 	background-image: none;
 	border: none;
 	border-radius: 3px;
-	background: #3e3e3e;
+	background: #f4f4f4;
 	box-shadow: 2px 2px;
 	margin-left: 1px;
 	margin-right: 1px;
 	&.idea{
 		color: $idea;
+		background: lighten($idea, 46%);
 	}
 	&.ask{
 		color: $ask;
+		background: lighten($ask, 46%);
 	}
 	&.task{
 		color: $task;
+		background: lighten($task, 46%);
 	}
 }
 
@@ -95,10 +98,11 @@
 
 .#{$VESTA}-btn-request{
 	color: #fff;
-    padding: 0.2em 0.7em;
-    border: 1px solid rgba(255, 255, 255, 0.58);
+    padding: 0.2em 1.3em;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 3px;
 	font-size: 10px;
     margin-left: 1em;
     vertical-align: text-top;
+	background: rgba(0,0,0,0.05);
 }
