@@ -1,0 +1,130 @@
+<!-- :eft Menu -->
+<section class="col-md-3">
+    <!-- Projects -->
+    <div class="search-left-menu-section">
+        <h4>
+            Projects:
+        </h4>
+        <div>
+            <input type="checkbox"> Vesta
+        </div>
+        <hr class="search-hr">
+    </div>
+
+    <!-- Entities -->
+    <div class="search-left-menu-section">
+        <h4>
+            Entities:
+        </h4>
+        <div>
+            <input type="checkbox" 
+                   ng-change="vm.entityChanged('Ideas', vm.model.entities['Ideas'])"
+                   ng-model="vm.model.entities['Ideas']"> Ideas <br>
+            <input type="checkbox"> Tasks <br>
+            <input type="checkbox"> Asks
+        </div>
+        <hr class="search-hr">
+    </div>
+
+    <!-- Columns -->
+    <div class="search-left-menu-section">
+        <h4>
+            Columns:
+        </h4>
+        <div>
+            <input type="checkbox" 
+                   ng-change="vm.columnChanged('title', vm.model.columns['title'])" 
+                   ng-model="vm.model.columns['title']"> Title <br>
+            <input type="checkbox"> Created By <br>
+            <input type="checkbox"> Creation Date <br>
+            <input type="checkbox"> Status <br>
+            <input type="checkbox"> Name
+        </div>
+        <hr class="search-hr">
+    </div>
+
+    <!-- Filters -->
+    <div class="search-left-menu-section">
+        <h4>
+            Filters:
+        </h4>
+        <div>
+            <input type="checkbox"> Starts with: 'ala' <br>
+            <input type="checkbox"> Contains: 'penis'
+        </div>
+        <hr class="search-hr">
+    </div>
+    <!-- Sort -->
+    <div class="search-left-menu-section">
+        <h4>
+            Sort:
+        </h4>
+        <div>
+            <input type="checkbox"> Title: desc
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-default col-md-offset-4">
+            Save View
+        </button>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="col-md-9 search-main-content">
+    <div ng-repeat="field in vm.selected.columns">
+        {{vm.getLabel(field)}}
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th ng-repeat="field in vm.selected.columns" ng-click="vm.sort(field)" ng-switch="vm.fieldSorted(field)" style="cursor: pointer">
+                    {{vm.getLabel(field)}}
+                    <span ng-switch-when="asc">
+                    &nbsp; ASC   
+                </span>
+                    <span ng-switch-when="desc">
+                    &nbsp; DESC 
+                </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--<tr ng-repeat="idea in vm.ideas">
+                <td ng-repeat="field in vm.list.columns">
+                    <a href="#/idea/{{idea.number}}">
+                    {{vm.getValue(field, idea[field])}}
+                </a>
+                </td>
+            </tr>
+            <tr ng-repeat="task in vm.tasks">
+                <td ng-repeat="field in vm.list.columns">
+                    <a href="#/task/{{task.number}}">
+                    {{vm.getValue(field, task[field])}}
+                </a>
+                </td>
+            </tr>-->
+        </tbody>
+    </table>
+
+</section>
+<style>
+    .search-main-content {
+        border-left: 1px solid black;
+        height: 500px;
+    }
+    
+    .search-left-menu-section {
+        margin: 8px;
+    }
+    
+    .search-left-menu-section h4 {
+        margin-bottom: 4px;
+    }
+    
+    .search-hr {
+        border-top: 1px solid #c5c5c5;
+        margin-bottom: 4px;
+        margin-top: 4px;
+    }
+</style>

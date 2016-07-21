@@ -8,5 +8,6 @@ import '/imports/components/globalCtrl';
 import '/imports/components/notifications/notifications';
 import '/imports/pages/bookmark/bookmark';
 import '/imports/pages/project/projectCtrl';
+import '/imports/pages/search/searchCtrl';
 
 import './routes';

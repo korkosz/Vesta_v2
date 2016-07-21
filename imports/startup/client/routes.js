@@ -2,6 +2,7 @@ import '/imports/pages/dashboard/dashboard.html';
 import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
 import '/imports/pages/bookmark/bookmark.html'
+import '/imports/pages/search/search.html'
 
 angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
@@ -12,6 +13,11 @@ angular.module('simple-todos')
 			when('/temp', {
 				templateUrl: 'imports/pages/temp.html',
 				controller: 'globalCtrl',
+				controllerAs: 'vm'
+			}).
+			when('/search', {
+				templateUrl: 'imports/pages/search/search.html',
+				controller: 'searchCtrl',
 				controllerAs: 'vm'
 			}).
 			when('/:id', {
