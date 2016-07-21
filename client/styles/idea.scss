@@ -171,10 +171,12 @@ section.idea-reviews{
     }
 
     .desc-wrapper{
+        position: relative;
         margin-top: 10px;
         color: #555;
         font-size: 16px;
         line-height: 1.6em;
+        margin-bottom: 10px;
     }
 
     textarea.editible-desc{
