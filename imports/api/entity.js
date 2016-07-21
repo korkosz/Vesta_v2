@@ -223,7 +223,8 @@ Entity.createSchemaMetadata = function (meta) {
                     default:
                         break;
                 }
-            }
+            },
+            notSearchable: true
         },
         description: {
             notify: function (modifier, oldEntity, modifierMethod, userId) {
@@ -232,7 +233,11 @@ Entity.createSchemaMetadata = function (meta) {
 
                 simpleNotification(usersToNotify,
                     oldEntity.id, 'Description', 'updated')
-            }
+            },
+            notSearchable: true
+        },
+        watchers: {
+            notSearchable: true
         }
     }
 
@@ -303,6 +308,10 @@ Entity.extendHelpers = function (collection, helpers) {
 
     var helpers = Object.assign(basicHelpers, helpers);
     collection.helpers(helpers);
+};
+
+Entity.setupStaticMethods = function (collection) {
+    collection.searchColumns = searchColumns;
 };
 
 var RelationSchema = new SimpleSchema({
@@ -419,4 +428,19 @@ function oldNewNotifyHelper(fieldName) {
             oldEntity[fieldName], modifier[modifierMethod][fieldName],
             'updated');
     }
+}
+
+function searchColumns(collection) {    
+    //1) get schema keys (without nested '$')
+    var schemaKeys = collection.schema._firstLevelSchemaKeys;
+
+    //2) Filter out keys explicitly hidden from search 
+    //   indicated by notSearchable attribute on schema metadata
+    schemaKeys = schemaKeys.filter((key) => {
+        var meta = this.schemaMetadata[key];
+        if (meta) return !meta.notSearchable;
+        else return true;
+    });
+
+    return schemaKeys;
 }

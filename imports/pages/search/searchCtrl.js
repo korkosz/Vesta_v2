@@ -61,6 +61,25 @@ function searchCtrl($scope) {
         }
     }
 
+    this.getColumns = function () {
+        var columns = [];
+
+        this.selected.entities.forEach((entity) => {
+            switch (entity) {
+                case 'Ideas':
+                    columns = columns.concat(Ideas.searchColumns(Ideas));
+                    break;
+                case 'Tasks':
+                    columns = columns.concat(Tasks.searchColumns(Tasks));
+                    break;
+                case 'Asks':
+                    columns = columns.concat(Asks.searchColumns(Asks));
+                    break;
+            }
+        });
+        return columns;
+    }
+
     var list = {
         //user: 'cGQZ526BT6BTefZ7a',
         entities: ['Task'],

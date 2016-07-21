@@ -20,7 +20,9 @@
             <input type="checkbox" 
                    ng-change="vm.entityChanged('Ideas', vm.model.entities['Ideas'])"
                    ng-model="vm.model.entities['Ideas']"> Ideas <br>
-            <input type="checkbox"> Tasks <br>
+            <input type="checkbox" 
+                   ng-change="vm.entityChanged('Tasks', vm.model.entities['Tasks'])"
+                   ng-model="vm.model.entities['Tasks']"> Tasks <br>
             <input type="checkbox"> Asks
         </div>
         <hr class="search-hr">
@@ -31,14 +33,10 @@
         <h4>
             Columns:
         </h4>
-        <div>
+        <div ng-repeat="column in vm.getColumns()">
             <input type="checkbox" 
-                   ng-change="vm.columnChanged('title', vm.model.columns['title'])" 
-                   ng-model="vm.model.columns['title']"> Title <br>
-            <input type="checkbox"> Created By <br>
-            <input type="checkbox"> Creation Date <br>
-            <input type="checkbox"> Status <br>
-            <input type="checkbox"> Name
+                   ng-change="vm.columnChanged(column, vm.model.columns[column])" 
+                   ng-model="vm.model.columns[column]"> {{vm.getLabel(column)}} <br>
         </div>
         <hr class="search-hr">
     </div>

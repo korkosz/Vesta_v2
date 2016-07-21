@@ -71,4 +71,6 @@ Entity.extendHelpers(TaskCollection, {
     }
 });
 
+Entity.setupStaticMethods(TaskCollection);
+
 TaskCollection.attachSchema(TaskCollection.schema);
