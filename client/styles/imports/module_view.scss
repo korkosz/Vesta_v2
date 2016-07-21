@@ -21,10 +21,9 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 //DESCRIPTION
 section.#{$VESTA}-view-desc{
     position: relative;
-    padding: 100px 80px 130px 0px;
+    padding: 100px 80px 130px 35px;
     background: #fff;
     flex: 1;
-    border-left: 35px solid;
     header{
         display: flex;
         align-items: baseline;
@@ -70,7 +69,7 @@ section.#{$VESTA}-view-desc{
         display: inline-block;
     }
     .#{$VESTA}-btn-group-menu{
-        margin-left: 100px;
+        margin-left: 135px;
         @media (max-width: 1400px){
             margin-left: 85px;
         }
@@ -85,7 +84,7 @@ section.#{$VESTA}-view-desc{
 .#{$VESTA}-view-project-path{
     display: block;
     position: absolute;
-    left: 78px;
+    left: 113px;
     top: 53px;
     @media (max-width: 1400px){
         left: 63px;

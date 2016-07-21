@@ -6,12 +6,26 @@
         <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
             <h2  class="vst-view-subheader">Add review</h2>
             <div class="new-review-content-box">
+
+                <!-- DESCRIPTION -->
+                <div class="desc-wrapper">
+                    <textarea placeholder="Add review here..."
+                                ng-model="$ctrl.review.comment"
+                                class="editible-desc">
+                    </textarea>
+                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addReview()">
+                        Add
+                    </button>
+                </div>
+
+                <!-- Prons and cons wrapper -->
                 <div class="prons-cons-wrapper">
                     <!-- PROS -->
                     <div class="prons-box">
                         <form ng-submit="$ctrl.addMerit()">
-                            <input placeholder="+&nbsp;prons"
-                                    ng-model="$ctrl.merit"/>
+                            <input placeholder="prons"
+                                    ng-model="$ctrl.merit"
+                                    class="pill create"/>
                         </form>
                         <pill state="plus" value="merit"
                             ng-repeat="merit in $ctrl.review.merits
@@ -22,8 +36,9 @@
                     <!-- CONS -->
                     <div class="cons-box">
                         <form ng-submit="$ctrl.addDrawback()">
-                            <input placeholder="-&nbsp;prons"
-                                    ng-model="$ctrl.drawback"/>
+                            <input placeholder="prons"
+                                    ng-model="$ctrl.drawback"
+                                    class="pill create"/>
                         </form>
                         <pill state="minus" value="drawback"
                                 ng-repeat="drawback in $ctrl.review.drawbacks
@@ -31,16 +46,6 @@
                                 remove="$ctrl.removeDrawback(drawback)">
                         </pill>
                     </div>
-                </div>
-                <!-- DESCRIPTION -->
-                <div class="desc-wrapper">
-                    <textarea placeholder="Add review here..."
-                                ng-model="$ctrl.review.comment"
-                                class="editible-desc">
-                    </textarea>
-                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addReview()">
-                        Add
-                    </button>
                 </div>
             </div>
         </div>
@@ -53,7 +58,14 @@
                 <div class="review-content-box">
                     <header>
                         <h3 class="vst-comment-name">{{review.creator()}}
-                            <img src="/images/avatar.jpg" alt="Avatar" class="vst-user-avatar"/>
+                            <div class="vst-comment-aside">
+                                <div class="vst-user-avatar">
+                                    <img src="/images/avatar.jpg" alt="Avatar"/>
+                                </div>
+                                <div class="idea-review-status like">
+                                    <img src="/images/icon-reviewLike.png" alt="" />
+                                </div>
+                            </div>
                         </h3>
                         <p class="vst-comment-addtime">
                             {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
@@ -80,13 +92,28 @@
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="desc-wrapper" ng-switch="!!review.edited">
+                        <p ng-switch-when="false">
+                            {{review.comment}}
+                        </p>
+                        <textarea ng-switch-when="true"
+                                    placeholder="Add description here..."
+                                    ng-model="review.comment"
+                                    class="editible-desc">
+                        </textarea>
+                    </div>
+
+                    <!-- Prons and cons wrapper -->
                     <div class="prons-cons-wrapper">
                         <!-- PROS -->
                         <div class="prons-box">
                             <form action="" ng-submit="$ctrl.addMerit(review)"
                                     ng-if="$ctrl.ownerAndEdit(review)">
-                                <input placeholder="+&nbsp;prons"
-                                    ng-model="$ctrl.merit"/>
+                                <input placeholder="prons"
+                                    ng-model="$ctrl.merit"
+                                    class="pill create"/>
                             </form>
                             <pill state="plus" value="merit"
                                     ng-repeat="merit in review.merits
@@ -99,8 +126,9 @@
                         <div class="cons-box">
                             <form action="" ng-submit="$ctrl.addDrawback(review)"
                                     ng-if="$ctrl.ownerAndEdit(review)">
-                                <input placeholder="-&nbsp;prons"
-                                    ng-model="$ctrl.drawback"/>
+                                <input placeholder="prons"
+                                    ng-model="$ctrl.drawback"
+                                    class="pill create"/>
                             </form>
                             <pill state="minus" value="drawback"
                                     ng-repeat="drawback in review.drawbacks
@@ -109,17 +137,6 @@
                                     read-only="!$ctrl.ownerAndEdit(review)">
                             </pill>
                         </div>
-                    </div>
-                    <!-- DESCRIPTION -->
-                    <div class="desc-wrapper" ng-switch="!!review.edited">
-                        <p ng-switch-when="false">
-                            {{review.comment}}
-                        </p>
-                        <textarea ng-switch-when="true"
-                                    placeholder="Add description here..."
-                                    ng-model="review.comment"
-                                    class="editible-desc">
-                        </textarea>
                     </div>
                 </div>
             </div>
