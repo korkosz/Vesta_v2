@@ -1,4 +1,4 @@
-<!-- :eft Menu -->
+<!-- Left Menu -->
 <section class="col-md-3">
     <!-- Projects -->
     <div class="search-left-menu-section">
@@ -23,7 +23,9 @@
             <input type="checkbox" 
                    ng-change="vm.entityChanged('Tasks', vm.model.entities['Tasks'])"
                    ng-model="vm.model.entities['Tasks']"> Tasks <br>
-            <input type="checkbox"> Asks
+            <input type="checkbox" 
+                   ng-change="vm.entityChanged('Asks', vm.model.entities['Asks'])"
+                   ng-model="vm.model.entities['Asks']"> Asks
         </div>
         <hr class="search-hr">
     </div>
@@ -70,38 +72,38 @@
 
 <!-- Main Content -->
 <section class="col-md-9 search-main-content">
-    <div ng-repeat="field in vm.selected.columns">
-        {{vm.getLabel(field)}}
-    </div>
+    <button class="btn btn-default" ng-click="vm.getSearchResult()">
+        Search
+    </button>
     <table class="table">
         <thead>
             <tr>
                 <th ng-repeat="field in vm.selected.columns" ng-click="vm.sort(field)" ng-switch="vm.fieldSorted(field)" style="cursor: pointer">
                     {{vm.getLabel(field)}}
                     <span ng-switch-when="asc">
-                    &nbsp; ASC   
-                </span>
+                        &nbsp; ASC   
+                    </span>
                     <span ng-switch-when="desc">
-                    &nbsp; DESC 
-                </span>
+                        &nbsp; DESC 
+                    </span>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <!--<tr ng-repeat="idea in vm.ideas">
-                <td ng-repeat="field in vm.list.columns">
+            <tr ng-repeat="idea in vm.searchResult.ideas">
+                <td ng-repeat="field in vm.selected.columns">
                     <a href="#/idea/{{idea.number}}">
-                    {{vm.getValue(field, idea[field])}}
+                    {{vm.getValue('Idea', field, idea[field])}}
                 </a>
                 </td>
             </tr>
-            <tr ng-repeat="task in vm.tasks">
-                <td ng-repeat="field in vm.list.columns">
+            <tr ng-repeat="task in vm.searchResult.tasks">
+                <td ng-repeat="field in vm.selected.columns">
                     <a href="#/task/{{task.number}}">
-                    {{vm.getValue(field, task[field])}}
+                    {{vm.getValue('Task', field, task[field])}}
                 </a>
                 </td>
-            </tr>-->
+            </tr>
         </tbody>
     </table>
 

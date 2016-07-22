@@ -15,8 +15,6 @@ AsksCollection.schema = Entity.createSchema({
 });
 AsksCollection.attachSchema(AsksCollection.schema);
 
-AsksCollection.schemaMetadata = Entity.createSchemaMetadata({});
-
 AsksCollection.schemaMetadata = Entity.createSchemaMetadata({
     goodPoints: {
         notify: function (modifier, oldEntity, modifierMethod, userId) {
@@ -33,8 +31,11 @@ AsksCollection.schemaMetadata = Entity.createSchemaMetadata({
                         'Good Point', 'removed');
                     break;
             }
-        }
+        },
+        notSearchable: true
     }
 });
+
+Entity.setupStaticMethods(AsksCollection);
 
 Entity.extendHelpers(AsksCollection, {});

@@ -42,7 +42,23 @@ Ideas.schema = Entity.createSchema({
 });
 Ideas.attachSchema(Ideas.schema);
 
-Ideas.schemaMetadata = Entity.createSchemaMetadata({});
+Ideas.schemaMetadata = Entity.createSchemaMetadata({
+    reason: {
+        notSearchable: true
+    },
+    reviewers: {
+        notSearchable: true
+    },
+    reviews: {
+        notSearchable: true
+    },
+    voting: {
+        notSearchable: true
+    },
+    votes: {
+        notSearchable: true
+    }
+});
 
 Entity.extendHelpers(Ideas, {
     getVotingDescription() {
@@ -50,6 +66,8 @@ Entity.extendHelpers(Ideas, {
             return Ideas.votingTypes[this.voting];
     }
 });
+
+Entity.setupStaticMethods(Ideas);
 
 Ideas.votingTypes = {
     1: 'Create First Task (Reviews will be off)',

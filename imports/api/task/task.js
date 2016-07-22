@@ -12,10 +12,10 @@ TaskCollection.schema = Entity.createSchema({
     priority: {
         type: String
     },
-    progress: {
-        type: Number,
-        defaultValue: 0
-    },
+    // progress: {
+    //     type: Number,
+    //     defaultValue: 0
+    // },
     type: {
         type: Number
     },

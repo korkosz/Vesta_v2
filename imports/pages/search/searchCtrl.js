@@ -18,17 +18,77 @@ function searchCtrl($scope) {
         columns: {}
     };
 
+    this.searchResult = {
+        ideas: [],
+        asks: [],
+        tasks: []
+    };
+
+    this.getSearchResult = function () {
+        this.searchResult = {};
+
+        if (this.selected.entities.indexOf('Ideas') > -1) {
+            this.searchResult.ideas = Ideas.find().fetch();
+        }
+        if (this.selected.entities.indexOf('Tasks') > -1) {
+            this.searchResult.tasks = Tasks.find().fetch();
+        }
+        if (this.selected.entities.indexOf('Asks') > -1) {
+            this.searchResult.asks = Asks.find().fetch();
+        }
+    };
+
+    this.getValue = function (entity, field, value) {
+
+        var EntityCollection = null;
+        switch (entity) {
+            case 'Idea':
+                EntityCollection = Ideas;
+                break;
+            case 'Task':
+                EntityCollection = Tasks;
+                break;
+            case 'Ask':
+                EntityCollection = Ideas;
+                break;
+        }
+
+        if (!EntityCollection.schemaMetadata) return value;
+
+        var metadata = EntityCollection.schemaMetadata[field];
+        if (metadata && metadata.transform) {
+            return metadata.transform(value, entity);
+        } else {
+            return value;
+        }
+    }
 
     /*
      * @param {bool} action - true/push, false/pull
      */
     this.entityChanged = function (entity, action) {
+        var vm = this;
+
         if (action) {
-            this.selected.entities.push(entity);
+            vm.selected.entities.push(entity);
         } else {
-            this.selected.entities.splice(
-                this.selected.entities.indexOf(entity), 1);
+            vm.selected.entities.splice(
+                vm.selected.entities.indexOf(entity), 1);
         }
+        vm.selected.columns.length = 0;
+
+        for (let column in vm.model.columns) {
+            if (vm.model.columns.hasOwnProperty(column)) {
+                vm.model.columns[column] = false;
+            }
+        }
+        vm.getColumns();
+        this.searchResult.ideas && this.searchResult.ideas.splice(
+            0, this.searchResult.ideas.length);
+        this.searchResult.asks && this.searchResult.asks.splice(
+            0, this.searchResult.asks.length);
+        this.searchResult.tasks && this.searchResult.tasks.splice(
+            0, this.searchResult.tasks.length);
     };
 
     /*
@@ -41,6 +101,12 @@ function searchCtrl($scope) {
             this.selected.columns.splice(
                 this.selected.columns.indexOf(column), 1);
         }
+        this.searchResult.ideas && this.searchResult.ideas.splice(
+            0, this.searchResult.ideas.length);
+        this.searchResult.asks && this.searchResult.asks.splice(
+            0, this.searchResult.asks.length);
+        this.searchResult.tasks && this.searchResult.tasks.splice(
+            0, this.searchResult.tasks.length);
     };
 
     this.getLabel = function (field) {
@@ -64,7 +130,8 @@ function searchCtrl($scope) {
     this.getColumns = function () {
         var columns = [];
 
-        this.selected.entities.forEach((entity) => {
+        if (this.selected.entities.length === 1) {
+            let entity = this.selected.entities[0];
             switch (entity) {
                 case 'Ideas':
                     columns = columns.concat(Ideas.searchColumns(Ideas));
@@ -76,7 +143,36 @@ function searchCtrl($scope) {
                     columns = columns.concat(Asks.searchColumns(Asks));
                     break;
             }
-        });
+        } else if (this.selected.entities.length > 1) {
+            this.selected.entities.forEach((entity) => {
+                switch (entity) {
+                    case 'Ideas':
+                        if (columns.length > 0) {
+                            columns = _.intersection(columns,
+                                Ideas.searchColumns(Ideas));
+                        } else {
+                            columns = columns.concat(Ideas.searchColumns(Ideas));
+                        }
+                        break;
+                    case 'Tasks':
+                        if (columns.length > 0) {
+                            columns = _.intersection(columns,
+                                Tasks.searchColumns(Tasks));
+                        } else {
+                            columns = columns.concat(Tasks.searchColumns(Tasks));
+                        }
+                        break;
+                    case 'Asks':
+                        if (columns.length > 0) {
+                            columns = _.intersection(columns,
+                                Asks.searchColumns(Asks));
+                        } else {
+                            columns = columns.concat(Asks.searchColumns(Asks));
+                        }
+                        break;
+                }
+            });
+        }
         return columns;
     }
 
