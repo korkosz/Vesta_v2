@@ -60,7 +60,7 @@
             Sort:
         </h4>
         <div ng-repeat="sortItem in vm.sortArr">            
-            <input type="checkbox">
+            <input type="checkbox" ng-model="sortItem.active">
             {{vm.getLabel(sortItem.field)}}: {{sortItem.value}}           
         </div>
     </div>

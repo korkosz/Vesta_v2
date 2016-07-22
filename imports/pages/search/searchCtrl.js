@@ -29,7 +29,7 @@ function searchCtrl($scope) {
     //@returns: 1, -1, 0 - asc, desc, no filter   
     this.fieldSorted = function (field) {
         var sort = this.sortArr.find((sortItem) => {
-            return sortItem.field === field;
+            return sortItem.field === field && sortItem.active;
         });
         if (angular.isUndefined(sort)) return 0;
         return sort.value;
@@ -41,7 +41,7 @@ function searchCtrl($scope) {
 
         //filter was off -> asc
         if (angular.isUndefined(sortItem)) {
-            this.sortArr.push({ field: field, value: 'asc' });
+            this.sortArr.push({ field: field, value: 'asc', active: true });
             return;
         }
         //filter was asc -> desc
@@ -69,14 +69,19 @@ function searchCtrl($scope) {
     this.getSearchResult = function () {
         this.searchResult = {};
 
+        var sort = this.sortArr.map((sortItem) => {
+            if (sortItem.active)
+                return [sortItem.field, sortItem.value];
+        });
+
         if (this.selected.entities.indexOf('Ideas') > -1) {
-            this.searchResult.ideas = Ideas.find().fetch();
+            this.searchResult.ideas = Ideas.find({}, { sort: sort }).fetch();
         }
         if (this.selected.entities.indexOf('Tasks') > -1) {
-            this.searchResult.tasks = Tasks.find().fetch();
+            this.searchResult.tasks = Tasks.find({}, { sort: sort }).fetch();
         }
         if (this.selected.entities.indexOf('Asks') > -1) {
-            this.searchResult.asks = Asks.find().fetch();
+            this.searchResult.asks = Asks.find({}, { sort: sort }).fetch();
         }
     };
 
