@@ -59,8 +59,9 @@
         <h4>
             Sort:
         </h4>
-        <div>
-            <input type="checkbox"> Title: desc
+        <div ng-repeat="sortItem in vm.sortArr">            
+            <input type="checkbox">
+            {{vm.getLabel(sortItem.field)}}: {{sortItem.value}}           
         </div>
     </div>
     <div class="row">
@@ -73,7 +74,7 @@
 <!-- Main Content -->
 <section class="col-md-9 search-main-content">
     <button class="btn btn-default" ng-click="vm.getSearchResult()">
-        Search
+        Refresh
     </button>
     <table class="table">
         <thead>

@@ -8,6 +8,8 @@ angular.module('simple-todos')
 function searchCtrl($scope) {
     $scope.viewModel(this);
 
+    this.sortArr = [];
+
     this.selected = {
         entities: [],
         columns: []
@@ -22,6 +24,46 @@ function searchCtrl($scope) {
         ideas: [],
         asks: [],
         tasks: []
+    };
+
+    //@returns: 1, -1, 0 - asc, desc, no filter   
+    this.fieldSorted = function (field) {
+        var sort = this.sortArr.find((sortItem) => {
+            return sortItem.field === field;
+        });
+        if (angular.isUndefined(sort)) return 0;
+        return sort.value;
+    };
+
+    this.sort = function (field) {
+        var me = this;
+        var sortItem = getSortValue(field);
+
+        //filter was off -> asc
+        if (angular.isUndefined(sortItem)) {
+            this.sortArr.push({ field: field, value: 'asc' });
+            return;
+        }
+        //filter was asc -> desc
+        if (sortItem.value === 'asc') {
+            sortItem.value = 'desc';
+            return;
+        }
+
+        //filter was desc -> off
+        if (sortItem.value === 'desc') {
+            var idx = me.sortArr.findIndex((_sortItem) => {
+                return _sortItem.field === field;
+            });
+            me.sortArr.splice(idx, 1);
+            return;
+        }
+
+        function getSortValue(field) {
+            return me.sortArr.find((sortItem) => {
+                return sortItem.field === field;
+            });
+        }
     };
 
     this.getSearchResult = function () {
