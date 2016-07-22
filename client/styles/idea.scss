@@ -6,9 +6,6 @@ $min-height: 100px; // ta wartość odpowiada za wysokość pola description
 
 //Idea DESCRIPTION
 .#{$VESTA}-idea-container{
-    .pill{
-        background: lighten($idea, 15%);
-    }
 
     h1{
         color: $idea !important;
@@ -119,27 +116,20 @@ section.idea-reviews{
     }
 
     .prons-cons-wrapper{
-        margin-top: 10px;
+        display: flex;
+        margin-right: 120px;
         .pill{
             display: block;
-            background: transparent;
-            color: #888;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 0;
-            padding-right: 30px;
-            margin: 8px 0 0 20px;
-            button{
-                position: relative;
-                padding-left: 10px;
-                color: #ccc;
-            }
+            margin: 5px 0;
+            padding-left: 27px;
+            min-height: 32px;
+            width: 100%;
         }
         span.glyphicon{
             position: absolute;
-            left: -20px;
-            top: 4px;
-            font-size: 12px;
+            left: 10px;
+            top: 11px;
+            font-size: 11px;
             &-minus-sign{
                 color: $red;
             }
@@ -148,24 +138,21 @@ section.idea-reviews{
             }
         }
         .prons-box{
-            display: inline-block;
-            width: 220px;
-            vertical-align: top;
-            .pill{
+            flex: 1 1 0;
+            margin-right: 20px;
+            .pill:not(.create){
                 color: $green;
+                background: lighten($green, 45%);
             }
         }
         .cons-box{
-            display: inline-block;
-            max-width: 400px;
-            vertical-align: top;
-            .pill{
+            flex: 1 1 0;
+            .pill:not(.create){
                 color: $red;
+                background: lighten($red, 38%);
             }
         }
         input{
-            height: 30px;
-            min-width: 200px;
             border: none;
             background: #f4f4f4;
             outline: none;
@@ -184,11 +171,12 @@ section.idea-reviews{
     }
 
     .desc-wrapper{
-        padding-right: 50px;
+        position: relative;
         margin-top: 10px;
         color: #555;
         font-size: 16px;
         line-height: 1.6em;
+        margin-bottom: 10px;
     }
 
     textarea.editible-desc{
@@ -214,7 +202,11 @@ section.idea-reviews{
     .btn-group-review{
         position: absolute;
         right: 0;
-        top: 0;
+        top: -7px;
+    }
+
+    .idea-review-status{
+        margin-top: 10px;
     }
 
     // New review content box
