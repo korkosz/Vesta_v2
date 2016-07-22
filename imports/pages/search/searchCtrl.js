@@ -130,12 +130,15 @@ function searchCtrl($scope) {
             }
         }
         vm.getColumns();
+
         this.searchResult.ideas && this.searchResult.ideas.splice(
             0, this.searchResult.ideas.length);
         this.searchResult.asks && this.searchResult.asks.splice(
             0, this.searchResult.asks.length);
         this.searchResult.tasks && this.searchResult.tasks.splice(
             0, this.searchResult.tasks.length);
+
+        this.sortArr.length = 0;
     };
 
     /*
@@ -147,7 +150,16 @@ function searchCtrl($scope) {
         } else {
             this.selected.columns.splice(
                 this.selected.columns.indexOf(column), 1);
+
+            var idx = this.sortArr.findIndex((sortItem) => {
+                return sortItem.field.toLowerCase() === column.toLowerCase();
+            });
+
+            if (idx > -1) {
+                this.sortArr.splice(idx, 1);
+            }
         }
+        
         this.searchResult.ideas && this.searchResult.ideas.splice(
             0, this.searchResult.ideas.length);
         this.searchResult.asks && this.searchResult.asks.splice(
