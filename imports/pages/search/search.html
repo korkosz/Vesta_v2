@@ -83,6 +83,9 @@
     <button class="btn btn-default" ng-click="vm.getSearchResult()">
         Refresh
     </button>
+    <button class="btn btn-default" ng-click="vm.clearFilters()">
+        Clear Filters
+    </button>
     <table class="table">
         <thead>
             <tr>
@@ -110,7 +113,9 @@
                                 <span>
                                     {{vm.getValue(field, uniq)}}
                                 </span>
-                                <input type="checkbox">
+                                <input type="checkbox" 
+                                       ng-model="vm.uniqFiltersArr[field][uniq]"
+                                       ng-change="vm.filterUniq(field)"> 
                             </li>
                         </ul>
                         <div ng-if="vm.getFilterType(field) === 'date'" 

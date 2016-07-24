@@ -2,6 +2,9 @@ import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
 
+//TODO: 
+// filtr equals - dajesz enter i mozesz kolejna warosc
+
 angular.module('simple-todos')
     .controller('searchCtrl', searchCtrl);
 
@@ -11,7 +14,7 @@ function searchCtrl($scope) {
 
     this.sortArr = [];
     /*
-     *[{
+      [{
          field: sprint,
          filters: [
              {
@@ -19,10 +22,19 @@ function searchCtrl($scope) {
                  value: 12
              }
          ]
-     }]
-     * 
+     }]      
      */
     this.filterArr = [];
+
+    /*
+      {
+        sprint: {
+            value1: true,
+            value2: false 
+        }        
+      }
+     */
+    this.uniqFiltersArr = {};
 
     this.selected = {
         entities: [],
@@ -41,6 +53,15 @@ function searchCtrl($scope) {
     };
 
     // *** FILTERS ***
+    this.clearFilters = function () {
+        this.filterArr.length = 0;
+        for (let key in this.uniqFiltersArr) {
+            if (this.uniqFiltersArr.hasOwnProperty(key)) {
+                delete this.uniqFiltersArr[key];
+            }
+        }
+    };
+
     this.filterEqual = function (field, value) {
         const type = 'equal';
 
@@ -73,6 +94,60 @@ function searchCtrl($scope) {
             fieldFilters.filters.push({
                 type: type,
                 value: value,
+                active: true
+            });
+        }
+    };
+
+    this.filterUniq = function (field) {
+        const type = 'uniq';
+
+        var uniqFiltersObj = this.uniqFiltersArr[field];
+        var uniqFilters = [];
+
+        for (let key in uniqFiltersObj) {
+            if (uniqFiltersObj.hasOwnProperty(key)) {
+                if (uniqFiltersObj[key]) {
+                    //problem z type !
+                    if (!isNaN(parseInt(key))) {
+                        uniqFilters.push(parseInt(key));
+                    } else {
+                        uniqFilters.push(key);
+                    }
+                }
+            }
+        }
+
+        var fieldFilters = this.filterArr.find(
+            (filter) => filter.field === field);
+
+        // 1) this is the first filter for this field
+        if (angular.isUndefined(fieldFilters) &&
+            uniqFilters.length > 0) {
+            this.filterArr.push({
+                field: field,
+                filters: [{
+                    type: type,
+                    value: uniqFilters,
+                    active: true
+                }]
+            });
+            return;
+        }
+
+        // 2) There was already filter of this type
+        // if so delete it 
+        var typeFilterIdx = fieldFilters.filters.findIndex(
+            (filter) => filter.type === type);
+
+        if (typeFilterIdx > -1) {
+            fieldFilters.filters.splice(typeFilterIdx, 1);
+        }
+
+        if (uniqFilters.length > 0) {
+            fieldFilters.filters.push({
+                type: type,
+                value: uniqFilters,
                 active: true
             });
         }
@@ -137,7 +212,17 @@ function searchCtrl($scope) {
             filterField.filters.forEach((filter) => {
                 if (filter.active) {
                     if (filter.type === 'equal') {
-                        filterObj[filterField.field] = filter.value;
+                        //type w metadata jako property base
+                        if (!isNaN(parseInt(filter.value))) {
+                            filterObj[filterField.field] =
+                                parseInt(filter.value);
+                        } else {
+                            filterObj[filterField.field] = filter.value;
+                        }
+                    } else if (filter.type === 'uniq') {
+                        filterObj[filterField.field] = {
+                            $in: filter.value
+                        }
                     }
                 }
             });
