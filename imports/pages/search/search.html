@@ -18,14 +18,14 @@
         </h4>
         <div>
             <input type="checkbox" 
-                   ng-change="vm.entityChanged('Ideas', vm.model.entities['Ideas'])"
-                   ng-model="vm.model.entities['Ideas']"> Ideas <br>
+                   ng-change="vm.entityChanged('Idea', vm.model.entities['Idea'])"
+                   ng-model="vm.model.entities['Idea']"> Ideas <br>
             <input type="checkbox" 
-                   ng-change="vm.entityChanged('Tasks', vm.model.entities['Tasks'])"
-                   ng-model="vm.model.entities['Tasks']"> Tasks <br>
+                   ng-change="vm.entityChanged('Task', vm.model.entities['Task'])"
+                   ng-model="vm.model.entities['Task']"> Tasks <br>
             <input type="checkbox" 
-                   ng-change="vm.entityChanged('Asks', vm.model.entities['Asks'])"
-                   ng-model="vm.model.entities['Asks']"> Asks
+                   ng-change="vm.entityChanged('Ask', vm.model.entities['Ask'])"
+                   ng-model="vm.model.entities['Ask']"> Asks
         </div>
         <hr class="search-hr">
     </div>
@@ -48,9 +48,16 @@
         <h4>
             Filters:
         </h4>
-        <div>
-            <input type="checkbox"> Starts with: 'ala' <br>
-            <input type="checkbox"> Contains: 'penis'
+        <div ng-repeat="filterFieldItem in vm.filterArr">     
+            <div>
+                {{vm.getLabel(filterFieldItem.field)}}:  
+            </div>  
+            <div ng-repeat="filter in filterFieldItem.filters">
+                <div ng-if="filter.type === 'equal'">
+                    <input type="checkbox" ng-model="filter.active">
+                    Equals: {{filter.value}}
+                </div>                
+            </div>                     
         </div>
         <hr class="search-hr">
     </div>
@@ -79,14 +86,43 @@
     <table class="table">
         <thead>
             <tr>
-                <th ng-repeat="field in vm.selected.columns" ng-click="vm.sort(field)" ng-switch="vm.fieldSorted(field)" style="cursor: pointer">
-                    {{vm.getLabel(field)}}
-                    <span ng-switch-when="asc">
+                <th ng-repeat="field in vm.selected.columns" 
+                    ng-switch="vm.fieldSorted(field)" 
+                    style="cursor: pointer">
+                    <span ng-click="vm.sort(field)">
+                        {{vm.getLabel(field)}}
+                    </span>                    
+                    <span ng-switch-when="asc" ng-click="vm.sort(field)">
                         &nbsp; ASC   
                     </span>
-                    <span ng-switch-when="desc">
+                    <span ng-switch-when="desc" ng-click="vm.sort(field)">
                         &nbsp; DESC 
                     </span>
+                    <div class="dropup">
+                        <button class="btn btn-{{vm.activeFilters(field)? 'success': 'default'}} dropdown-toggle" 
+                            type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            F
+                            <span class="caret"></span>
+                        </button>
+                        <ul ng-if="vm.getFilterType(field) === 'picklist'"
+                            class="dropdown-menu">
+                            <li ng-repeat="uniq in vm.getUniqueValues(field)">
+                                <span>
+                                    {{vm.getValue(field, uniq)}}
+                                </span>
+                                <input type="checkbox">
+                            </li>
+                        </ul>
+                        <div ng-if="vm.getFilterType(field) === 'date'" 
+                             class="dropdown-menu">
+                            Between <input type="date"> and <input type="date">
+                        </div>
+                        <div ng-if="vm.getFilterType(field) === 'equal'" 
+                             class="dropdown-menu">
+                            Equals <input type="text" ng-model="equalValue" 
+                                          ng-blur="vm.filterEqual(field, equalValue)">
+                        </div>
+                    </div>
                 </th>
             </tr>
         </thead>
@@ -94,14 +130,14 @@
             <tr ng-repeat="idea in vm.searchResult.ideas">
                 <td ng-repeat="field in vm.selected.columns">
                     <a href="#/idea/{{idea.number}}">
-                    {{vm.getValue('Idea', field, idea[field])}}
+                    {{vm.getValue(field, idea[field])}}
                 </a>
                 </td>
             </tr>
             <tr ng-repeat="task in vm.searchResult.tasks">
                 <td ng-repeat="field in vm.selected.columns">
                     <a href="#/task/{{task.number}}">
-                    {{vm.getValue('Task', field, task[field])}}
+                    {{vm.getValue(field, task[field])}}
                 </a>
                 </td>
             </tr>

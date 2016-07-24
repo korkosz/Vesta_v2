@@ -34,12 +34,24 @@ TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
                 return user.profile.firstname[0] + '.' + ' ' +
                     user.profile.lastname;
             }
+        },
+        search: {
+            filter: 'picklist'
         }
     },
     type: {
         transform(value) {
             const taskTypes = Metadata.findOne('5vdA3vyJ2qCTMabwL').value;
             return taskTypes.find((type) => type.id === value).value;
+        },
+        search: {
+            filter: 'picklist'
+        }
+    },
+    priority: {
+        //notify: oldNewNotifyHelper('priority'),
+        search: {
+            filter: 'picklist'
         }
     }
 });

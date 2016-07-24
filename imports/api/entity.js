@@ -131,16 +131,51 @@ Entity.createSchema = function (schemaExtension) {
 
 Entity.createSchemaMetadata = function (meta) {
     var basicSchemaMeta = {
+        id: {
+            search: {
+                filter: 'equal'
+            }
+        },
+        number: {
+            search: {
+                filter: 'equal'
+            }
+        },
+        project: {
+            type: String,
+            transform(value) {
+                var project = Projects.findOne(value);
+                if (project) return project.name;
+            },
+            search: {
+                filter: 'picklist'
+            }
+        },
+        module: {
+            transform(value) {
+                var module = Modules.findOne(value);
+                if (module) return module.name;
+            },
+            search: {
+                filter: 'picklist'
+            }
+        },
         creationDate: {
             type: Date,
             transform(value) {
                 return moment(value).fromNow();
+            },
+            search: {
+                filter: 'date'
             }
         },
         updatedAt: {
             type: Date,
             transform(value) {
                 return moment(value).fromNow();
+            },
+            search: {
+                filter: 'date'
             }
         },
         createdBy: {
@@ -151,17 +186,20 @@ Entity.createSchemaMetadata = function (meta) {
                     return user.profile.firstname[0] + '.' + ' ' +
                         user.profile.lastname;
                 }
+            },
+            search: {
+                filter: 'picklist'
             }
         },
         status: {
             transform(value, additionalValue) {
                 switch (additionalValue) {
                     case 'Ask':
-                        return Metadata.findOne('orb7v9a457r3T2snk').value[value].name;
+                        return Metadata.findOne('orb7v9a457r3T2snk').value[value].value;
                     case 'Idea':
                         return Metadata.findOne('CBJNeBr7WrnA8FmqH').value[value].name;
                     case 'Task':
-                        return Metadata.findOne('orb7v9aZq7r3T2snk').value[value].name;
+                        return Metadata.findOne('orb7v9aZq7r3T2snk').value[value].value;
                     default:
                         return 'ERROR2';
                 }
@@ -176,10 +214,10 @@ Entity.createSchemaMetadata = function (meta) {
 
                 oldNewNotification(usersToNotify, oldEntity.id, 'Status',
                     oldVal, newVal, 'changed');
+            },
+            search: {
+                filter: 'picklist'
             }
-        },
-        priority: {
-            notify: oldNewNotifyHelper('priority')
         },
         sprint: {
             notify: function (modifier, oldEntity, modifierMethod, userId) {
@@ -194,6 +232,9 @@ Entity.createSchemaMetadata = function (meta) {
 
                 oldNewNotification(usersToNotify, oldEntity.id, 'Sprint',
                     oldVal, newVal, 'updated');
+            },
+            search: {
+                filter: 'picklist'
             }
         },
         related: {
@@ -275,13 +316,13 @@ Entity.extendHelpers = function (collection, helpers) {
             switch (letter) {
                 case 'A':
                     return Metadata.findOne('orb7v9a457r3T2snk')
-                        .value[this.status].name;
+                        .value[this.status].value;
                 case 'I':
                     return Metadata.findOne('CBJNeBr7WrnA8FmqH')
                         .value[this.status].name;
                 case 'T':
                     return Metadata.findOne('orb7v9aZq7r3T2snk')
-                        .value[this.status].name;
+                        .value[this.status].value;
                 default:
                     return 'ERROR2';
             }
@@ -430,7 +471,7 @@ function oldNewNotifyHelper(fieldName) {
     }
 }
 
-function searchColumns(collection) {    
+function searchColumns(collection) {
     //1) get schema keys (without nested '$')
     var schemaKeys = collection.schema._firstLevelSchemaKeys;
 
