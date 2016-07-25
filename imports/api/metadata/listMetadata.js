@@ -13,6 +13,9 @@ const fieldSchema = new SimpleSchema({
 });
 
 ListsSchema.schema = new SimpleSchema({
+    name: {
+        type: String
+    },
     user: {
         type: String
     },
@@ -23,7 +26,7 @@ ListsSchema.schema = new SimpleSchema({
         type: [String]
     },
     filters: {
-        type: Object,
+        type: [Object],
         optional: true,
         blackbox: true
     },
@@ -31,10 +34,6 @@ ListsSchema.schema = new SimpleSchema({
         type: [[String]],
         optional: true
     }
-    // sort: {
-    //     type: [fieldSchema],
-    //     optional: true
-    // }
 });
 
 ListsSchema.attachSchema(ListsSchema.schema);

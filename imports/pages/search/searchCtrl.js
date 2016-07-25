@@ -1,7 +1,7 @@
 import Ideas from '/imports/api/ideas/idea';
 import Tasks from '/imports/api/task/task';
 import Asks from '/imports/api/ask/ask';
-
+import ListsSchemas from '/imports/api/metadata/listMetadata';
 //TODO: 
 // filtr equals - dajesz enter i mozesz kolejna warosc
 
@@ -11,6 +11,12 @@ angular.module('simple-todos')
 function searchCtrl($scope) {
     $scope.viewModel(this);
     var vm = this;
+
+    this.helpers({
+        usersLists() {
+            return ListsSchemas.find({ user: Meteor.userId() });
+        }
+    });
 
     this.sortArr = [];
     /*
@@ -52,6 +58,36 @@ function searchCtrl($scope) {
         tasks: []
     };
 
+    this.saveList = function (name) {
+        // nie moze byc w field name $ trzeba 
+        // tu to jakos wypierdalac
+        var listObj = {
+            user: Meteor.userId(),
+            name: name,
+            entities: vm.selected.entities,
+            columns: vm.selected.columns,
+            filters: vm.filterArr.map((obj) => {
+                var field = obj.field;
+                var filters = obj.filters.map((fil) => {
+                    var type = fil.type;
+                    var value = fil.value;
+                    return { type: type, value: value }
+                });
+
+                return {
+                    field: field,
+                    filters: filters
+                }
+            }),
+            sort: vm.sortArr.map((sortItem) => {
+                if (sortItem.active)
+                    return [sortItem.field, sortItem.value];
+            })
+        }
+
+        ListsSchemas.insert(listObj);
+    }
+
     // *** FILTERS ***
     this.clearFilters = function () {
         this.filterArr.length = 0;
@@ -66,7 +102,7 @@ function searchCtrl($scope) {
         const type = 'date';
 
         if (gt && gt.getTime) gt = gt.getTime();
-        if (lt && lt.getTime) 
+        if (lt && lt.getTime)
             lt = moment(lt).hour(23).minute(59).second(59).valueOf();
 
         var fieldFilters = this.filterArr.find(

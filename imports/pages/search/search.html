@@ -6,7 +6,7 @@
             Projects:
         </h4>
         <div>
-            <input type="checkbox"> Vesta
+            <input type="checkbox" disabled> Vesta
         </div>
         <hr class="search-hr">
     </div>
@@ -72,9 +72,19 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-default col-md-offset-4">
+        <button class="btn btn-default col-md-offset-4"
+                data-toggle="modal" 
+                data-target="#newList">
             Save View
         </button>
+    </div>
+    <div>
+        <h4>
+            Users Lists 
+        </h4>
+        <div ng-repeat="list in vm.usersLists">
+            <a>{{list.name}}</a>
+        </div>
     </div>
 </section>
 
@@ -151,6 +161,42 @@
     </table>
 
 </section>
+
+<!-- New Users List Modal-->
+<div class="modal fade" id="newList" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    New View
+                </h4>
+            </div>
+            <div class="modal-body">
+                Name <input type="text" ng-model="name">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal"
+                        ng-click="name = null">
+                    Cancel
+                 </button>
+                <button type="button" class="btn btn-danger"
+                        data-dismiss="modal"
+                        ng-click="vm.saveList(name)">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <style>
     .search-main-content {
         border-left: 1px solid black;
