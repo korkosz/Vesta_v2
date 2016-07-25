@@ -120,7 +120,8 @@
                         </ul>
                         <div ng-if="vm.getFilterType(field) === 'date'" 
                              class="dropdown-menu">
-                            Between <input type="date"> and <input type="date">
+                            Between <input type="date" ng-model="gt"
+                                ng-change="vm.filterDate(field, gt, lt)"> and <input type="date" ng-model="lt" ng-change="vm.filterDate(field, gt, lt)">
                         </div>
                         <div ng-if="vm.getFilterType(field) === 'equal'" 
                              class="dropdown-menu">

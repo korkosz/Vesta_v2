@@ -8,25 +8,12 @@ class TaskClass extends Entity { }
 
 export default TaskCollection = new TaskClass('Tasks');
 
-TaskCollection.schema = Entity.createSchema({
-    priority: {
-        type: String
-    },
-    // progress: {
-    //     type: Number,
-    //     defaultValue: 0
-    // },
-    type: {
-        type: Number
-    },
-    assigned: {
-        type: String,
-        optional: true
-    }
-});
-
 TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
     assigned: {
+        base: {
+            type: String,
+            optional: true
+        },
         type: 'id',
         transform(value) {
             var user = Meteor.users.findOne(value);
@@ -40,6 +27,9 @@ TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
         }
     },
     type: {
+        base: {
+            type: Number
+        },
         transform(value) {
             const taskTypes = Metadata.findOne('5vdA3vyJ2qCTMabwL').value;
             return taskTypes.find((type) => type.id === value).value;
@@ -49,10 +39,30 @@ TaskCollection.schemaMetadata = Entity.createSchemaMetadata({
         }
     },
     priority: {
+        base: {
+            type: String
+        },
         //notify: oldNewNotifyHelper('priority'),
         search: {
             filter: 'picklist'
         }
+    }
+});
+
+TaskCollection.schema = Entity.createSchema(TaskCollection.schemaMetadata, {
+    priority: {
+        type: String
+    },
+    // progress: {
+    //     type: Number,
+    //     defaultValue: 0
+    // },
+    type: {
+        type: Number
+    },
+    assigned: {
+        type: String,
+        optional: true
     }
 });
 

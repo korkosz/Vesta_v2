@@ -62,6 +62,53 @@ function searchCtrl($scope) {
         }
     };
 
+    this.filterDate = function (field, gt, lt) {
+        const type = 'date';
+
+        if (gt && gt.getTime) gt = gt.getTime();
+        if (lt && lt.getTime) 
+            lt = moment(lt).hour(23).minute(59).second(59).valueOf();
+
+        var fieldFilters = this.filterArr.find(
+            (filter) => filter.field === field);
+
+        // 1) this is the first filter for this field
+        if (angular.isUndefined(fieldFilters) && (gt || lt)) {
+            this.filterArr.push({
+                field: field,
+                filters: [{
+                    type: type,
+                    value: {
+                        gt: gt,
+                        lt: lt
+                    },
+                    active: true
+                }]
+            });
+            return;
+        }
+
+        // 2) There was already filter of this type
+        // if so delete it 
+        var typeFilterIdx = fieldFilters.filters.findIndex(
+            (filter) => filter.type === type);
+
+        if (typeFilterIdx > -1) {
+            fieldFilters.filters.splice(typeFilterIdx, 1);
+        }
+
+        if (gt || lt) {
+            fieldFilters.filters.push({
+                type: type,
+                value: {
+                    gt: gt,
+                    lt: lt
+                },
+                active: true
+            });
+        }
+    }
+
     this.filterEqual = function (field, value) {
         const type = 'equal';
 
@@ -108,12 +155,7 @@ function searchCtrl($scope) {
         for (let key in uniqFiltersObj) {
             if (uniqFiltersObj.hasOwnProperty(key)) {
                 if (uniqFiltersObj[key]) {
-                    //problem z type !
-                    if (!isNaN(parseInt(key))) {
-                        uniqFilters.push(parseInt(key));
-                    } else {
-                        uniqFilters.push(key);
-                    }
+                    uniqFilters.push(parseFilterValue(field, key));
                 }
             }
         }
@@ -212,22 +254,54 @@ function searchCtrl($scope) {
             filterField.filters.forEach((filter) => {
                 if (filter.active) {
                     if (filter.type === 'equal') {
-                        //type w metadata jako property base
-                        if (!isNaN(parseInt(filter.value))) {
-                            filterObj[filterField.field] =
-                                parseInt(filter.value);
-                        } else {
-                            filterObj[filterField.field] = filter.value;
-                        }
+                        filterObj[filterField.field] =
+                            parseFilterValue(filterField.field, filter.value);
                     } else if (filter.type === 'uniq') {
                         filterObj[filterField.field] = {
                             $in: filter.value
                         }
+                    } else if (filter.type === 'date') {
+                        var gtLt = {};
+                        if (filter.value.gt)
+                            gtLt.$gt = filter.value.gt;
+                        if (filter.value.lt)
+                            gtLt.$lt = filter.value.lt;
+
+                        filterObj[filterField.field] = gtLt;
                     }
                 }
             });
         });
         return filterObj;
+    }
+
+    function parseFilterValue(field, value) {
+        if (vm.selected.entities.length === 0) return;
+
+        var EntityCollection;
+        // If there is more than one entity selected
+        // we can choose only columns that are common
+        // to all entities 
+        const entity = vm.selected.entities[0];
+
+        switch (entity) {
+            case 'Idea':
+                EntityCollection = Ideas;
+                break;
+            case 'Task':
+                EntityCollection = Tasks;
+                break;
+            case 'Ask':
+                EntityCollection = Ideas;
+                break;
+        }
+        const type = EntityCollection.schemaMetadata[field]['base'].type;
+
+        if (type === Number) {
+            return Number.parseInt(value)
+        } else {
+            return value;
+        }
     }
     // FILTERS *END*
 

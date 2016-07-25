@@ -18,7 +18,45 @@ var voteSchema = new SimpleSchema({
     }
 });
 
-Ideas.schema = Entity.createSchema({
+Ideas.schemaMetadata = Entity.createSchemaMetadata({
+    reason: {
+        base: {
+            type: String,
+            optional: true
+        },
+        notSearchable: true
+    },
+    reviewers: {
+        base: {
+            type: [String],
+            optional: true
+        },
+        notSearchable: true
+    },
+    reviews: {
+        base: {
+            type: [String],
+            optional: true
+        },
+        notSearchable: true
+    },
+    voting: {
+        base: {
+            type: Number,
+            optional: true
+        },
+        notSearchable: true
+    },
+    votes: {
+        base: {
+            type: [voteSchema],
+            optional: true
+        },
+        notSearchable: true
+    }
+});
+
+Ideas.schema = Entity.createSchema(Ideas.schemaMetadata, {
     reason: {
         type: String,
         optional: true
@@ -41,24 +79,6 @@ Ideas.schema = Entity.createSchema({
     }
 });
 Ideas.attachSchema(Ideas.schema);
-
-Ideas.schemaMetadata = Entity.createSchemaMetadata({
-    reason: {
-        notSearchable: true
-    },
-    reviewers: {
-        notSearchable: true
-    },
-    reviews: {
-        notSearchable: true
-    },
-    voting: {
-        notSearchable: true
-    },
-    votes: {
-        notSearchable: true
-    }
-});
 
 Entity.extendHelpers(Ideas, {
     getVotingDescription() {

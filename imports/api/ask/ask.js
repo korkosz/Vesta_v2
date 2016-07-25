@@ -7,16 +7,12 @@ class AsksClass extends Entity { }
 
 export default AsksCollection = new AsksClass('Asks');
 
-AsksCollection.schema = Entity.createSchema({
-    goodPoints: {
-        type: [String],
-        optional: true
-    }
-});
-AsksCollection.attachSchema(AsksCollection.schema);
-
 AsksCollection.schemaMetadata = Entity.createSchemaMetadata({
     goodPoints: {
+        base: {
+            type: [String],
+            optional: true
+        },
         notify: function (modifier, oldEntity, modifierMethod, userId) {
             const usersToNotify = oldEntity.watchers.filter(
                 (user) => user !== userId);
@@ -35,6 +31,14 @@ AsksCollection.schemaMetadata = Entity.createSchemaMetadata({
         notSearchable: true
     }
 });
+
+AsksCollection.schema = Entity.createSchema(AsksCollection.schemaMetadata, {
+    goodPoints: {
+        type: [String],
+        optional: true
+    }
+});
+AsksCollection.attachSchema(AsksCollection.schema);
 
 Entity.setupStaticMethods(AsksCollection);
 

@@ -57,72 +57,14 @@ export default class Entity extends Mongo.Collection {
     }
 }
 
-Entity.createSchema = function (schemaExtension) {
-    var base = {
-        id: {
-            type: String
-        },
-        number: {
-            type: Number
-        },
-        project: {
-            type: String
-        },
-        module: {
-            type: String
-        },
-        sprint: {
-            type: Number
-        },
-        title: {
-            type: String,
-            max: 100
-        },
-        status: {
-            type: Number,
-            defaultValue: 1
-        },
-        description: {
-            type: String,
-            optional: true
-        },
-        related: {
-            type: [RelationSchema],
-            optional: true
-        },
-        creationDate: {
-            type: Number,
-            label: 'Created At',
-            autoValue() {
-                if (this.isInsert) {
-                    return (new Date()).getTime();
-                }
-            }
-        },
-        createdBy: {
-            type: String,
-            label: 'Created By',
-            autoValue() {
-                if (this.isInsert) {
-                    return this.userId;
-                } else {
-                    this.unset();
-                }
-            }
-        },
-        watchers: {
-            type: [String],
-            optional: true
-        },
-        updatedAt: {
-            type: Date,
-            autoValue: function () {
-                return new Date();
-            },
-            optional: true,
-            label: 'Updated At'
-        }
-    };
+Entity.createSchema = function (schemaMeta, schemaExtension) {
+    var base = {};
+
+     for(let key in schemaMeta) {
+         if(schemaMeta.hasOwnProperty(key)) {
+             base[key] = schemaMeta[key]['base'];
+         }
+     }
 
     var schema = Object.assign(base, schemaExtension);
 
@@ -132,17 +74,25 @@ Entity.createSchema = function (schemaExtension) {
 Entity.createSchemaMetadata = function (meta) {
     var basicSchemaMeta = {
         id: {
+            base: {
+                type: String
+            },
             search: {
                 filter: 'equal'
             }
         },
         number: {
+            base: {
+                type: Number
+            },
             search: {
                 filter: 'equal'
             }
         },
         project: {
-            type: String,
+            base: {
+                type: String
+            },
             transform(value) {
                 var project = Projects.findOne(value);
                 if (project) return project.name;
@@ -152,6 +102,9 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         module: {
+            base: {
+                type: String
+            },
             transform(value) {
                 var module = Modules.findOne(value);
                 if (module) return module.name;
@@ -160,8 +113,21 @@ Entity.createSchemaMetadata = function (meta) {
                 filter: 'picklist'
             }
         },
+        title: {
+            base: {
+                type: String
+            }
+        },
         creationDate: {
-            type: Date,
+            base: {
+                type: Number,
+                label: 'Created At',
+                autoValue() {
+                    if (this.isInsert) {
+                        return (new Date()).getTime();
+                    }
+                }
+            },
             transform(value) {
                 return moment(value).fromNow();
             },
@@ -170,7 +136,14 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         updatedAt: {
-            type: Date,
+            base: {
+                type: Date,
+                autoValue: function () {
+                    return new Date();
+                },
+                optional: true,
+                label: 'Updated At'
+            },
             transform(value) {
                 return moment(value).fromNow();
             },
@@ -179,6 +152,17 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         createdBy: {
+            base: {
+                type: String,
+                label: 'Created By',
+                autoValue() {
+                    if (this.isInsert) {
+                        return this.userId;
+                    } else {
+                        this.unset();
+                    }
+                }
+            },
             type: 'id',
             transform(value) {
                 var user = Meteor.users.findOne(value);
@@ -192,6 +176,10 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         status: {
+            base: {
+                type: Number,
+                defaultValue: 1
+            },
             transform(value, additionalValue) {
                 switch (additionalValue) {
                     case 'Ask':
@@ -220,6 +208,9 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         sprint: {
+            base: {
+                type: Number
+            },
             notify: function (modifier, oldEntity, modifierMethod, userId) {
                 const usersToNotify = oldEntity.watchers.filter(
                     (user) => user !== userId);
@@ -238,6 +229,10 @@ Entity.createSchemaMetadata = function (meta) {
             }
         },
         related: {
+            base: {
+                type: [RelationSchema],
+                optional: true
+            },
             notify: function (modifier, oldEntity, modifierMethod, userId, additionalParams) {
                 const usersToNotify = oldEntity.watchers.filter(
                     (user) => user !== userId);
@@ -268,6 +263,10 @@ Entity.createSchemaMetadata = function (meta) {
             notSearchable: true
         },
         description: {
+            base: {
+                type: String,
+                optional: true
+            },
             notify: function (modifier, oldEntity, modifierMethod, userId) {
                 const usersToNotify = oldEntity.watchers.filter(
                     (user) => user !== userId);
@@ -278,6 +277,10 @@ Entity.createSchemaMetadata = function (meta) {
             notSearchable: true
         },
         watchers: {
+            base: {
+                type: [String],
+                optional: true
+            },
             notSearchable: true
         }
     }
@@ -353,6 +356,7 @@ Entity.extendHelpers = function (collection, helpers) {
 
 Entity.setupStaticMethods = function (collection) {
     collection.searchColumns = searchColumns;
+    collection.getFieldType = getFieldType;
 };
 
 var RelationSchema = new SimpleSchema({
@@ -484,4 +488,8 @@ function searchColumns(collection) {
     });
 
     return schemaKeys;
+}
+
+function getFieldType(collection, field) {
+    return collection.schemaMetadata[field]['base']['type'];
 }
