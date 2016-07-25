@@ -56,7 +56,13 @@
                 <div ng-if="filter.type === 'equal'">
                     <input type="checkbox" ng-model="filter.active">
                     Equals: {{filter.value}}
-                </div>                
+                </div>  
+                <div ng-if="filter.type === 'uniq'">
+                    <input type="checkbox" ng-model="filter.active">
+                    Equals: <span ng-repeat="value in filter.value">
+                         {{vm.getValue(filterFieldItem.field, key)}}{{$last ? '': ','}}  
+                    </span>
+                </div>               
             </div>                     
         </div>
         <hr class="search-hr">
@@ -119,12 +125,22 @@
                         </button>
                         <ul ng-if="vm.getFilterType(field) === 'picklist'"
                             class="dropdown-menu">
-                            <li ng-repeat="uniq in vm.getUniqueValues(field)">
+                            <li ng-repeat="uniq in vm.getUniqueValues(field)"
+                                ng-if="vm.getUniqueValues(field).length > 0">
                                 <span>
                                     {{vm.getValue(field, uniq)}}
                                 </span>
                                 <input type="checkbox" 
-                                       ng-model="vm.uniqFiltersArr[field][uniq]"
+                                       ng-model="vm.model.uniqFilters[field][uniq]"
+                                       ng-change="vm.filterUniq(field)"> 
+                            </li>
+                            <li ng-repeat="(key, value) in vm.model.uniqFilters[field]"
+                                ng-if="vm.getUniqueValues(field).length < 1">
+                                <span>
+                                    {{vm.getValue(field, key)}}
+                                </span>
+                                <input type="checkbox" 
+                                       ng-model="vm.model.uniqFilters[field][key]"
                                        ng-change="vm.filterUniq(field)"> 
                             </li>
                         </ul>
@@ -135,8 +151,10 @@
                         </div>
                         <div ng-if="vm.getFilterType(field) === 'equal'" 
                              class="dropdown-menu">
-                            Equals <input type="text" ng-model="equalValue" 
-                                          ng-blur="vm.filterEqual(field, equalValue)">
+                            Equals <input type="text" 
+                                          ng-model="vm.model.equalFilters[field]" 
+                                          ng-blur="vm.filterEqual(
+                                            field, vm.model.equalFilters[field])">
                         </div>
                     </div>
                 </th>

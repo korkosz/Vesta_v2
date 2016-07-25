@@ -32,16 +32,6 @@ function searchCtrl($scope) {
      */
     this.filterArr = [];
 
-    /*
-      {
-        sprint: {
-            value1: true,
-            value2: false 
-        }        
-      }
-     */
-    this.uniqFiltersArr = {};
-
     this.selected = {
         entities: [],
         columns: []
@@ -49,7 +39,17 @@ function searchCtrl($scope) {
 
     this.model = {
         entities: {},
-        columns: {}
+        columns: {},
+        /*
+        {
+            field1: {
+                value1: true,
+                value2: false 
+            }        
+        }
+        */
+        uniqFilters: {},
+        equalFilters: {}
     };
 
     this.searchResult = {
@@ -57,6 +57,12 @@ function searchCtrl($scope) {
         asks: [],
         tasks: []
     };
+
+    this.getUniquesFromDb = function() {
+        if(vm.getUniqueValues(field).length < 1) {
+
+        }
+    }
 
     this.loadView = function (view) {
         //entities
@@ -96,6 +102,29 @@ function searchCtrl($scope) {
                 active: true
             });
         });
+
+        //filters
+        vm.clearFilters();
+
+        view.filters.forEach((filterField) => {
+            filterField.filters.forEach((filter) => {
+                filter.active = true;
+
+                if (filter.type === 'uniq') {
+                    vm.model.uniqFilters[filterField.field] = {};
+                    filter.value.forEach((filt)=> {
+                        vm.model.uniqFilters[filterField.field]                        
+                            [filt] = true;    
+                    });
+                } else if (filter.type === 'equal') {
+                    vm.model.equalFilters[filterField.field] =
+                        filter.value;
+                }
+            });
+            vm.filterArr.push(filterField);
+        });
+
+        vm.getSearchResult();
     };
 
     this.saveList = function (name) {
@@ -131,9 +160,14 @@ function searchCtrl($scope) {
     // *** FILTERS ***
     this.clearFilters = function () {
         this.filterArr.length = 0;
-        for (let key in this.uniqFiltersArr) {
-            if (this.uniqFiltersArr.hasOwnProperty(key)) {
-                delete this.uniqFiltersArr[key];
+        for (let key in vm.model.uniqFilters) {
+            if (vm.model.uniqFilters.hasOwnProperty(key)) {
+                delete vm.model.uniqFilters[key];
+            }
+        }
+        for (let key in vm.model.equalFilters) {
+            if (vm.model.equalFilters.hasOwnProperty(key)) {
+                delete vm.model.equalFilters[key];
             }
         }
     };
@@ -225,7 +259,7 @@ function searchCtrl($scope) {
     this.filterUniq = function (field) {
         const type = 'uniq';
 
-        var uniqFiltersObj = this.uniqFiltersArr[field];
+        var uniqFiltersObj = vm.model.uniqFilters[field];
         var uniqFilters = [];
 
         for (let key in uniqFiltersObj) {
