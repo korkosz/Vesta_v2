@@ -82,7 +82,7 @@
         <h4>
             Users Lists 
         </h4>
-        <div ng-repeat="list in vm.usersLists">
+        <div ng-repeat="list in vm.usersLists" ng-click="vm.loadView(list)">
             <a>{{list.name}}</a>
         </div>
     </div>

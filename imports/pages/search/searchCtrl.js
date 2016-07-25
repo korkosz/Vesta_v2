@@ -58,6 +58,46 @@ function searchCtrl($scope) {
         tasks: []
     };
 
+    this.loadView = function (view) {
+        //entities
+        vm.selected.entities.length = 0;
+
+        for (let entity in vm.model.entities) {
+            if (vm.model.entities.hasOwnProperty(entity)) {
+                vm.model.entities[entity] = false;
+            }
+        }
+
+        view.entities.forEach((ent) => {
+            vm.selected.entities.push(ent)
+            vm.model.entities[ent] = true;
+        });
+
+        //columns
+        vm.selected.columns.length = 0;
+
+        for (let column in vm.model.columns) {
+            if (vm.model.columns.hasOwnProperty(column)) {
+                vm.model.columns[column] = false;
+            }
+        }
+        view.columns.forEach((col) => {
+            vm.selected.columns.push(col)
+            vm.model.columns[col] = true;
+        });
+
+        //sort
+        vm.sortArr.length = 0;
+
+        view.sort.forEach((sort) => {
+            vm.sortArr.push({
+                field: sort[0],
+                value: sort[1],
+                active: true
+            });
+        });
+    };
+
     this.saveList = function (name) {
         // nie moze byc w field name $ trzeba 
         // tu to jakos wypierdalac
