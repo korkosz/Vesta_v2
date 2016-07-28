@@ -27,88 +27,34 @@
                         Tasks
                     </h2>
 
-                    <div class="vst-list-item">
+                    <div class="vst-list-item" 
+                         ng-repeat="task in vm.tasks | orderBy: 
+                            [vm.statusFilter, '-updatedAt', '-creationDate']">
                         <div class="vst-badge">
                             <span class="project-badge">V</span>
                         </div>
                         <div class="title">
-                            <a href="#">
+                            <a href="#/task/{{task.number}}">
                                 <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                    Jedną z mocnych stron używania Lorem
+                                     {{task.title}}
                                 </p>
                             </a>
                         </div>
                         <div class="type">
-                            <a href="#">feature</a>
+                            <a href="#/task/{{task.number}}">{{task.getTypeName()}}</a>
                         </div>
                         <div class="creator">
-                            <a href="#">M. Chmiel</a>
+                            <a href="#/task/{{task.number}}">{{task.creatorShort()}}</a>
                         </div>
                         <div class="time">
-                            <a href="#">8 min ago</a>
+                            <a href="#/task/{{task.number}}">
+                                {{vm.moment(vm.moment.utc(task.creationDate)
+                                    .toDate()).fromNow()}}
+                            </a>
                         </div>
                         <div class="vst-priority">
-                            <a href="#">
-                                <div class="priority priority-Normal"></div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                    Jedną z mocnych stron używania Lorem
-                                </p>
-                            </a>
-                        </div>
-                        <div class="type">
-                            <a href="#">feature</a>
-                        </div>
-                        <div class="creator">
-                            <a href="#">M. Chmiel</a>
-                        </div>
-                        <div class="time">
-                            <a href="#">8 min ago</a>
-                        </div>
-                        <div class="vst-priority">
-                            <a href="#">
-                                <div class="priority priority-High"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                    Jedną z mocnych stron używania Lorem
-                                </p>
-                            </a>
-                        </div>
-                        <div class="type">
-                            <a href="#">feature</a>
-                        </div>
-                        <div class="creator">
-                            <a href="#">M. Chmiel</a>
-                        </div>
-                        <div class="time">
-                            <a href="#">8 min ago</a>
-                        </div>
-                        <div class="vst-priority">
-                            <a href="#">
-                                <div class="priority priority-Low"></div>
+                            <a href="#/task/{{task.number}}">
+                                <div class="priority priority-{{task.priority}}"></div>
                             </a>
                         </div>
                     </div>
@@ -122,77 +68,27 @@
                         Ideas
                     </h2>
 
-                    <div class="vst-list-item">
+                    <div class="vst-list-item" 
+                         ng-repeat="idea in vm.ideas| orderBy: 
+                            ['-updatedAt', '-creationDate']" 
+                         ng-if="idea.sprint === vm.project.currentSprint">
                         <div class="vst-badge">
-                            <span class="project-badge">V</span>
+                            <span class="project-badge">
+                                {{idea.projectName()[0].toUpperCase()}}
+                            </span>
                         </div>
                         <div class="title">
-                            <a href="#">
+                            <a href="#/idea/{{idea.number}}">
                                 <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony, kiedy ten chce zobaczyć sam jej wygląd.
-                                    Jedną z mocnych stron używania Lorem
+                                    {{idea.title}}
                                 </p>
                             </a>
                         </div>
                         <div class="vst-status">
-                            <a href="#">
-                                <span class="idea-status idea-status-New"> New </span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony,
-                                </p>
-                            </a>
-                        </div>
-                        <div class="vst-status">
-                            <a href="#">
-                                <span class="idea-status idea-status-Working"> Working </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony,
-                                </p>
-                            </a>
-                        </div>
-                        <div class="vst-status">
-                            <a href="#">
-                                <span class="idea-status idea-status-Implemented"> Implemented </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony,
-                                </p>
-                            </a>
-                        </div>
-                        <div class="vst-status">
-                            <a href="#">
-                                <span class="idea-status idea-status-Consider"> Consider </span>
+                            <a href="#/idea/{{idea.number}}">
+                                <span class="idea-status idea-status-{{idea.getStatusName()}}">
+                                    {{idea.getStatusName()}}
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -204,29 +100,18 @@
                         Asks
                     </h2>
 
-                    <div class="vst-list-item">
+                    <div class="vst-list-item" 
+                        ng-repeat="ask in vm.asks| orderBy: 
+                            ['-creationDate']">
                         <div class="vst-badge">
-                            <span class="project-badge">V</span>
+                            <span class="project-badge">
+                                {{ask.projectName()[0].toUpperCase()}}
+                            </span>
                         </div>
                         <div class="title">
-                            <a href="#">
+                            <a href="#/ask/{{ask.number}}">
                                 <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony,
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="vst-list-item">
-                        <div class="vst-badge">
-                            <span class="project-badge">V</span>
-                        </div>
-                        <div class="title">
-                            <a href="#">
-                                <p>
-                                    Ogólnie znana teza głosi, iż użytkownika może rozpraszać
-                                    zrozumiała zawartość strony, kiedy
+                                    {{ask.title}}
                                 </p>
                             </a>
                         </div>
@@ -242,8 +127,10 @@
             <ul class="list-group" style="background-color: white;
                     border: 1px solid black;
                     margin: 4px;
-                    padding: 10px;" ng-if="globalVm.tacks.length > 0">
-                <li class="list-group-item" ng-repeat="tack in globalVm.tacks" style="border-bottom: 1px dashed grey;">
+                    padding: 10px;" ng-if="vm.tacks.length > 0">
+                <li class="list-group-item" 
+                    ng-repeat="tack in vm.tacks" 
+                    style="border-bottom: 1px dashed grey;">
                     <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
                         {{tack.projectPrefix}}
                     </span>
@@ -299,8 +186,15 @@
     </table>
 </section>
 
-<task-list title="Tasks Assigned To Me"
-    filter="vm.assignedToMeFilter"></task-list>
-<idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>
-<ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>
+
+<!--taka sama lista jest wyzej-->
+<!--<task-list title="Tasks Assigned To Me"
+    filter="vm.assignedToMeFilter"></task-list>-->
+
+<!--taka sama lista jest wyzej-->
+<!--<idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>-->
+
+<!--taka sama lista jest wyzej-->
+<!--<ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>-->
+
 <task-list filter="{ status: { $in: [1, 2] } }"></task-list>

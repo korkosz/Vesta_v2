@@ -8,10 +8,12 @@ angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
 			when('/', {
-				templateUrl: 'imports/pages/dashboard/dashboard.html'
-			}).
-			when('/temp', {
 				templateUrl: 'imports/pages/temp.html',
+				controller: 'globalCtrl',
+				controllerAs: 'vm'
+			}).
+			when('/temp', {				
+				templateUrl: 'imports/pages/dashboard/dashboard.html',
 				controller: 'globalCtrl',
 				controllerAs: 'vm'
 			}).

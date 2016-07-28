@@ -3,6 +3,9 @@ import Requests from '/imports/api/ideas/requests';
 import Posts from '/imports/api/project/posts';
 import Tacks from '/imports/api/project/tacks';
 import Bookmarks from '/imports/api/metadata/bookmark';
+import Tasks from '/imports/api/task/task';
+import Ideas from '/imports/api/ideas/idea';
+import Asks from '/imports/api/ask/ask';
 
 import './bookmarks/bookmark';
 
@@ -32,6 +35,9 @@ function globalCtrl($scope) {
                     _id: { $in: user.profile.projects }
                 });
             }
+        },
+        project() {
+            return Projects.findOne({ name: 'Vesta' });
         },
         tacks() {
             this.getReactively('projects');
@@ -71,6 +77,32 @@ function globalCtrl($scope) {
         myRequests() {
             return Requests.find({
                 creator: Meteor.userId()
+            });
+        },
+        tasks() {
+            return Tasks.find({
+                assigned: Meteor.userId(),
+                status: { $in: [1, 2] }
+            }).map((task) => {
+                task.isNew = moment.utc().diff(
+                    task.creationDate, 'days') === 0;
+                return task;
+            });
+        },
+        ideas() {
+            var filter = { status: { $in: [1, 6, 2, 7, 8] } };
+
+            return Ideas.find(filter).map((idea) => {
+                idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                return idea;
+            });
+        },
+        asks() {
+            var filter = { status: { $in: [1, 2] } };
+
+            return Asks.find(filter).map((ask) => {
+                ask.isNew = moment().diff(ask.creationAt, 'days') === 0;
+                return ask;
             });
         }
     });
