@@ -3,6 +3,7 @@ import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
 import '/imports/pages/bookmark/bookmark.html'
 import '/imports/pages/search/search.html'
+import '/imports/pages/sprint/sprintPlanning.html'
 
 angular.module('simple-todos')
     .config(['$routeProvider', function ($routeProvider) {
@@ -20,6 +21,11 @@ angular.module('simple-todos')
 			when('/search', {
 				templateUrl: 'imports/pages/search/search.html',
 				controller: 'searchCtrl',
+				controllerAs: 'vm'
+			}).
+			when('/sprint/new', {
+				templateUrl: 'imports/pages/sprint/sprintPlanning.html',
+				controller: 'SprintPlanningCtrl',
 				controllerAs: 'vm'
 			}).
 			when('/:id', {

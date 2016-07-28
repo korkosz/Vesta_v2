@@ -1,0 +1,711 @@
+<!-- klocki na gorze -->
+<section>
+    <!-- Zrob to tez jako klikalne buttony ktore dadza to samo co klikniecie na checkboxa-->
+    <div style="margin: 50px;">
+        <div style="height: 40px;
+                    width:90px;
+                    border: 1px solid black;
+                    display: inline-block;
+                    margin-right: 60px;
+                    background-color: {{vm.isStageActive('GOALS') ? 'antiquewhite': 'none'}}">
+            GOALS
+        </div>
+        <div style="height: 40px;
+                    width:90px;
+                    border: 1px solid black;
+                    display: inline-block;
+                    margin-right: 60px;
+                    background-color: {{vm.isStageActive('IDEAS_ASKS') ? 'antiquewhite': 'none'}}">
+            IDEAS
+        </div>
+        <div style="height: 40px;
+                    width:90px;
+                    border: 1px solid black;
+                    display: inline-block;
+                    margin-right: 60px;
+                    background-color: {{vm.isStageActive('TASKS') ? 'antiquewhite': 'none'}}">
+            TASKS
+        </div>
+
+
+        <div style="height: 40px;
+                    width:90px;
+                    border: 1px solid black;
+                    display: inline-block;
+                    margin-right: 60px;
+                    background-color: {{vm.isStageActive('ASSIGNMENT') ? 'antiquewhite': 'none'}}">
+            ASSIGNMENT
+        </div>
+
+        <button style="height: 40px;
+                       width:90px;
+                       display: inline-block;"
+                       ng-click="vm.activateNextStage()">
+            NEXT 
+        </button>
+    </div>
+</section>
+
+<!-- main content -->
+<section class="row" style="border-top: 1px solid black;">
+    <!-- main content -->
+    <main class="col-md-10 col-md-offset-1" style="padding:24px;padding-top: 0px;">
+        <!-- Goals Table-->
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" 
+                 style="border: 1px solid black; 
+                        border-top: none;
+                        height: 200px;">
+                <h3 style="text-align: center;">
+                    Goals 
+                </h3>
+                <ul style="list-style-position: inside;
+                        list-style-type: upper-roman;">
+                    <li>Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                </ul>
+            </div>
+        </div>        
+
+        <!-- 1. Establish Goals -->
+        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
+            <h4>
+                Establish your goals
+            </h4>
+            <input type="text" placeholder="Type your goal here">
+            <button class="btn btn-default">Add</button>
+
+            <ul style="list-style-position: inside;
+                       list-style-type: upper-roman;">
+                <div>
+                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <button class="btn btn-danger" 
+                            style="height: 20px;
+                                    padding-top: 0px;
+                                    padding-bottom: 0px;
+                                    display: inline-block;
+                                    width: 62px;
+                                    text-align: center;
+                                    padding-left: 0px;
+                                    padding-right: 0px;">
+                        DELETE
+                    </button>
+                </div>                
+                <div>
+                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <button class="btn btn-danger" 
+                            style="height: 20px;
+                                    padding-top: 0px;
+                                    padding-bottom: 0px;
+                                    display: inline-block;
+                                    width: 62px;
+                                    text-align: center;
+                                    padding-left: 0px;
+                                    padding-right: 0px;">
+                        DELETE
+                    </button>
+                </div>
+                <div>
+                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <button class="btn btn-danger" 
+                            style="height: 20px;
+                                    padding-top: 0px;
+                                    padding-bottom: 0px;
+                                    display: inline-block;
+                                    width: 62px;
+                                    text-align: center;
+                                    padding-left: 0px;
+                                    padding-right: 0px;">
+                        DELETE
+                    </button>
+                </div>
+                <div>
+                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
+                        adipiscing elit, sed do eiusmod</li>
+                    <button class="btn btn-danger" 
+                            style="height: 20px;
+                                    padding-top: 0px;
+                                    padding-bottom: 0px;
+                                    display: inline-block;
+                                    width: 62px;
+                                    text-align: center;
+                                    padding-left: 0px;
+                                    padding-right: 0px;">
+                        DELETE
+                    </button>
+                </div>
+            </ul>
+        </div>
+
+        <!-- 2. Create Ideas and Asks-->
+        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
+            <h3>Ideas and Discussions</h3>
+
+            <!-- Ideas -->
+            <div class="col-md-7">
+                <button style="color: orange">
+                    New Idea
+                </button>
+                <!-- Some Main Idea -->
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                 padding:2px 7px;">
+                        133 
+                    </span>
+                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                    <span class="idea-status idea-status-Consider">
+                        Consider
+                    </span>
+                </div>
+                <!-- Sub Ideas-->
+                <div style="padding-left: 32px;">
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            113 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-New">
+                            New
+                        </span>
+                    </div>
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            993 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-Consider">
+                            Consider
+                        </span>
+                    </div>
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            122 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-Rejected">
+                            Rejected
+                        </span>
+                    </div>
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            13 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-Discussed">
+                            Discussed
+                        </span>
+                    </div>
+                </div>       
+
+                <!-- Some Main Idea -->
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                 padding:2px 7px;">
+                        133 
+                    </span>
+                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                    <span class="idea-status idea-status-Consider">
+                        Consider
+                    </span>
+                </div>
+                <!-- Sub Ideas-->
+                <div style="padding-left: 32px;">                
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            122 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-Rejected">
+                            Rejected
+                        </span>
+                    </div>
+                    <div>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            13 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span class="idea-status idea-status-Discussed">
+                            Discussed
+                        </span>
+                    </div>
+                </div>  
+                <!-- Some Main Idea -->
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                 padding:2px 7px;">
+                        133 
+                    </span>
+                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                    <span class="idea-status idea-status-Rejected">
+                        Rejected
+                    </span>
+                </div>         
+            </div>
+
+            <!-- Discussions -->
+            <div class="col-md-5">
+                <button style="color: green;">
+                    New Ask
+                </button>
+
+                <!-- Moze po najechaniu na element aska w jakis sposob
+                 na liscie obok podswietli sie idea z nim powiazany -->
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        993 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        122 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Create Tasks-->
+        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
+            <h3>
+                Create Tasks
+            </h3>
+
+            <!-- Some Main Idea -->
+            <div>
+                <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                    133 
+                </span>
+                <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+            </div>
+            <!-- Tasks for Idea above-->
+            <div style="padding-left: 32px;">
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: green;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: green;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+            </div>
+            <!-- Sub Ideas-->
+            <div style="padding-left: 32px;">
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        993 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+
+                    <!-- Tasks for Idea above-->
+                    <div style="padding-left: 32px;">
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        </div>
+                        
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        122 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+                </div>
+                <!-- Tasks for Idea above-->
+                <div style="padding-left: 32px;">
+                    <div style="margin-top: 10px;margin-bottom: 10px;">
+                        <span style="background-color: green;
+                                    margin-right: 5px;">&nbsp;</span>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            113 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        13 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+                </div>
+            </div>       
+
+            <!-- Some Main Idea -->
+            <div>
+                <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                    133 
+                </span>
+                <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+            </div>
+            <!-- Sub Ideas-->
+            <div style="padding-left: 32px;">                                
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: orange;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        122 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: orange;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        13 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: green;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">T</button>
+
+                    <!-- Tasks for Idea above-->
+                    <div style="padding-left: 32px;">
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        </div>
+                        
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- 4. Assign and Estimate Tasks-->
+        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
+            <h3>
+                Task Assignement and Estimation
+            </h3>
+
+            <!-- Some Main Idea -->
+            <div>
+                <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                    133 
+                </span>
+                <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+            </div>
+            <!-- Easks for Idea above-->
+            <div style="padding-left: 32px;">
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: green;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                </div>
+                
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: green;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                    <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                </div>
+            </div>
+            <!-- Sub Ideas-->
+            <div style="padding-left: 32px;">
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        113 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        993 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+
+                    <!-- Easks for Idea above-->
+                    <div style="padding-left: 32px;">
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                            <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                        </div>
+                        
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                            <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        122 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <!-- Tasks for Idea above-->
+                <div style="padding-left: 32px;">
+                    <div style="margin-top: 10px;margin-bottom: 10px;">
+                        <span style="background-color: green;
+                                    margin-right: 5px;">&nbsp;</span>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            113 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="
+                    background-color: orange;
+                    margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        13 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+            </div>       
+
+            <!-- Some Main Idea -->
+            <div>
+                <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                    133 
+                </span>
+                <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+            </div>
+            <!-- Sub Ideas-->
+            <div style="padding-left: 32px;">                                
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: orange;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        122 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <div style="margin-top: 10px;margin-bottom: 10px;">
+                    <span style="background-color: orange;
+                                 margin-right: 5px;">&nbsp;</span>
+                    <span style="background:rgba(161,134,190,.2);
+                                padding:2px 7px;">
+                        13 
+                    </span>
+                    <span>Lorem ipsum dolor sit amet, consectetur </span>                    
+
+                    <!-- Easks for Idea above-->
+                    <div style="padding-left: 32px;">
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                            <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                        </div>
+                        
+                        <div style="margin-top: 10px;margin-bottom: 10px;">
+                            <span style="background-color: green;
+                                        margin-right: 5px;">&nbsp;</span>
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                113 
+                            </span>
+                            <span>Lorem ipsum dolor sit amet, consectetur </span>
+                            <button style="background-color: #c2dfe4;
+                               color: white;
+                               height: 21px;
+                               padding-bottom: 0px;
+                               padding-top: 0px;">E</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </main>
+</section>
+<style>
+    .row {
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+</style>
