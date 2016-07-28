@@ -32,7 +32,9 @@ a:link, a:visited{
 	color: inherit;
 	text-decoration: none;
 }
-
+header{
+	position: relative;
+}
 
 body{
     font-size: $BODYsize;

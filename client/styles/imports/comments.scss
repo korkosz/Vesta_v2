@@ -21,3 +21,26 @@
     margin-right: 15px;
     top: 0;
 }
+
+.#{$VESTA}-comment-btn-group{
+    position: absolute;
+    right: 0;
+    top: -7px;
+}
+
+.#{$VESTA}-comment-number{
+    padding: 1px 4px;
+    background: lighten($ask, 43%);
+    color: $ask;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 3px;
+}
+
+.#{$VESTA}-comment-title{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #585858;
+}

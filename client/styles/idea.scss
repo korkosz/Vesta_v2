@@ -199,14 +199,18 @@ section.idea-reviews{
         }
     }
 
-    .btn-group-review{
-        position: absolute;
-        right: 0;
-        top: -7px;
-    }
-
     .idea-review-status{
-        margin-top: 10px;
+        margin-top: 15px;
+        text-align: center;
+        span{
+            font-size: 21px;
+        }
+        &.like span{
+            color: #2ecc71;
+        }
+        &.dislike span{
+            color: #E74C3C;
+        }
     }
 
     // New review content box

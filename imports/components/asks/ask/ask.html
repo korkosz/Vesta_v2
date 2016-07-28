@@ -85,40 +85,50 @@
 
             <!-- Ta sekcja ponizej jest klonowana dla kazdego responsa-->
             <section class="added-response" ng-repeat="response in $ctrl.mainResponses" id="response.number">
-                <div class="response-header">
-                    <div class="response-number">#{{response.number}}</div>
-                    <div class="response-name">{{response.creatorShort()}}</div>
-                    <div class="response-addTime">{{$ctrl.moment($ctrl.moment.utc(response.creationDate).toDate()).fromNow()}}</div>
-                </div>
-
-                <div class="response-desc">
-                    <div>
-                        <div class="gowno">
-                            <!-- Response Likes -->
-                            {{response.likes.length ? response.likes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, true)" ng-disabled="!$ctrl.canLike(response)" ng-if="!$ctrl.alreadyLiked(response)">+</button>
-                            <button ng-if="$ctrl.alreadyLiked(response)" ng-click="$ctrl.stopLiking(response)">Stop like</button>                            /
-                            <!-- Response Dislikes -->
-                            {{response.dislikes.length ? response.dislikes.length : 0}}
-                            <button ng-click="$ctrl.likeDislikeResponse(response, false)" ng-disabled="!$ctrl.canDislike(response)" ng-if="!$ctrl.alreadyDisliked(response)">-</button>
-                            <button ng-if="$ctrl.alreadyDisliked(response)" ng-click="$ctrl.stopDisliking(response)">Stop dislike</button>
-                            <!-- Save -->
-                            <button ng-if="$ctrl.ownerAndEdit(response)" ng-click="$ctrl.saveResponse(response)">
-                                S
-                            </button>
-                            <!-- Edit -->
-                            <button ng-if="$ctrl.ownerAndNotEdit(response)" ng-click="response.edited = true;">
-                                E
-                            </button>
-                            <!-- Remove -->
-                            <button ng-click="$ctrl.removeResponse(response)" ng-if="$ctrl.currentUserIsPostOwner(response)">
-                                Remove
-                            </button>
+                <header>
+                    <div class="vst-comment-aside">
+                        <div class="vst-user-avatar">
+                            <img src="/images/avatar.jpg" alt="Avatar"/>
+                        </div>
+                        <div class="vst-push-and-pull">
+                            <a href="#" class="push">
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            </a>
+                            <span class="vote-counter">10</span>
+                            <a href="#" class="pull">
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            </a>
                         </div>
                     </div>
+                    <div class="vst-comment-name">{{response.creatorShort()}}</div>
+                    <div class="vst-comment-addtime">{{$ctrl.moment($ctrl.moment.utc(response.creationDate).toDate()).fromNow()}}</div>
+                </header>
+
+                <div class="response-desc">
+                        <div class="vst-comment-btn-group">
+                            <!-- Save -->
+                            <button ng-if="$ctrl.ownerAndEdit(response)"
+                                ng-click="$ctrl.saveResponse(response)"
+                                class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+                            <!-- Edit -->
+                            <button ng-if="$ctrl.ownerAndNotEdit(response)"
+                                ng-click="response.edited = true;"
+                                class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <!-- Remove -->
+                            <button ng-click="$ctrl.removeResponse(response)"
+                                ng-if="$ctrl.currentUserIsPostOwner(response)"
+                                class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
                     <!-- Added Response Title -->
                     <!-- View -->
-                    <div class="response-desc-title" ng-if="!response.edited">
+                    <div class="vst-comment-title" ng-if="!response.edited">
+                        <span class="vst-comment-number">#{{response.number}}</span>
                         {{response.title}}
                     </div>
                     <!-- Edit -->
@@ -135,10 +145,16 @@
                         <textarea ng-if="response.edited" ng-model="response.description" cols="60" rows="7"></textarea>
                     </div>
 
-
-                    <button class="vst-btn vst-btn-primary" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
-                        Reply
-                    </button>
+                    <div class="vst-btn-group">
+                        <a href="#">
+                            Replies:
+                            <span class="quantity">5</span>
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                        <button class="vst-btn ask small" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
+                            Reply
+                        </button>
+                    </div>
                     <!-- New Sub-Response -->
                     <section class="new-response" ng-if="response.replyVisible">
                         <form novalidate name="subresponse">

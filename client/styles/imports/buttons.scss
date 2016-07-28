@@ -25,17 +25,25 @@
 	box-shadow: 2px 2px;
 	margin-left: 1px;
 	margin-right: 1px;
+	border: 1px solid rgba(102, 102, 102, 0.17);
 	&.idea{
 		color: $idea;
 		background: lighten($idea, 46%);
+		border-color: lighten($idea, 37%);
 	}
 	&.ask{
 		color: $ask;
 		background: lighten($ask, 46%);
+		border-color: lighten($ask, 37%);
 	}
 	&.task{
 		color: $task;
 		background: lighten($task, 46%);
+		border-color: lighten($task, 37%);
+	}
+	&.small{
+		padding: 6px 13px;
+		font-size: 12px;
 	}
 }
 
@@ -77,6 +85,7 @@
     width: 25px;
     height: 25px;
     background: #eee;
+	font-size: 11px;
 }
 
 .#{$VESTA}-btn-danger{
@@ -105,4 +114,9 @@
     margin-left: 1em;
     vertical-align: text-top;
 	background: rgba(0,0,0,0.05);
+}
+
+.#{$VESTA}-btn-group{
+	display: flex;
+	justify-content: flex-end;
 }

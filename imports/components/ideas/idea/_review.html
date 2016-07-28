@@ -67,8 +67,10 @@
                                 <div class="vst-user-avatar">
                                     <img src="/images/avatar.jpg" alt="Avatar"/>
                                 </div>
+                                <!-- tu moze byc klasa like albo dislike -->
                                 <div class="idea-review-status like">
-                                    <img src="/images/icon-reviewLike.png" alt="" />
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <!-- <span class="glyphicon glyphicon-remove"></span> -->
                                 </div>
                             </div>
                         </h3>
@@ -76,7 +78,7 @@
                             {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
                         </p>
                     </header>
-                    <div class="btn-group-review">
+                    <div class="vst-comment-btn-group">
                         <!-- EDIT -->
                         <button  ng-if="$ctrl.currentUserIsReviewOwner(review) &&
                                         !review.edited && $ctrl.idea.status === 6"
