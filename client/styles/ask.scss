@@ -86,7 +86,7 @@
 .added-response{
     position: relative;
     background: #fff;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .response-number{
@@ -141,5 +141,15 @@
     }
     .glyphicon{
         font-size: 9px;
+    }
+}
+
+.sub-response {
+    padding-left: 55px;
+    &:first-of-type{
+        margin-top: 20px;
+    }
+    &:last-of-type{
+        margin-bottom: 40px;
     }
 }

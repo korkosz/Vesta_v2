@@ -155,7 +155,16 @@ nav.#{$VESTA}-side-nav{
 	}
 }
 
-
+// Entity number
+.#{$VESTA}-entity-number{
+	display: inline-block;
+    font-weight: 700;
+    color: #a186be;
+    background: #f4e9ff;
+    padding: 0.1em 0.4em;
+    margin-right: 0.4em;
+    font-size: 0.9em;
+}
 
 // Notifications
 .list-group-item{

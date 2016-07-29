@@ -76,15 +76,17 @@
             <!--STATUS !!!-->
             STATUS: {{$ctrl.ask.getStatusName()}}
         </section>
-
     </section>
 
+    <!-- *********RESPONSES AND TREE*************** -->
     <section class="vst-view-aditional">
         <!-- Responses -->
         <section class="responses-wrapper col-md-8">
 
-            <!-- Ta sekcja ponizej jest klonowana dla kazdego responsa-->
-            <section class="added-response" ng-repeat="response in $ctrl.mainResponses" id="response.number">
+            <!-- *********Added response********* -->
+            <section class="added-response" ng-repeat="response in $ctrl.mainResponses"
+                    id="response.number">
+
                 <header>
                     <div class="vst-comment-aside">
                         <div class="vst-user-avatar">
@@ -100,7 +102,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="vst-comment-name">{{response.creatorShort()}}</div>
+                    <div class="vst-comment-creator">{{response.creatorShort()}}</div>
                     <div class="vst-comment-addtime">{{$ctrl.moment($ctrl.moment.utc(response.creationDate).toDate()).fromNow()}}</div>
                 </header>
 
@@ -137,7 +139,7 @@
                     </div>
                     <!-- Added Response Description -->
                     <!-- View -->
-                    <div class="response-desc-desc" ng-if="!response.edited">
+                    <div class="vst-comment-desc" ng-if="!response.edited">
                         {{response.description}}
                     </div>
                     <!-- Edit -->
@@ -155,6 +157,11 @@
                             Reply
                         </button>
                     </div>
+                </div>
+                <!-- *********END Added response********* -->
+
+                <!-- ******Sub-responses******* -->
+                <div class="sub-response-wrapper">
                     <!-- New Sub-Response -->
                     <section class="new-response" ng-if="response.replyVisible">
                         <form novalidate name="subresponse">
@@ -176,37 +183,45 @@
                         </form>
                     </section>
 
-                    <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAA -->
-                    <section class="added-response" ng-repeat="subresponse in $ctrl.getSubResponses(response._id)" id="subresponse.number">
-                        <div class="response-header">
-                            <div class="response-number">#{{subresponse.number}}</div>
-                            <div class="response-name">{{subresponse.creatorShort()}}</div>
-                            <div class="response-addTime">{{$ctrl.moment($ctrl.moment.utc(subresponse.creationDate).toDate()).fromNow()}}</div>
-                        </div>
+                    <!-- Sub responses -->
+                    <section class="added-response sub-response" ng-repeat="subresponse in $ctrl.getSubResponses(response._id)" id="subresponse.number">
+                        <header>
+                            <div class="vst-comment-aside">
+                                <div class="vst-user-avatar">
+                                    <img src="/images/avatar.jpg" alt="Avatar"/>
+                                </div>
+                            </div>
+                            <div class="vst-comment-creator">{{subresponse.creatorShort()}}</div>
+                            <div class="vst-comment-addtime">{{$ctrl.moment($ctrl.moment.utc(subresponse.creationDate).toDate()).fromNow()}}</div>
+                        </header>
 
                         <div class="response-desc">
                             <div>
-                                <div class="gowno">
+                                <div class="vst-comment-btn-group">
                                     <!-- Save -->
                                     <button ng-if="$ctrl.ownerAndEdit(subresponse)"
-                                            ng-click="$ctrl.saveResponse(subresponse)">
-                                        S
+                                            ng-click="$ctrl.saveResponse(subresponse)"
+                                            class="vst-btn-secondary">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span>
                                     </button>
                                     <!-- Edit -->
                                     <button ng-if="$ctrl.ownerAndNotEdit(subresponse)"
-                                            ng-click="subresponse.edited = true;">
-                                        E
+                                            ng-click="subresponse.edited = true;"
+                                            class="vst-btn-secondary">
+                                        <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                     <!-- Remove -->
                                     <button ng-click="$ctrl.removeResponse(subresponse)"
-                                            ng-if="$ctrl.currentUserIsPostOwner(subresponse)">
-                                        Remove
+                                            ng-if="$ctrl.currentUserIsPostOwner(subresponse)"
+                                            class="vst-btn-secondary">
+                                        <span class="glyphicon glyphicon-remove"></span>
                                     </button>
                                 </div>
                             </div>
                             <!-- Added Response Description -->
                             <!-- View -->
-                            <div class="response-desc-desc" ng-if="!subresponse.edited">
+                            <div class="vst-comment-desc" ng-if="!subresponse.edited">
+                                <span class="vst-comment-number">#{{subresponse.number}}</span>
                                 {{subresponse.description}}
                             </div>
                             <!-- Edit -->
@@ -215,9 +230,12 @@
                             </div>
                         </div>
                     </section>
-
                 </div>
+                <!-- ******END Sub-responses******* -->
             </section>
+            <!-- *********END RESPONSES AND TREE*************** -->
+
+
 
             <!-- Related -->
             <div class="vst-table-wrapper">

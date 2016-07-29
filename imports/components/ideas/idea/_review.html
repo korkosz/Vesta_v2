@@ -55,14 +55,14 @@
             </div>
         </div>
 
-        <!-- *** LIST OF REVIEWS *** -->
+        <!-- ******************* LIST OF REVIEWS ************************** -->
         <div class="reviews-added-wrapper">
             <div class="review-box"
                  ng-repeat="review in $ctrl.reviews track by $index">
 
                 <div class="review-content-box">
                     <header>
-                        <h3 class="vst-comment-name">{{review.creator()}}
+                        <h3 class="vst-comment-creator">{{review.creator()}}
                             <div class="vst-comment-aside">
                                 <div class="vst-user-avatar">
                                     <img src="/images/avatar.jpg" alt="Avatar"/>
