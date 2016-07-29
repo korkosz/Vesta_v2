@@ -4,7 +4,6 @@
 
         <!-- *** NEW REVIEW *** -->
         <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
-            <h2  class="vst-view-subheader">Add review</h2>
             <div class="new-review-content-box">
 
                 <!-- DESCRIPTION -->
@@ -16,11 +15,8 @@
                     </div>
                     <textarea placeholder="Add review here..."
                                 ng-model="$ctrl.review.comment"
-                                class="editible-desc">
+                                class="vst-comment-editible-desc">
                     </textarea>
-                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addReview()">
-                        Add
-                    </button>
                 </div>
 
                 <!-- Prons and cons wrapper -->
@@ -28,7 +24,8 @@
                     <!-- PROS -->
                     <div class="prons-box">
                         <form ng-submit="$ctrl.addMerit()">
-                            <input placeholder="prons"
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <input placeholder="Add prons here..."
                                     ng-model="$ctrl.merit"
                                     class="pill create"/>
                         </form>
@@ -41,7 +38,8 @@
                     <!-- CONS -->
                     <div class="cons-box">
                         <form ng-submit="$ctrl.addDrawback()">
-                            <input placeholder="prons"
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                            <input placeholder="Add cons here..."
                                     ng-model="$ctrl.drawback"
                                     class="pill create"/>
                         </form>
@@ -51,6 +49,12 @@
                                 remove="$ctrl.removeDrawback(drawback)">
                         </pill>
                     </div>
+                </div>
+
+                <div class="vst-btn-group">
+                    <button class="vst-btn small idea" ng-click="$ctrl.addReview()">
+                        add
+                    </button>
                 </div>
             </div>
         </div>
@@ -108,7 +112,7 @@
                         <textarea ng-switch-when="true"
                                     placeholder="Add description here..."
                                     ng-model="review.comment"
-                                    class="editible-desc">
+                                    class="vst-comment-editible-desc">
                         </textarea>
                     </div>
 

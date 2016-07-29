@@ -106,27 +106,28 @@
                     <div class="vst-comment-addtime">{{$ctrl.moment($ctrl.moment.utc(response.creationDate).toDate()).fromNow()}}</div>
                 </header>
 
+                <div class="vst-comment-btn-group">
+                    <!-- Save -->
+                    <button ng-if="$ctrl.ownerAndEdit(response)"
+                        ng-click="$ctrl.saveResponse(response)"
+                        class="vst-btn-secondary">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
+                    <!-- Edit -->
+                    <button ng-if="$ctrl.ownerAndNotEdit(response)"
+                        ng-click="response.edited = true;"
+                        class="vst-btn-secondary">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <!-- Remove -->
+                    <button ng-click="$ctrl.removeResponse(response)"
+                        ng-if="$ctrl.currentUserIsPostOwner(response)"
+                        class="vst-btn-secondary">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+
                 <div class="response-desc">
-                        <div class="vst-comment-btn-group">
-                            <!-- Save -->
-                            <button ng-if="$ctrl.ownerAndEdit(response)"
-                                ng-click="$ctrl.saveResponse(response)"
-                                class="vst-btn-secondary">
-                                <span class="glyphicon glyphicon-floppy-disk"></span>
-                            </button>
-                            <!-- Edit -->
-                            <button ng-if="$ctrl.ownerAndNotEdit(response)"
-                                ng-click="response.edited = true;"
-                                class="vst-btn-secondary">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                            <!-- Remove -->
-                            <button ng-click="$ctrl.removeResponse(response)"
-                                ng-if="$ctrl.currentUserIsPostOwner(response)"
-                                class="vst-btn-secondary">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
-                        </div>
                     <!-- Added Response Title -->
                     <!-- View -->
                     <div class="vst-comment-title" ng-if="!response.edited">
@@ -148,13 +149,13 @@
                     </div>
 
                     <div class="vst-btn-group">
-                        <a href="#">
+                        <a>
                             Replies:
                             <span class="quantity">5</span>
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </a>
                         <button class="vst-btn ask small" ng-if="!response.parentResponse" ng-click="$ctrl.replingToResponse(response)">
-                            Reply
+                            reply
                         </button>
                     </div>
                 </div>
@@ -162,26 +163,6 @@
 
                 <!-- ******Sub-responses******* -->
                 <div class="sub-response-wrapper">
-                    <!-- New Sub-Response -->
-                    <section class="new-response" ng-if="response.replyVisible">
-                        <form novalidate name="subresponse">
-                            <!--Description-->
-                            <fieldset id="ask_description" class="fsStyle">
-                                <div class="desc-wrapper">
-                                    <label class="label-modal">Description:</label>
-                                    <textarea class="vst-view-input" cols="30" rows="10" ng-model="response.sub.description" required>
-                                </textarea>
-                                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addSubResponse(
-                                                response, subresponse.$valid)">
-                                        ADD
-                                </button>
-                                    <button class="vst-btn vst-btn-warning" ng-click="$ctrl.cancelSubResponse(response)">
-                                        CANCEL
-                                </button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </section>
 
                     <!-- Sub responses -->
                     <section class="added-response sub-response" ng-repeat="subresponse in $ctrl.getSubResponses(response._id)" id="subresponse.number">
@@ -195,29 +176,28 @@
                             <div class="vst-comment-addtime">{{$ctrl.moment($ctrl.moment.utc(subresponse.creationDate).toDate()).fromNow()}}</div>
                         </header>
 
+                        <div class="vst-comment-btn-group">
+                            <!-- Save -->
+                            <button ng-if="$ctrl.ownerAndEdit(subresponse)"
+                                    ng-click="$ctrl.saveResponse(subresponse)"
+                                    class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                            </button>
+                            <!-- Edit -->
+                            <button ng-if="$ctrl.ownerAndNotEdit(subresponse)"
+                                    ng-click="subresponse.edited = true;"
+                                    class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <!-- Remove -->
+                            <button ng-click="$ctrl.removeResponse(subresponse)"
+                                    ng-if="$ctrl.currentUserIsPostOwner(subresponse)"
+                                    class="vst-btn-secondary">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+
                         <div class="response-desc">
-                            <div>
-                                <div class="vst-comment-btn-group">
-                                    <!-- Save -->
-                                    <button ng-if="$ctrl.ownerAndEdit(subresponse)"
-                                            ng-click="$ctrl.saveResponse(subresponse)"
-                                            class="vst-btn-secondary">
-                                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                                    </button>
-                                    <!-- Edit -->
-                                    <button ng-if="$ctrl.ownerAndNotEdit(subresponse)"
-                                            ng-click="subresponse.edited = true;"
-                                            class="vst-btn-secondary">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                    <!-- Remove -->
-                                    <button ng-click="$ctrl.removeResponse(subresponse)"
-                                            ng-if="$ctrl.currentUserIsPostOwner(subresponse)"
-                                            class="vst-btn-secondary">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
-                                </div>
-                            </div>
                             <!-- Added Response Description -->
                             <!-- View -->
                             <div class="vst-comment-desc" ng-if="!subresponse.edited">
@@ -230,8 +210,71 @@
                             </div>
                         </div>
                     </section>
+
+                    <!-- New Sub-Response -->
+                    <section class="new-response" ng-if="response.replyVisible">
+                        <form novalidate name="subresponse">
+                            <!--Description-->
+                            <fieldset id="ask_description" class="fsStyle">
+                                <div class="desc-wrapper">
+                                    <div class="vst-comment-aside">
+                                        <div class="vst-user-avatar">
+                                            <img src="/images/avatar.jpg" alt="Avatar"/>
+                                        </div>
+                                    </div>
+                                    <textarea class="vst-comment-editible-desc"
+                                        cols="30" rows="10" ng-model="response.sub.description"
+                                        placeholder="Reply here..." required>
+                                    </textarea>
+                                    <div class="vst-btn-group">
+                                        <button class="vst-btn small ask" ng-click="$ctrl.addSubResponse(
+                                                    response, subresponse.$valid)">
+                                            add
+                                        </button>
+                                        <button class="vst-btn small ask" ng-click="$ctrl.cancelSubResponse(response)">
+                                            cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </section>
                 </div>
                 <!-- ******END Sub-responses******* -->
+            </section>
+
+            <!-- New Response -->
+            <section class="new-response" ng-if="$ctrl.ask.status !== 3">
+
+                <div class="vst-comment-aside">
+                    <div class="vst-user-avatar">
+                        <img src="/images/avatar.jpg" alt="Avatar"/>
+                    </div>
+                </div>
+                
+                <!--Title-->
+                <fieldset id="ask_title" class="fsStyle field-wrapper last">
+                    <div class="title-wrapper">
+                        <input class="vst-comment-editible-title" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..."
+                            required/>
+                    </div>
+                </fieldset>
+
+                <!--Description-->
+                <fieldset id="ask_description" class="fsStyle">
+                    <div class="desc-wrapper">
+
+                        <textarea class="vst-comment-editible-desc" cols="30" rows="10"
+                            ng-model="$ctrl.response.description"
+                            placeholder="Add comment here...">
+                        </textarea>
+                        <div class="vst-btn-group">
+                            <button class="vst-btn small ask" ng-click="$ctrl.addResponse()">
+                                add
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
             </section>
             <!-- *********END RESPONSES AND TREE*************** -->
 
@@ -280,26 +323,7 @@
                 </table>
             </div>
 
-            <!-- New Response -->
-            <section class="new-response" ng-if="$ctrl.ask.status !== 3">
-                <!--Title-->
-                <fieldset id="ask_title" class="fsStyle field-wrapper last">
-                    <div class="title-wrapper">
-                        <label class="label-modal">Title:</label>
-                        <input class="vst-view-input" name="ask_title" type="text" ng-model="$ctrl.response.title" placeholder="Add title here..."
-                            required/>
-                    </div>
-                </fieldset>
 
-                <!--Description-->
-                <fieldset id="ask_description" class="fsStyle">
-                    <div class="desc-wrapper">
-                        <label class="label-modal">Description:</label>
-                        <textarea class="vst-view-input" cols="30" rows="10" ng-model="$ctrl.response.description"></textarea>
-                        <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addResponse()">ADD</button>
-                    </div>
-                </fieldset>
-            </section>
         </section>
 
         <!-- Good Points -->

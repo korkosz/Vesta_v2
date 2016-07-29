@@ -3,7 +3,7 @@
 .#{$VESTA}-comment-creator{
     position: relative;
     display: inline-block;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
     font-weight: 700;
     color: #333;
@@ -11,8 +11,9 @@
 
 .#{$VESTA}-comment-addtime{
     display: inline-block;
-    font-size: 12px;
+    font-size: 11px;
     margin-left: 4px;
+    color: #999;
 }
 
 .#{$VESTA}-comment-aside{
@@ -43,4 +44,43 @@
     font-size: 13px;
     font-weight: 700;
     color: #585858;
+}
+
+.#{$VESTA}-comment-editible-desc{
+    height: 100px;
+    width: 100%;
+    border: none;
+    background: #f4f4f4;
+    outline: none;
+    padding: 8px;
+    resize: none;
+    &::-webkit-input-placeholder{
+        color:#ccc;
+    }
+    &::-moz-placeholder{
+        color:#ccc;
+    }
+    &::-ms-input-placeholder{
+        color:#ccc;
+    }
+}
+
+.#{$VESTA}-comment-editible-title{
+    height: 30px;
+    width: 100%;
+    margin-bottom: 5px;
+    border: none;
+    background: #f4f4f4;
+    outline: none;
+    padding: 8px;
+    resize: none;
+    &::-webkit-input-placeholder{
+        color:#ccc;
+    }
+    &::-moz-placeholder{
+        color:#ccc;
+    }
+    &::-ms-input-placeholder{
+        color:#ccc;
+    }
 }

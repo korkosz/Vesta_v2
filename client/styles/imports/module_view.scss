@@ -54,7 +54,11 @@ section.#{$VESTA}-view-desc{
             }
         }
         .#{$VESTA}-entity-number{
-            font-size: 0.7em;
+            position: absolute;
+            font-size: 0.55em;
+            right: 100%;
+            top: 8px;
+            margin-right: 8px;
         }
     }
     .buttons{
