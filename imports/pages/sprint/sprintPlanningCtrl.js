@@ -1,3 +1,5 @@
+import Sprints from '/imports/api/sprint/sprint';
+
 angular.module('simple-todos')
     .controller('SprintPlanningCtrl', SprintPlanningCtrl);
 
@@ -13,6 +15,13 @@ function SprintPlanningCtrl($scope) {
         IDEAS_ASKS: 1,
         TASKS: 2,
         ASSIGNMENT: 3
+    };
+
+    vm.stageSectionsVisibility = {
+        GOALS: true,
+        IDEAS_ASKS: true,
+        TASKS: true,
+        ASSIGNMENT: true
     };
 
     vm.isStageActive = function (stage) {

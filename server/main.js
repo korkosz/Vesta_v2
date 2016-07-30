@@ -4,6 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import ProjectsCollection from '/imports/api/project/project';
 import TacksCollection from '/imports/api/project/tacks';
 import PostsCollection from '/imports/api/project/posts';
+import Sprints from '/imports/api/sprint/sprint';
 
 import IdeasCollection from '/imports/api/ideas/idea';
 import RequestsCollection from '/imports/api/ideas/requests';

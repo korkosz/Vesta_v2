@@ -74,10 +74,23 @@
         </div>        
 
         <!-- 1. Establish Goals -->
-        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
-            <h4>
-                Establish your goals
-            </h4>
+        <div ng-if="vm.stageSectionsVisibility.GOALS"
+             class="row" 
+             style="margin-top:30px;
+                    border: 1px solid black;
+                    padding: 16px;">
+            <div class="row">
+                <h4 class="col-md-10">
+                    Establish your goals
+                </h4>
+                <div class="col-md-2">
+                    <button ng-click="vm.stageSectionsVisibility.GOALS = false;"
+                            style="position: absolute; right: 1px;">
+                        /\
+                    </button>
+                </div>
+            </div>
+            
             <input type="text" placeholder="Type your goal here">
             <button class="btn btn-default">Add</button>
 
@@ -145,11 +158,40 @@
                 </div>
             </ul>
         </div>
+        <!-- 1. Establish Goals - if hidden -->
+        <div ng-if="!vm.stageSectionsVisibility.GOALS"
+             class="row" 
+             style="border: 1px solid black; 
+                    margin-top:30px; 
+                    height: 30px;
+                    position: relative;">
+            <span>
+                Establish your goals
+            </span>
+            <button ng-click="vm.stageSectionsVisibility.GOALS = true;"
+                    style="position: absolute; right: 1px;">
+                \/
+            </button>
+        </div>
 
-        <!-- 2. Create Ideas and Asks-->
-        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
-            <h3>Ideas and Discussions</h3>
-
+        <!-- 2. Create Ideas and Asks -->
+        <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
+                    vm.stageSectionsVisibility.IDEAS_ASKS"
+             class="row" 
+             style="margin-top:30px;
+                    border: 1px solid black;
+                    padding: 16px;">
+            <div class="row">
+                <h4 class="col-md-10">
+                    Ideas and Discussions
+                </h4>
+                <div class="col-md-2">
+                    <button ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = false;"
+                            style="position: absolute; right: 1px;">
+                        /\
+                    </button>
+                </div>
+            </div>
             <!-- Ideas -->
             <div class="col-md-7">
                 <button style="color: orange">
@@ -288,12 +330,41 @@
                 </div>
             </div>
         </div>
+        <!-- 2. Create Ideas and Asks - if hidden -->
+        <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
+                    !vm.stageSectionsVisibility.IDEAS_ASKS"
+             class="row" 
+             style="border: 1px solid black; 
+                    margin-top:30px; 
+                    height: 30px;
+                    position: relative;">
+            <span>
+                Ideas and Discussions
+            </span>
+            <button ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = true;"
+                    style="position: absolute; right: 1px;">
+                \/
+            </button>
+        </div>
 
-        <!-- 3. Create Tasks-->
-        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
-            <h3>
-                Create Tasks
-            </h3>
+        <!-- 3. Create Tasks -->
+        <div ng-if="vm.isStageActive('TASKS') && 
+                     vm.stageSectionsVisibility.TASKS"
+             class="row" 
+             style="margin-top:30px;
+                    border: 1px solid black;
+                    padding: 16px;">
+            <div class="row">
+                <h4 class="col-md-10">
+                    Create Tasks
+                </h4>
+                <div class="col-md-2">
+                    <button ng-click="vm.stageSectionsVisibility.TASKS = false;"
+                            style="position: absolute; right: 1px;">
+                        /\
+                    </button>
+                </div>
+            </div>
 
             <!-- Some Main Idea -->
             <div>
@@ -497,13 +568,42 @@
                 </div>
             </div> 
         </div>
+        <!-- 3. Create Tasks - if hidden -->
+        <div ng-if="vm.isStageActive('TASKS') && 
+                    !vm.stageSectionsVisibility.TASKS"
+             class="row" 
+             style="border: 1px solid black; 
+                    margin-top:30px; 
+                    height: 30px;
+                    position: relative;">
+            <span>
+                 Create Tasks
+            </span>
+            <button ng-click="vm.stageSectionsVisibility.TASKS = true;"
+                    style="position: absolute; right: 1px;">
+                \/
+            </button>
+        </div>
 
-        <!-- 4. Assign and Estimate Tasks-->
-        <div class="row" style="margin-top:30px;border: 1px solid black;padding: 16px;">
-            <h3>
-                Task Assignement and Estimation
-            </h3>
-
+        <!-- 4. Assign and Estimate Tasks -->
+        <div ng-if="vm.isStageActive('ASSIGNMENT') && 
+                     vm.stageSectionsVisibility.ASSIGNMENT"
+             class="row" 
+             style="margin-top:30px;
+                    border: 1px solid black;
+                    padding: 16px;">
+            <div class="row">
+                <h4 class="col-md-10">
+                   	Task Assignement and Estimation
+                </h4>
+                <div class="col-md-2">
+                    <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = false;"
+                            style="position: absolute; right: 1px;">
+                        /\
+                    </button>
+                </div>
+            </div>
+            
             <!-- Some Main Idea -->
             <div>
                 <span style="background:rgba(161,134,190,.2);
@@ -700,6 +800,22 @@
                     </div>
                 </div>
             </div> 
+        </div>
+        <!-- 4. Assign and Estimate Tasks - if hidden -->
+        <div ng-if="vm.isStageActive('ASSIGNMENT') && 
+                    !vm.stageSectionsVisibility.ASSIGNMENT"
+             class="row" 
+             style="border: 1px solid black; 
+                    margin-top:30px; 
+                    height: 30px;
+                    position: relative;">
+            <span>
+                 Task Assignement and Estimation
+            </span>
+            <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = true;"
+                    style="position: absolute; right: 1px;">
+                \/
+            </button>
         </div>
     </main>
 </section>
