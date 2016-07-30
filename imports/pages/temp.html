@@ -27,8 +27,8 @@
                         Tasks
                     </h2>
 
-                    <div class="vst-list-item" 
-                         ng-repeat="task in vm.tasks | orderBy: 
+                    <div class="vst-list-item"
+                         ng-repeat="task in vm.tasks | orderBy:
                             [vm.statusFilter, '-updatedAt', '-creationDate']">
                         <div class="vst-badge">
                             <span class="project-badge">V</span>
@@ -36,7 +36,8 @@
                         <div class="title">
                             <a href="#/task/{{task.number}}">
                                 <p>
-                                     {{task.title}}
+                                    <span class="vst-entity-number">#{{task.number}}</span>
+                                    {{task.title}}
                                 </p>
                             </a>
                         </div>
@@ -68,9 +69,9 @@
                         Ideas
                     </h2>
 
-                    <div class="vst-list-item" 
-                         ng-repeat="idea in vm.ideas| orderBy: 
-                            ['-updatedAt', '-creationDate']" 
+                    <div class="vst-list-item"
+                         ng-repeat="idea in vm.ideas| orderBy:
+                            ['-updatedAt', '-creationDate']"
                          ng-if="idea.sprint === vm.project.currentSprint">
                         <div class="vst-badge">
                             <span class="project-badge">
@@ -80,6 +81,7 @@
                         <div class="title">
                             <a href="#/idea/{{idea.number}}">
                                 <p>
+                                    <span class="vst-entity-number">#{{idea.number}}</span>
                                     {{idea.title}}
                                 </p>
                             </a>
@@ -100,8 +102,8 @@
                         Asks
                     </h2>
 
-                    <div class="vst-list-item" 
-                        ng-repeat="ask in vm.asks| orderBy: 
+                    <div class="vst-list-item"
+                        ng-repeat="ask in vm.asks| orderBy:
                             ['-creationDate']">
                         <div class="vst-badge">
                             <span class="project-badge">
@@ -111,6 +113,7 @@
                         <div class="title">
                             <a href="#/ask/{{ask.number}}">
                                 <p>
+                                    <span class="vst-entity-number">#{{ask.number}}</span>
                                     {{ask.title}}
                                 </p>
                             </a>
@@ -128,8 +131,8 @@
                     border: 1px solid black;
                     margin: 4px;
                     padding: 10px;" ng-if="vm.tacks.length > 0">
-                <li class="list-group-item" 
-                    ng-repeat="tack in vm.tacks" 
+                <li class="list-group-item"
+                    ng-repeat="tack in vm.tacks"
                     style="border-bottom: 1px dashed grey;">
                     <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
                         {{tack.projectPrefix}}

@@ -1,4 +1,6 @@
 @import "{}/client/styles/imports/variables.scss";
+// Variables
+$breakpoint: 1450px;
 
 // Dashboard container
 .#{$VESTA}-dashboard-container{
@@ -59,7 +61,7 @@
     flex: 1 1 auto;
     min-width: 0;
     .#{$VESTA}-row{
-        @media(max-width: 1350px){
+        @media(max-width: $breakpoint){
             flex-direction: column;
         }
     }
@@ -74,7 +76,7 @@
     padding-bottom: 50px;
     margin-bottom: 10px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
-    @media(max-width: 1350px){
+    @media(max-width: $breakpoint){
         flex-basis: auto;
     }
     &.task{
@@ -83,7 +85,7 @@
     &.idea{
         margin-right: 10px;
         //border-color: lighten($idea, 30%);
-        @media(max-width: 1350px){
+        @media(max-width: $breakpoint){
             margin-right: 0;
         }
     }
@@ -160,13 +162,13 @@
     .time{
         flex: 0 1 100px;
         text-align: left;
-        @media(max-width: 1350px){
+        @media(max-width: $breakpoint){
             display: none;
         }
     }
     .creator{
         flex-basis: 150px;
-        @media(max-width: 1350px){
+        @media(max-width: $breakpoint){
             display: none;
         }
     }
@@ -177,7 +179,7 @@
     .#{$VESTA}-status{
         flex: 1 1 80px;
         text-align: left;
-        @media(max-width: 1350px){
+        @media(max-width: $breakpoint){
             flex-basis: 100px;
         }
     }
@@ -192,7 +194,7 @@
     margin-bottom: 10px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
     @media(max-width:1600px){
-        flex: 0 0 300px;
+        flex: 0 0 400px;
     }
 }
 

@@ -53,6 +53,13 @@ section.#{$VESTA}-view-desc{
                 margin-left: 50px;
             }
         }
+        .#{$VESTA}-entity-number{
+            position: absolute;
+            font-size: 0.55em;
+            right: 100%;
+            top: 8px;
+            margin-right: 8px;
+        }
     }
     .buttons{
         position: absolute;
@@ -118,20 +125,6 @@ section.#{$VESTA}-view-desc{
             font-size: 13px;
         }
     }
-}
-
-// Number
-.#{$VESTA}-item-number{
-    background: lighten($vesta-color, 32%);
-    padding: 4px 9px;
-    color: $vesta-color;
-    font-weight: 700;
-    font-weight: 700;
-    font-size: 16px;
-    margin-right: 7px;
-    position: absolute;
-    right: 30px;
-    top: 48px;
 }
 
 .#{$VESTA}-module-id{

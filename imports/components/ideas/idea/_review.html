@@ -4,7 +4,6 @@
 
         <!-- *** NEW REVIEW *** -->
         <div class="new-review-box" ng-if="$ctrl.newReviewVisible()">
-            <h2  class="vst-view-subheader">Add review</h2>
             <div class="new-review-content-box">
 
                 <!-- DESCRIPTION -->
@@ -16,11 +15,8 @@
                     </div>
                     <textarea placeholder="Add review here..."
                                 ng-model="$ctrl.review.comment"
-                                class="editible-desc">
+                                class="vst-comment-editible-desc">
                     </textarea>
-                    <button class="vst-btn vst-btn-primary" ng-click="$ctrl.addReview()">
-                        Add
-                    </button>
                 </div>
 
                 <!-- Prons and cons wrapper -->
@@ -28,7 +24,8 @@
                     <!-- PROS -->
                     <div class="prons-box">
                         <form ng-submit="$ctrl.addMerit()">
-                            <input placeholder="prons"
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <input placeholder="Add prons here..."
                                     ng-model="$ctrl.merit"
                                     class="pill create"/>
                         </form>
@@ -41,7 +38,8 @@
                     <!-- CONS -->
                     <div class="cons-box">
                         <form ng-submit="$ctrl.addDrawback()">
-                            <input placeholder="prons"
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                            <input placeholder="Add cons here..."
                                     ng-model="$ctrl.drawback"
                                     class="pill create"/>
                         </form>
@@ -52,23 +50,31 @@
                         </pill>
                     </div>
                 </div>
+
+                <div class="vst-btn-group">
+                    <button class="vst-btn small idea" ng-click="$ctrl.addReview()">
+                        add
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- *** LIST OF REVIEWS *** -->
+        <!-- ******************* LIST OF REVIEWS ************************** -->
         <div class="reviews-added-wrapper">
             <div class="review-box"
                  ng-repeat="review in $ctrl.reviews track by $index">
 
                 <div class="review-content-box">
                     <header>
-                        <h3 class="vst-comment-name">{{review.creator()}}
+                        <h3 class="vst-comment-creator">{{review.creator()}}
                             <div class="vst-comment-aside">
                                 <div class="vst-user-avatar">
                                     <img src="/images/avatar.jpg" alt="Avatar"/>
                                 </div>
+                                <!-- tu moze byc klasa like albo dislike -->
                                 <div class="idea-review-status like">
-                                    <img src="/images/icon-reviewLike.png" alt="" />
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <!-- <span class="glyphicon glyphicon-remove"></span> -->
                                 </div>
                             </div>
                         </h3>
@@ -76,7 +82,7 @@
                             {{$ctrl.moment($ctrl.moment.utc(review.creationDate).toDate()).fromNow()}}
                         </p>
                     </header>
-                    <div class="btn-group-review">
+                    <div class="vst-comment-btn-group">
                         <!-- EDIT -->
                         <button  ng-if="$ctrl.currentUserIsReviewOwner(review) &&
                                         !review.edited && $ctrl.idea.status === 6"
@@ -106,7 +112,7 @@
                         <textarea ng-switch-when="true"
                                     placeholder="Add description here..."
                                     ng-model="review.comment"
-                                    class="editible-desc">
+                                    class="vst-comment-editible-desc">
                         </textarea>
                     </div>
 

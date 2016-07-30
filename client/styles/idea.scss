@@ -76,11 +76,14 @@ section.idea-reviews{
 
     .reviews-added-wrapper{
         background: #fff;
+        .prons-cons-wrapper{
+            margin-top: 10px;
+        }
     }
 
     .review-box{
         display: flex;
-        padding-top: 40px;
+        padding-top: 20px;
         padding-bottom: 30px;
         &:last-child{
             border: none;
@@ -120,16 +123,16 @@ section.idea-reviews{
         margin-right: 120px;
         .pill{
             display: block;
-            margin: 5px 0;
+            margin: 3px 0;
             padding-left: 27px;
-            min-height: 32px;
             width: 100%;
         }
         span.glyphicon{
             position: absolute;
             left: 10px;
-            top: 11px;
+            top: 9px;
             font-size: 11px;
+            z-index: 2;
             &-minus-sign{
                 color: $red;
             }
@@ -142,14 +145,14 @@ section.idea-reviews{
             margin-right: 20px;
             .pill:not(.create){
                 color: $green;
-                background: lighten($green, 45%);
+                background: lighten($green, 47%);
             }
         }
         .cons-box{
             flex: 1 1 0;
             .pill:not(.create){
                 color: $red;
-                background: lighten($red, 38%);
+                background: lighten($red, 40%);
             }
         }
         input{
@@ -172,62 +175,27 @@ section.idea-reviews{
 
     .desc-wrapper{
         position: relative;
-        margin-top: 10px;
+        margin-top: 5px;
         color: #555;
-        font-size: 16px;
         line-height: 1.6em;
-        margin-bottom: 10px;
-    }
-
-    textarea.editible-desc{
-        height: 100px;
-        width: 100%;
-        border: none;
-        background: #f4f4f4;
-        outline: none;
-        font-size: 15px;
-        padding: 8px;
-        resize: none;
-        &::-webkit-input-placeholder{
-            color:#ccc;
-        }
-        &::-moz-placeholder{
-            color:#ccc;
-        }
-        &::-ms-input-placeholder{
-            color:#ccc;
-        }
-    }
-
-    .btn-group-review{
-        position: absolute;
-        right: 0;
-        top: -7px;
     }
 
     .idea-review-status{
-        margin-top: 10px;
+        margin-top: 15px;
+        text-align: center;
+        span{
+            font-size: 21px;
+        }
+        &.like span{
+            color: #2ecc71;
+        }
+        &.dislike span{
+            color: #E74C3C;
+        }
     }
 
     // New review content box
     .new-review-box{
-        padding-bottom: 60px;
-    }
-
-    .new-review-content-box{
-        .desc-wrapper{
-            padding-right: 50px;
-            @media (max-width: 1400px){
-                padding-right: 0;
-            }
-        }
-        button.#{$VESTA}-btn{
-            display: block;
-            float: right;
-            margin-top: 10px;
-            background: lighten($idea, 43%);
-            color: $idea;
-            font-weight: 700;
-        }
+        padding-bottom: 20px;
     }
 }

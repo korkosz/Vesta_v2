@@ -13,12 +13,12 @@
                 <h3 id="project"><span class="project-badge">v</span>{{$ctrl.idea.projectName()}}</h3>
                 <h3 id="module">{{$ctrl.idea.moduleName()}}</h3>
             </div>
-            <div class="vst-item-number">
-                {{$ctrl.idea.number}}
-            </div>
 
             <header>
                 <h4>
+                    <span class="vst-entity-number">
+                        #{{$ctrl.idea.number}}
+                    </span>
                     {{$ctrl.idea.title}}
                 </h4>
             </header>
@@ -236,7 +236,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="request in $ctrl.requests">                
+                <tr ng-repeat="request in $ctrl.requests">
                     <td>
                         <a href="#/{{request.ideaId}}">
                             {{request.getUserName()}}
@@ -253,8 +253,8 @@
                         </a>
                     </td>
                     <td>
-                        <button class="btn btn-danger" data-toggle="modal"  
-                                data-target="#rejectReqModal" 
+                        <button class="btn btn-danger" data-toggle="modal"
+                                data-target="#rejectReqModal"
                                 ng-click="$ctrl.triggerRejectReqModal(request._id)">
                             Reject
                         </button>
@@ -265,7 +265,7 @@
     </section>
 
     <!-- My Active Requests List -->
-    <section ng-if="($ctrl.requests 
+    <section ng-if="($ctrl.requests
         | filter:{ creator: $ctrl.currentUserId }).length > 0">
         <table class="table">
             <caption>My Active Requests List</caption>
@@ -309,11 +309,11 @@
                         Reject Request
                     </h4>
                 </div>
-                <div class="modal-body">                 
+                <div class="modal-body">
                     <label>Explanation</label>
                     <textarea cols="30" rows="10"
                                 ng-model="$ctrl.rejectReqExplanation">
-                    </textarea>                       
+                    </textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default"
@@ -337,18 +337,18 @@
     <section class="vst-view-additional">
         <!-- Idea Reviews -->
         <ng-include src="'imports/components/ideas/idea/_review.html'" class="vst-view-discussion"></ng-include>
-        
+
         <!-- Idea Branches -->
         <section class="vst-view-branches">
-            <div class="vst-table-wrapper">     
+            <div class="vst-table-wrapper">
 
                 <!-- Grandparent -->
                 <div ng-if="$ctrl.grandparentEntity">
-                    <div style="height: 10px; width: 10px; float:left; clear: left; 
-                                background-color: 
+                    <div style="height: 10px; width: 10px; float:left; clear: left;
+                                background-color:
                                     {{$ctrl.getEntityColor($ctrl.grandparentEntity)}}">
 
-                    </div> 
+                    </div>
                     <a href="#/{{$ctrl.grandparentEntity.id}}">
                         #{{$ctrl.grandparentEntity.number}}  {{$ctrl.grandparentEntity.title}}
                     </a>
@@ -364,10 +364,10 @@
                 <!-- Parent -->
                 <div ng-if="$ctrl.parentEntity" style="clear: left;">
                     <div style="height: 10px; width: 10px; float:left; clear: left;
-                                background-color: 
+                                background-color:
                                     {{$ctrl.getEntityColor($ctrl.parentEntity)}}">
 
-                    </div> 
+                    </div>
                     <a href="#/{{$ctrl.parentEntity.id}}">
                         #{{$ctrl.parentEntity.number}}  {{$ctrl.parentEntity.title}}
                     </a>
@@ -382,20 +382,20 @@
                 </div>
                 <!-- Current -->
                 <div style="clear: left;">
-                    <div style="height: 15px; width: 15px; float:left; 
+                    <div style="height: 15px; width: 15px; float:left;
                                 background-color: orange">
                     </div> #{{$ctrl.idea.number}}  {{$ctrl.idea.title}}
-                </div>        
+                </div>
                 <!-- Childer - ideas -->
                 <div ng-repeat="idea in $ctrl.relatedIdeas" style="margin-left: 10px;">
-                    <div style="height: 10px; width: 10px; float:left; 
+                    <div style="height: 10px; width: 10px; float:left;
                                 background-color: orange">
-                    </div> 
+                    </div>
                     <a href="#/idea/{{idea.number}}">
-                        #{{idea.number}}  {{idea.title}}   
+                        #{{idea.number}}  {{idea.title}}
                     </a>
                 </div>
-                <!-- Childer - asks *** ALWAYS ONE --> 
+                <!-- Childer - asks *** ALWAYS ONE -->
                 <div ng-repeat="ask in $ctrl.relatedAsks">
                     <div style="height: 50px;
                                 border-left: 1px solid black;
@@ -409,10 +409,10 @@
                         <div style="height: 10px; width: 10px; float:left; clear: left;
                                 background-color: green">
                         </div> <a href="#/ask/{{ask.number}}">#{{ask.number}}  {{ask.title}}</a>
-                    </div>            
+                    </div>
                 </div>
                 <!-- Childer - tasks -->
-                <div ng-repeat="task in $ctrl.relatedTasks" 
+                <div ng-repeat="task in $ctrl.relatedTasks"
                     style="margin-left: {{$first ? '0px' : '10px'}}; clear: left;">
                     <div style="height: 50px;
                                 border-left: 1px solid black;
@@ -427,8 +427,8 @@
                         <div style="height: 10px; width: 10px; float:left; clear: left;
                                 background-color: blue">
                         </div> <a href="#/task/{{task.number}}">#{{task.number}}  {{task.title}}</a>
-                    </div>            
-                </div>        
+                    </div>
+                </div>
             </div>
         </section>
     </section>

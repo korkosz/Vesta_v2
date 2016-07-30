@@ -32,7 +32,9 @@ a:link, a:visited{
 	color: inherit;
 	text-decoration: none;
 }
-
+header, div, section, form{
+	position: relative;
+}
 
 body{
     font-size: $BODYsize;
@@ -153,7 +155,16 @@ nav.#{$VESTA}-side-nav{
 	}
 }
 
-
+// Entity number
+.#{$VESTA}-entity-number{
+	display: inline-block;
+    font-weight: 700;
+    color: #a186be;
+    background: #f4e9ff;
+    padding: 0.1em 0.4em;
+    margin-right: 3px;
+    font-size: 0.9em;
+}
 
 // Notifications
 .list-group-item{
