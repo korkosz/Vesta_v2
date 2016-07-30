@@ -5,8 +5,13 @@
     </button>
     <br>
     <div>Project: {{$ctrl.project.name}}</div>
-    <div>Current Sprint: {{$ctrl.project.currentSprint}} </div>
     <div>Prefix: {{$ctrl.project.prefix}}</div>
+    <div>Current Sprint: {{$ctrl.currentSprint.number}} </div>
+    <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
+    <button class="btn btn-success" data-toggle="modal" data-target="#planSprintModule">
+        Plan Next Sprint
+    </button>
+
     <br>
     <div>Modules:</div>
     <ul>
@@ -24,7 +29,7 @@
         <br>
         <button ng-click="$ctrl.addTackToProject()">Add Tack</button>
     </form>
-    <br> PINNED
+    <br> PINNED {{$ctrl.getMaxSprintDate()}}
     <ul class="list-group" style="background-color: white;
                border: 1px solid black;
                margin: 4px;
@@ -39,6 +44,52 @@
     <!-- *************************** -->
     <!-- MODALE I INNE GOWNA PONIZEJ -->
     <!-- *************************** -->
+
+  
+
+     <!-- Next Sprint Modal-->
+    <div class="modal fade" id="planSprintModule" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Sprint Duration</h4>
+                </div>
+                <div class="modal-body">
+                    <form novalidate name="sprintForm">
+                        <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
+                        <br />
+                        <fieldset id="moduleName" class="field-wrapper">
+                            <label class="label label-default">Sprint Start</label>
+                            <input ng-model="$ctrl.sprint.start"
+                                   type="date" name="sprintStart" 
+                                   min="{{$ctrl.getSprintStartMinDate()}}"
+                                   max="{{$ctrl.getSprintStartMaxDate()}}"
+                                   required/>
+
+                            <label class="label label-default">Sprint End</label>
+                            <input ng-model="$ctrl.sprint.end"
+                                   type="date" name="sprintEnd"   
+                                   min="{{$ctrl.getSprintEndMinDate()}}"
+                                   max="{{$ctrl.getSprintEndMaxDate()}}"
+                                   required/>
+                        </fieldset>
+                        <br />
+                        <!--Footer buttons-->
+                        <button id="acceptBtn" class="btn btn-success" 
+                                ng-click="$ctrl.startPlanning(sprintForm.$valid)" 
+                                data-dismiss="modal">
+                                Start Planning
+                            </button>
+                        <button id="cancelBtn" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.sprint = null;">
+                                Cancel
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Modules-->
     <div class="modal fade" id="addModuleModal" role="dialog">

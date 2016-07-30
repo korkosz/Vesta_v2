@@ -3,11 +3,11 @@ import Sprints from '/imports/api/sprint/sprint';
 angular.module('simple-todos')
     .controller('SprintPlanningCtrl', SprintPlanningCtrl);
 
-function SprintPlanningCtrl($scope) {
+function SprintPlanningCtrl($scope, $routeParams) {
     $scope.viewModel(this);
 
     var vm = this;
-
+    var sprintId = $routeParams.id;
     var activeStageIndex = 0;
 
     const stages = {
@@ -23,6 +23,12 @@ function SprintPlanningCtrl($scope) {
         TASKS: true,
         ASSIGNMENT: true
     };
+
+    vm.helpers({
+        sprint() {
+            return Sprints.findOne(sprintId);
+        }
+    });
 
     vm.isStageActive = function (stage) {
         return stages[stage] <= activeStageIndex;
@@ -47,8 +53,5 @@ function SprintPlanningCtrl($scope) {
                         theirs work`;
         }
     }
-
-    this.helpers({
-
-    });
 }
+SprintPlanningCtrl.$inject = ['$scope', '$routeParams'];

@@ -23,7 +23,7 @@ angular.module('simple-todos')
 				controller: 'searchCtrl',
 				controllerAs: 'vm'
 			}).
-			when('/sprint/new', {
+			when('/sprint/:id', {
 				templateUrl: 'imports/pages/sprint/sprintPlanning.html',
 				controller: 'SprintPlanningCtrl',
 				controllerAs: 'vm'

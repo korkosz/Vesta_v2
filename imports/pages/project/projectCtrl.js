@@ -1,13 +1,15 @@
 import Projects from '/imports/api/project/project';
 import Tacks from '/imports/api/project/tacks';
 import Modules from '/imports/api/module/module';
+import Sprints from '/imports/api/sprint/sprint';
 
 import './project.html';
 
 export default angular.module('project', [])
     .controller('projectCtrl', projectCtrl);
 
-function projectCtrl($scope, $routeParams) {
+function projectCtrl($scope, $routeParams, $filter, $location,
+    $timeout) {
     $scope.viewModel(this);
 
     this.projectName = $routeParams.name;
@@ -15,6 +17,13 @@ function projectCtrl($scope, $routeParams) {
     this.helpers({
         project() {
             return Projects.findOne({ name: this.projectName });
+        },
+        currentSprint() {
+            this.getReactively('project');
+            if (this.project) {
+                return Sprints.findOne({ project: this.project._id });
+            }
+
         },
         modules() {
             this.getReactively('project');
@@ -33,6 +42,51 @@ function projectCtrl($scope, $routeParams) {
             }
         }
     });
+
+
+    this.startPlanning = function (valid) {
+        if (!valid) return;
+
+        Sprints.insert({
+            startDate: this.sprint.start.getTime(),
+            endDate: this.sprint.end.getTime(),
+            project: this.project._id,
+            current: false
+        }, (err, res) => {
+            if (err) window.alert(err);
+            $timeout(() => {
+                $location.path('/sprint/' + res)
+            }, 1000);
+        });
+    };
+
+    this.getSprintStartMaxDate = function () {
+        if (this.sprint && this.sprint.end) {
+            return $filter('date')(this.sprint.end, 'yyyy-MM-dd');
+        } else {
+            return $filter('date')(moment().add(1, 'y').toDate(), 'yyyy-MM-dd');
+        }
+    };
+
+    this.getSprintEndMaxDate = function () {
+        return $filter('date')(moment().add(1, 'y').toDate(), 'yyyy-MM-dd');
+    };
+
+    this.getSprintStartMinDate = function () {
+        if (this.currentSprint) {
+            return $filter('date')(this.currentSprint.endDate, 'yyyy-MM-dd');
+        }
+    };
+
+    this.getSprintEndMinDate = function () {
+        if (this.currentSprint) {
+            if (this.sprint && this.sprint.start) {
+                return $filter('date')(this.sprint.start, 'yyyy-MM-dd');
+            } else {
+                return $filter('date')(this.currentSprint.endDate, 'yyyy-MM-dd');
+            }
+        }
+    };
 
     this.addModule = function () {
         Modules.insert({
@@ -74,4 +128,5 @@ function projectCtrl($scope, $routeParams) {
         });
     }
 }
-projectCtrl.$inject = ['$scope', '$routeParams'];
+projectCtrl.$inject = ['$scope', '$routeParams', '$filter',
+    '$location', '$timeout'];

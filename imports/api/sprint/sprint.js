@@ -1,25 +1,44 @@
 import {Mongo} from 'meteor/mongo';
 
-export default Sprints = new Mongo.Collection('Sprints');
+class Sprints extends Mongo.Collection {
+    insert(doc, callback) {
+        var sort = { number: -1 };
+        var fields = { number: 1 };
 
-Sprints.schema = new SimpleSchema({ 
+        var cursor = this.findOne({}, { fields: fields, sort: sort });
+        var seq = cursor && cursor.number ? cursor.number + 1 : 1;
+        doc.number = seq;
+
+        return super.insert(doc, function (err, res) {
+            if (err) {
+                if (typeof callback === 'function') {
+                    callback(err);
+                }
+                return;
+            }
+            //2) callback
+            if (typeof callback === 'function') callback(null, res);
+        });
+    }
+}
+
+export default SprintsCollection = new Sprints('Sprints');
+
+SprintsCollection.schema = new SimpleSchema({
     number: {
-        type: Number,
-        autoValue() {
-            return 88;
-        }
+        type: Number
     },
     startDate: {
-        type: Number,
-        autoValue() {
-            return 1469870465749;
-        }
+        type: Number
     },
     endDate: {
-        type: Number,
-        autoValue() {
-            return 1469870465935;
-        }
+        type: Number
+    },
+    project: {
+        type: String
+    },
+    current: {
+        type: Boolean
     },
     goals: {
         type: [String],
@@ -27,4 +46,4 @@ Sprints.schema = new SimpleSchema({
     }
 });
 
-Sprints.attachSchema(Sprints.schema);
+SprintsCollection.attachSchema(SprintsCollection.schema);
