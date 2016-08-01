@@ -1,0 +1,100 @@
+@import "{}/client/styles/imports/variables.scss";
+
+
+.#{$VESTA}-view-branches{
+    flex-basis: 400px;
+    background: #fff;
+    border-left: 5px solid #F4F4F4;
+    background: #f4f4f4;
+    border: 10px solid #fff;
+    padding: 20px;
+    padding-left: 50px;
+}
+
+.#{$VESTA}-branch-listitem-wrapper{
+    &.sub-item{
+        margin-left: 20px;
+    }
+}
+
+.#{$VESTA}-branch-subitem-wrapper{
+    margin-top: 0px;
+}
+
+.#{$VESTA}-branch-listitem {
+    padding-left: 30px;
+    margin-top: 8px;
+    display: block;
+    &.sub-item{
+        display: block;
+        margin-top: 5px;
+    }
+    &.current{
+        margin-bottom: 10px;
+    }
+    .#{$VESTA}-entity-number{
+        margin-right: 0px;
+        font-size: 0.83em;
+    }
+
+    // Dot
+    &:before{
+        content: "";
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        display: inline-block;
+        left: 8px;
+        top: 2px;
+        border-radius: 50%;
+    }
+
+    // Dot in current entity
+    &.current:before{
+        width: 19px;
+        height: 19px;
+        left: 5px;
+        top: 0px;
+    }
+
+    // Idea, ask, task conditions
+    &.idea:before{
+        background: $idea;
+    }
+    &.ask:before{
+        background: $ask;
+    }
+    &.task:before{
+        background: $task;
+    }
+}
+
+.#{$VESTA}-branch-stepbox{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.#{$VESTA}-branch-arrow{
+    width: 2px;
+    margin-left: 14px;
+    margin-right: 14px;
+    background: #999;
+    height: 30px;
+    &::after{
+        content: "";
+        width: 8px;
+        height: 13px;
+        border: 4px solid transparent;
+        border-top: 9px solid #999;
+        position: absolute;
+        bottom: -8px;
+        left: -3px;
+    }
+}
+
+.#{$VESTA}-branch-reldesc{
+    font-size: 11px;
+    color: #8c8c8c;
+}

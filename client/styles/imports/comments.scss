@@ -3,10 +3,11 @@
 .#{$VESTA}-comment-creator{
     position: relative;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    font-weight: 700;
-    color: #333;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 3px;
 }
 
 .#{$VESTA}-comment-addtime{
@@ -30,20 +31,18 @@
 }
 
 .#{$VESTA}-comment-number{
-    padding: 1px 4px;
-    background: lighten($ask, 43%);
-    color: $ask;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 400;
     margin-right: 3px;
+    display: none;
 }
 
 .#{$VESTA}-comment-title{
-    padding-top: 10px;
-    padding-bottom: 5px;
-    font-size: 13px;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    font-size: 14px;
     font-weight: 700;
-    color: #585858;
+    color: #333;
 }
 
 .#{$VESTA}-comment-editible-desc{

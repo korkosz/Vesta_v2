@@ -343,91 +343,90 @@
             <div class="vst-table-wrapper">
 
                 <!-- Grandparent -->
-                <div ng-if="$ctrl.grandparentEntity">
-                    <div style="height: 10px; width: 10px; float:left; clear: left;
-                                background-color:
-                                    {{$ctrl.getEntityColor($ctrl.grandparentEntity)}}">
-
-                    </div>
-                    <a href="#/{{$ctrl.grandparentEntity.id}}">
-                        #{{$ctrl.grandparentEntity.number}}  {{$ctrl.grandparentEntity.title}}
+                <div ng-if="$ctrl.grandparentEntity" class="vst-">
+                    <a href="#/{{$ctrl.grandparentEntity.id}}"
+                        class="vst-branch-listitem idea">
+                        <span class="vst-entity-number">#{{$ctrl.grandparentEntity.number}}</span>
+                        {{$ctrl.grandparentEntity.title}}
                     </a>
-                    <div style="height: 50px;
-                                border-left: 1px solid black;
-                                float: left;
-                                clear: left;">
-                    </div>
-                    <div>
-                        {{$ctrl.getDescriptionForChild($ctrl.parentEntity)}}
+                    <div class="vst-branch-stepbox">
+                        <div class="vst-branch-arrow">
+
+                        </div>
+                        <div class="vst-branch-reldesc">
+                            {{$ctrl.getDescriptionForChild($ctrl.parentEntity)}}
+                        </div>
                     </div>
                 </div>
+
                 <!-- Parent -->
-                <div ng-if="$ctrl.parentEntity" style="clear: left;">
-                    <div style="height: 10px; width: 10px; float:left; clear: left;
-                                background-color:
-                                    {{$ctrl.getEntityColor($ctrl.parentEntity)}}">
+                <div ng-if="$ctrl.parentEntity">
+                    <a href="#/{{$ctrl.parentEntity.id}}"
+                        class="vst-branch-listitem idea">
+                        <span class="vst-entity-number">#{{$ctrl.parentEntity.number}}</span>
+                        {{$ctrl.parentEntity.title}}
+                    </a>
+                    <div class="vst-branch-stepbox">
+                        <div class="vst-branch-arrow">
 
-                    </div>
-                    <a href="#/{{$ctrl.parentEntity.id}}">
-                        #{{$ctrl.parentEntity.number}}  {{$ctrl.parentEntity.title}}
-                    </a>
-                    <div style="height: 50px;
-                                border-left: 1px solid black;
-                                float: left;
-                                clear: left;">
-                    </div>
-                    <div>
-                        {{$ctrl.getDescriptionForChild($ctrl.idea)}}
+                        </div>
+                        <div class="vst-branch-reldesc">
+                            {{$ctrl.getDescriptionForChild($ctrl.idea)}}
+                        </div>
                     </div>
                 </div>
+
                 <!-- Current -->
-                <div style="clear: left;">
-                    <div style="height: 15px; width: 15px; float:left;
-                                background-color: orange">
-                    </div> #{{$ctrl.idea.number}}  {{$ctrl.idea.title}}
+                <div>
+                    <p class="vst-branch-listitem idea current">
+                        <span class="vst-entity-number">#{{$ctrl.idea.number}}</span>
+                        {{$ctrl.idea.title}}
+                    </p>
                 </div>
+
                 <!-- Childer - ideas -->
-                <div ng-repeat="idea in $ctrl.relatedIdeas" style="margin-left: 10px;">
-                    <div style="height: 10px; width: 10px; float:left;
-                                background-color: orange">
+                <div class="vst-branch-subitem-wrapper"><!--Fajnie jakby ten div pojawial sie tylko gdy ma cos w srodku-->
+                    <div ng-repeat="idea in $ctrl.relatedIdeas" class="vst-branch-listitem-wrapper sub-item">
+                        <a href="#/idea/{{idea.number}}"
+                            class="vst-branch-listitem idea sub-item">
+                            <span class="vst-entity-number">#{{idea.number}}</span>
+                            {{idea.title}}
+                        </a>
                     </div>
-                    <a href="#/idea/{{idea.number}}">
-                        #{{idea.number}}  {{idea.title}}
-                    </a>
                 </div>
+
                 <!-- Childer - asks *** ALWAYS ONE -->
                 <div ng-repeat="ask in $ctrl.relatedAsks">
-                    <div style="height: 50px;
-                                border-left: 1px solid black;
-                                float: left;
-                                clear: left;">
+                    <div class="vst-branch-stepbox">
+                        <div class="vst-branch-arrow">
+
+                        </div>
+                        <div class="vst-branch-reldesc">
+                            {{$ctrl.getDescriptionForChild(ask)}}
+                        </div>
                     </div>
-                    <div>
-                        {{$ctrl.getDescriptionForChild(ask)}}
-                    </div>
-                    <div style="clear: left;">
-                        <div style="height: 10px; width: 10px; float:left; clear: left;
-                                background-color: green">
-                        </div> <a href="#/ask/{{ask.number}}">#{{ask.number}}  {{ask.title}}</a>
-                    </div>
+                    <a href="#/ask/{{ask.number}}"
+                        class="vst-branch-listitem ask">
+                        <span class="vst-entity-number">#{{ask.number}}</span>
+                        {{ask.title}}
+                    </a>
                 </div>
+
                 <!-- Childer - tasks -->
-                <div ng-repeat="task in $ctrl.relatedTasks"
-                    style="margin-left: {{$first ? '0px' : '10px'}}; clear: left;">
-                    <div style="height: 50px;
-                                border-left: 1px solid black;
-                                float: left;
-                                clear: left;"
-                                ng-if="$first">
+                <div ng-repeat="task in $ctrl.relatedTasks">
+                    <div class="vst-branch-stepbox" ng-if="$first">
+                        <div class="vst-branch-arrow">
+
+                        </div>
+                        <div class="vst-branch-reldesc">
+                            {{$ctrl.getDescriptionForChild(task)}}
+                        </div>
                     </div>
-                    <div ng-if="$first">
-                        {{$ctrl.getDescriptionForChild(task)}}
-                    </div>
-                    <div style="clear: left;">
-                        <div style="height: 10px; width: 10px; float:left; clear: left;
-                                background-color: blue">
-                        </div> <a href="#/task/{{task.number}}">#{{task.number}}  {{task.title}}</a>
-                    </div>
+                    <a href="#/task/{{task.number}}"
+                        class="vst-branch-listitem task">
+                        <span class="vst-entity-number">#{{task.number}}</span>
+                        {{task.title}}
+                    </a>
                 </div>
             </div>
         </section>
