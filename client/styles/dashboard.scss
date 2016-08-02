@@ -148,6 +148,7 @@ $breakpoint: 1450px;
     .title{
         flex: 15 10 0;
         min-width: 0;
+        padding-left: 15px;
         a{
             padding-right: 20px;
         }
@@ -156,6 +157,27 @@ $breakpoint: 1450px;
             white-space: nowrap;
             overflow: hidden;
             max-width: 400px;
+        }
+
+        // Dot
+        &::after{
+            content: "";
+            width: 8px;
+            height: 8px;
+            position: absolute;
+            display: inline-block;
+            left: 0px;
+            top: 17px;
+            border-radius: 50%;
+        }
+        &.task::after{
+            background: $task;
+        }
+        &.idea::after{
+            background: $idea;
+        }
+        &.ask::after{
+            background: $ask;
         }
     }
     .type,

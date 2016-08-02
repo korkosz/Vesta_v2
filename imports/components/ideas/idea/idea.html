@@ -4,8 +4,16 @@
     <section ng-if="$ctrl.pendingVoting">
         <ng-include src="'imports/components/ideas/idea/_activeVoting.html'"></ng-include>
     </section>
-    <!-- Idea description -->
+
+    <!-- ********Header********** -->
+    <header class="vst-view-header idea">
+        <img src="/images/icon-Idea-small.png" alt="Idea main icon" class="vst-entity-icon idea"/>
+        <h1>idea</h1>
+    </header>
+
+    <!-- *********Content*********** -->
     <section class="vst-view-content">
+        <!-- ****Idea desc**** -->
         <section class="vst-view-desc">
 
             <!-- Project path -->
@@ -24,7 +32,7 @@
             </header>
 
             <!-- Module number -->
-            <span class="vst-module-id">#{{$ctrl.idea.id}}</span>
+            <span class="vst-module-id">ref. no.<span class="desc">#{{$ctrl.idea.id}}</span></span>
 
             <!-- Description wrapper -->
             <div class="vst-view-desc-wrapper">
@@ -185,12 +193,8 @@
             </div>
         </section>
 
-        <!-- Info box -->
+        <!-- ****Info box**** -->
         <section class="vst-view-info-box">
-            <div class="logo-wrapper">
-                <img src="/images/icon-Idea.png" alt="Idea main icon" />
-                <h1 class="idea-color">idea</h1>
-            </div>
 
             <!-- Idea status -->
             <div class="idea-status idea-status-{{$ctrl.idea.getStatusName()}}" type="button">
@@ -336,6 +340,7 @@
         </div>
     </div>
 
+    <!-- ************Additional************* -->
     <section class="vst-view-additional">
         <!-- Idea Reviews -->
         <ng-include src="'imports/components/ideas/idea/_review.html'" class="vst-view-discussion"></ng-include>
@@ -389,6 +394,9 @@
                 <!-- Childer - ideas -->
                 <div class="vst-branch-subitem-wrapper"
                      ng-if="$ctrl.relatedIdeas.length > 0">
+                     <div class="vst-branch-arrow diagonal">
+
+                     </div>
                     <div ng-repeat="idea in $ctrl.relatedIdeas" class="vst-branch-listitem-wrapper sub-item">
                         <a href="#/idea/{{idea.number}}"
                             class="vst-branch-listitem idea sub-item">

@@ -6,7 +6,7 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
 .#{$VESTA}-view-container{
     width: 1170px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 50px;
     @media (max-width: 1400px){
         width: 1000px;
     }
@@ -16,6 +16,52 @@ $min-height: 60px; // ta wartość odpowiada za wysokość pola description
     display: flex;
     box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
     margin-bottom: 20px;
+    background: #fff;
+}
+
+// HEADER
+.#{$VESTA}-view-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid #fff;
+    border-bottom: none;
+    text-align: center;
+    height: 70px;
+    h1{
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 2px;
+        font-size: 19px;
+        margin-left: 5px;
+    }
+
+    &.idea{
+        color: $idea;
+        background: lighten($idea, 38%);
+    }
+    &.ask{
+        color: $ask;
+        background: lighten($ask, 38%);
+    }
+    &.task{
+        color: $task;
+        background: lighten($task, 38%);
+    }
+}
+
+.#{$VESTA}-entity-icon{
+    width: 30px;
+
+    &.idea{
+        margin-bottom: 4px;
+    }
+    &.task{
+        margin-bottom: 10px;
+    }
+    &.ask{
+        margin-bottom: 15px;
+    }
 }
 
 //DESCRIPTION
@@ -55,9 +101,9 @@ section.#{$VESTA}-view-desc{
         }
         .#{$VESTA}-entity-number{
             position: absolute;
-            font-size: 0.55em;
+            font-size: 0.65em;
             right: 100%;
-            top: 8px;
+            top: 6px;
             margin-right: 8px;
         }
     }
@@ -130,14 +176,19 @@ section.#{$VESTA}-view-desc{
 .#{$VESTA}-module-id{
     display: inherit;
     text-align: right;
-    font-size: 18px;
-    letter-spacing: 2px;
-    font-weight: 700;
-    color: #a186be;
     margin-right: -4px;
     position: absolute;
     right: 80px;
     top: 53px;
+    color: #999;
+
+    .desc{
+        font-size: 18px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: #a186be;
+        margin-left: 5px;
+    }
 }
 
 .#{$VESTA}-module-date{
@@ -229,6 +280,7 @@ section.#{$VESTA}-view-desc{
     padding: 30px;
     border: 10px solid #fff;
     border-left: none;
+    max-height: 800px;
     @media (max-width: 1400px){
         flex-basis: 200px;
     }
@@ -260,6 +312,13 @@ section.#{$VESTA}-view-desc{
 
 // ADITIONAL SECTIONS
 
+.#{$VESTA}-view-additional{
+    display: flex;
+    margin-bottom: 100px;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
+    background: #fff;
+}
+
 .#{$VESTA}-view-subheader{
     text-align: left;
     font-weight: 400;
@@ -279,12 +338,6 @@ section.#{$VESTA}-view-desc{
     padding-left: 8px;
     margin-bottom: 8px;
     margin-left: -8px;
-}
-
-.#{$VESTA}-view-additional{
-    display: flex;
-    margin-bottom: 100px;
-    box-shadow: 3px 3px 8px rgba(0,0,0,0.08);
 }
 
 .#{$VESTA}-view-discussion{

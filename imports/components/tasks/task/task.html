@@ -1,12 +1,14 @@
 <div class="vst-view-container vst-task-container">
+
+    <!-- ********Header********** -->
+    <header class="vst-view-header task">
+        <img src="/images/icon-Task-small.png" alt="Idea main icon" class="vst-entity-icon task"/>
+        <h1>task</h1>
+    </header>
+
     <section class="vst-view-content">
         <!-- Task description -->
         <section class="vst-view-desc">
-            <!-- Number -->
-            <div class="vst-view-number">
-                <span class="vst-module-id">#{{$ctrl.task.id}}</span>
-                <span class="vst-module-date"><span>created at</span> {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
-            </div>
 
             <!-- Project path -->
             <div class="vst-view-project-path">
@@ -15,6 +17,9 @@
                 </h3>
                 <h3 id="module">{{$ctrl.task.moduleName()}}</h3>
             </div>
+
+            <!-- Module number -->
+            <span class="vst-module-id">ref. no.<span class="desc">#{{$ctrl.task.id}}</span></span>
 
             <header>
                 <h4>[{{$ctrl.task.number}}] {{$ctrl.task.title}}</h4>
@@ -58,17 +63,15 @@
                 </button>
             </div>
         </section>
+
         <!-- Info box -->
         <section class="vst-view-info-box">
-            <div class="logo-wrapper">
-                <img src="/images/icon-Task.png" alt="Task main icon" />
-                <h1>task</h1>
-            </div>
             <div class="wrapper">
                 <h4 class="label label-default">Priority</h4>
                 <select ng-model="$ctrl.task.priority" ng-options="priority for priority in $ctrl.taskPriorities.value" ng-change="$ctrl.changePriority($ctrl.task.priority)">
                 </select>
             </div>
+            <span class="vst-module-date"><span>created at</span> {{$ctrl.task.creationDate | date: 'dd.MM.yy'}}</span>
         </section>
 
         <!-- Relation Modal -->

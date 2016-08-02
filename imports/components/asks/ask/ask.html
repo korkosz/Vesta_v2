@@ -1,6 +1,14 @@
 <div class="vst-view-container vst-ask-container">
+
+    <!-- ********Header********** -->
+    <header class="vst-view-header ask">
+        <img src="/images/icon-Ask-small.png" alt="Ask main icon" class="vst-entity-icon ask"/>
+        <h1>ask</h1>
+    </header>
+
+    <!-- ********Content******** -->
     <section class="vst-view-content">
-        <!-- Ask description -->
+        <!-- ****Ask description**** -->
         <section class="vst-view-desc">
             <!-- Breadcrumb -->
             <div class="vst-view-project-path">
@@ -9,6 +17,9 @@
                 </h3>
                 <h3 id="module">{{$ctrl.ask.moduleName()}}</h3>
             </div>
+
+            <!-- Module number -->
+            <span class="vst-module-id">ref. no.<span class="desc">#{{$ctrl.ask.id}}</span></span>
 
             <header>
                 <h4>[{{$ctrl.ask.number}}] {{$ctrl.ask.title}}</h4>
@@ -62,15 +73,11 @@
                 </div>
             </div>
         </section>
-        <!-- Info box -->
+
+        <!-- ****Info box**** -->
         <section class="vst-view-info-box">
-            <div class="logo-wrapper">
-                <img src="/images/icon-Ask.png" alt="Ask main icon" />
-                <h1>ask</h1>
-            </div>
             <!-- Number -->
             <div class="vst-view-number">
-                <span class="vst-module-id">#{{$ctrl.ask.id}}</span>
                 <span class="vst-module-date"><span>created at</span> {{$ctrl.moment($ctrl.ask.creationDate).toDate() | date: 'dd.MM.yy'}}</span>
             </div>
             <!--STATUS !!!-->
