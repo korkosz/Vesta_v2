@@ -385,7 +385,8 @@
                 </div>
 
                 <!-- Childer - ideas -->
-                <div class="vst-branch-subitem-wrapper"><!--Fajnie jakby ten div pojawial sie tylko gdy ma cos w srodku-->
+                <div class="vst-branch-subitem-wrapper" 
+                     ng-if="$ctrl.relatedIdeas.length > 0">                         
                     <div ng-repeat="idea in $ctrl.relatedIdeas" class="vst-branch-listitem-wrapper sub-item">
                         <a href="#/idea/{{idea.number}}"
                             class="vst-branch-listitem idea sub-item">

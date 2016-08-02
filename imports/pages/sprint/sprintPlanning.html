@@ -51,24 +51,18 @@
     <!-- main content -->
     <main class="col-md-10 col-md-offset-1" style="padding:24px;padding-top: 0px;">
         <!-- Goals Table-->
-        <div class="row">
+        <div class="row" ng-if="vm.sprint.goals.length > 0">
             <div class="col-md-6 col-md-offset-3" 
                  style="border: 1px solid black; 
-                        border-top: none;
-                        height: 200px;">
+                        border-top: none;">
                 <h3 style="text-align: center;">
                     Goals 
                 </h3>
                 <ul style="list-style-position: inside;
                         list-style-type: upper-roman;">
-                    <li>Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
+                    <li ng-repeat="goal in vm.sprint.goals track by $index">
+                        {{goal}}
+                    </li>
                 </ul>
             </div>
         </div>        
@@ -84,22 +78,26 @@
                     Establish your goals
                 </h4>
                 <div class="col-md-2">
-                    <button ng-click="vm.stageSectionsVisibility.GOALS = false;"
+                    <!--Visible if next stage is active-->
+                    <button ng-if="vm.isStageActive('IDEAS_ASKS')"
+                            ng-click="vm.stageSectionsVisibility.GOALS = false;"
                             style="position: absolute; right: 1px;">
                         /\
                     </button>
                 </div>
             </div>
             
-            <input type="text" placeholder="Type your goal here">
-            <button class="btn btn-default">Add</button>
+            <input type="text" placeholder="Type your goal here" 
+                   ng-model="vm.newGoal">
+            <button class="btn btn-default" 
+                    ng-click="vm.addGoal()">Add</button>
 
             <ul style="list-style-position: inside;
                        list-style-type: upper-roman;">
-                <div>
-                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
+                <div ng-repeat="goal in vm.sprint.goals track by $index">
+                    <li style="display: inline;">{{goal}}</li>
                     <button class="btn btn-danger" 
+                            ng-click="vm.removeGoal(goal)"
                             style="height: 20px;
                                     padding-top: 0px;
                                     padding-bottom: 0px;
@@ -110,52 +108,7 @@
                                     padding-right: 0px;">
                         DELETE
                     </button>
-                </div>                
-                <div>
-                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <button class="btn btn-danger" 
-                            style="height: 20px;
-                                    padding-top: 0px;
-                                    padding-bottom: 0px;
-                                    display: inline-block;
-                                    width: 62px;
-                                    text-align: center;
-                                    padding-left: 0px;
-                                    padding-right: 0px;">
-                        DELETE
-                    </button>
-                </div>
-                <div>
-                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <button class="btn btn-danger" 
-                            style="height: 20px;
-                                    padding-top: 0px;
-                                    padding-bottom: 0px;
-                                    display: inline-block;
-                                    width: 62px;
-                                    text-align: center;
-                                    padding-left: 0px;
-                                    padding-right: 0px;">
-                        DELETE
-                    </button>
-                </div>
-                <div>
-                    <li style="display: inline;">Lorem ipsum dolor sit amet, consectetur 
-                        adipiscing elit, sed do eiusmod</li>
-                    <button class="btn btn-danger" 
-                            style="height: 20px;
-                                    padding-top: 0px;
-                                    padding-bottom: 0px;
-                                    display: inline-block;
-                                    width: 62px;
-                                    text-align: center;
-                                    padding-left: 0px;
-                                    padding-right: 0px;">
-                        DELETE
-                    </button>
-                </div>
+                </div>     
             </ul>
         </div>
         <!-- 1. Establish Goals - if hidden -->
@@ -186,7 +139,9 @@
                     Ideas and Discussions
                 </h4>
                 <div class="col-md-2">
-                    <button ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = false;"
+                    <!--Visible if next stage is active-->
+                    <button ng-if="vm.isStageActive('TASKS')"
+                            ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = false;"
                             style="position: absolute; right: 1px;">
                         /\
                     </button>
@@ -359,7 +314,8 @@
                     Create Tasks
                 </h4>
                 <div class="col-md-2">
-                    <button ng-click="vm.stageSectionsVisibility.TASKS = false;"
+                    <button ng-if="vm.isStageActive('ASSIGNMENT')"
+                            ng-click="vm.stageSectionsVisibility.TASKS = false;"
                             style="position: absolute; right: 1px;">
                         /\
                     </button>

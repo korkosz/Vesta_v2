@@ -30,6 +30,29 @@ function SprintPlanningCtrl($scope, $routeParams) {
         }
     });
 
+    vm.addGoal = function () {
+        if (!vm.newGoal) return;
+
+        Sprints.update(vm.sprint._id, {
+            $push: {
+                goals: vm.newGoal
+            }
+        }, (err, res) => {
+            if (err) window.alert(err);
+        });
+        vm.newGoal = null;
+    };
+
+    vm.removeGoal = function (goal) {
+        Sprints.update(vm.sprint._id, {
+            $pull: {
+                goals: goal
+            }
+        }, (err, res) => {
+            if (err) window.alert(err);
+        });
+    };
+
     vm.isStageActive = function (stage) {
         return stages[stage] <= activeStageIndex;
     };
