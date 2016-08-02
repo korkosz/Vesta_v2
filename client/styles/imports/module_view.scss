@@ -128,13 +128,16 @@ section.#{$VESTA}-view-desc{
 }
 
 .#{$VESTA}-module-id{
-    display: block;
+    display: inherit;
     text-align: right;
     font-size: 18px;
     letter-spacing: 2px;
     font-weight: 700;
-    color: $vesta-color;
+    color: #a186be;
     margin-right: -4px;
+    position: absolute;
+    right: 80px;
+    top: 53px;
 }
 
 .#{$VESTA}-module-date{

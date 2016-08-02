@@ -23,6 +23,9 @@
                 </h4>
             </header>
 
+            <!-- Module number -->
+            <span class="vst-module-id">#{{$ctrl.idea.id}}</span>
+
             <!-- Description wrapper -->
             <div class="vst-view-desc-wrapper">
                 <!-- Buttons -->
@@ -208,7 +211,6 @@
             </p>
             <!-- Number -->
             <div class="vst-view-number">
-                <span class="vst-module-id">#{{$ctrl.idea.id}}</span>
                 <span class="vst-module-date"><span>creted at</span> {{$ctrl.moment($ctrl.idea.creationDate).toDate() | date:
                 'dd.MM.yy'}}
                 </span>
@@ -385,8 +387,8 @@
                 </div>
 
                 <!-- Childer - ideas -->
-                <div class="vst-branch-subitem-wrapper" 
-                     ng-if="$ctrl.relatedIdeas.length > 0">                         
+                <div class="vst-branch-subitem-wrapper"
+                     ng-if="$ctrl.relatedIdeas.length > 0">
                     <div ng-repeat="idea in $ctrl.relatedIdeas" class="vst-branch-listitem-wrapper sub-item">
                         <a href="#/idea/{{idea.number}}"
                             class="vst-branch-listitem idea sub-item">
