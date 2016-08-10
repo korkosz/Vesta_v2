@@ -91,11 +91,12 @@ function globalCtrl($scope) {
         },
         ideas() {
             var filter = { status: { $in: [1, 6, 2, 7, 8] } };
-
-            return Ideas.find(filter).map((idea) => {
+            var ideas = Ideas.find(filter).map((idea) => {
                 idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
                 return idea;
             });
+            debugger
+            return ideas
         },
         asks() {
             var filter = { status: { $in: [1, 2] } };

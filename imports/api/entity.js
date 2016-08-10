@@ -3,6 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import Modules from '/imports/api/module/module';
 import Projects from '/imports/api/project/project';
 import Metadata from '/imports/api/metadata/metadata';
+import Sprints from '/imports/api/sprint/sprint';
 
 import {oldNewNotification, simpleNotification,
     msgNotification} from '/imports/api/notification/notification';
@@ -60,11 +61,11 @@ export default class Entity extends Mongo.Collection {
 Entity.createSchema = function (schemaMeta, schemaExtension) {
     var base = {};
 
-     for(let key in schemaMeta) {
-         if(schemaMeta.hasOwnProperty(key)) {
-             base[key] = schemaMeta[key]['base'];
-         }
-     }
+    for (let key in schemaMeta) {
+        if (schemaMeta.hasOwnProperty(key)) {
+            base[key] = schemaMeta[key]['base'];
+        }
+    }
 
     var schema = Object.assign(base, schemaExtension);
 
@@ -207,9 +208,13 @@ Entity.createSchemaMetadata = function (meta) {
                 filter: 'picklist'
             }
         },
+        /**
+         * if not provided means object is deferred
+         */
         sprint: {
             base: {
-                type: String
+                type: String,
+                optional: true
             },
             notify: function (modifier, oldEntity, modifierMethod, userId) {
                 const usersToNotify = oldEntity.watchers.filter(
@@ -308,6 +313,10 @@ Entity.extendHelpers = function (collection, helpers) {
         moduleName() {
             var module = Modules.findOne(this.module);
             if (module) return module.name;
+        },
+        sprintNumber() {
+            var sprint = Sprints.findOne(this.sprint);
+            return sprint && sprint.number;
         },
         getStatusName() {
             var id = this.id;

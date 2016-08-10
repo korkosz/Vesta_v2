@@ -251,7 +251,7 @@ function createIdea(idea) {
     //to watchers
     idea.createdBy = this.userId;
 
-    if (idea.sprint === -1) {
+    if (typeof idea.sprint === 'undefined') {
         idea.status = 5;
     }
 
@@ -453,7 +453,7 @@ function computeProperStatus(ideaId) {
         $set: {}
     };
 
-    var wasDeferred = idea.sprint === -1;
+    var wasDeferred = typeof idea.sprint === 'undefined';
     if (wasDeferred) {
         let project = Projects.findOne(idea.project);
         modifier.$set.sprint = project.currentSprint;

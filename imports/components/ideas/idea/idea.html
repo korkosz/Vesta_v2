@@ -210,8 +210,8 @@
             <p>
                 Creator: {{$ctrl.idea.creator()}}
             </p>
-            <p ng-if="$ctrl.idea.sprint !== -1">
-                Sprint {{$ctrl.idea.sprint}}
+            <p>
+                Sprint {{$ctrl.idea.sprintNumber()}}
             </p>
             <!-- Number -->
             <div class="vst-view-number">
@@ -219,13 +219,6 @@
                 'dd.MM.yy'}}
                 </span>
             </div>
-
-            <!--Sprint-->
-            <fieldset id="sprint" class="field-wrapper">
-                <label class="label-modal">Sprint:</label>
-                <select ng-model="$ctrl.sprint" name="sprint" ng-options="sprint as sprint for sprint in $ctrl.project.sprints" ng-change="$ctrl.setSprint($ctrl.sprint)">
-                </select>
-            </fieldset>
         </section>
     </section>
 

@@ -102,10 +102,6 @@ class NewIdeaCtrl {
         });
     }
 
-    // projectSelected() {
-    //     this.idea.sprint = this.idea._project.currentSprint;
-    // }
-
     removeReviewer(reviewer) {
         var revIdx = this.selectedReviewers.findIndex((rev) =>
             rev._id === reviewer._id);
@@ -137,6 +133,14 @@ class NewIdeaCtrl {
                 vm.idea.sprint = -1;
             }
 
+            /**
+             * case when sprint is left as default (current)
+             */
+            if(typeof vm.idea.sprint === 'object' && 
+               typeof vm.idea.sprint._id !== 'undefined') {
+                   vm.idea.sprint = vm.idea.sprint._id;
+            }
+            
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
                 vm.idea.module = vm.idea.module._id;
@@ -208,7 +212,7 @@ export default angular.module("idea")
             attrs.$observe('sprint', function () {
                 if (ctrl.sprint) {
                     if (ctrl.idea.sprint === -1) {
-                        ctrl.idea.sprint = 'Defer';
+                        delete ctrl.idea.sprint;
                     } else {
                         ctrl.idea.sprint = ctrl.sprint;
                     }

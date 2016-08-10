@@ -202,13 +202,7 @@ class IdeaCtrl {
             project() {
                 this.getReactively('idea');
                 if (this.idea) {
-                    var project = Projects.findOne(this.idea.project);
-                    if (project) {
-                        project.sprints = project.sprints.filter((sprint) => {
-                            return sprint >= project.currentSprint;
-                        });
-                        return project;
-                    }
+                    return Projects.findOne(this.idea.project);                    
                 }
             },
             users() {
