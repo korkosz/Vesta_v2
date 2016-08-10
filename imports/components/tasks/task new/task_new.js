@@ -31,7 +31,7 @@ class NewTaskCtrl {
                 this.task.type = 3;
 
             if (this.sprint)
-                this.idea.sprint = Sprints.findOne(this.sprint);
+                this.task.sprint = Sprints.findOne(this.sprint);
         }
 
         /// init
@@ -52,11 +52,11 @@ class NewTaskCtrl {
                 return Projects.find();
             },
             sprints() {
-                this.getReactively('idea._project');
-                if (this.idea._project) {
+                this.getReactively('task._project');
+                if (this.task._project) {
                     let select = {
                         number: {
-                            $gte: this.idea._project.currentSprintNb()
+                            $gte: this.task._project.currentSprintNb()
                         }
                     };
                     let sprints = Sprints.find(select).fetch();
@@ -66,7 +66,7 @@ class NewTaskCtrl {
                      */
                     if (sprints && sprints.length > 0)
                         //sprints should be sorted by a number index
-                        this.idea.sprint = sprints[0];
+                        this.task.sprint = sprints[0];
 
                     return sprints;
                 }
@@ -118,9 +118,9 @@ class NewTaskCtrl {
             /**
              * case when sprint is left as default (current)
              */
-            if (typeof vm.idea.sprint === 'object' &&
-                typeof vm.idea.sprint._id !== 'undefined') {
-                vm.idea.sprint = vm.idea.sprint._id;
+            if (typeof vm.task.sprint === 'object' &&
+                typeof vm.task.sprint._id !== 'undefined') {
+                vm.task.sprint = vm.task.sprint._id;
             }
 
             //this is the case when attributes have been used
@@ -183,7 +183,7 @@ export default angular.module("task")
                         ctrl.task.module = Modules.findOne(ctrl.parentModule);
                     }
                     if (ctrl.sprint) {
-                        ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                        ctrl.task.sprint = Sprints.findOne(ctrl.sprint);
                     }
                 }
             });

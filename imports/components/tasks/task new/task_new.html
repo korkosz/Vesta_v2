@@ -16,7 +16,7 @@
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 <!-- Logo -->
-                <img src="/images/icon-Task-small.png" alt="Idea main icon" />
+                <img src="/images/icon-Task-small.png" alt="Task main icon" />
                 <h4>Task<span class="vst-label">new</span></h4>
             </div>
 
@@ -45,10 +45,10 @@
                     <!--Sprint-->
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>                       
-                        <select ng-model="newTaskVm.idea.sprint" name="sprint" required
+                        <select ng-model="newTaskVm.task.sprint" name="sprint" required
                                 ng-options="sprint._id as sprint.number for sprint in 
                                     newTaskVm.sprints track by sprint._id"
-                                ng-disabled="!newTaskVm.idea._project">
+                                ng-disabled="!newTaskVm.task._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.sprint"></div>
                     </fieldset>

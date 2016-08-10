@@ -24,7 +24,7 @@ class NewAskCtrl {
                 this.ask.module = Modules.findOne(this.module);
 
             if (this.sprint)
-                this.idea.sprint = Sprints.findOne(this.sprint);
+                this.ask.sprint = Sprints.findOne(this.sprint);
         }
         /// init
         this.init();
@@ -41,11 +41,11 @@ class NewAskCtrl {
                 return Projects.find();
             },
             sprints() {
-                this.getReactively('idea._project');
-                if (this.idea._project) {
+                this.getReactively('ask.project');
+                if (this.ask.project) {
                     let select = {
                         number: {
-                            $gte: this.idea._project.currentSprintNb()
+                            $gte: this.ask.project.currentSprintNb()
                         }
                     };
                     let sprints = Sprints.find(select).fetch();
@@ -55,7 +55,7 @@ class NewAskCtrl {
                      */
                     if (sprints && sprints.length > 0)
                         //sprints should be sorted by a number index
-                        this.idea.sprint = sprints[0];
+                        this.ask.sprint = sprints[0];
 
                     return sprints;
                 }
@@ -84,9 +84,9 @@ class NewAskCtrl {
             /**
              * case when sprint is left as default (current)
              */
-            if (typeof vm.idea.sprint === 'object' &&
-                typeof vm.idea.sprint._id !== 'undefined') {
-                vm.idea.sprint = vm.idea.sprint._id;
+            if (typeof vm.ask.sprint === 'object' &&
+                typeof vm.ask.sprint._id !== 'undefined') {
+                vm.ask.sprint = vm.ask.sprint._id;
             }
 
             //this is the case when attributes have been used
@@ -152,7 +152,7 @@ export default angular.module("ask")
                         ctrl.ask.module = Modules.findOne(ctrl.module);
                     }
                     if (ctrl.sprint) {
-                        ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                        ctrl.ask.sprint = Sprints.findOne(ctrl.sprint);
                     }
                 }
             });
