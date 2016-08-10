@@ -29,14 +29,6 @@ class NewIdeaCtrl {
             if (this.module)
                 this.idea.module = Modules.findOne(this.module);
 
-            if (this.sprint) {
-                if (this.sprint === -1) {
-                    this.idea.sprint = 'Defer';
-                } else {
-                    this.idea.sprint = this.sprint;
-                }
-            }
-
             if (this.reviewers && this.reviewers.length > 0) {
                 var _reviewers = Meteor.users.find({
                     _id: {
@@ -77,7 +69,7 @@ class NewIdeaCtrl {
 
                     /**
                      * Set current sprint as default sprint
-                     */                  
+                     */
                     if (sprints && sprints.length > 0)
                         //sprints should be sorted by a number index
                         this.idea.sprint = sprints[0];
@@ -129,18 +121,14 @@ class NewIdeaCtrl {
             vm.idea.ideaId = vm.ideaId;
             vm.idea.askId = vm.askId;
 
-            if (vm.idea.sprint === 'Defer') {
-                vm.idea.sprint = -1;
-            }
-
             /**
              * case when sprint is left as default (current)
              */
-            if(typeof vm.idea.sprint === 'object' && 
-               typeof vm.idea.sprint._id !== 'undefined') {
-                   vm.idea.sprint = vm.idea.sprint._id;
+            if (typeof vm.idea.sprint === 'object' &&
+                typeof vm.idea.sprint._id !== 'undefined') {
+                vm.idea.sprint = vm.idea.sprint._id;
             }
-            
+
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
                 vm.idea.module = vm.idea.module._id;
@@ -198,8 +186,13 @@ export default angular.module("idea")
             attrs.$observe('project', function () {
                 if (ctrl.project) {
                     ctrl.idea._project = Projects.findOne(ctrl.project);
-                    if (ctrl.idea._project && ctrl.module) {
-                        ctrl.idea.module = Modules.findOne(ctrl.module);
+                    if (ctrl.idea._project) {
+                        if (ctrl.module) {
+                            ctrl.idea.module = Modules.findOne(ctrl.module);
+                        }
+                        if (ctrl.sprint) {
+                            ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                        }
                     }
                 }
             });
@@ -207,16 +200,6 @@ export default angular.module("idea")
             attrs.$observe('ideaTitle', function () {
                 if (ctrl.ideaTitle)
                     ctrl.idea.title = ctrl.ideaTitle;
-            });
-
-            attrs.$observe('sprint', function () {
-                if (ctrl.sprint) {
-                    if (ctrl.idea.sprint === -1) {
-                        delete ctrl.idea.sprint;
-                    } else {
-                        ctrl.idea.sprint = ctrl.sprint;
-                    }
-                }
             });
 
             //Set default Title

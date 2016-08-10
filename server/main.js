@@ -24,9 +24,9 @@ import Bookmarks from '/imports/api/metadata/bookmark';
 
 // nie pamietam po co to dalem ....
 //
-// Meteor.publish(null, function () {
-//     return Meteor.users.find();
-// });
+Meteor.publish(null, function () {
+    return Meteor.users.find();
+});
 
 Meteor.startup(() => {
     const sprintsCount = Sprints.find().count();
@@ -62,15 +62,7 @@ Meteor.startup(() => {
         }
     });
 
-
-    ProjectsCollection.update({ "name": "Vesta" }, {
-        $set: {
-            currentSprint: 4,
-            sprints: [1, 2, 3, 4, 5, 6]
-        }
-    })
     const modulesLen = ModulesCollection.find().count();
-
     if (modulesLen === 0) {
         var ideaId = ModulesCollection.insert({
             name: 'Ideas',
