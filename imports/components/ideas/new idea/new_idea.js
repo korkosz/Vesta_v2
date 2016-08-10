@@ -23,11 +23,13 @@ class NewIdeaCtrl {
 
             if (this.project) {
                 this.idea._project = Projects.findOne(this.project);
-                this.projectSelected();
             }
 
             if (this.module)
                 this.idea.module = Modules.findOne(this.module);
+            
+            if (this.sprint) 
+                this.idea.sprint = Sprints.findOne(this.sprint);            
 
             if (this.reviewers && this.reviewers.length > 0) {
                 var _reviewers = Meteor.users.find({

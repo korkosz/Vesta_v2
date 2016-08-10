@@ -3,6 +3,7 @@ import Projects from '/imports/api/project/project';
 import Tasks from '/imports/api/task/task';
 import Metadata from '/imports/api/metadata/metadata';
 import Modules from '/imports/api/module/module';
+import Sprints from '/imports/api/sprint/sprint';
 
 import './task_new.html';
 
@@ -29,8 +30,8 @@ class NewTaskCtrl {
             else if (this.taskId)
                 this.task.type = 3;
 
-            if (this.parentSprint)
-                this.task.sprint = this.parentSprint;
+            if (this.sprint)
+                this.idea.sprint = Sprints.findOne(this.sprint);
         }
 
         /// init
@@ -49,6 +50,26 @@ class NewTaskCtrl {
         this.helpers({
             projects() {
                 return Projects.find();
+            },
+            sprints() {
+                this.getReactively('idea._project');
+                if (this.idea._project) {
+                    let select = {
+                        number: {
+                            $gte: this.idea._project.currentSprintNb()
+                        }
+                    };
+                    let sprints = Sprints.find(select).fetch();
+
+                    /**
+                     * Set current sprint as default sprint
+                     */
+                    if (sprints && sprints.length > 0)
+                        //sprints should be sorted by a number index
+                        this.idea.sprint = sprints[0];
+
+                    return sprints;
+                }
             },
             modules() {
                 this.getReactively('task._project');
@@ -94,6 +115,14 @@ class NewTaskCtrl {
             vm.task.ideaId = vm.ideaId;
             vm.task.taskId = vm.taskId;
 
+            /**
+             * case when sprint is left as default (current)
+             */
+            if (typeof vm.idea.sprint === 'object' &&
+                typeof vm.idea.sprint._id !== 'undefined') {
+                vm.idea.sprint = vm.idea.sprint._id;
+            }
+
             //this is the case when attributes have been used
             if (vm.task.module && typeof vm.task.module !== 'string') {
                 vm.task.module = vm.task.module._id;
@@ -133,7 +162,7 @@ export default angular.module("task")
                 parentProject: '@',
                 parentModule: '@',
                 parentTitle: '@',
-                parentSprint: '=',
+                sprint: '=',
                 ideaId: '@',
                 taskId: '@',
                 altId: '@',
@@ -153,17 +182,15 @@ export default angular.module("task")
                     if (ctrl.task._project && ctrl.parentModule) {
                         ctrl.task.module = Modules.findOne(ctrl.parentModule);
                     }
+                    if (ctrl.sprint) {
+                        ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                    }
                 }
             });
 
             attrs.$observe('parentTitle', function () {
                 if (ctrl.parentTitle)
                     ctrl.task.title = ctrl.parentTitle;
-            });
-
-            attrs.$observe('parentSprint', function () {
-                if (ctrl.parentSprint)
-                    ctrl.task.sprint = ctrl.parentSprint;
             });
 
             //Set default Title

@@ -44,10 +44,11 @@
 
                     <!--Sprint-->
                     <fieldset id="sprint" class="field-wrapper">
-                        <label class="label-modal">Sprint:</label>
-                        <select ng-model="newTaskVm.task.sprint" name="sprint" required
-                                ng-options="sprint as sprint for sprint in newTaskVm.task._project.sprints"
-                                ng-disabled="!newTaskVm.task._project">
+                        <label class="label-modal">Sprint:</label>                       
+                        <select ng-model="newTaskVm.idea.sprint" name="sprint" required
+                                ng-options="sprint._id as sprint.number for sprint in 
+                                    newTaskVm.sprints track by sprint._id"
+                                ng-disabled="!newTaskVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newTaskVm.task.sprint"></div>
                     </fieldset>

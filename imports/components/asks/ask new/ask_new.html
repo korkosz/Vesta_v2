@@ -50,9 +50,10 @@
                     <!--Sprint-->
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
-                        <select ng-model="newAskVm.ask.sprint" name="sprint" required
-                                ng-options="sprint as sprint for sprint in newAskVm.ask.project.sprints"
-                                ng-disabled="!newAskVm.ask.project">
+                        <select ng-model="newAskVm.idea.sprint" name="sprint" required
+                                ng-options="sprint._id as sprint.number for sprint in 
+                                    newAskVm.sprints track by sprint._id"
+                                ng-disabled="!newAskVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newAskVm.ask.sprint"></div>
                     </fieldset>

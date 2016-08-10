@@ -42,7 +42,7 @@
 
                 <!-- Create New Task -->
                 <new-task title="Sub-Task" parent-module="{{$ctrl.task.module}}" parent-project="{{$ctrl.task.project}}" parent-title="{{$ctrl.task.title}}"
-                    parent-sprint="$ctrl.task.sprint" task-id="{{$ctrl.task._id}}" alt-id="0" ng-if="$ctrl.task.status === 1 ||
+                    sprint="$ctrl.task.sprint" task-id="{{$ctrl.task._id}}" alt-id="0" ng-if="$ctrl.task.status === 1 ||
                            $ctrl.task.status === 2">
                 </new-task>
                 <button class="btn btn-success" ng-click="$ctrl.changeStatus(3)" ng-if="$ctrl.task.status === 2 || $ctrl.task.status === 5">

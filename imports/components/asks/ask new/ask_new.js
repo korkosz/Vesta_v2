@@ -1,6 +1,7 @@
 import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
 import Asks from '/imports/api/ask/ask';
+import Sprints from '/imports/api/sprint/sprint';
 
 import './ask_new.html';
 
@@ -23,7 +24,7 @@ class NewAskCtrl {
                 this.ask.module = Modules.findOne(this.module);
 
             if (this.sprint)
-                this.ask.sprint = this.sprint;
+                this.idea.sprint = Sprints.findOne(this.sprint);
         }
         /// init
         this.init();
@@ -39,21 +40,33 @@ class NewAskCtrl {
             projects() {
                 return Projects.find();
             },
+            sprints() {
+                this.getReactively('idea._project');
+                if (this.idea._project) {
+                    let select = {
+                        number: {
+                            $gte: this.idea._project.currentSprintNb()
+                        }
+                    };
+                    let sprints = Sprints.find(select).fetch();
+
+                    /**
+                     * Set current sprint as default sprint
+                     */
+                    if (sprints && sprints.length > 0)
+                        //sprints should be sorted by a number index
+                        this.idea.sprint = sprints[0];
+
+                    return sprints;
+                }
+            },
             modules() {
                 this.getReactively('ask.project');
                 if (this.ask.project &&
                     typeof this.ask.project !== 'string') {
                     return this.ask.project.getModules();
                 }
-            },
-        });
-    }
-
-    projectSelected() {
-        this.ask.sprint = this.ask.project.currentSprint;
-
-        this.ask.project.sprints = this.ask.project.sprints.filter((sprint) => {
-            return sprint >= this.ask.project.currentSprint;
+            }
         });
     }
 
@@ -67,7 +80,15 @@ class NewAskCtrl {
         this.compileOutput().then(() => {
             vm.ask.project = vm.ask.project._id;
             vm.ask.ideaId = vm.ideaId;
-            
+
+            /**
+             * case when sprint is left as default (current)
+             */
+            if (typeof vm.idea.sprint === 'object' &&
+                typeof vm.idea.sprint._id !== 'undefined') {
+                vm.idea.sprint = vm.idea.sprint._id;
+            }
+
             //this is the case when attributes have been used
             if (this.ask.module && typeof this.ask.module !== 'string') {
                 this.ask.module = this.ask.module._id;
@@ -130,17 +151,15 @@ export default angular.module("ask")
                     if (ctrl.ask.project && ctrl.module) {
                         ctrl.ask.module = Modules.findOne(ctrl.module);
                     }
+                    if (ctrl.sprint) {
+                        ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                    }
                 }
             });
 
             attrs.$observe('ideaTitle', function () {
                 if (ctrl.ideaTitle)
                     ctrl.ask.title = ctrl.ideaTitle;
-            });
-
-            attrs.$observe('sprint', function () {
-                if (ctrl.sprint)
-                    ctrl.ask.sprint = ctrl.sprint;
             });
 
             function dataURItoBlob(dataURI) {
