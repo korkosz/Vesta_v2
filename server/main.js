@@ -36,7 +36,7 @@ Meteor.startup(() => {
             "_id": "Ytad2bZiTJ4afZiyt",
             "startDate": 1473199200000,
             "endDate": 1474581600000,
-            "project": "WipyE5Fzr3FRChPHd",
+            "project": "AESh7b8getxpJfhXf",
             "current": true,
             "number": 1
         };
@@ -48,7 +48,7 @@ Meteor.startup(() => {
     var vesta = ProjectsCollection.findOne();
     if (typeof vesta === 'undefined') {
         ProjectsCollection.insert({
-            _id: "WipyE5Fzr3FRChPHd",
+            _id: "AESh7b8getxpJfhXf",
             name: 'Vesta',
             prefix: 'V',
             currentSprint: "Ytad2bZiTJ4afZiyt"
