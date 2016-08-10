@@ -285,13 +285,16 @@ class IdeaCtrl {
             });
         this.stopEditDescription();
     }
-
-    setSprint(sprint) {
-        Meteor.call('ideas.setSprint', sprint,
-            this.idea._id, (err, res) => {
-                if (err) window.alert(err);
-            });
-    }
+    /**
+     * plan jest taki zeby zmiana sprintu mozliwa byla tylko
+     * jako przypisanie w PLANOWANIU SPRINTU
+     */
+    // setSprint(sprint) {
+    //     Meteor.call('ideas.setSprint', sprint,
+    //         this.idea._id, (err, res) => {
+    //             if (err) window.alert(err);
+    //         });
+    // }
 
     userIsOwner() {
         if (this.idea)
