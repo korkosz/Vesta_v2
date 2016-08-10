@@ -149,9 +149,11 @@
             </div>
             <!-- Ideas -->
             <div class="col-md-7">
-                <button style="color: orange">
-                    New Idea
-                </button>
+                <!-- Create New Idea -->
+                <new-idea title="New Idea"
+                    alt-id="0" sprint="vm.sprint.number"
+                    style="margin-top: 16px;margin-bottom: 16px;">
+                </new-idea>
                 <!-- Some Main Idea -->
                 <div>
                     <span style="background:rgba(161,134,190,.2);
@@ -256,9 +258,9 @@
 
             <!-- Discussions -->
             <div class="col-md-5">
-                <button style="color: green;">
-                    New Ask
-                </button>
+                <!-- Create New Ask -->
+                <new-ask title="New Ask" sprint="vm.sprint.number" alt-id="0"> 
+                </new-ask>
 
                 <!-- Moze po najechaniu na element aska w jakis sposob
                  na liscie obok podswietli sie idea z nim powiazany -->

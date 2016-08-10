@@ -49,7 +49,8 @@
                     <fieldset id="sprint" class="field-wrapper">
                         <label class="label-modal">Sprint:</label>
                         <select ng-model="newIdeaVm.idea.sprint" name="sprint" required
-                                ng-options="sprint as sprint for sprint in newIdeaVm.idea._project.sprints"
+                                ng-options="sprint._id as sprint.number for sprint in 
+                                    newIdeaVm.sprints track by sprint._id"
                                 ng-disabled="!newIdeaVm.idea._project">
                         </select>
                         <div class="glyphicon glyphicon-ok-sign" ng-show="newIdeaVm.idea.sprint"></div>

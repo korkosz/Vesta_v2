@@ -1,6 +1,7 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
+import Sprints from '/imports/api/sprint/sprint';
 
 import './new_idea.html';
 
@@ -64,6 +65,26 @@ class NewIdeaCtrl {
             projects() {
                 return Projects.find();
             },
+            sprints() {
+                this.getReactively('idea._project');
+                if (this.idea._project) {
+                    let select = {
+                        number: {
+                            $gte: this.idea._project.currentSprintNb()
+                        }
+                    };
+                    let sprints = Sprints.find(select).fetch();
+
+                    /**
+                     * Set current sprint as default sprint
+                     */                  
+                    if (sprints && sprints.length > 0)
+                        //sprints should be sorted by a number index
+                        this.idea.sprint = sprints[0];
+
+                    return sprints;
+                }
+            },
             modules() {
                 this.getReactively('idea._project');
                 if (this.idea._project) {
@@ -81,17 +102,9 @@ class NewIdeaCtrl {
         });
     }
 
-    projectSelected() {
-        this.idea.sprint = this.idea._project.currentSprint;
-
-        this.idea._project.sprints = this.idea._project.sprints.filter((sprint) => {
-            return sprint >= this.idea._project.currentSprint;
-        });
-
-        if (this.idea._project.sprints.indexOf('Defer') === -1) {
-            this.idea._project.sprints.push('Defer');
-        }
-    }
+    // projectSelected() {
+    //     this.idea.sprint = this.idea._project.currentSprint;
+    // }
 
     removeReviewer(reviewer) {
         var revIdx = this.selectedReviewers.findIndex((rev) =>

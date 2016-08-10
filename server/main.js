@@ -29,14 +29,29 @@ import Bookmarks from '/imports/api/metadata/bookmark';
 // });
 
 Meteor.startup(() => {
+    const sprintsCount = Sprints.find().count();
+
+    if(sprintsCount === 0) {
+        let defaultSprint = {
+            "_id": "Ytad2bZiTJ4afZiyt",
+            "startDate": 1473199200000,
+            "endDate": 1474581600000,
+            "project": "WipyE5Fzr3FRChPHd",
+            "current": true,
+            "number": 1
+        };
+
+        Sprints.insert(defaultSprint);
+    }    
+
     //	ProjectsCollection.remove({});
     var vesta = ProjectsCollection.findOne();
     if (typeof vesta === 'undefined') {
         ProjectsCollection.insert({
+            _id: "WipyE5Fzr3FRChPHd",
             name: 'Vesta',
             prefix: 'V',
-            currentSprint: 4,
-            sprints: [1, 2, 3, 4, 5, 6]
+            currentSprint: "Ytad2bZiTJ4afZiyt"
         });
     }
 

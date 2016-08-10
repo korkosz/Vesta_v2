@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import Ideas from '/imports/api/ideas/idea';
 import Modules from '/imports/api/module/module';
+import Sprints from '/imports/api/sprint/sprint';
 
 class Projects extends Mongo.Collection {
     getAllIdeas() {
@@ -18,16 +19,17 @@ Projects.schema = new SimpleSchema({
         type: String
     },
     currentSprint: {
-        type: Number
-    },
-    sprints: {
-        type: [Number]
+        type: String
     }
 });
 
 Projects.helpers({
     getModules() {
         return Modules.find({ project: this._id });
+    },
+    currentSprintNb() {
+        var sprint = Sprints.findOne({ project: this._id });
+        return sprint && sprint.number;
     }
 });
 

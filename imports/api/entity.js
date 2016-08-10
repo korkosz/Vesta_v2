@@ -209,7 +209,7 @@ Entity.createSchemaMetadata = function (meta) {
         },
         sprint: {
             base: {
-                type: Number
+                type: String
             },
             notify: function (modifier, oldEntity, modifierMethod, userId) {
                 const usersToNotify = oldEntity.watchers.filter(
