@@ -1,6 +1,7 @@
 import Sprints from '/imports/api/sprint/sprint';
 import Ideas from '/imports/api/ideas/idea';
 import Asks from '/imports/api/ask/ask';
+import Tasks from '/imports/api/task/task';
 
 angular.module('simple-todos')
     .controller('SprintPlanningCtrl', SprintPlanningCtrl);
@@ -60,9 +61,26 @@ function SprintPlanningCtrl($scope, $routeParams) {
                         });
 
                         if (parentIdea)
-                            ask.parentIdea = parentIdea.id;                        
+                            ask.parentIdea = parentIdea.id;
                     }
                     return ask;
+                });
+        },
+        tasks() {
+            vm.getReactively('sprint');
+            if (vm.sprint)
+                return Tasks.find({ sprint: vm.sprint._id }).map((task) => {
+                    if (task &&
+                        task.related) {
+                        let parentIdea = task.related.find((rel) => {
+                            return rel.relation === 'Based On' &&
+                                rel.entity === 'Idea';
+                        });
+
+                        if (parentIdea)
+                            task.parentIdea = parentIdea.id;
+                    }
+                    return task;
                 });
         },
         /**
@@ -135,6 +153,10 @@ function SprintPlanningCtrl($scope, $routeParams) {
     // vm.filterIsParent = function(value, idx, arr) {
     //     return !value.parent;
     // };
+    vm.goToDetails = function (id) {
+        window.location.href = '#/' + id;
+    };
+
     vm.notRelatedAsk = function (ask) {
         return ask && !ask.parentIdea;
     };
