@@ -153,9 +153,11 @@
                     <!-- Create New Idea -->
                     <new-idea title="New Idea"
                         alt-id="0" sprint="vm.sprint._id"
-                        style="margin-top: 16px;margin-bottom: 16px;">
+                        style="margin-top: 16px;margin-bottom: 16px;"
+                        project="{{vm.sprint.project}}">
                     </new-idea>                   
                     
+                    <!-- Idea with child Ask if exists-->
                     <div ng-repeat="idea in vm.ideas">
                         <button ng-click="vm.removeFromThisSprint(idea._id)"
                                 class="btn btn-danger" 
@@ -166,8 +168,7 @@
                         </button>
                         <div ng-click="vm.activateIdea(idea)" 
                              style="cursor: pointer; display: inline-block;">
-                            <span style="background:rgba(161,134,190,.2);
-                                        padding:2px 7px;">
+                            <span style="background: #ff8d00;padding:2px 7px;color: white;">
                                 {{idea.number}}
                             </span>
                             <span style="font-size: 18px;">{{idea.title}}</span>
@@ -175,38 +176,39 @@
                                 {{idea.getStatusName()}}
                             </span>
                         </div> 
+                        <new-ask idea-id="{{idea._id}}" idea-title="{{idea.title}}"
+                                 sprint="vm.sprint._id" alt-id="{{$index}}" 
+                                 project="{{vm.sprint.project}}" title="A">
+                        </new-ask>
+                        <!--Child Ask - ngRepeat should return one position here -->
+                        <div ng-repeat="ask in vm.asks | filter: {parentIdea: idea._id}"
+                             style="margin-left: 25px;">
+                            <span style="background:#cef6d5;
+                                        padding:2px 7px; color: #2cd64a" >
+                                {{ask.number}} 
+                            </span>
+                            <span>{{ask.title}}</span>
+                        </div>
                     </div>
-                          
+                    <hr>      
                 </div>
 
-                <!-- Discussions -->
+                <!-- Discussions without related Ideas -->
                 <div class="col-md-5">
                     <!-- Create New Ask -->
-                    <new-ask title="New Ask" sprint="vm.sprint.number" alt-id="0"> 
+                    <new-ask title="New Ask" sprint="vm.sprint._id" 
+                             project="{{vm.sprint.project}}"
+                             alt-id="777"> 
                     </new-ask>
 
-                    <!-- Moze po najechaniu na element aska w jakis sposob
-                    na liscie obok podswietli sie idea z nim powiazany -->
-                    <div>
-                        <span style="background:rgba(161,134,190,.2);
-                                    padding:2px 7px;">
-                            113 
+                    <h4>
+                        Discussions without related Ideas
+                    </h4>
+                     <div ng-repeat="ask in vm.asks | filter: vm.notRelatedAsk">
+                        <span style="background: #cef6d5;padding:2px 7px;color: #2cd64a;">
+                            {{ask.number}} 
                         </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
-                    </div>
-                    <div>
-                        <span style="background:rgba(161,134,190,.2);
-                                    padding:2px 7px;">
-                            993 
-                        </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
-                    </div>
-                    <div>
-                        <span style="background:rgba(161,134,190,.2);
-                                    padding:2px 7px;">
-                            122 
-                        </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <span>{{ask.title}}</span>
                     </div>
                 </div>
             </div>            

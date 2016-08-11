@@ -1,7 +1,6 @@
 import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
 import Asks from '/imports/api/ask/ask';
-import Sprints from '/imports/api/sprint/sprint';
 
 import './ask_new.html';
 
@@ -23,8 +22,7 @@ class NewAskCtrl {
             if (this.module)
                 this.ask.module = Modules.findOne(this.module);
 
-            if (this.sprint)
-                this.ask.sprint = Sprints.findOne(this.sprint);
+
         }
         /// init
         this.init();
@@ -39,26 +37,6 @@ class NewAskCtrl {
         this.helpers({
             projects() {
                 return Projects.find();
-            },
-            sprints() {
-                this.getReactively('ask.project');
-                if (this.ask.project) {
-                    let select = {
-                        number: {
-                            $gte: this.ask.project.currentSprintNb()
-                        }
-                    };
-                    let sprints = Sprints.find(select).fetch();
-
-                    /**
-                     * Set current sprint as default sprint
-                     */
-                    if (sprints && sprints.length > 0)
-                        //sprints should be sorted by a number index
-                        this.ask.sprint = sprints[0];
-
-                    return sprints;
-                }
             },
             modules() {
                 this.getReactively('ask.project');
@@ -81,17 +59,12 @@ class NewAskCtrl {
             vm.ask.project = vm.ask.project._id;
             vm.ask.ideaId = vm.ideaId;
 
-            /**
-             * case when sprint is left as default (current)
-             */
-            if (typeof vm.ask.sprint === 'object' &&
-                typeof vm.ask.sprint._id !== 'undefined') {
-                vm.ask.sprint = vm.ask.sprint._id;
-            }
+            if (vm.sprint)
+                vm.ask.sprint = vm.sprint;
 
             //this is the case when attributes have been used
-            if (this.ask.module && typeof this.ask.module !== 'string') {
-                this.ask.module = this.ask.module._id;
+            if (vm.ask.module && typeof vm.ask.module !== 'string') {
+                vm.ask.module = vm.ask.module._id;
             };
 
             Meteor.call('asks.createAsk', vm.ask, (err, res) => {
@@ -129,6 +102,7 @@ export default angular.module("ask")
             controllerAs: 'newAskVm',
             link,
             scope: {
+                title: '@',
                 project: '@',
                 module: '@',
                 ideaId: '@',
@@ -151,9 +125,6 @@ export default angular.module("ask")
                     if (ctrl.ask.project && ctrl.module) {
                         ctrl.ask.module = Modules.findOne(ctrl.module);
                     }
-                    if (ctrl.sprint) {
-                        ctrl.ask.sprint = Sprints.findOne(ctrl.sprint);
-                    }
                 }
             });
 
@@ -161,6 +132,9 @@ export default angular.module("ask")
                 if (ctrl.ideaTitle)
                     ctrl.ask.title = ctrl.ideaTitle;
             });
+
+            //Set default Title
+            if (!ctrl.title) ctrl.title = 'create new ask';
 
             function dataURItoBlob(dataURI) {
                 var binary = atob(dataURI.split(',')[1]);

@@ -1,5 +1,6 @@
 import Sprints from '/imports/api/sprint/sprint';
 import Ideas from '/imports/api/ideas/idea';
+import Asks from '/imports/api/ask/ask';
 
 angular.module('simple-todos')
     .controller('SprintPlanningCtrl', SprintPlanningCtrl);
@@ -43,6 +44,26 @@ function SprintPlanningCtrl($scope, $routeParams) {
             vm.getReactively('sprint');
             if (vm.sprint)
                 return Ideas.find({ sprint: vm.sprint._id })
+        },
+        /**
+         * Asks from this Sprint
+         */
+        asks() {
+            vm.getReactively('sprint');
+            if (vm.sprint)
+                return Asks.find({ sprint: vm.sprint._id }).map((ask) => {
+                    if (ask &&
+                        ask.related) {
+                        let parentIdea = ask.related.find((rel) => {
+                            return rel.relation === 'Based On' &&
+                                rel.entity === 'Idea';
+                        });
+
+                        if (parentIdea)
+                            ask.parentIdea = parentIdea.id;                        
+                    }
+                    return ask;
+                });
         },
         /**
          * 1) Find not closed, not working, deferred Ideas
@@ -114,6 +135,9 @@ function SprintPlanningCtrl($scope, $routeParams) {
     // vm.filterIsParent = function(value, idx, arr) {
     //     return !value.parent;
     // };
+    vm.notRelatedAsk = function (ask) {
+        return ask && !ask.parentIdea;
+    };
 
     vm.activateIdea = function (idea) {
         vm.activeIdea = idea;
