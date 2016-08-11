@@ -27,9 +27,9 @@ class NewIdeaCtrl {
 
             if (this.module)
                 this.idea.module = Modules.findOne(this.module);
-            
-            if (this.sprint) 
-                this.idea.sprint = Sprints.findOne(this.sprint);            
+
+            // if (this.sprint) 
+            //     this.idea.sprint = Sprints.findOne(this.sprint);            
 
             if (this.reviewers && this.reviewers.length > 0) {
                 var _reviewers = Meteor.users.find({
@@ -72,9 +72,9 @@ class NewIdeaCtrl {
                     /**
                      * Set current sprint as default sprint
                      */
-                    if (sprints && sprints.length > 0)
-                        //sprints should be sorted by a number index
-                        this.idea.sprint = sprints[0];
+                    // if (sprints && sprints.length > 0)
+                    //     //sprints should be sorted by a number index
+                    //     this.idea.sprint = sprints[0];
 
                     return sprints;
                 }
@@ -126,10 +126,13 @@ class NewIdeaCtrl {
             /**
              * case when sprint is left as default (current)
              */
-            if (typeof vm.idea.sprint === 'object' &&
-                typeof vm.idea.sprint._id !== 'undefined') {
-                vm.idea.sprint = vm.idea.sprint._id;
-            }
+            // if (typeof vm.idea.sprint === 'object' &&
+            //     typeof vm.idea.sprint._id !== 'undefined') {
+            //     vm.idea.sprint = vm.idea.sprint._id;
+            // }
+
+            if (this.sprint)
+                this.idea.sprint = this.sprint;
 
             //this is the case when attributes have been used
             if (vm.idea.module && typeof vm.idea.module !== 'string') {
@@ -192,9 +195,9 @@ export default angular.module("idea")
                         if (ctrl.module) {
                             ctrl.idea.module = Modules.findOne(ctrl.module);
                         }
-                        if (ctrl.sprint) {
-                            ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
-                        }
+                        // if (ctrl.sprint) {
+                        //     ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
+                        // }
                     }
                 }
             });

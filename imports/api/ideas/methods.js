@@ -215,7 +215,7 @@ function removeReview(reviewId, ideaId) {
     }, idea, me.userId);
 }
 
-function setSprint(sprintId, ideaId) {
+function setSprint(ideaId, sprintId) {
     Ideas.update(ideaId, {
         $set: { sprint: sprintId }
     }, null, null, this.userId);
@@ -271,6 +271,7 @@ function createIdea(idea) {
             relation: 'Based On'
         };
         idea.related = [relationObj];
+        idea.parent = idea.ideaId;
 
         Ideas.insert(idea, (err, newIdeaId) => {
             let relationObj = {

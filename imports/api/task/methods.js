@@ -293,6 +293,8 @@ function createTaskFromTask(task) {
     };
     task.related = [relationObj];
 
+    task.parent = parentTask._id;
+
     Tasks.insert(task, (err, newTaskId) => {
         const relationObj = {
             entity: 'Task',

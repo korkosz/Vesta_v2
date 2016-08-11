@@ -1,4 +1,5 @@
 import Sprints from '/imports/api/sprint/sprint';
+import Ideas from '/imports/api/ideas/idea';
 
 angular.module('simple-todos')
     .controller('SprintPlanningCtrl', SprintPlanningCtrl);
@@ -24,11 +25,115 @@ function SprintPlanningCtrl($scope, $routeParams) {
         ASSIGNMENT: true
     };
 
+    /**
+     * String[] - holds ids of all child Ideas  
+     */
+    //vm.ideasChildrensIds = [];
+
+    vm.activeIdea = null;
+
     vm.helpers({
         sprint() {
             return Sprints.findOne(sprintId);
+        },
+        /**
+         * Ideas from this Sprint
+         */
+        ideas() {
+            vm.getReactively('sprint');
+            if (vm.sprint)
+                return Ideas.find({ sprint: vm.sprint._id })
+        },
+        /**
+         * 1) Find not closed, not working, deferred Ideas
+         * 2) Check each one if it has related sub-ideas
+         * 3) If so, collect sub-idea's ID
+         */
+        deferredIdeas() {
+            var filter = {
+                status: {
+                    $in: [
+                        1,/*new*/
+                        6,/*consider*/
+                        8 /*discussed*/
+                        , 5//def
+                    ]
+                },
+                sprint: {
+                    $exists: false
+                }
+                // ,
+                // parent: {
+                //     $exists: false
+                // }
+            };
+            return Ideas.find(filter);
+
+            // .forEach((parentIdea) => {
+            //     if (parentIdea &&
+            //         parentIdea.related) {
+            //         let subIdeas = parentIdea.related.filter((rel) => {
+            //             return rel.relation === 'Sub-Idea' &&
+            //                 rel.entity === 'Idea';
+            //         });
+
+            //         subIdeas && subIdeas.forEach((subIdea) => {
+            //             let notAlreadyIn = vm.ideasChildrensIds.
+            //                 indexOf(subIdea.id) === -1;
+
+            //             if (notAlreadyIn)
+            //                 vm.ideasChildrensIds.push(subIdea.id);
+            //         });
+            //     }
+            // });
         }
+        // ,
+        // deferredChildIdeas() {
+        //     if (vm.ideasChildrensIds.length === 0) return;
+
+        //     var filter = {
+        //         _id: {
+        //             $in: vm.ideasChildrensIds
+        //         },
+        //         status: {
+        //             $in: [
+        //                 1,/*new*/
+        //                 6,/*consider*/
+        //                 8 /*discussed*/
+        //             ]
+        //         },
+        //         sprint: {
+        //             $exists: false
+        //         }
+        //     };
+
+        //     return Ideas.find(filter);
+        // }
     });
+
+    // vm.filterIsParent = function(value, idx, arr) {
+    //     return !value.parent;
+    // };
+
+    vm.activateIdea = function (idea) {
+        vm.activeIdea = idea;
+    };
+
+    vm.removeFromThisSprint = function (ideaId) {
+        Ideas.update(ideaId, {
+            $unset: { sprint: '' }
+        });
+    };
+
+    vm.addToThisSprint = function (ideaId) {
+        Meteor.call('ideas.setSprint', ideaId,
+            vm.sprint._id, (err, res) => {
+                if (err) window.alert(err)
+                else {
+                    vm.closeModal();
+                }
+            });
+    };
 
     vm.addGoal = function () {
         if (!vm.newGoal) return;

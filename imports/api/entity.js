@@ -102,6 +102,17 @@ Entity.createSchemaMetadata = function (meta) {
                 filter: 'picklist'
             }
         },
+        /**
+         * holds ID of a parent of this entity, 
+         * but only of the same type. So for Sub-Task 
+         * it holds Task ID etc.  
+         */
+        parent: {
+            base: {
+                type: String,
+                optional: true
+            }
+        },
         module: {
             base: {
                 type: String
@@ -459,17 +470,16 @@ function handleCreateNotification(entityName, doc) {
 }
 
 function handleUpdateNotification(modifier, oldObject, userId, additionalParams) {
-    var updateModifiers = Object.getOwnPropertyNames(modifier);
-    for (property of updateModifiers) { //$set, $pull etc
-        let fields = Object.getOwnPropertyNames(modifier[property]);
-        for (field of fields) {//status, description etc
-            let meta = this.schemaMetadata[field];
-            if (meta && typeof meta.notify === 'function') {
-                meta.notify(modifier, oldObject, property, userId, additionalParams);
-            }
-        }
-    }
-
+    // var updateModifiers = Object.getOwnPropertyNames(modifier);
+    // for (property of updateModifiers) { //$set, $pull etc
+    //     let fields = Object.getOwnPropertyNames(modifier[property]);
+    //     for (field of fields) {//status, description etc
+    //         let meta = this.schemaMetadata[field];
+    //         if (meta && typeof meta.notify === 'function') {
+    //             meta.notify(modifier, oldObject, property, userId, additionalParams);
+    //         }
+    //     }
+    // }
 }
 
 function oldNewNotifyHelper(fieldName) {

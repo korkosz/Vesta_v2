@@ -147,35 +147,52 @@
                     </button>
                 </div>
             </div>
-            <!-- Ideas -->
-            <div class="col-md-7">
-                <!-- Create New Idea -->
-                <new-idea title="New Idea"
-                    alt-id="0" sprint="vm.sprint.number"
-                    style="margin-top: 16px;margin-bottom: 16px;">
-                </new-idea>
-                <!-- Some Main Idea -->
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                 padding:2px 7px;">
-                        133 
-                    </span>
-                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
-                    <span class="idea-status idea-status-Consider">
-                        Consider
-                    </span>
+            <div style="margin-top:30px;" class="row">
+                <!-- Ideas -->
+                <div class="col-md-7">
+                    <!-- Create New Idea -->
+                    <new-idea title="New Idea"
+                        alt-id="0" sprint="vm.sprint._id"
+                        style="margin-top: 16px;margin-bottom: 16px;">
+                    </new-idea>                   
+                    
+                    <div ng-repeat="idea in vm.ideas">
+                        <button ng-click="vm.removeFromThisSprint(idea._id)"
+                                class="btn btn-danger" 
+                                style="display: inline-block;
+                                        padding-top: 0px;
+                                        padding-bottom: 0px;">
+                            X
+                        </button>
+                        <div ng-click="vm.activateIdea(idea)" 
+                             style="cursor: pointer; display: inline-block;">
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                {{idea.number}}
+                            </span>
+                            <span style="font-size: 18px;">{{idea.title}}</span>
+                            <span class="idea-status idea-status-{{idea.getStatusName()}}">
+                                {{idea.getStatusName()}}
+                            </span>
+                        </div> 
+                    </div>
+                          
                 </div>
-                <!-- Sub Ideas-->
-                <div style="padding-left: 32px;">
+
+                <!-- Discussions -->
+                <div class="col-md-5">
+                    <!-- Create New Ask -->
+                    <new-ask title="New Ask" sprint="vm.sprint.number" alt-id="0"> 
+                    </new-ask>
+
+                    <!-- Moze po najechaniu na element aska w jakis sposob
+                    na liscie obok podswietli sie idea z nim powiazany -->
                     <div>
                         <span style="background:rgba(161,134,190,.2);
                                     padding:2px 7px;">
                             113 
                         </span>
                         <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-New">
-                            New
-                        </span>
                     </div>
                     <div>
                         <span style="background:rgba(161,134,190,.2);
@@ -183,9 +200,6 @@
                             993 
                         </span>
                         <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-Consider">
-                            Consider
-                        </span>
                     </div>
                     <div>
                         <span style="background:rgba(161,134,190,.2);
@@ -193,99 +207,46 @@
                             122 
                         </span>
                         <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-Rejected">
-                            Rejected
-                        </span>
                     </div>
-                    <div>
+                </div>
+            </div>            
+            
+            <!-- Deferred Ideas -->
+            <div style="margin-top:30px;" class="row">
+                <div class="col-md-7">
+                    <h3>
+                        Deferred Ideas
+                    </h3>
+                    <div ng-repeat="defIdea in vm.deferredIdeas"
+                         ng-click="vm.activateIdea(defIdea)" style="cursor: pointer">
                         <span style="background:rgba(161,134,190,.2);
                                     padding:2px 7px;">
-                            13 
+                            {{defIdea.number}}
                         </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-Discussed">
-                            Discussed
-                        </span>
-                    </div>
-                </div>       
-
-                <!-- Some Main Idea -->
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                 padding:2px 7px;">
-                        133 
-                    </span>
-                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
-                    <span class="idea-status idea-status-Consider">
-                        Consider
-                    </span>
-                </div>
-                <!-- Sub Ideas-->
-                <div style="padding-left: 32px;">                
-                    <div>
-                        <span style="background:rgba(161,134,190,.2);
-                                    padding:2px 7px;">
-                            122 
-                        </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-Rejected">
-                            Rejected
+                        <span style="font-size: 18px;">{{defIdea.title}}</span>
+                        <span class="idea-status idea-status-{{defIdea.getStatusName()}}">
+                            {{defIdea.getStatusName()}}
                         </span>
                     </div>
-                    <div>
-                        <span style="background:rgba(161,134,190,.2);
-                                    padding:2px 7px;">
-                            13 
-                        </span>
-                        <span>Lorem ipsum dolor sit amet, consectetur </span>
-                        <span class="idea-status idea-status-Discussed">
-                            Discussed
-                        </span>
-                    </div>
-                </div>  
-                <!-- Some Main Idea -->
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                 padding:2px 7px;">
-                        133 
-                    </span>
-                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
-                    <span class="idea-status idea-status-Rejected">
-                        Rejected
-                    </span>
-                </div>         
-            </div>
-
-            <!-- Discussions -->
-            <div class="col-md-5">
-                <!-- Create New Ask -->
-                <new-ask title="New Ask" sprint="vm.sprint.number" alt-id="0"> 
-                </new-ask>
-
-                <!-- Moze po najechaniu na element aska w jakis sposob
-                 na liscie obok podswietli sie idea z nim powiazany -->
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                        113 
-                    </span>
-                    <span>Lorem ipsum dolor sit amet, consectetur </span>
                 </div>
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                        993 
-                    </span>
-                    <span>Lorem ipsum dolor sit amet, consectetur </span>
-                </div>
-                <div>
-                    <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                        122 
-                    </span>
-                    <span>Lorem ipsum dolor sit amet, consectetur </span>
+                <div class="col-md-5" ng-if="vm.activeIdea">
+                    <a href="#/{{vm.activeIdea.id}}" 
+                       target="_blank" class="btn btn-success">
+                        Details
+                    </a>
+                    <button ng-click="vm.addToThisSprint(vm.activeIdea._id)"
+                            class="btn btn-warning">
+                        Add to this sprint
+                    </button>
+                    <h4>
+                        Description
+                    </h4>
+                    <div text-angular ng-model="vm.activeIdea.description" 
+                        ta-disabled="true" ta-toolbar="false"
+                        class="description"></div>
                 </div>
             </div>
+            
         </div>
         <!-- 2. Create Ideas and Asks - if hidden -->
         <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
