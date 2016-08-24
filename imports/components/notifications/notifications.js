@@ -1,5 +1,6 @@
 
 import Notifications from '/imports/api/notification/notification';
+import Sprints from '/imports/api/sprint/sprint';
 import './notifications.html';
 
 export default angular.module('global')
@@ -23,6 +24,12 @@ function controller($scope) {
     this.asksUnseenCounter = 0;
 
     this.helpers({
+        currSprint() {
+            return Sprints.findOne({ current: true });
+        },
+        sprints() {
+            return Sprints.find();
+        },
         notsIdeas() {
             var me = this;
             var options = {
@@ -147,6 +154,20 @@ function controller($scope) {
     this.seenColor = function (seen) {
         if (!seen) return '#E8F7FF';
         return '#fff';
+    };
+
+    this.updateCurrentSprint = function () {
+        var currentSprint = this.sprints.find((sprint) => {
+            return sprint.current;
+        });
+        var currentSprintNumber = currentSprint.number;
+        var nextSprintNumber = currentSprint.number + 1;
+        var nextSprint = this.sprints.find((sprint) => {
+            return sprint.number === nextSprintNumber;
+        });
+        var currentSprintOutdated =
+            currentSprint.endDate < (new Date()).getTime();
+        if (currentSprintOutdated && nextSprint) alert('outdated !!!')
     };
 }
 

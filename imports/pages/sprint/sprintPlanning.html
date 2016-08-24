@@ -1,399 +1,415 @@
-<!-- klocki na gorze -->
-<section>
-    <!-- Zrob to tez jako klikalne buttony ktore dadza to samo co klikniecie na checkboxa-->
-    <div style="margin: 50px;">
-        <div style="height: 40px;
-                    width:90px;
-                    border: 1px solid black;
-                    display: inline-block;
-                    margin-right: 60px;
-                    background-color: {{vm.isStageActive('GOALS') ? 'antiquewhite': 'none'}}">
-            GOALS
-        </div>
-        <div style="height: 40px;
-                    width:90px;
-                    border: 1px solid black;
-                    display: inline-block;
-                    margin-right: 60px;
-                    background-color: {{vm.isStageActive('IDEAS_ASKS') ? 'antiquewhite': 'none'}}">
-            IDEAS
-        </div>
-        <div style="height: 40px;
-                    width:90px;
-                    border: 1px solid black;
-                    display: inline-block;
-                    margin-right: 60px;
-                    background-color: {{vm.isStageActive('TASKS') ? 'antiquewhite': 'none'}}">
-            TASKS
-        </div>
-
-
-        <div style="height: 40px;
-                    width:90px;
-                    border: 1px solid black;
-                    display: inline-block;
-                    margin-right: 60px;
-                    background-color: {{vm.isStageActive('ASSIGNMENT') ? 'antiquewhite': 'none'}}">
-            ASSIGNMENT
-        </div>
-
-        <button style="height: 40px;
-                       width:90px;
-                       display: inline-block;"
-                       ng-click="vm.activateNextStage()">
-            NEXT 
-        </button>
-    </div>
-</section>
-
-<!-- main content -->
-<section class="row" style="border-top: 1px solid black;">
-    <!-- main content -->
-    <main class="col-md-10 col-md-offset-1" style="padding:24px;padding-top: 0px;">
-        <!-- Goals Table-->
-        <div class="row" ng-if="vm.sprint.goals.length > 0">
-            <div class="col-md-6 col-md-offset-3" 
-                 style="border: 1px solid black; 
-                        border-top: none;">
-                <h3 style="text-align: center;">
-                    Goals 
-                </h3>
-                <ul style="list-style-position: inside;
-                        list-style-type: upper-roman;">
-                    <li ng-repeat="goal in vm.sprint.goals track by $index">
-                        {{goal}}
-                    </li>
-                </ul>
+<!-- gdy planowanie tego sprintu nie zostalo jeszcze zamkniete-->
+<div ng-if="!vm.sprint.closed">
+    <!-- klocki na gorze -->
+    <section>
+        <!-- Zrob to tez jako klikalne buttony ktore dadza to samo co klikniecie na checkboxa-->
+        <div style="margin: 50px;">
+            <div style="height: 40px;
+                        width:90px;
+                        border: 1px solid black;
+                        display: inline-block;
+                        margin-right: 60px;
+                        background-color: {{vm.isStageActive('GOALS') ? 'antiquewhite': 'none'}}">
+                GOALS
             </div>
-        </div>        
-
-        <!-- 1. Establish Goals -->
-        <div ng-if="vm.stageSectionsVisibility.GOALS"
-             class="row" 
-             style="margin-top:30px;
-                    border: 1px solid black;
-                    padding: 16px;">
-            <div class="row">
-                <h4 class="col-md-10">
-                    Establish your goals
-                </h4>
-                <div class="col-md-2">
-                    <!--Visible if next stage is active-->
-                    <button ng-if="vm.isStageActive('IDEAS_ASKS')"
-                            ng-click="vm.stageSectionsVisibility.GOALS = false;"
-                            style="position: absolute; right: 1px;">
-                        /\
-                    </button>
-                </div>
+            <div style="height: 40px;
+                        width:90px;
+                        border: 1px solid black;
+                        display: inline-block;
+                        margin-right: 60px;
+                        background-color: {{vm.isStageActive('IDEAS_ASKS') ? 'antiquewhite': 'none'}}">
+                IDEAS
             </div>
-            
-            <input type="text" placeholder="Type your goal here" 
-                   ng-model="vm.newGoal">
-            <button class="btn btn-default" 
-                    ng-click="vm.addGoal()">Add</button>
+            <div style="height: 40px;
+                        width:90px;
+                        border: 1px solid black;
+                        display: inline-block;
+                        margin-right: 60px;
+                        background-color: {{vm.isStageActive('TASKS') ? 'antiquewhite': 'none'}}">
+                TASKS
+            </div>
 
-            <ul style="list-style-position: inside;
-                       list-style-type: upper-roman;">
-                <div ng-repeat="goal in vm.sprint.goals track by $index">
-                    <li style="display: inline;">{{goal}}</li>
-                    <button class="btn btn-danger" 
-                            ng-click="vm.removeGoal(goal)"
-                            style="height: 20px;
-                                    padding-top: 0px;
-                                    padding-bottom: 0px;
-                                    display: inline-block;
-                                    width: 62px;
-                                    text-align: center;
-                                    padding-left: 0px;
-                                    padding-right: 0px;">
-                        DELETE
-                    </button>
-                </div>     
-            </ul>
-        </div>
-        <!-- 1. Establish Goals - if hidden -->
-        <div ng-if="!vm.stageSectionsVisibility.GOALS"
-             class="row" 
-             style="border: 1px solid black; 
-                    margin-top:30px; 
-                    height: 30px;
-                    position: relative;">
-            <span>
-                Establish your goals
-            </span>
-            <button ng-click="vm.stageSectionsVisibility.GOALS = true;"
-                    style="position: absolute; right: 1px;">
-                \/
+
+            <div style="height: 40px;
+                        width:90px;
+                        border: 1px solid black;
+                        display: inline-block;
+                        margin-right: 60px;
+                        background-color: {{vm.isStageActive('ASSIGNMENT') ? 'antiquewhite': 'none'}}">
+                ASSIGNMENT
+            </div>
+
+            <button style="height: 40px;
+                        width:90px;
+                        display: inline-block;"
+                        ng-click="vm.activateNextStage()"
+                        ng-if="!vm.isStageActive('ASSIGNMENT')">
+                NEXT 
+            </button>
+            <button style="height: 40px;
+                        width:90px;
+                        display: inline-block;"
+                        ng-click="vm.activateNextStage()"
+                        ng-if="vm.isStageActive('ASSIGNMENT')">
+                CLOSE 
             </button>
         </div>
+    </section>
 
-        <!-- 2. Create Ideas and Asks -->
-        <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
-                    vm.stageSectionsVisibility.IDEAS_ASKS"
-             class="row" 
-             style="margin-top:30px;
-                    border: 1px solid black;
-                    padding: 16px;">
-            <div class="row">
-                <h4 class="col-md-10">
-                    Ideas and Discussions
-                </h4>
-                <div class="col-md-2">
-                    <!--Visible if next stage is active-->
-                    <button ng-if="vm.isStageActive('TASKS')"
-                            ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = false;"
-                            style="position: absolute; right: 1px;">
-                        /\
-                    </button>
+    <!-- main content -->
+    <section class="row" style="border-top: 1px solid black;">
+        <!-- main content -->
+        <main class="col-md-10 col-md-offset-1" style="padding:24px;padding-top: 0px;">
+            <!-- Goals Table-->
+            <div class="row" ng-if="vm.sprint.goals.length > 0">
+                <div class="col-md-6 col-md-offset-3" 
+                    style="border: 1px solid black; 
+                            border-top: none;">
+                    <h3 style="text-align: center;">
+                        Goals 
+                    </h3>
+                    <ul style="list-style-position: inside;
+                            list-style-type: upper-roman;">
+                        <li ng-repeat="goal in vm.sprint.goals track by $index">
+                            {{goal}}
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div style="margin-top:30px;" class="row">
-                <!-- Ideas -->
-                <div class="col-md-7">
-                    <!-- Create New Idea -->
-                    <new-idea title="New Idea"
-                        alt-id="0" sprint="vm.sprint._id"
-                        style="margin-top: 16px;margin-bottom: 16px;"
-                        project="{{vm.sprint.project}}">
-                    </new-idea>                   
-                    
-                    <!-- Idea with child Ask if exists-->
-                    <div ng-repeat="idea in vm.ideas">
-                        <button ng-click="vm.removeFromThisSprint(idea._id)"
-                                class="btn btn-danger" 
-                                style="display: inline-block;
-                                        padding-top: 0px;
-                                        padding-bottom: 0px;">
-                            X
+            </div>        
+
+            <!-- 1. Establish Goals -->
+            <div ng-if="vm.stageSectionsVisibility.GOALS"
+                class="row" 
+                style="margin-top:30px;
+                        border: 1px solid black;
+                        padding: 16px;">
+                <div class="row">
+                    <h4 class="col-md-10">
+                        Establish your goals
+                    </h4>
+                    <div class="col-md-2">
+                        <!--Visible if next stage is active-->
+                        <button ng-if="vm.isStageActive('IDEAS_ASKS')"
+                                ng-click="vm.stageSectionsVisibility.GOALS = false;"
+                                style="position: absolute; right: 1px;">
+                            /\
                         </button>
-                        <div ng-click="vm.activateIdea(idea)" 
-                             style="cursor: pointer; display: inline-block;">
-                            <span style="background: #ff8d00;padding:2px 7px;color: white;">
-                                {{idea.number}}
-                            </span>
-                            <span style="font-size: 18px;">{{idea.title}}</span>
-                            <span class="idea-status idea-status-{{idea.getStatusName()}}">
-                                {{idea.getStatusName()}}
-                            </span>
-                        </div> 
-                        <new-ask idea-id="{{idea._id}}" idea-title="{{idea.title}}"
-                                 sprint="vm.sprint._id" alt-id="{{$index}}" 
-                                 project="{{vm.sprint.project}}" title="A">
+                    </div>
+                </div>
+                
+                <input type="text" placeholder="Type your goal here" 
+                    ng-model="vm.newGoal">
+                <button class="btn btn-default" 
+                        ng-click="vm.addGoal()">Add</button>
+
+                <ul style="list-style-position: inside;
+                        list-style-type: upper-roman;">
+                    <div ng-repeat="goal in vm.sprint.goals track by $index">
+                        <li style="display: inline;">{{goal}}</li>
+                        <button class="btn btn-danger" 
+                                ng-click="vm.removeGoal(goal)"
+                                style="height: 20px;
+                                        padding-top: 0px;
+                                        padding-bottom: 0px;
+                                        display: inline-block;
+                                        width: 62px;
+                                        text-align: center;
+                                        padding-left: 0px;
+                                        padding-right: 0px;">
+                            DELETE
+                        </button>
+                    </div>     
+                </ul>
+            </div>
+            <!-- 1. Establish Goals - if hidden -->
+            <div ng-if="!vm.stageSectionsVisibility.GOALS"
+                class="row" 
+                style="border: 1px solid black; 
+                        margin-top:30px; 
+                        height: 30px;
+                        position: relative;">
+                <span>
+                    Establish your goals
+                </span>
+                <button ng-click="vm.stageSectionsVisibility.GOALS = true;"
+                        style="position: absolute; right: 1px;">
+                    \/
+                </button>
+            </div>
+
+            <!-- 2. Create Ideas and Asks -->
+            <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
+                        vm.stageSectionsVisibility.IDEAS_ASKS"
+                class="row" 
+                style="margin-top:30px;
+                        border: 1px solid black;
+                        padding: 16px;">
+                <div class="row">
+                    <h4 class="col-md-10">
+                        Ideas and Discussions
+                    </h4>
+                    <div class="col-md-2">
+                        <!--Visible if next stage is active-->
+                        <button ng-if="vm.isStageActive('TASKS')"
+                                ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = false;"
+                                style="position: absolute; right: 1px;">
+                            /\
+                        </button>
+                    </div>
+                </div>
+                <div style="margin-top:30px;" class="row">
+                    <!-- Ideas -->
+                    <div class="col-md-7">
+                        <!-- Create New Idea -->
+                        <new-idea title="New Idea"
+                            alt-id="0" sprint="vm.sprint._id"
+                            style="margin-top: 16px;margin-bottom: 16px;"
+                            project="{{vm.sprint.project}}">
+                        </new-idea>                   
+                        
+                        <!-- Idea with child Ask if exists-->
+                        <div ng-repeat="idea in vm.ideas">
+                            <button ng-click="vm.removeFromThisSprint(idea._id)"
+                                    class="btn btn-danger" 
+                                    style="display: inline-block;
+                                            padding-top: 0px;
+                                            padding-bottom: 0px;">
+                                X
+                            </button>
+                            <div ng-click="vm.activateIdea(idea)" 
+                                style="cursor: pointer; display: inline-block;">
+                                <span style="background: #ff8d00;padding:2px 7px;color: white;">
+                                    {{idea.number}}
+                                </span>
+                                <span style="font-size: 18px;">{{idea.title}}</span>
+                                <span class="idea-status idea-status-{{idea.getStatusName()}}">
+                                    {{idea.getStatusName()}}
+                                </span>
+                            </div> 
+                            <new-ask idea-id="{{idea._id}}" idea-title="{{idea.title}}"
+                                    sprint="vm.sprint._id" alt-id="{{$index}}" 
+                                    project="{{vm.sprint.project}}" title="A">
+                            </new-ask>
+                            <!--Child Ask - ngRepeat should return one position here -->
+                            <div ng-repeat="ask in vm.asks | filter: {parentIdea: idea._id}"
+                                ng-click="vm.goToDetails(ask.id)"
+                                style="margin-left: 25px;cursor:pointer">
+                                <span style="background:#cef6d5;
+                                            padding:2px 7px; color: #2cd64a" >
+                                    {{ask.number}} 
+                                </span>
+                                <span>{{ask.title}}</span>
+                            </div>
+                        </div>
+                        <hr>      
+                    </div>
+
+                    <!-- Discussions without related Ideas -->
+                    <div class="col-md-5">
+                        <!-- Create New Ask -->
+                        <new-ask title="New Ask" sprint="vm.sprint._id" 
+                                project="{{vm.sprint.project}}"
+                                alt-id="777"> 
                         </new-ask>
-                        <!--Child Ask - ngRepeat should return one position here -->
-                        <div ng-repeat="ask in vm.asks | filter: {parentIdea: idea._id}"
-                             ng-click="vm.goToDetails(ask.id)"
-                             style="margin-left: 25px;cursor:pointer">
-                            <span style="background:#cef6d5;
-                                        padding:2px 7px; color: #2cd64a" >
+
+                        <h4>
+                            Discussions without related Ideas
+                        </h4>
+                        <div ng-repeat="ask in vm.asks | filter: vm.notRelatedAsk"
+                            ng-click="vm.goToDetails(ask.id)" style="cursor:pointer">
+                            <span style="background: #cef6d5;padding:2px 7px;color: #2cd64a;">
                                 {{ask.number}} 
                             </span>
                             <span>{{ask.title}}</span>
                         </div>
                     </div>
-                    <hr>      
-                </div>
-
-                <!-- Discussions without related Ideas -->
-                <div class="col-md-5">
-                    <!-- Create New Ask -->
-                    <new-ask title="New Ask" sprint="vm.sprint._id" 
-                             project="{{vm.sprint.project}}"
-                             alt-id="777"> 
-                    </new-ask>
-
-                    <h4>
-                        Discussions without related Ideas
-                    </h4>
-                     <div ng-repeat="ask in vm.asks | filter: vm.notRelatedAsk"
-                          ng-click="vm.goToDetails(ask.id)" style="cursor:pointer">
-                        <span style="background: #cef6d5;padding:2px 7px;color: #2cd64a;">
-                            {{ask.number}} 
-                        </span>
-                        <span>{{ask.title}}</span>
+                </div>            
+                
+                <!-- Deferred Ideas -->
+                <div style="margin-top:30px;" class="row">
+                    <div class="col-md-7">
+                        <h3>
+                            Deferred Ideas
+                        </h3>
+                        <div ng-repeat="defIdea in vm.deferredIdeas"
+                            ng-click="vm.activateIdea(defIdea)" style="cursor: pointer">
+                            <span style="background:rgba(161,134,190,.2);
+                                        padding:2px 7px;">
+                                {{defIdea.number}}
+                            </span>
+                            <span style="font-size: 18px;">{{defIdea.title}}</span>
+                            <span class="idea-status idea-status-{{defIdea.getStatusName()}}">
+                                {{defIdea.getStatusName()}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5" ng-if="vm.activeIdea">
+                        <a href="#/{{vm.activeIdea.id}}" 
+                        target="_blank" class="btn btn-success">
+                            Details
+                        </a>
+                        <button ng-click="vm.addToThisSprint(vm.activeIdea._id)"
+                                class="btn btn-warning">
+                            Add to this sprint
+                        </button>
+                        <h4>
+                            Description
+                        </h4>
+                        <div text-angular ng-model="vm.activeIdea.description" 
+                            ta-disabled="true" ta-toolbar="false"
+                            class="description"></div>
                     </div>
                 </div>
-            </div>            
-            
-            <!-- Deferred Ideas -->
-            <div style="margin-top:30px;" class="row">
-                <div class="col-md-7">
-                    <h3>
-                        Deferred Ideas
-                    </h3>
-                    <div ng-repeat="defIdea in vm.deferredIdeas"
-                         ng-click="vm.activateIdea(defIdea)" style="cursor: pointer">
+                
+            </div>
+            <!-- 2. Create Ideas and Asks - if hidden -->
+            <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
+                        !vm.stageSectionsVisibility.IDEAS_ASKS"
+                class="row" 
+                style="border: 1px solid black; 
+                        margin-top:30px; 
+                        height: 30px;
+                        position: relative;">
+                <span>
+                    Ideas and Discussions
+                </span>
+                <button ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = true;"
+                        style="position: absolute; right: 1px;">
+                    \/
+                </button>
+            </div>
+
+            <!-- 3. Create Tasks -->
+            <div ng-if="vm.isStageActive('TASKS') && 
+                        vm.stageSectionsVisibility.TASKS"
+                class="row" 
+                style="margin-top:30px;
+                        border: 1px solid black;
+                        padding: 16px;">
+                <div class="row">
+                    <h4 class="col-md-10">
+                        Create Tasks
+                    </h4>
+                    <div class="col-md-2">
+                        <button ng-if="vm.isStageActive('ASSIGNMENT')"
+                                ng-click="vm.stageSectionsVisibility.TASKS = false;"
+                                style="position: absolute; right: 1px;">
+                            /\
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Idea with child Tasks if exist-->
+                <div ng-repeat="idea in vm.ideas">               
+                    <div style="display: inline-block;">
+                        <span style="background: #ff8d00;padding:2px 7px;color: white;">
+                            {{idea.number}}
+                        </span>
+                        <span style="font-size: 18px;">{{idea.title}}</span>
+                    </div> 
+                    <new-task idea-id="{{idea._id}}" parent-title="{{idea.title}}"
+                                sprint="vm.sprint._id" alt-id="{{$index}}" 
+                                parent-project="{{vm.sprint.project}}" title="T">
+                    </new-task>
+                    <!--Child Tasks - ngRepeat should return multiple positions here -->
+                    <div ng-repeat="task in vm.tasks | filter: {parentIdea: idea._id}"
+                        style="margin-top: 10px;margin-bottom: 10px;margin-left: 25px;">
+                        <span style="background-color: green;
+                                    margin-right: 5px;">&nbsp;</span>
                         <span style="background:rgba(161,134,190,.2);
                                     padding:2px 7px;">
-                            {{defIdea.number}}
+                            {{task.number}} 
                         </span>
-                        <span style="font-size: 18px;">{{defIdea.title}}</span>
-                        <span class="idea-status idea-status-{{defIdea.getStatusName()}}">
-                            {{defIdea.getStatusName()}}
-                        </span>
+                        <span>{{task.title}}</span>
                     </div>
                 </div>
-                <div class="col-md-5" ng-if="vm.activeIdea">
-                    <a href="#/{{vm.activeIdea.id}}" 
-                       target="_blank" class="btn btn-success">
-                        Details
-                    </a>
-                    <button ng-click="vm.addToThisSprint(vm.activeIdea._id)"
-                            class="btn btn-warning">
-                        Add to this sprint
-                    </button>
-                    <h4>
-                        Description
-                    </h4>
-                    <div text-angular ng-model="vm.activeIdea.description" 
-                        ta-disabled="true" ta-toolbar="false"
-                        class="description"></div>
-                </div>
             </div>
-            
-        </div>
-        <!-- 2. Create Ideas and Asks - if hidden -->
-        <div ng-if="vm.isStageActive('IDEAS_ASKS') && 
-                    !vm.stageSectionsVisibility.IDEAS_ASKS"
-             class="row" 
-             style="border: 1px solid black; 
-                    margin-top:30px; 
-                    height: 30px;
-                    position: relative;">
-            <span>
-                Ideas and Discussions
-            </span>
-            <button ng-click="vm.stageSectionsVisibility.IDEAS_ASKS = true;"
-                    style="position: absolute; right: 1px;">
-                \/
-            </button>
-        </div>
-
-        <!-- 3. Create Tasks -->
-        <div ng-if="vm.isStageActive('TASKS') && 
-                     vm.stageSectionsVisibility.TASKS"
-             class="row" 
-             style="margin-top:30px;
-                    border: 1px solid black;
-                    padding: 16px;">
-            <div class="row">
-                <h4 class="col-md-10">
+            <!-- 3. Create Tasks - if hidden -->
+            <div ng-if="vm.isStageActive('TASKS') && 
+                        !vm.stageSectionsVisibility.TASKS"
+                class="row" 
+                style="border: 1px solid black; 
+                        margin-top:30px; 
+                        height: 30px;
+                        position: relative;">
+                <span>
                     Create Tasks
-                </h4>
-                <div class="col-md-2">
-                    <button ng-if="vm.isStageActive('ASSIGNMENT')"
-                            ng-click="vm.stageSectionsVisibility.TASKS = false;"
-                            style="position: absolute; right: 1px;">
-                        /\
-                    </button>
-                </div>
-            </div>
-
-            <!-- Idea with child Tasks if exist-->
-            <div ng-repeat="idea in vm.ideas">               
-                <div style="display: inline-block;">
-                    <span style="background: #ff8d00;padding:2px 7px;color: white;">
-                        {{idea.number}}
-                    </span>
-                    <span style="font-size: 18px;">{{idea.title}}</span>
-                </div> 
-                <new-task idea-id="{{idea._id}}" parent-title="{{idea.title}}"
-                            sprint="vm.sprint._id" alt-id="{{$index}}" 
-                            parent-project="{{vm.sprint.project}}" title="T">
-                </new-task>
-                <!--Child Tasks - ngRepeat should return multiple positions here -->
-                <div ng-repeat="task in vm.tasks | filter: {parentIdea: idea._id}"
-                     style="margin-top: 10px;margin-bottom: 10px;margin-left: 25px;">
-                    <span style="background-color: green;
-                                 margin-right: 5px;">&nbsp;</span>
-                    <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                        {{task.number}} 
-                    </span>
-                    <span>{{task.title}}</span>
-                </div>
-            </div>
-        </div>
-        <!-- 3. Create Tasks - if hidden -->
-        <div ng-if="vm.isStageActive('TASKS') && 
-                    !vm.stageSectionsVisibility.TASKS"
-             class="row" 
-             style="border: 1px solid black; 
-                    margin-top:30px; 
-                    height: 30px;
-                    position: relative;">
-            <span>
-                 Create Tasks
-            </span>
-            <button ng-click="vm.stageSectionsVisibility.TASKS = true;"
-                    style="position: absolute; right: 1px;">
-                \/
-            </button>
-        </div>
-
-        <!-- 4. Assign and Estimate Tasks -->
-        <div ng-if="vm.isStageActive('ASSIGNMENT') && 
-                     vm.stageSectionsVisibility.ASSIGNMENT"
-             class="row" 
-             style="margin-top:30px;
-                    border: 1px solid black;
-                    padding: 16px;">
-            <div class="row">
-                <h4 class="col-md-10">
-                   	Task Assignement and Estimation
-                </h4>
-                <div class="col-md-2">
-                    <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = false;"
-                            style="position: absolute; right: 1px;">
-                        /\
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Some Main Idea -->
-            <div>
-                <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                    133 
                 </span>
-                <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                <button ng-click="vm.stageSectionsVisibility.TASKS = true;"
+                        style="position: absolute; right: 1px;">
+                    \/
+                </button>
             </div>
-            <!-- Easks for Idea above-->
-            <div style="padding-left: 32px;">
-                <div style="margin-top: 10px;margin-bottom: 10px;">
-                    <span style="background-color: green;
-                                 margin-right: 5px;">&nbsp;</span>
-                    <span style="background:rgba(161,134,190,.2);
-                                padding:2px 7px;">
-                        113 
-                    </span>
-                    <span>Lorem ipsum dolor sit amet, consectetur </span>
-                    <button style="background-color: #c2dfe4;
-                               color: white;
-                               height: 21px;
-                               padding-bottom: 0px;
-                               padding-top: 0px;">E</button>
+
+            <!-- 4. Assign and Estimate Tasks -->
+            <div ng-if="vm.isStageActive('ASSIGNMENT') && 
+                        vm.stageSectionsVisibility.ASSIGNMENT"
+                class="row" 
+                style="margin-top:30px;
+                        border: 1px solid black;
+                        padding: 16px;">
+                <div class="row">
+                    <h4 class="col-md-10">
+                        Task Assignement and Estimation
+                    </h4>
+                    <div class="col-md-2">
+                        <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = false;"
+                                style="position: absolute; right: 1px;">
+                            /\
+                        </button>
+                    </div>
                 </div>
-            </div>  
-        </div>
-        <!-- 4. Assign and Estimate Tasks - if hidden -->
-        <div ng-if="vm.isStageActive('ASSIGNMENT') && 
-                    !vm.stageSectionsVisibility.ASSIGNMENT"
-             class="row" 
-             style="border: 1px solid black; 
-                    margin-top:30px; 
-                    height: 30px;
-                    position: relative;">
-            <span>
-                 Task Assignement and Estimation
-            </span>
-            <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = true;"
-                    style="position: absolute; right: 1px;">
-                \/
-            </button>
-        </div>
-    </main>
-</section>
+                
+                <!-- Some Main Idea -->
+                <div>
+                    <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                        133 
+                    </span>
+                    <span style="font-size: 18px;">Lorem ipsum dolor sit amet, consectetur </span>
+                </div>
+                <!-- Easks for Idea above-->
+                <div style="padding-left: 32px;">
+                    <div style="margin-top: 10px;margin-bottom: 10px;">
+                        <span style="background-color: green;
+                                    margin-right: 5px;">&nbsp;</span>
+                        <span style="background:rgba(161,134,190,.2);
+                                    padding:2px 7px;">
+                            113 
+                        </span>
+                        <span>Lorem ipsum dolor sit amet, consectetur </span>
+                        <button style="background-color: #c2dfe4;
+                                color: white;
+                                height: 21px;
+                                padding-bottom: 0px;
+                                padding-top: 0px;">E</button>
+                    </div>
+                </div>  
+            </div>
+            <!-- 4. Assign and Estimate Tasks - if hidden -->
+            <div ng-if="vm.isStageActive('ASSIGNMENT') && 
+                        !vm.stageSectionsVisibility.ASSIGNMENT"
+                class="row" 
+                style="border: 1px solid black; 
+                        margin-top:30px; 
+                        height: 30px;
+                        position: relative;">
+                <span>
+                    Task Assignement and Estimation
+                </span>
+                <button ng-click="vm.stageSectionsVisibility.ASSIGNMENT = true;"
+                        style="position: absolute; right: 1px;">
+                    \/
+                </button>
+            </div>
+        </main>
+    </section>
+</div>
+
+<div ng-if="vm.sprint.closed">
+    Planowanie Sprintu zostalo juz zamkniete - ekran do zrobienia...
+</div>
+
 <style>
     .row {
         margin-right: 0px;

@@ -40,6 +40,9 @@ SprintsCollection.schema = new SimpleSchema({
     current: {
         type: Boolean
     },
+    closed: {
+        type: Boolean
+    },
     goals: {
         type: [String],
         optional: true

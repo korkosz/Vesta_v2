@@ -8,10 +8,17 @@
     <div>Prefix: {{$ctrl.project.prefix}}</div>
     <div>Current Sprint: {{$ctrl.currentSprint.number}} </div>
     <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
-    <button class="btn btn-success" data-toggle="modal" data-target="#planSprintModule">
+
+    <button class="btn btn-success" 
+            data-toggle="modal" 
+            data-target="#planSprintModule"
+            ng-hide="$ctrl.nextSprintIsAlreadyPlan()">
         Plan Next Sprint
     </button>
-
+    <a ng-if="$ctrl.nextSprintIsAlreadyPlan()"
+       class="btn btn-default" href="#/sprint/{{$ctrl.getNextSprint()._id}}">
+        Go To Next Sprint
+    </a>
     <br>
     <div>Modules:</div>
     <ul>
@@ -39,6 +46,38 @@
             <button ng-click="$ctrl.removeTack(tack._id)">X</button>
         </li>
     </ul>
+
+    <!-- Sprints list -->
+    <table class="table">
+        <caption class="idea-caption">Ideas</caption>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Start Date</th>
+                <th>End Date </th>               
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="sprint in $ctrl.sprints |
+                    orderBy: number">                               
+                <td>
+                    <a href="#/sprint/{{sprint._id}}">
+                        {{sprint.number}}
+                    </a>
+                </td>
+                <td>
+                    <a href="#/sprint/{{sprint._id}}">
+                        {{sprint.startDate | date: 'dd-MMM-yy'}}                        
+                    </a>
+                </td>
+                <td>
+                    <a href="#/sprint/{{sprint._id}}">
+                        {{sprint.endDate | date: 'dd-MMM-yy'}}
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 
     <!-- *************************** -->

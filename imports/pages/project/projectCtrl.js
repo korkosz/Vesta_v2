@@ -33,6 +33,14 @@ function projectCtrl($scope, $routeParams, $filter, $location,
                 });
             }
         },
+        sprints() {
+            this.getReactively('project');
+            if (this.project) {
+                return Sprints.find({
+                    project: this.project._id
+                });
+            }
+        },
         tacks() {
             this.getReactively('project');
             if (this.project) {
@@ -43,6 +51,25 @@ function projectCtrl($scope, $routeParams, $filter, $location,
         }
     });
 
+    this.nextSprintIsAlreadyPlan = function () {
+        var nextSprint = this.getNextSprint();
+        return angular.isDefined(nextSprint);
+    };
+
+    this.getNextSprint = function () {
+        if (!this.sprints) return;
+
+        var currentSprint = this.sprints.find((sprint) => {
+            return sprint.current;
+        });
+        var currentSprintNumber = currentSprint.number;
+        var nextSprintNumber = currentSprint.number + 1;
+        var nextSprint = this.sprints.find((sprint) => {
+            return sprint.number === nextSprintNumber;
+        });
+
+        return nextSprint;
+    };
 
     this.startPlanning = function (valid) {
         if (!valid) return;
@@ -86,6 +113,13 @@ function projectCtrl($scope, $routeParams, $filter, $location,
                 return $filter('date')(this.currentSprint.endDate, 'yyyy-MM-dd');
             }
         }
+    };
+
+    /**
+     * Past, Current, Next
+     */
+    this.sprintStatus = function () {
+
     };
 
     this.addModule = function () {

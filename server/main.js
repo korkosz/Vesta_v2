@@ -38,7 +38,8 @@ Meteor.startup(() => {
             "endDate": 1474581600000,
             "project": "AESh7b8getxpJfhXf",
             "current": true,
-            "number": 1
+            "number": 1,
+            "closed": true
         };
 
         Sprints.insert(defaultSprint);
@@ -208,37 +209,7 @@ Meteor.startup(() => {
         lists: [listttIds]
     });
 
-    var list1 = ListsSchemas.insert({
-        user: 'cGQZ526BT6BTefZ7a',
-        name: 'list3',
-        entities: ['Idea'],
-        columns: ['title', 'number',
-            'status', 'creationDate',
-            'createdBy', 'updatedAt'],
-        // filters: {
-        //     sprint: vesta.currentSprint + 1
-        // }
-    });
-
-    var list2 = ListsSchemas.insert({
-        user: 'cGQZ526BT6BTefZ7a',
-        name: 'list4',
-        entities: ['Task'],
-        columns: ['number', 'title',
-            'type', 'status', 'priority', 'assigned',
-            'createdBy', 'updatedAt', 'creationDate'],
-        // filters: {
-        //     sprint: vesta.currentSprint + 1
-        // }
-    });
-
-    Bookmarks.insert({
-        user: 'cGQZ526BT6BTefZ7a',
-        title: 'Next Sprint',
-        lists: [list1, list2]
-    });
-
-    var list3 = ListsSchemas.insert({
+   var list3 = ListsSchemas.insert({
         user: 'cGQZ526BT6BTefZ7a',
         name: 'list5',
         entities: ['Idea'],
