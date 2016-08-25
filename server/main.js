@@ -52,6 +52,7 @@ Meteor.startup(() => {
             _id: "AESh7b8getxpJfhXf",
             name: 'Vesta',
             prefix: 'V',
+            color: '#a186be',
             currentSprint: "Ytad2bZiTJ4afZiyt"
         });
     }
@@ -216,9 +217,9 @@ Meteor.startup(() => {
         columns: ['title', 'number',
             'status', 'creationDate',
             'createdBy', 'updatedAt',],
-        // filters: {
-        //     sprint: -1
-        // }
+        //  filters: {
+        //      sprint: -1
+        //  }
     });
 
     Bookmarks.insert({

@@ -1,10 +1,3 @@
-<!-- Do wyjebania stad jako osonym komponent - za ile konczy sie current sprint-->
-<div style="display: inline-block;">
-    Current Sprint ends: {{$ctrl.moment($ctrl.currSprint.endDate).fromNow()}}
-</div>
-
-
-
 <div style="cursor: pointer; position:relative;" class="list-group notif-wrapper">
     <div class="list-group-item" ng-click="$ctrl.toggleList('I')">
         Ideas: <span class="badge" style="background: #ff8d00;" ng-if="$ctrl.ideasUnseenCounter > 0">

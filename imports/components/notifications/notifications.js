@@ -24,9 +24,6 @@ function controller($scope) {
     this.asksUnseenCounter = 0;
 
     this.helpers({
-        currSprint() {
-            return Sprints.findOne({ current: true });
-        },
         sprints() {
             return Sprints.find();
         },

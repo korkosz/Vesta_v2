@@ -12,72 +12,74 @@ function projectCtrl($scope, $routeParams, $filter, $location,
     $timeout) {
     $scope.viewModel(this);
 
-    this.projectName = $routeParams.name;
+    var vm = this;
 
-    this.helpers({
+    vm.projectName = $routeParams.name;
+
+    vm.helpers({
         project() {
-            return Projects.findOne({ name: this.projectName });
+            return Projects.findOne({ name: vm.projectName });
         },
         currentSprint() {
-            this.getReactively('project');
-            if (this.project) {
-                return Sprints.findOne({ project: this.project._id });
+            vm.getReactively('project');
+            if (vm.project) {
+                return Sprints.findOne({ project: vm.project._id });
             }
 
         },
         modules() {
-            this.getReactively('project');
-            if (this.project) {
+            vm.getReactively('project');
+            if (vm.project) {
                 return Modules.find({
-                    project: this.project._id
+                    project: vm.project._id
                 });
             }
         },
         sprints() {
-            this.getReactively('project');
-            if (this.project) {
+            vm.getReactively('project');
+            if (vm.project) {
                 return Sprints.find({
-                    project: this.project._id
+                    project: vm.project._id
                 });
             }
         },
         tacks() {
-            this.getReactively('project');
-            if (this.project) {
+            vm.getReactively('project');
+            if (vm.project) {
                 return Tacks.find({
-                    project: this.project._id
+                    project: vm.project._id
                 });
             }
         }
     });
 
-    this.nextSprintIsAlreadyPlan = function () {
-        var nextSprint = this.getNextSprint();
+    vm.nextSprintIsAlreadyPlan = function () {
+        var nextSprint = vm.getNextSprint();
         return angular.isDefined(nextSprint);
     };
 
-    this.getNextSprint = function () {
-        if (!this.sprints) return;
+    vm.getNextSprint = function () {
+        if (!vm.sprints || vm.sprints.length === 0) return;
 
-        var currentSprint = this.sprints.find((sprint) => {
+        var currentSprint = vm.sprints.find((sprint) => {
             return sprint.current;
         });
         var currentSprintNumber = currentSprint.number;
         var nextSprintNumber = currentSprint.number + 1;
-        var nextSprint = this.sprints.find((sprint) => {
+        var nextSprint = vm.sprints.find((sprint) => {
             return sprint.number === nextSprintNumber;
         });
 
         return nextSprint;
     };
 
-    this.startPlanning = function (valid) {
+    vm.startPlanning = function (valid) {
         if (!valid) return;
 
         Sprints.insert({
-            startDate: this.sprint.start.getTime(),
-            endDate: this.sprint.end.getTime(),
-            project: this.project._id,
+            startDate: vm.sprint.start.getTime(),
+            endDate: vm.sprint.end.getTime(),
+            project: vm.project._id,
             current: false
         }, (err, res) => {
             if (err) window.alert(err);
@@ -87,30 +89,38 @@ function projectCtrl($scope, $routeParams, $filter, $location,
         });
     };
 
-    this.getSprintStartMaxDate = function () {
-        if (this.sprint && this.sprint.end) {
-            return $filter('date')(this.sprint.end, 'yyyy-MM-dd');
+    vm.getSprintStartMaxDate = function () {
+        if (vm.sprint && vm.sprint.end) {
+            return $filter('date')(vm.sprint.end, 'yyyy-MM-dd');
         } else {
             return $filter('date')(moment().add(1, 'y').toDate(), 'yyyy-MM-dd');
         }
     };
 
-    this.getSprintEndMaxDate = function () {
+    vm.getSprintEndMaxDate = function () {
         return $filter('date')(moment().add(1, 'y').toDate(), 'yyyy-MM-dd');
     };
 
-    this.getSprintStartMinDate = function () {
-        if (this.currentSprint) {
-            return $filter('date')(this.currentSprint.endDate, 'yyyy-MM-dd');
+    vm.getSprintStartMinDate = function () {
+        if (vm.currentSprint) {
+            return $filter('date')(vm.currentSprint.endDate, 'yyyy-MM-dd');
+        } else {
+            return $filter('date')(new Date(), 'yyyy-MM-dd');
         }
     };
 
-    this.getSprintEndMinDate = function () {
-        if (this.currentSprint) {
-            if (this.sprint && this.sprint.start) {
-                return $filter('date')(this.sprint.start, 'yyyy-MM-dd');
+    vm.getSprintEndMinDate = function () {
+        if (vm.currentSprint) {
+            if (vm.sprint && vm.sprint.start) {
+                return $filter('date')(vm.sprint.start, 'yyyy-MM-dd');
             } else {
-                return $filter('date')(this.currentSprint.endDate, 'yyyy-MM-dd');
+                return $filter('date')(vm.currentSprint.endDate, 'yyyy-MM-dd');
+            }
+        } else {
+            if (vm.sprint && vm.sprint.start) {
+                return $filter('date')(vm.sprint.start, 'yyyy-MM-dd');
+            } else {
+                return $filter('date')(new Date(), 'yyyy-MM-dd');
             }
         }
     };
@@ -118,46 +128,46 @@ function projectCtrl($scope, $routeParams, $filter, $location,
     /**
      * Past, Current, Next
      */
-    this.sprintStatus = function () {
+    vm.sprintStatus = function () {
 
     };
 
-    this.addModule = function () {
+    vm.addModule = function () {
         Modules.insert({
-            name: this.moduleName,
-            project: this.project._id
+            name: vm.moduleName,
+            project: vm.project._id
         });
-        this.moduleName = '';
+        vm.moduleName = '';
     };
 
-    this.addTackToProject = function () {
+    vm.addTackToProject = function () {
         Tacks.insert({
-            project: this.project._id,
-            projectPrefix: this.project.prefix,
-            content: this.newTack.content,
-            important: this.newTack.important
+            project: vm.project._id,
+            projectPrefix: vm.project.prefix,
+            content: vm.newTack.content,
+            important: vm.newTack.important
         });
-        this.newTack = null;
+        vm.newTack = null;
     };
 
-    this.removeTack = function (tackId) {
+    vm.removeTack = function (tackId) {
         Tacks.remove(tackId);
     };
 
-    this.userNotYetInProject = function () {
-        if (this.project && Meteor.user()) {
+    vm.userNotYetInProject = function () {
+        if (vm.project && Meteor.user()) {
             if (!Meteor.user().profile.projects) return true;
 
             return !Meteor.user().profile
                 .projects.some(
-                (p) => p === this.project._id);
+                (p) => p === vm.project._id);
         }
     };
 
-    this.assignUserToProject = function () {
+    vm.assignUserToProject = function () {
         Meteor.users.update(Meteor.userId(), {
             $push: {
-                'profile.projects': this.project._id
+                'profile.projects': vm.project._id
             }
         });
     }

@@ -1,34 +1,36 @@
 <div class="vst-view-container vst-idea-container" ng-controller="projectCtrl as $ctrl">
-    <button class="btn btn-warning" ng-click="$ctrl.assignUserToProject()" 
-        ng-if="$ctrl.userNotYetInProject()">
+    <button class="btn btn-warning" ng-click="$ctrl.assignUserToProject()" ng-if="$ctrl.userNotYetInProject()">
         ASSIGN ME TO THIS PROJECT !!!
     </button>
     <br>
     <div>Project: {{$ctrl.project.name}}</div>
     <div>Prefix: {{$ctrl.project.prefix}}</div>
-    <div>Current Sprint: {{$ctrl.currentSprint.number}} </div>
-    <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
+    <div ng-if="$ctrl.sprints.length > 0">
+        <div>Current Sprint: {{$ctrl.currentSprint.number}} </div>
+        <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
 
-    <button class="btn btn-success" 
-            data-toggle="modal" 
-            data-target="#planSprintModule"
-            ng-hide="$ctrl.nextSprintIsAlreadyPlan()">
+        <button class="btn btn-success" data-toggle="modal" data-target="#planSprintModule" ng-hide="$ctrl.nextSprintIsAlreadyPlan()">
         Plan Next Sprint
-    </button>
-    <a ng-if="$ctrl.nextSprintIsAlreadyPlan()"
-       class="btn btn-default" href="#/sprint/{{$ctrl.getNextSprint()._id}}">
-        Go To Next Sprint
-    </a>
+        </button>
+        <a ng-if="$ctrl.nextSprintIsAlreadyPlan()" class="btn btn-default" href="#/sprint/{{$ctrl.getNextSprint()._id}}">Go To Next Sprint</a>
+    </div>
+    <div ng-if="$ctrl.sprints.length === 0">
+        <button class="btn btn-success" data-toggle="modal" data-target="#planSprintModule">
+            Plan First Sprint
+        </button>
+    </div>
     <br>
-    <div>Modules:</div>
-    <ul>
-        <li ng-repeat="module in $ctrl.modules">
-            {{module.name}}
-        </li>
-    </ul>
-    <br><br>
+    <div ng-if="$ctrl.modules.length > 0">
+        <div>Modules:</div>
+        <ul>
+            <li ng-repeat="module in $ctrl.modules">
+                {{module.name}}
+            </li>
+        </ul>
+    </div>
+    <br>
     <button type="button" class="vst-btn vst-btn-default" data-toggle="modal" data-target="#addModuleModal" data-backdrop="false">
-        Add Module
+        Add {{$ctrl.modules.length === 0 ? 'First':'Next'}} Module
     </button>
     <br><br>
     <form novalidate name="tackForm">
@@ -36,30 +38,32 @@
         <br>
         <button ng-click="$ctrl.addTackToProject()">Add Tack</button>
     </form>
-    <br> PINNED {{$ctrl.getMaxSprintDate()}}
-    <ul class="list-group" style="background-color: white;
+    <div ng-if="$ctrl.tacks.length > 0">
+        <br> PINNED
+        <ul class="list-group" style="background-color: white;
                border: 1px solid black;
                margin: 4px;
-               padding: 10px;" ng-if="$ctrl.tacks.length > 0">
-        <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
-            {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
-            <button ng-click="$ctrl.removeTack(tack._id)">X</button>
-        </li>
-    </ul>
+               padding: 10px;">
+            <li class="list-group-item" ng-repeat="tack in $ctrl.tacks" style="border-bottom: 1px dashed grey;">
+                {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
+                <button ng-click="$ctrl.removeTack(tack._id)">X</button>
+            </li>
+        </ul>
+    </div>
 
     <!-- Sprints list -->
-    <table class="table">
-        <caption class="idea-caption">Ideas</caption>
+    <table class="table" ng-if="$ctrl.sprints.length > 0">
+        <caption class="idea-caption">Sprints</caption>
         <thead>
             <tr>
                 <th>Number</th>
                 <th>Start Date</th>
-                <th>End Date </th>               
+                <th>End Date </th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="sprint in $ctrl.sprints |
-                    orderBy: number">                               
+                    orderBy: number">
                 <td>
                     <a href="#/sprint/{{sprint._id}}">
                         {{sprint.number}}
@@ -84,9 +88,9 @@
     <!-- MODALE I INNE GOWNA PONIZEJ -->
     <!-- *************************** -->
 
-  
 
-     <!-- Next Sprint Modal-->
+
+    <!-- Next Sprint Modal-->
     <div class="modal fade" id="planSprintModule" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -97,28 +101,23 @@
                 </div>
                 <div class="modal-body">
                     <form novalidate name="sprintForm">
-                        <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}</div>
-                        <br />
+                        <div ng-if="$ctrl.sprints.length > 0">
+                            <div>Current Sprint ends: {{$ctrl.currentSprint.endDate | date: 'mediumDate'}}
+                            </div>
+                            <br />
+                        </div>
                         <fieldset id="moduleName" class="field-wrapper">
                             <label class="label label-default">Sprint Start</label>
-                            <input ng-model="$ctrl.sprint.start"
-                                   type="date" name="sprintStart" 
-                                   min="{{$ctrl.getSprintStartMinDate()}}"
-                                   max="{{$ctrl.getSprintStartMaxDate()}}"
-                                   required/>
+                            <input ng-model="$ctrl.sprint.start" type="date" name="sprintStart" min="{{$ctrl.getSprintStartMinDate()}}" max="{{$ctrl.getSprintStartMaxDate()}}"
+                                required/>
 
                             <label class="label label-default">Sprint End</label>
-                            <input ng-model="$ctrl.sprint.end"
-                                   type="date" name="sprintEnd"   
-                                   min="{{$ctrl.getSprintEndMinDate()}}"
-                                   max="{{$ctrl.getSprintEndMaxDate()}}"
-                                   required/>
+                            <input ng-model="$ctrl.sprint.end" type="date" name="sprintEnd" min="{{$ctrl.getSprintEndMinDate()}}" max="{{$ctrl.getSprintEndMaxDate()}}"
+                                required/>
                         </fieldset>
                         <br />
                         <!--Footer buttons-->
-                        <button id="acceptBtn" class="btn btn-success" 
-                                ng-click="$ctrl.startPlanning(sprintForm.$valid)" 
-                                data-dismiss="modal">
+                        <button id="acceptBtn" class="btn btn-success" ng-click="$ctrl.startPlanning(sprintForm.$valid)" data-dismiss="modal">
                                 Start Planning
                             </button>
                         <button id="cancelBtn" class="btn btn-danger" data-dismiss="modal" ng-click="$ctrl.sprint = null;">

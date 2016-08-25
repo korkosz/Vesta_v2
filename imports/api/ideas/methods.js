@@ -251,9 +251,9 @@ function createIdea(idea) {
     //to watchers
     idea.createdBy = this.userId;
 
-    if (typeof idea.sprint === 'undefined') {
-        idea.status = 5;
-    }
+    // if (typeof idea.sprint === 'undefined') {
+    //     idea.status = 5;
+    // }
 
     const relatedIdeaSpecified = typeof idea.ideaId === 'string';
     const relatedAskSpecified = typeof idea.askId === 'string';

@@ -1,5 +1,7 @@
 import {Mongo} from 'meteor/mongo';
 
+import Projects from '/imports/api/project/project';
+
 export default Tacks = new Mongo.Collection('Projects.Tacks');
 
 Tacks.schema = new SimpleSchema({
@@ -39,3 +41,10 @@ Tacks.schema = new SimpleSchema({
 });
 
 Tacks.attachSchema(Tacks.schema);
+
+Tacks.helpers({
+    projectColor() {
+        var project = Projects.findOne(this.project);
+        if (project) return project.color;
+    }
+})

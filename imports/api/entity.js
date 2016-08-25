@@ -321,6 +321,10 @@ Entity.extendHelpers = function (collection, helpers) {
             var project = Projects.findOne(this.project);
             if (project) return project.name;
         },
+        projectColor() {
+            var project = Projects.findOne(this.project);
+            if (project) return project.color;
+        },
         moduleName() {
             var module = Modules.findOne(this.module);
             if (module) return module.name;

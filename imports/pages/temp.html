@@ -31,7 +31,9 @@
                          ng-repeat="task in vm.tasks | orderBy:
                             [vm.statusFilter, '-updatedAt', '-creationDate']">
                         <div class="vst-badge">
-                            <span class="project-badge">V</span>
+                            <span class="project-badge" style="background:{{task.projectColor()}}">
+                                {{task.projectName()[0].toUpperCase()}}
+                            </span>
                         </div>
                         <div class="title task">
                             <a href="#/task/{{task.number}}">
@@ -66,15 +68,14 @@
                 <div class="vst-module-dash idea">
                     <h2 class="vst-module-title idea">
                         <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
-                        Ideas
+                        Ideas For Next Sprint
                     </h2>
 
                     <div class="vst-list-item"
                          ng-repeat="idea in vm.ideas| orderBy:
-                            ['-updatedAt', '-creationDate']"
-                         ng-if="idea.sprint === vm.project.currentSprint">
+                            ['-updatedAt', '-creationDate']">
                         <div class="vst-badge">
-                            <span class="project-badge">
+                            <span class="project-badge" style="background:{{idea.projectColor()}}">
                                 {{idea.projectName()[0].toUpperCase()}}
                             </span>
                         </div>
@@ -99,14 +100,14 @@
                 <div class="vst-module-dash ask">
                     <h2 class="vst-module-title ask">
                         <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
-                        Asks
+                        Discussions For Next Sprint
                     </h2>
 
                     <div class="vst-list-item"
                         ng-repeat="ask in vm.asks| orderBy:
                             ['-creationDate']">
                         <div class="vst-badge">
-                            <span class="project-badge">
+                            <span class="project-badge" style="background:{{ask.projectColor()}}">
                                 {{ask.projectName()[0].toUpperCase()}}
                             </span>
                         </div>
@@ -116,6 +117,39 @@
                                     <span class="vst-entity-number">#{{ask.number}}</span>
                                     {{ask.title}}
                                 </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="vst-row">
+                <div class="vst-module-dash idea">
+                    <h2 class="vst-module-title idea">
+                        <img src="/images/icon-Idea-small.png" alt="Idea main icon" />
+                        Deferred Ideas
+                    </h2>
+
+                    <div class="vst-list-item"
+                         ng-repeat="idea in vm.deferredIdeas| orderBy:
+                            ['-updatedAt', '-creationDate']">
+                        <div class="vst-badge">
+                            <span class="project-badge" style="background:{{idea.projectColor()}}">
+                                {{idea.projectName()[0].toUpperCase()}}
+                            </span>
+                        </div>
+                        <div class="title idea">
+                            <a href="#/idea/{{idea.number}}">
+                                <p>
+                                    <span class="vst-entity-number">#{{idea.number}}</span>
+                                    {{idea.title}}
+                                </p>
+                            </a>
+                        </div>
+                        <div class="vst-status">
+                            <a href="#/idea/{{idea.number}}">
+                                <span class="idea-status idea-status-{{idea.getStatusName()}}">
+                                    {{idea.getStatusName()}}
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -134,7 +168,7 @@
                 <li class="list-group-item"
                     ng-repeat="tack in vm.tacks"
                     style="border-bottom: 1px dashed grey;">
-                    <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta">
+                    <span class="project-badge ng-binding" data-toggle="tooltip" title="Vesta" style="background:{{tack.projectColor()}}">
                         {{tack.projectPrefix}}
                     </span>
                     {{tack.content}} <span class="badge" ng-if="tack.important">!</span>

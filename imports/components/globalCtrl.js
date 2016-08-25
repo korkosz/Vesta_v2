@@ -90,7 +90,33 @@ function globalCtrl($scope) {
             });
         },
         ideas() {
-            var filter = { status: { $in: [1, 6, 2, 7, 8] } };
+             
+            var filter = {
+                reviewers: Meteor.userId(), //nice trick !!!!
+                /**
+                 * New, Working, Consider, Implemented, Discussed
+                 * This way we make sure to filter only active Ideas
+                 * from Next Sprint Planning (current sprint's should 
+                 * have Closed or Rejected status')
+                 */
+                status: { $in: [1, 2, 6, 7, 8] },
+                sprint: {
+                    $exists: true //not deferred
+                }
+            };
+            return Ideas.find(filter).map((idea) => {
+                idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                return idea;
+            });
+        },
+        deferredIdeas() {             
+            var filter = {
+                reviewers: Meteor.userId(),
+                status: { $in: [1, 2, 5, 6, 7, 8] },
+                sprint: {
+                    $exists: false //not deferred
+                }
+            };
             return Ideas.find(filter).map((idea) => {
                 idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
                 return idea;
