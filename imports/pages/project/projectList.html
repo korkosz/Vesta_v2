@@ -1,0 +1,23 @@
+<table class="table">
+    <caption class="idea-caption">Projects</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Current Sprint</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="project in vm.projects">
+            <td>
+                <a href="#/project/{{project.name}}">
+                        {{project.name}}
+                </a>
+            </td>
+            <td>
+                <a href="#/project/{{project.name}}">
+                    {{project.currentSprintNb()}}                        
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

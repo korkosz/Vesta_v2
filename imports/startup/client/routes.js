@@ -1,6 +1,7 @@
 import '/imports/pages/dashboard/dashboard.html';
 import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
+import '/imports/pages/project/projectList.html';
 import '/imports/pages/bookmark/bookmark.html'
 import '/imports/pages/search/search.html'
 import '/imports/pages/sprint/sprintPlanning.html'
@@ -14,6 +15,11 @@ angular.module('simple-todos')
 			when('/search', {
 				templateUrl: 'imports/pages/search/search.html',
 				controller: 'searchCtrl',
+				controllerAs: 'vm'
+			}).			
+			when('/projects', {
+				templateUrl: 'imports/pages/project/projectList.html',
+				controller: 'ProjectListCtrl',
 				controllerAs: 'vm'
 			}).
 			when('/sprint/:id', {
