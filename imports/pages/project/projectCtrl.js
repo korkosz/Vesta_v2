@@ -52,6 +52,13 @@ function projectCtrl($scope, $routeParams, $filter, $location,
             }
         }
     });
+    vm.saveColor = function() {
+        Projects.update(vm.project._id, {
+            $set: {
+                color: vm.project.color
+            }
+        })
+    };
 
     vm.nextSprintIsAlreadyPlan = function () {
         var nextSprint = vm.getNextSprint();

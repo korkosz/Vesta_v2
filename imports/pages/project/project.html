@@ -33,6 +33,12 @@
         Add {{$ctrl.modules.length === 0 ? 'First':'Next'}} Module
     </button>
     <br><br>
+    <label>Color</label>
+    <input type="color" ng-model="$ctrl.project.color">
+    <button class="btn btn-default" ng-click="$ctrl.saveColor()">
+        Save new color
+    </button>
+    <br>
     <form novalidate name="tackForm">
         Tack Content: <input type="text" ng-model="$ctrl.newTack.content"> Important ?? <input type="checkbox" ng-model="$ctrl.newTack.important">
         <br>
