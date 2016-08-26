@@ -17,13 +17,13 @@ class TaskListCtrl {
                 if (angular.isUndefined(this.filter)) {
                     this.filter = {};
                 }
-                return Tasks.find(this.filter).map((task)=> {
+                return Tasks.find({ status: { $in: [1, 2] } }).map((task) => {
                     task.isNew = moment.utc().diff(task.creationDate, 'days') === 0;
-                    return task;   
+                    return task;
                 });
             },
             project() {
-                return Projects.findOne({name: 'Vesta'});
+                return Projects.findOne({ name: 'Vesta' });
             }
         });
     }

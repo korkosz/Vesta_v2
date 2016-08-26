@@ -1,6 +1,5 @@
 import Projects from '/imports/api/project/project';
 import Requests from '/imports/api/ideas/requests';
-import Posts from '/imports/api/project/posts';
 import Tacks from '/imports/api/project/tacks';
 import Bookmarks from '/imports/api/metadata/bookmark';
 import Tasks from '/imports/api/task/task';
@@ -36,34 +35,15 @@ function globalCtrl($scope) {
                 });
             }
         },
-        project() {
-            return Projects.findOne({ name: 'Vesta' });
-        },
         tacks() {
             this.getReactively('projects');
-            if (this.projects && this.projects.length) {
+            var user = Meteor.user();
+            if (this.projects && this.projects.length && user) {
                 return Tacks.find({
                     project: {
-                        $in: this.projects.map((p) => p._id)
+                        $in: user.profile.projects
                     }
                 });
-            }
-        },
-        posts() {
-            this.getReactively('projects');
-            if (this.projects && this.projects.length) {
-                return Posts.find({
-                    project: {
-                        $in: this.projects.map((p) => p._id)
-                    }
-                });
-            }
-        },
-        mainPosts() {
-            this.getReactively('posts');
-            if (this.posts && this.posts.length > 0) {
-                return this.posts.filter(
-                    (post) => !post.parentId)
             }
         },
         requests() {
@@ -90,7 +70,7 @@ function globalCtrl($scope) {
             });
         },
         ideas() {
-             
+
             var filter = {
                 reviewers: Meteor.userId(), //nice trick !!!!
                 /**
@@ -109,7 +89,7 @@ function globalCtrl($scope) {
                 return idea;
             });
         },
-        deferredIdeas() {             
+        deferredIdeas() {
             var filter = {
                 reviewers: Meteor.userId(),
                 status: { $in: [1, 2, 5, 6, 7, 8] },
@@ -141,35 +121,6 @@ function globalCtrl($scope) {
 
     this.requestDesc = function (requestTypeId) {
         return Requests.requestTypes[requestTypeId];
-    }
-
-    this.addPost = function (valid) {
-        if (!valid) return;
-
-        Posts.insert({
-            project: this.post.projectId,
-            content: this.post.content
-        });
-        this.post = null;
-    };
-
-    this.addSubPost = function (post, valid) {
-        if (!valid) return;
-
-        Posts.insert({
-            project: post.project,
-            parentId: post._id,
-            content: post.subPost
-        });
-        post.reply = false;
-        post.subPost = null;
-    };
-
-    this.getSubPosts = function (postId) {
-        if (this.posts && this.posts.length > 0) {
-            return this.posts.filter(
-                (post) => post.parentId === postId);
-        }
     };
 
     this.createAccount = function () {

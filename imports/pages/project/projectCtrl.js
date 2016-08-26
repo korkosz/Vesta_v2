@@ -57,7 +57,7 @@ function projectCtrl($scope, $routeParams, $filter, $location,
             $set: {
                 color: vm.project.color
             }
-        })
+        });
     };
 
     vm.nextSprintIsAlreadyPlan = function () {

@@ -45,8 +45,13 @@ class NewTaskCtrl {
 
         this.helpers({
             projects() {
-                return Projects.find();
-            },      
+                if (Meteor.user())
+                    return Projects.find({
+                        _id: {
+                            $in: Meteor.user().profile.projects
+                        }
+                    });
+            },
             modules() {
                 this.getReactively('task._project');
                 if (this.task._project) {
@@ -67,7 +72,11 @@ class NewTaskCtrl {
                 return Metadata.findOne({ metadataName: 'TaskPriority' });
             },
             users() {
-                return Meteor.users.find();
+                this.getReactively('task._project');
+                if (this.task._project)
+                    return Meteor.users.find({
+                        'profile.projects': this.task._project._id
+                    });
             }
         });
     }
@@ -89,7 +98,7 @@ class NewTaskCtrl {
         this.compileOutput().then(() => {
             vm.task.project = vm.task._project._id;
             vm.task.ideaId = vm.ideaId;
-            vm.task.taskId = vm.taskId;     
+            vm.task.taskId = vm.taskId;
 
             if (vm.sprint)
                 vm.task.sprint = vm.sprint;

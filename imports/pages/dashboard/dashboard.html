@@ -24,7 +24,8 @@
                         <!-- Task -->
                         <div class="vst-module-dash task">
                             <h2 class="vst-module-title task">
-                                <img src="/images/icon-Task-small.png" alt="Task main icon" /> Tasks
+                                <img src="/images/icon-Task-small.png" alt="Task main icon" /> 
+                                Tasks Assigned to me
                             </h2>
 
                             <div class="vst-list-item" ng-repeat="task in globalVm.tasks | orderBy:
@@ -94,7 +95,8 @@
                         <!-- Ask -->
                         <div class="vst-module-dash ask">
                             <h2 class="vst-module-title ask">
-                                <img src="/images/icon-Ask-small.png" alt="Ask main icon" /> Discussions For Next Sprint
+                                <img src="/images/icon-Ask-small.png" alt="Ask main icon" />
+                                 Open Discussions
                             </h2>
 
                             <div class="vst-list-item" ng-repeat="ask in globalVm.asks| orderBy:
@@ -149,8 +151,7 @@
                 <!-- Pinned wrapper -->
                 <aside class="vst-pinned-wrapper-dash">
 
-                    <!-- Wpierdollem tu pinned z dashboardu z postami ale cos nie chce gowno dzialac:D -->
-                    <ul class="list-group" style="background-color: white;
+                   <ul class="list-group" style="background-color: white;
                     border: 1px solid black;
                     margin: 4px;
                     padding: 10px;" ng-if="globalVm.tacks.length > 0">
@@ -163,7 +164,6 @@
                 </aside>
             </div>
         </div>
-
 
         <section ng-if="globalVm.myRequests.length > 0">
             <table class="table">
@@ -209,18 +209,7 @@
             </table>
         </section>
 
-
-        <!--taka sama lista jest wyzej-->
-        <!--<task-list title="Tasks Assigned To Me"
-    filter="globalVm.assignedToMeFilter"></task-list>-->
-
-        <!--taka sama lista jest wyzej-->
-        <!--<idea-list filter="{ status: { $in: [1, 6, 2, 7, 8] } }"></idea-list>-->
-
-        <!--taka sama lista jest wyzej-->
-        <!--<ask-list filter="{ status: { $in: [1, 2] } }"></ask-list>-->
-
-        <task-list filter="{ status: { $in: [1, 2] } }"></task-list>
+        <task-list></task-list>
     </div>
 
 

@@ -1,5 +1,4 @@
 import '/imports/pages/dashboard/dashboard.html';
-import '/imports/pages/temp.html';
 import '/imports/pages/project/project.html';
 import '/imports/pages/project/projectList.html';
 import '/imports/pages/bookmark/bookmark.html'

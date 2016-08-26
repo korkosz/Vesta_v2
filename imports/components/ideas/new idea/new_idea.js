@@ -1,7 +1,6 @@
 import Ideas from '/imports/api/ideas/idea';
 import Projects from '/imports/api/project/project';
 import Modules from '/imports/api/module/module';
-import Sprints from '/imports/api/sprint/sprint';
 
 import './new_idea.html';
 
@@ -9,14 +8,12 @@ class NewIdeaCtrl {
     constructor($scope) {
         $scope.viewModel(this);
 
-        this.init = (initial) => {
+        this.init = () => {
             this.idea = {};
             this.idea.description = '';
             this.output = "";
 
             this.selectedReviewers = [];
-
-            if (!initial) this.selectedReviewers.push(Meteor.user());
 
             if (this.ideaTitle)
                 this.idea.title = this.ideaTitle;
@@ -27,25 +24,10 @@ class NewIdeaCtrl {
 
             if (this.module)
                 this.idea.module = Modules.findOne(this.module);
-
-            // if (this.sprint) 
-            //     this.idea.sprint = Sprints.findOne(this.sprint);            
-
-            if (this.reviewers && this.reviewers.length > 0) {
-                var _reviewers = Meteor.users.find({
-                    _id: {
-                        $in: this.reviewers
-                    }
-                });
-                _reviewers.forEach((rev) => {
-                    if (rev._id !== Meteor.userId())
-                        this.selectedReviewers.push(rev);
-                });
-            }
         }
 
         /// init
-        this.init(true);
+        this.init();
 
         this.setPristine = () => {
             $scope.newIdeaForm.$setPristine();
@@ -57,27 +39,12 @@ class NewIdeaCtrl {
 
         this.helpers({
             projects() {
-                return Projects.find();
-            },
-            sprints() {
-                this.getReactively('idea._project');
-                if (this.idea._project) {
-                    let select = {
-                        number: {
-                            $gte: this.idea._project.currentSprintNb()
+                if (Meteor.user())
+                    return Projects.find({
+                        _id: {
+                            $in: Meteor.user().profile.projects
                         }
-                    };
-                    let sprints = Sprints.find(select).fetch();
-
-                    /**
-                     * Set current sprint as default sprint
-                     */
-                    // if (sprints && sprints.length > 0)
-                    //     //sprints should be sorted by a number index
-                    //     this.idea.sprint = sprints[0];
-
-                    return sprints;
-                }
+                    });
             },
             modules() {
                 this.getReactively('idea._project');
@@ -87,13 +54,23 @@ class NewIdeaCtrl {
             },
             users() {
                 this.getReactively('this.selectedReviewers.length');
-                return Meteor.users.find({
-                    _id: {
-                        $nin: this.selectedReviewers.map((rev) => rev._id)
-                    }
-                });
+                this.getReactively('idea._project');
+
+                if (this.idea._project)
+                    return Meteor.users.find({
+                        _id: {
+                            $nin: this.selectedReviewers.map((rev) => rev._id)
+                        },
+                        'profile.projects': this.idea._project._id
+                    });
             }
         });
+    }
+
+    projectSelected() {
+        this.idea.module = null;
+        this.selectedReviewers.length = 0;
+        this.selectedReviewers.push(Meteor.user());
     }
 
     removeReviewer(reviewer) {
@@ -122,14 +99,6 @@ class NewIdeaCtrl {
                 (rev) => rev._id);
             vm.idea.ideaId = vm.ideaId;
             vm.idea.askId = vm.askId;
-
-            /**
-             * case when sprint is left as default (current)
-             */
-            // if (typeof vm.idea.sprint === 'object' &&
-            //     typeof vm.idea.sprint._id !== 'undefined') {
-            //     vm.idea.sprint = vm.idea.sprint._id;
-            // }
 
             if (this.sprint)
                 this.idea.sprint = this.sprint;
@@ -195,9 +164,6 @@ export default angular.module("idea")
                         if (ctrl.module) {
                             ctrl.idea.module = Modules.findOne(ctrl.module);
                         }
-                        // if (ctrl.sprint) {
-                        //     ctrl.idea.sprint = Sprints.findOne(ctrl.sprint);
-                        // }
                     }
                 }
             });
