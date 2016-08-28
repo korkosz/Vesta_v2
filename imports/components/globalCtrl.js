@@ -32,16 +32,17 @@ function globalCtrl($scope) {
             if (user && user.profile.projects) {
                 return Projects.find({
                     _id: { $in: user.profile.projects }
-                }).map((p)=> {
+                }).map((p) => {
                     p.nearestSprint = p.getNearestSprint();
-                    return p ;
+                    return p;
                 });
             }
         },
         tacks() {
             this.getReactively('projects');
             var user = Meteor.user();
-            if (this.projects && this.projects.length && user) {
+            if (this.projects && this.projects.length 
+                && user && user.profile.projects) {
                 return Tacks.find({
                     project: {
                         $in: user.profile.projects
@@ -106,11 +107,20 @@ function globalCtrl($scope) {
             });
         },
         asks() {
-            var filter = { status: { $in: [1, 2] } };
+            var user = Meteor.user();
+            if (!user || !user.profile.projects) return;
+
+            var filter = {
+                status: { $in: [1, 2] },
+                /**
+                 * docelowo ask bedzie mial jakas grupe zainetersowanych
+                 * jak reviewers w Idea
+                 */
+                project: { $in: user.profile.projects }
+            };
 
             return Asks.find(filter).map((ask) => {
                 ask.isNew = moment().diff(ask.creationAt, 'days') === 0;
-                //ask.lastPost = 
                 return ask;
             });
         }
