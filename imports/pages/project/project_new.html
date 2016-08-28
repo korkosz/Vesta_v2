@@ -1,0 +1,32 @@
+<form class="col-md-3" style="padding: 25px;">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" ng-model="vm.project.name">
+    </div>
+
+    <div class="form-group">
+        <label>Prefix</label>
+        <input type="text" class="form-control" ng-model="vm.project.prefix">
+    </div>
+
+    <div class="form-group">
+        <label>Color</label>
+        <input type="color" class="form-control" ng-model="vm.project.color">
+    </div>
+
+    <div class="form-group">
+        <label>Users</label>
+        <div ng-repeat="user in vm.users"              
+             class="checkbox">
+            <label>
+                <input type="checkbox" 
+                       ng-change="vm.selectUser(user._id)"
+                       ng-model="_user">
+                {{user.profile.fullname}}
+            </label>
+        </div>
+    </div>
+
+    <button ng-click="vm.addNewProject()"
+            class="btn btn-default">Save</button>
+</form>

@@ -3,6 +3,8 @@ import Ideas from '/imports/api/ideas/idea';
 import Modules from '/imports/api/module/module';
 import Sprints from '/imports/api/sprint/sprint';
 
+import './methods.js';
+
 class Projects extends Mongo.Collection {
     getAllIdeas() {
         return Ideas.find();
@@ -22,7 +24,8 @@ Projects.schema = new SimpleSchema({
         type: String
     },
     currentSprint: {
-        type: String
+        type: String,
+        optional: true
     }
 });
 

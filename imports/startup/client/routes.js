@@ -1,5 +1,6 @@
 import '/imports/pages/dashboard/dashboard.html';
 import '/imports/pages/project/project.html';
+import '/imports/pages/project/project_new.html';
 import '/imports/pages/project/projectList.html';
 import '/imports/pages/bookmark/bookmark.html'
 import '/imports/pages/search/search.html'
@@ -59,6 +60,11 @@ angular.module('simple-todos')
 			}).
 			when('/ask/:number', {
 				template: '<ask></ask>'
+			}).
+			when('/project/new', {
+				templateUrl: 'imports/pages/project/project_new.html',
+				controller: 'ProjectNewCtrl',
+				controllerAs: 'vm'
 			}).
 			when('/project/:name', {
 				templateUrl: 'imports/pages/project/project.html'
