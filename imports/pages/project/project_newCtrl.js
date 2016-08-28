@@ -28,7 +28,14 @@ function ProjectNewCtrl($scope) {
     };
 
     vm.addNewProject = function () {
-        Meteor.call('project.newProject', vm.project, selectedUsers);
+        Meteor.call('project.newProject', vm.project, selectedUsers,
+            (err, res) => {
+                if (err) {
+                    alert(err);
+                    return;
+                }
+                window.location.href = '#/project/' + vm.project.name;
+            });
     }
 }
 ProjectNewCtrl.$inject = ['$scope'];

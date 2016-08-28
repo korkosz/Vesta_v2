@@ -5,7 +5,8 @@ Meteor.methods({
 });
 
 function newProject(project, selectedUsers) {
-    Projects.insert(project, (err, res) => {
+    return Projects.insert(project, (err, res) => {
+
         Meteor.users.update({
             _id: {
                 $in: selectedUsers
@@ -14,6 +15,8 @@ function newProject(project, selectedUsers) {
                 $push: {
                     'profile.projects': res
                 }
-            }, { multi: true })
+            }, { multi: true }, (err, res) => {
+                if (err) throw new Meteor.Error('makeRequest', err.message);
+            });
     });
 }
