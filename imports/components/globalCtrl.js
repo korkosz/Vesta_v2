@@ -32,6 +32,9 @@ function globalCtrl($scope) {
             if (user && user.profile.projects) {
                 return Projects.find({
                     _id: { $in: user.profile.projects }
+                }).map((p)=> {
+                    p.nearestSprint = p.getNearestSprint();
+                    return p ;
                 });
             }
         },
@@ -121,6 +124,10 @@ function globalCtrl($scope) {
 
     this.requestDesc = function (requestTypeId) {
         return Requests.requestTypes[requestTypeId];
+    };
+
+    this.sprintStarted = function (sprintStartDate) {
+        return sprintStartDate < (new Date()).getTime();
     };
 
     this.createAccount = function () {

@@ -49,4 +49,29 @@ SprintsCollection.schema = new SimpleSchema({
     }
 });
 
+SprintsCollection.getOngoingSprint = function (_project) {
+    return Sprints.findOne({
+        project: _project,
+        startDate: {
+            $lt: new Date()
+        },
+        endDate: {
+            $gt: new Date()
+        }
+    });
+};
+
+SprintsCollection.getOngoingSprint = function (_project) {
+    return Sprints.findOne({
+        project: _project,
+        startDate: {
+            $lt: new Date()
+        },
+        endDate: {
+            $gt: new Date()
+        }
+    });
+};
+
+
 SprintsCollection.attachSchema(SprintsCollection.schema);

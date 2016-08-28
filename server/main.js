@@ -31,7 +31,7 @@ Meteor.publish(null, function () {
 Meteor.startup(() => {
     const sprintsCount = Sprints.find().count();
 
-    if(sprintsCount === 0) {
+    if (sprintsCount === 0) {
         let defaultSprint = {
             "_id": "Ytad2bZiTJ4afZiyt",
             "startDate": 1473199200000,
@@ -43,7 +43,7 @@ Meteor.startup(() => {
         };
 
         Sprints.insert(defaultSprint);
-    }    
+    }
 
     //	ProjectsCollection.remove({});
     var vesta = ProjectsCollection.findOne();
@@ -210,7 +210,7 @@ Meteor.startup(() => {
         lists: [listttIds]
     });
 
-   var list3 = ListsSchemas.insert({
+    var list3 = ListsSchemas.insert({
         user: 'cGQZ526BT6BTefZ7a',
         name: 'list5',
         entities: ['Idea'],

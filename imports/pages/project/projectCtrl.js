@@ -87,7 +87,8 @@ function projectCtrl($scope, $routeParams, $filter, $location,
             startDate: vm.sprint.start.getTime(),
             endDate: vm.sprint.end.getTime(),
             project: vm.project._id,
-            current: false
+            current: false,
+            closed: false
         }, (err, res) => {
             if (err) window.alert(err);
             $timeout(() => {

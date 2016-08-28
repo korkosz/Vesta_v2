@@ -12,15 +12,18 @@ class TaskListCtrl {
         this.$location = $location;
         this.helpers({
             tasks() {
-                ///Musi byc tutaj bo helper refreshuje sie
-                ///po zmianie kolekcji
-                if (angular.isUndefined(this.filter)) {
-                    this.filter = {};
-                }
-                return Tasks.find({ status: { $in: [1, 2] } }).map((task) => {
-                    task.isNew = moment.utc().diff(task.creationDate, 'days') === 0;
-                    return task;
-                });
+                if (Meteor.user())
+                    return Tasks.find({
+                        status: {
+                            $in: [1, 2]
+                        },
+                        project: {
+                            $in: Meteor.user().profile.projects
+                        }
+                    }).map((task) => {
+                        task.isNew = moment.utc().diff(task.creationDate, 'days') === 0;
+                        return task;
+                    });
             },
             project() {
                 return Projects.findOne({ name: 'Vesta' });

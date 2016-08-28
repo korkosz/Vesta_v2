@@ -33,6 +33,21 @@ Projects.helpers({
     currentSprintNb() {
         var sprint = Sprints.findOne({ project: this._id });
         return sprint && sprint.number;
+    },
+    getCurrentSprint() {
+        return Sprints.findOne(this.currentSprint);
+    },
+    getNearestSprint() {
+        return Sprints.findOne({
+            project: this._id,
+            endDate: {
+                $gt: (new Date()).getTime()
+            }
+        }, {
+                sort: {
+                    endDate: 1
+                }
+            });
     }
 });
 

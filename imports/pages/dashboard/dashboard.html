@@ -161,7 +161,24 @@
                     </span> {{tack.content}} <span class="badge" ng-if="tack.important">!</span>
                         </li>
                     </ul>
-                </aside>
+
+                    <ul class="list-group" 
+                    style="background-color: white;
+                           border: 1px solid black;
+                           margin: 4px;
+                           padding: 10px;">
+                        <li ng-if="globalVm.sprintStarted(project.nearestSprint.startDate)"
+                            class="list-group-item" ng-repeat="project in globalVm.projects" 
+                            style="border-bottom: 1px dashed grey;">                            
+                            {{project.name}} - Current Sprint ends: {{project.nearestSprint.endDate | date: 'mediumDate'}}
+                        </li>
+                        <li ng-if="!globalVm.sprintStarted(project.nearestSprint.startDate)"
+                            class="list-group-item" ng-repeat="project in globalVm.projects" 
+                            style="border-bottom: 1px dashed grey;">                            
+                            {{project.name}} - Next Sprint starts: {{project.nearestSprint.startDate | date: 'mediumDate'}}
+                        </li>
+                    </ul>
+                </aside>                
             </div>
         </div>
 
@@ -209,7 +226,7 @@
             </table>
         </section>
 
-        <task-list></task-list>
+        <task-list title="All Tasks"></task-list>
     </div>
 
 

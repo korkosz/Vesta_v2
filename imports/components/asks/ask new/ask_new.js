@@ -36,7 +36,12 @@ class NewAskCtrl {
 
         this.helpers({
             projects() {
-                return Projects.find();
+                if (Meteor.user())
+                    return Projects.find({
+                        _id: {
+                            $in: Meteor.user().profile.projects
+                        }
+                    });
             },
             modules() {
                 this.getReactively('ask.project');
