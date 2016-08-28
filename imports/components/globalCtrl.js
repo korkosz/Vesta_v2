@@ -110,6 +110,7 @@ function globalCtrl($scope) {
 
             return Asks.find(filter).map((ask) => {
                 ask.isNew = moment().diff(ask.creationAt, 'days') === 0;
+                //ask.lastPost = 
                 return ask;
             });
         }

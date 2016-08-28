@@ -1,5 +1,8 @@
 import { Mongo } from 'meteor/mongo';
+
 import Entity from '../entity';
+import Responses from '/imports/api/ask/response';
+
 import './methods';
 import {simpleNotification} from '/imports/api/notification/notification';
 
@@ -42,4 +45,16 @@ AsksCollection.attachSchema(AsksCollection.schema);
 
 Entity.setupStaticMethods(AsksCollection);
 
-Entity.extendHelpers(AsksCollection, {});
+Entity.extendHelpers(AsksCollection, {
+    //zamienic to na wartosc trzymana w Asku bo tak to jest 
+    //kosmicznie niewydajne
+    getLatestPost() {
+        return Responses.findOne({
+            ask: this._id
+        }, {
+            sort: {
+                creationDate: -1
+            }
+        });
+    }
+});

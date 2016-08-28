@@ -113,6 +113,13 @@
                                         </p>
                                     </a>
                                 </div>
+                                <div ng-if="ask.getLatestPost().creationDate">
+                                    <a href="#/ask/{{ask.number}}">
+                                        <p>
+                                           Last post: {{globalVm.moment(globalVm.moment.utc(ask.getLatestPost().creationDate).toDate()).fromNow()}}                                           
+                                        </p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
