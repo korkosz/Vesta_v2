@@ -89,7 +89,8 @@ function globalCtrl($scope) {
                 }
             };
             return Ideas.find(filter).map((idea) => {
-                idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                idea.isNew = moment.utc().diff(
+                    idea.creationDate, 'days') === 0;
                 return idea;
             });
         },
@@ -102,7 +103,8 @@ function globalCtrl($scope) {
                 }
             };
             return Ideas.find(filter).map((idea) => {
-                idea.isNew = moment().diff(idea.creationDate, 'days') === 0;
+                idea.isNew = moment.utc().diff(
+                    idea.creationDate, 'days') === 0;
                 return idea;
             });
         },
@@ -120,7 +122,8 @@ function globalCtrl($scope) {
             };
 
             return Asks.find(filter).map((ask) => {
-                ask.isNew = moment().diff(ask.creationAt, 'days') === 0;
+                ask.isNew = moment.utc().diff(
+                    ask.creationDate, 'days') === 0;
                 return ask;
             });
         }

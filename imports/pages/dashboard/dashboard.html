@@ -38,7 +38,9 @@
                                 <div class="title task">
                                     <a href="#/task/{{task.number}}">
                                         <p>
-                                            <span class="vst-entity-number">#{{task.number}}</span> {{task.title}}
+                                            <span class="vst-entity-number">#{{task.number}}</span> 
+                                            <span ng-if="task.isNew" style="color: #00C4FF; font-size: .7em; font-weight: 700;">FRESH</span>
+                                             {{task.title}}
                                         </p>
                                     </a>
                                 </div>
@@ -79,7 +81,9 @@
                                 <div class="title idea">
                                     <a href="#/idea/{{idea.number}}">
                                         <p>
-                                            <span class="vst-entity-number">#{{idea.number}}</span> {{idea.title}}
+                                            <span class="vst-entity-number">#{{idea.number}}</span> 
+                                            <span ng-if="idea.isNew" style="color: #00C4FF; font-size: .7em; font-weight: 700;">FRESH</span>
+                                            {{idea.title}}
                                         </p>
                                     </a>
                                 </div>
@@ -109,7 +113,9 @@
                                 <div class="title ask">
                                     <a href="#/ask/{{ask.number}}">
                                         <p>
-                                            <span class="vst-entity-number">#{{ask.number}}</span> {{ask.title}}
+                                            <span class="vst-entity-number">#{{ask.number}}</span>
+                                            <span ng-if="ask.isNew" style="color: #00C4FF; font-size: .7em; font-weight: 700;">FRESH</span>
+                                            {{ask.title}}
                                         </p>
                                     </a>
                                 </div>
@@ -139,7 +145,9 @@
                                 <div class="title idea">
                                     <a href="#/idea/{{idea.number}}">
                                         <p>
-                                            <span class="vst-entity-number">#{{idea.number}}</span> {{idea.title}}
+                                            <span class="vst-entity-number">#{{idea.number}}</span>
+                                            <span ng-if="idea.isNew" style="color: #00C4FF; font-size: .7em; font-weight: 700;">FRESH</span>
+                                            {{idea.title}}
                                         </p>
                                     </a>
                                 </div>

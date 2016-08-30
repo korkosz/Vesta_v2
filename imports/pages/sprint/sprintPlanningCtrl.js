@@ -89,65 +89,24 @@ function SprintPlanningCtrl($scope, $routeParams) {
          * 3) If so, collect sub-idea's ID
          */
         deferredIdeas() {
-            var filter = {
-                status: {
-                    $in: [
-                        1,/*new*/
-                        6,/*consider*/
-                        8 /*discussed*/
-                        , 5//def
-                    ]
-                },
-                sprint: {
-                    $exists: false
-                }
-                // ,
-                // parent: {
-                //     $exists: false
-                // }
-            };
-            return Ideas.find(filter);
-
-            // .forEach((parentIdea) => {
-            //     if (parentIdea &&
-            //         parentIdea.related) {
-            //         let subIdeas = parentIdea.related.filter((rel) => {
-            //             return rel.relation === 'Sub-Idea' &&
-            //                 rel.entity === 'Idea';
-            //         });
-
-            //         subIdeas && subIdeas.forEach((subIdea) => {
-            //             let notAlreadyIn = vm.ideasChildrensIds.
-            //                 indexOf(subIdea.id) === -1;
-
-            //             if (notAlreadyIn)
-            //                 vm.ideasChildrensIds.push(subIdea.id);
-            //         });
-            //     }
-            // });
+            vm.getReactively('sprint');
+            if (vm.sprint) {
+                var filter = {
+                    status: {
+                        $in: [
+                            1,/*new*/
+                            6,/*consider*/
+                            8 /*discussed*/
+                        ]
+                    },
+                    sprint: {
+                        $exists: false
+                    },
+                    project: vm.sprint.project
+                };
+                return Ideas.find(filter);
+            }
         }
-        // ,
-        // deferredChildIdeas() {
-        //     if (vm.ideasChildrensIds.length === 0) return;
-
-        //     var filter = {
-        //         _id: {
-        //             $in: vm.ideasChildrensIds
-        //         },
-        //         status: {
-        //             $in: [
-        //                 1,/*new*/
-        //                 6,/*consider*/
-        //                 8 /*discussed*/
-        //             ]
-        //         },
-        //         sprint: {
-        //             $exists: false
-        //         }
-        //     };
-
-        //     return Ideas.find(filter);
-        // }
     });
 
     // vm.filterIsParent = function(value, idx, arr) {
