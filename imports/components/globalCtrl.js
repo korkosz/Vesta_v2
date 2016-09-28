@@ -41,7 +41,7 @@ function globalCtrl($scope) {
         tacks() {
             this.getReactively('projects');
             var user = Meteor.user();
-            if (this.projects && this.projects.length 
+            if (this.projects && this.projects.length
                 && user && user.profile.projects) {
                 return Tacks.find({
                     project: {
@@ -64,49 +64,66 @@ function globalCtrl($scope) {
             });
         },
         tasks() {
-            return Tasks.find({
-                assigned: Meteor.userId(),
-                status: { $in: [1, 2] }
-            }).map((task) => {
-                task.isNew = moment.utc().diff(
-                    task.creationDate, 'days') === 0;
-                return task;
-            });
+            var user = Meteor.user();
+            if (user && user.profile.projects) {
+                return Tasks.find({
+                    assigned: Meteor.userId(),
+                    status: { $in: [1, 2] },
+                    project: {
+                        $in: user.profile.projects
+                    }
+                }).map((task) => {
+                    task.isNew = moment.utc().diff(
+                        task.creationDate, 'days') === 0;
+                    return task;
+                });
+            }
         },
         ideas() {
-
-            var filter = {
-                reviewers: Meteor.userId(), //nice trick !!!!
-                /**
-                 * New, Working, Consider, Implemented, Discussed
-                 * This way we make sure to filter only active Ideas
-                 * from Next Sprint Planning (current sprint's should 
-                 * have Closed or Rejected status')
-                 */
-                status: { $in: [1, 2, 6, 7, 8] },
-                sprint: {
-                    $exists: true //not deferred
-                }
-            };
-            return Ideas.find(filter).map((idea) => {
-                idea.isNew = moment.utc().diff(
-                    idea.creationDate, 'days') === 0;
-                return idea;
-            });
+            var user = Meteor.user();
+            if (user && user.profile.projects) {
+                var filter = {
+                    reviewers: Meteor.userId(), //nice trick !!!!
+                    /**
+                     * New, Working, Consider, Implemented, Discussed
+                     * This way we make sure to filter only active Ideas
+                     * from Next Sprint Planning (current sprint's should 
+                     * have Closed or Rejected status')
+                     */
+                    status: { $in: [1, 2, 6, 7, 8] },
+                    sprint: {
+                        $exists: true //not deferred
+                    },
+                    project: {
+                        $in: user.profile.projects
+                    }
+                };
+                return Ideas.find(filter).map((idea) => {
+                    idea.isNew = moment.utc().diff(
+                        idea.creationDate, 'days') === 0;
+                    return idea;
+                });
+            }
         },
         deferredIdeas() {
-            var filter = {
-                reviewers: Meteor.userId(),
-                status: { $in: [1, 2, 5, 6, 7, 8] },
-                sprint: {
-                    $exists: false //not deferred
-                }
-            };
-            return Ideas.find(filter).map((idea) => {
-                idea.isNew = moment.utc().diff(
-                    idea.creationDate, 'days') === 0;
-                return idea;
-            });
+            var user = Meteor.user();
+            if (user && user.profile.projects) {
+                var filter = {
+                    reviewers: Meteor.userId(),
+                    status: { $in: [1, 2, 5, 6, 7, 8] },
+                    sprint: {
+                        $exists: false //not deferred
+                    },
+                    project: {
+                        $in: user.profile.projects
+                    }
+                };
+                return Ideas.find(filter).map((idea) => {
+                    idea.isNew = moment.utc().diff(
+                        idea.creationDate, 'days') === 0;
+                    return idea;
+                });
+            }
         },
         asks() {
             var user = Meteor.user();
